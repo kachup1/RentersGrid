@@ -10,7 +10,6 @@ import Map from '../components/Map';
 
 import './SearchResults.css';
 import SideMenu from './SideMenu';
-import { useNavigate } from 'react-router-dom';
 
 
 function SearchPage() {
