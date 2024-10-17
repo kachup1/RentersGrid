@@ -10,3 +10,4 @@ build/
 # Ignore environment variables
 .env
 
+node_modules/
