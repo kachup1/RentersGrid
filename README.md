@@ -1,4 +1,4 @@
-# RentersGrid# RentersGrid
+## RentersGrid
 ## About
 A website that allows users to rate their landlords, providing a platform for honest feedback and transparency in the rental market. Our development process is guided by a series of carefully planned milestones, which are based on extensive user feedback, market analysis, and other key factors. We've documented each stage of our progress, and these documents are attached for a detailed overview of our approach and methodology, including a low-fidelity model.
 1. [Initial Idea](https://docs.google.com/document/d/1wI15g7NysWLmFkKzaKS3kJ2HKeQG0IXKHq_KM8viiSk/edit?usp=sharing)
