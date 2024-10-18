@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Map from './Map';
-//list of all assets and pages.
-import LandlordProfile from './LandlordProfile'; //not working 
+import LandlordProfile from './LandlordProfile';
 import ClearSelectionIcon from '../Assets/clear-selection.svg';
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MyBookmark from '../Assets/my bookmark.svg';
 import SelectedBookmark from '../Assets/mybookmark-title.svg';
-import NoAccountSideMenu from './NoAccountSideMenu';  // Import the logged-out side menu
-import SideMenu from './SideMenu';
 import './SearchResults.css';
-//authentication per page if user is logged in.
+import SideMenu from './SideMenu';
 import { isTokenValid } from './authentication';  
+import NoAccountSideMenu from './NoAccountSideMenu';  // Import the logged-out side menu
 
 function SearchPage() {
-  //keeps track of used states 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchType, setSearchType] = useState('landlord');
@@ -27,27 +25,26 @@ function SearchPage() {
 
   const navigate = useNavigate();
   const location = useLocation();
-
   const { results: fetchedResults } = location.state || {};
 
   // Function to fetch bookmarks when the user logs in
   const fetchBookmarks = (token) => {
     fetch('http://localhost:5000/api/bookmarks', {
       headers: {
-        'Authorization': `Bearer ${token}`  // Sends JWT token for authentication
+        'Authorization': `Bearer ${token}`  // Send JWT token for authentication
       }
     })
       .then(response => response.json())
       .then(bookmarkedLandlords => {
-        // Create a new object to store the bookmark state
+        // Create a new object to store bookmark state
         const updatedBookmarked = {};
 
-        // Marks the landlords as bookmarked
+        // Mark the landlords as bookmarked
         bookmarkedLandlords.forEach(landlordId => {
           updatedBookmarked[landlordId] = true;
         });
 
-        // Updates the bookmark state
+        // Update the bookmark state
         setBookmarked(updatedBookmarked);
       })
       .catch(error => {
@@ -56,14 +53,13 @@ function SearchPage() {
   };
 //checks if user is logged and if not would make user unable to bookmark and save it it 
 //their account
+
 useEffect(() => {
   if (isTokenValid()) {
     setIsLoggedIn(true);
     const token = localStorage.getItem('token');
     fetchBookmarks(token);  // Call your fetchBookmarks function
-  } 
-  // if no token is found the status is false.
-  else {
+  } else {
     setIsLoggedIn(false);
   }
 }, []);
@@ -85,15 +81,13 @@ useEffect(() => {
     }
   };
   const handleClear = () => {
-    setSearchQuery('');  // Clears the search query
-    setSortBy('');       // Clears the sort option
+    setSearchQuery('');  // Clear the search query
+    setSortBy('');       // Clear the sort option
   };
-
   const toggleBookmark = (landlordId) => {
-    // Redirects to sign-in page if user is not logged in
     if (!isLoggedIn) {
       alert('Please log in to bookmark landlords.');
-      navigate('/SignIn');  
+      navigate('/SignIn');  // Redirect to sign-in page if user is not logged in
       return;
     }
 
@@ -127,7 +121,7 @@ useEffect(() => {
       })
       .then(data => {
         if (data.message) {
-          console.log(data.message);  // Handles the success message
+          console.log(data.message);  // Handle the success message
         }
       })
       .catch(error => {
@@ -203,12 +197,9 @@ useEffect(() => {
   const handleLandlordClick = (landlordId) => {
     navigate(`/LandlordProfile/${landlordId}`);
   };
-
   return (
     <div className="search-page-container">
-      {/*//checks the login status and gives a type of sidemenu depending onit.*/}
       {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
-
 
       <header className="header">
         <div className="logo-container">
@@ -219,11 +210,8 @@ useEffect(() => {
           <img src={AccountButton} alt="Account Button" className="account-right" 
           onClick={() =>{ 
             if (isTokenValid()) {
-          // Navigates to "My Account" if user is logged by checking token.
-            navigate('/myaccount');  
-          } 
-          //If token is not found goes to sign in page.
-          else {
+            navigate('/myaccount');  // Navigate to "My Account" if logged in
+          } else {
             navigate('/signin');  // Navigate to "Sign In" if not logged in
           }
         }}/>
@@ -249,10 +237,10 @@ useEffect(() => {
     placeholder="Search by Location"
     className="searchby-input"
     onKeyDown={handleKeyDown}
-    style={{ paddingRight: '30px' }}  // Adds padding to make room for the icon
+    style={{ paddingRight: '30px' }}  // Add padding to make room for the icon
   />
 
-  {/* Add Clear Icon Inside Input by checking if their is value.*/}
+  {/* Add Clear Icon Inside Input */}
   {searchQuery || sortBy ? (
     <div
       className="clear-icon"
