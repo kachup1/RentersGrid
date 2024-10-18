@@ -10,7 +10,7 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required  # 
 import logging
 import os
 from flask_jwt_extended import get_jwt_identity
-
+import re
 logging.basicConfig(level=logging.INFO)
 
 # Load environment variables from the .env file
@@ -264,7 +264,6 @@ def verify_email():
     if not email:
         return jsonify({"error": "Email is required"}), 400
     
-    # Find the email in the database
     user = db.users.find_one({"email": email})
 
     if user:
@@ -284,7 +283,8 @@ def change_password():
     # Check if email or new_password is missing in the request
     if not email or not new_password:
         return jsonify({"error": "Missing required fields"}), 422
-
+    if len(new_password) < 6 or not re.search(r'\d', new_password):
+        return jsonify({"error": "Password must be 6+ characters and include a number."}), 400
     # Check if a user with the provided email exists
     user = users_collection.find_one({"email": email})
 
