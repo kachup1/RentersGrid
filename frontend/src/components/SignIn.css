@@ -1,0 +1,228 @@
+/* SignIn.css */
+
+html, body {
+    margin: 0;      /* Remove default margin */
+    padding: 0;     /* Remove default padding */
+    width: 100%;    /* Ensure full width */
+    height: 100%;   /* Ensure full height */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+
+  /* Define the font */
+
+  @font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica-bold.woff') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica.woff') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+/*Use font*/
+body, .side-menu {
+    font-family: 'Helvetica';
+    font-family: 'Helvetica-Bold';
+}
+
+
+.sign-in-main-container {
+    background-color: #4D55A5;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.sign-in-left-icon {
+    width: 80px;  /* Adjust size as needed */
+    height: auto;
+    margin-right: 30px;  /* Space between left and right icons */
+    position: absolute;
+    top: 30px;
+    right: 120px;
+}
+
+.sign-in-account-right {
+    width: 70px;  /* Adjust size as needed */
+    height: auto;
+    position:absolute;
+    top: 30px;
+    right: 30px;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.sign-in-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.sign-in-center-logo {
+    width: 400px;
+    height: auto;
+    margin-top: 70px;
+}
+
+/* Image with 3 people */
+.sign-in-background-image {
+    right: 30px;
+    position: absolute;
+    bottom: 115px;
+    right: 20px;
+    width: 600px;
+    height: auto;
+    opacity: 0.3; 
+}
+
+/* White box containing sign in */
+.sign-in-wrapper {
+    position: absolute;
+    width: 500px;
+    height: 600px;
+    background-color: #fff;
+    border-radius: 20px;
+    top: 200px;
+}
+
+/* Sign in text in middle of box */
+.sign-in-text {
+    font-family: 'Helvetica-Bold';
+    color:#4D55A5;
+    position: absolute;
+    font-size: 55px !important;
+    font-weight: bolder;
+    white-space: nowrap;
+    top: -120px;
+    left: 0px;
+}
+
+.sign-in-email-text {
+    font-family: 'Helvetica-Bold';
+    color:#4D55A5;
+    position: absolute;
+    bottom: -145px;
+}
+
+.sign-in-password-text {
+    font-family: 'Helvetica-Bold';
+    color: #4D55A5;
+    position: absolute;
+    bottom: -175px;
+}
+
+/* Box containing information */
+.sign-in-form-box-login {
+    position:absolute;
+    justify-content: flex;
+    flex-direction:column;
+    left: 40px;
+    align-items: center;
+}
+
+.sign-in-input-box {
+    position: relative;
+    width: 320%;
+    height: 50px;
+}
+
+/* Box for inputting Email */
+.sign-in-email-box {
+    background-color:#CCC;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    width: 410px;
+    height: auto;
+    position: absolute;
+    bottom: -190px;
+    padding: 10px;
+    font-size:large;
+}
+
+/* Box for inputting Password */
+.sign-in-password-box {
+    background-color:#CCC;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    width: 410px;
+    height: auto;
+    position: absolute;
+    bottom: -220px;
+    padding: 10px;
+    font-size: large;
+}
+
+.sign-in-submit-button {
+    border-radius: 20px;
+    border: none;
+    width: 410px;
+    height: 37px;
+    background-color: #93C83D;
+    font-weight: bold;
+    font-size: larger;
+    position: absolute;
+    bottom: -300px;
+    cursor: pointer;
+}
+
+.sign-up-link {
+    font-family: 'Helvetica';
+    position: absolute;
+    right: -303px;
+    bottom: -337px;
+    color: #93C83D;
+    text-decoration: none;
+    font-size: small;
+    white-space: nowrap;
+}
+
+.reset-password-link {
+    font-family: 'Helvetica';
+    position: absolute;
+    right: -335px;
+    bottom: -357px;
+    color: #93C83D;
+    text-decoration: none;
+    font-size: small;
+}
+
+.small-sign-up-text {
+    position: absolute;
+    font-size: small;
+    font-family: 'Helvetica';
+    bottom: -350px;
+    right: -250px;
+}
+
+.password-reset-text {
+    position: absolute;
+    font-size: small;
+    font-family: 'Helvetica';
+    bottom:-370px;
+    right: -233px;
+}
+
+.sign-in-error-message {
+    color: red; /* Red color for error messages */
+    position: absolute;
+    bottom: -80px;
+    white-space: nowrap;
+}
+
+.sign-in-success-message {
+    color: green; /* Green color for success messages */
+    bottom: 80px;
+    position: absolute;
+    white-space: nowrap;
+}
+
+
+
+body {
+    font-family: 'Helvetica';
+}
