@@ -1,0 +1,172 @@
+﻿@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/Helvetica.ttf') format('truetype'); /* Adjust this path as necessary */
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: 'Helvetica';
+}
+
+
+.main-container {
+    background-color: #4D55A5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-logo {
+    display: flex;
+    justify-content: center; /* Center the logo */
+    align-items: center;
+    width:50vw;
+    max-width: 370px;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.noc-left-icon {
+    width: 80px;
+    height: auto;
+    margin-right: 20px; /* Space between left and right icons */
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+/* Styling for the right icon (Account button) */
+.noc-right-icon {
+    width: 65px; /* Adjust size as needed */
+    height: auto;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0; /* Ensure no gap between dropdown and input */
+    margin-top: 50px;
+}
+
+
+.search-input {
+    padding: 10px;
+    font-size: 16px;
+    width: 300px; /* Adjust width as needed */
+    border: 1px solid #ccc;
+    border-left: none; /* Remove left border to connect with dropdown */
+    border-radius: 0; /* No border radius to connect the sides */
+}
+
+/* Dropdown container */
+.dropdown-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-selected {
+    padding: 10px 20px; /* Add more padding to the left and right */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 30px 0 0 30px; /* Rounded left corners */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+    background-color: white; /* Background for dropdown */
+}
+
+.down-arrow {
+    width: 20px;
+    height: auto;
+    margin-left: 10px; /* Add some space between label and arrow */
+    transition: transform 0.3s ease;
+}
+
+    .down-arrow.open {
+        transform: rotate(180deg); /* Rotate the arrow when dropdown is open */
+    }
+
+
+.dropdown-options {
+    position: absolute;
+    top: 100%; /* Position it just below the selected item */
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 0 0 10px 10px; /* Rounded edges in dropdown window */
+    width: 100%;
+    z-index: 100; /* Ensure it appears above other elements */
+    list-style-type: none; /* Ensure bullet points are removed */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+    .dropdown-item:hover, .dropdown-item.selected {
+        background-color: #f0f0f0; /* Highlight on hover or if selected */
+    }
+
+/* Search input with rounded corners on both sides */
+.search-input {
+    padding: 10px;
+    font-size: 16px;
+    width: 400px; /* Adjust width as needed */
+    border: 1px solid #ccc;
+    border-radius: 0 30px 30px 0; /* Rounded corners for right side only */
+    outline: none; /* Removes the outline on focus */
+}
+
+    /* Optional: Add focus effect */
+    .search-input:focus {
+        border-color: #8EC860; /* Change border color on focus */
+        box-shadow: 0 0 5px rgba(142, 200, 96, 0.5); /* Add a slight shadow */
+    }
+
+/* Centering the dropdown container and search input */
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0; /* Ensure no gap between dropdown and input */
+    margin-top: 50px;
+}
+
+/* This is what is needed when we minimize the screen all the icons get smaller*/
+
+@media(min-width:180px)and (max-width:1024px) {
+    .main-container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .buttons-container {
+        font-size: 14px;
+        justify-content: space-around;
+    }
+
+    .logohp-container img {
+        width: 300px;
+    }
+
+    .account-right {
+        width: 45px;
+    }
+
+    .left-icon {
+        width: 50px;
+    }
+
+    .search-input {
+        width: 300px;
+    }
+}
