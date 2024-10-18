@@ -35,7 +35,7 @@ function SignIn() {
             // Set success message
             setSuccessMessage('Login successful! Welcome!');
 
-           navigate('/homepage');
+           navigate('/');
 
         } catch (err) {
             console.error(err); // Log the full error object
