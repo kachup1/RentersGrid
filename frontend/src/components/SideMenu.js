@@ -9,7 +9,7 @@ import accountIcon from '../Assets/Account button.svg';
 //import bookmarksIcon from '../Assets/bookmarks-icon.svg';
 import './SideMenu.css'; // Include CSS styles for the side menu
 
-function SideMenu({ onSignOut }) {
+function SideMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Toggle the menu open/close state
@@ -53,13 +53,11 @@ function SideMenu({ onSignOut }) {
             </Link>
           </li>
           <li>
-            <a href="#" onClick={() => {
-              onSignOut(); // Call the sign-out function passed as a prop
-              toggleMenu(); // Close the menu after signing out
-            }}>
+            {/* Add navigation using Link for Sign Out */}
+            <Link to="/" onClick={toggleMenu}>
               <img src={signOutIcon} alt="Sign Out" className="menu-icon" />
               Sign Out
-            </a>
+            </Link>
           </li>
     
           <li>

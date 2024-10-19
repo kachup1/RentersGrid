@@ -5,29 +5,31 @@ import Helvetica from '../fonts/Helvetica.ttf'; // Adjust path as necessary
 import DownArrow from '../Assets/downward.svg'; // Make sure the path to the arrow is correct
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import Map from '../components/Map';
+
 import SideMenu from './SideMenu'; // Import the SideMenu component
+
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';  // Create a CSS file for styling if needed
 
+/*const HomePage = () => {
+  const [searchInput, setSearchInput] = useState('');
+  const navigate = useNavigate();
 
+  const handleSearch = () => {
+    navigate(`/search-results?searchBy=${searchType}&query=${searchInput}`);
+  };*/
+
+
+
+
+// Function to refresh the page
+const refreshPage = () => {
+    window.location.reload();
+}
 
 function HomePage() {
     const [selectedOption, setSelectedOption] = useState('landlord'); // Default option
     const [dropdownOpen, setDropdownOpen] = useState(false); // To toggle the dropdown
-    const [isSignedIn, setIsSignedIn] = useState(true); //track if user is signed in
-    const navigate = useNavigate(); 
-
-    // Function to refresh the page
-    const refreshPage = () => {
-        window.location.reload();
-    };
-
-    //function to handle sign out
-    const handleSignOut = () => {
-        setIsSignedIn(false); //reset sign in state
-        //redirect to the homepage or sign-in page
-        navigate('/'); //route to no account homepage
-    };
 
     const handleDropdownToggle = () => {
         setDropdownOpen(!dropdownOpen);
@@ -48,7 +50,7 @@ function HomePage() {
 
     return (
         <div className="main-container">
-            <SideMenu onSignOut={handleSignOut} /> {/* Pass handleSignOut as a prop */}
+            <SideMenu />
 
             <header className="headerhp">
                 <div className="logohp-container">
@@ -68,11 +70,14 @@ function HomePage() {
                     />
 
                     {/* Right Image: Account Button */}
+                    <a href="/account">
                     <img
                         src={AccountButton}
                         alt="Account Button"
                         className="account-right"
+                        
                     />
+                    </a>
                 </div>
             </header>
 

@@ -5,8 +5,9 @@ import searchIcon from '../Assets/menu-1.svg';
 
 import addLandlordIcon from '../Assets/menu-2.svg';
 import signIn from '../Assets/signin signup.svg';
+//import ratingsIcon from '../Assets/ratings-icon.svg';
+//import bookmarksIcon from '../Assets/bookmarks-icon.svg';
 import './NoAccountSideMenu.css'; // Include CSS styles for the side menu
-
 
 function SideMenu() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,7 +34,7 @@ function SideMenu() {
                     <li>
                         {/* Add navigation using Link for Homepage */}
                         <Link to="/" onClick={toggleMenu}>
-                            <img src={home} alt="Home" className="menu-homepage" />
+                            <img src={home} alt="Home" className="menu-icon" />
                             <span className="menu-text">Homepage</span>
                         </Link>
                     </li>
@@ -46,8 +47,8 @@ function SideMenu() {
                     </li>
                     <li>
                         {/* Add navigation using Link for Add a Landlord */}
-                        <Link to="/AddLandlord" onClick={toggleMenu}>
-                            <img src={addLandlordIcon} alt="Add a Landlord" className="menu-add" />
+                        <Link to="/add-landlord" onClick={toggleMenu}>
+                            <img src={addLandlordIcon} alt="Add a Landlord" className="menu-icon" />
                             <span className="menu-text">Add a Landlord </span>
                         </Link>
                     </li>
@@ -55,8 +56,8 @@ function SideMenu() {
                     <li>
                         {/* Add navigation using Link for Sign in page */}
                         <Link to="/SignIn" onClick={toggleMenu}>
-                            <img src={signIn} alt="Sign in/Sign up" className="menu-sign" />
-                            <span className="menu-text">Sign In / Sign</span>
+                            <img src={signIn} alt="Sign in/Sign up" className="menu-icon" />
+                            <span className="menu-text">Sign In / Sign Up</span>
                         </Link>
                     </li>
                     
