@@ -1,0 +1,108 @@
+.search-page-container {
+  background-color: #4D55A5; /* Background color */
+  min-height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  width: 100%; /* Full width for the header */
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  margin-top: 20px; /* Adjust top spacing if needed */
+}
+
+.logo-container img {
+  display: flex;
+  justify-content: center; /* Center the logo */
+  align-items: center;
+  width: 450px; /* Full width */
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 50px; /* Keep buttons aligned to the right */
+  top: 20px;   /* Adjust top spacing as needed */
+}
+
+.left-icon {
+  width: 80px; /* Adjust size as needed */
+  height: auto;
+  margin-right: 30px; /* Space between left and right icons */
+}
+
+.account-right {
+  width: 70px; /* Adjust size as needed */
+  height: auto;
+}
+
+/* Main Container for Search and Sort */
+.searchby-and-sort-wrapper {
+  position: absolute;       /* Absolute position for precise control */
+  right: 50px;              /* Move the entire container to the right */
+  top: 200px;               /* Adjust the vertical position */
+  display: flex;
+  flex-direction: column;   /* Stack the search and sort vertically */
+  align-items: flex-end;    /* Align items to the right */
+}
+
+.searchresults-bar-container {
+  display: flex;            /* Use flexbox for the search bar and button */
+  align-items: center;
+  justify-content: flex-end; /* Right-align within its container */
+  margin-bottom: 10px;      /* Space between search bar and sort dropdown */
+}
+
+.searchby-dropdown {
+  padding: 9.5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 30px 0 0 30px; /* Rounded left corners */
+}
+
+.searchby-input {
+  padding: 10px;
+  font-size: 16px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0;
+}
+
+.searchby-button {
+  padding: 11px 20px;
+  font-size: 16px;
+  background-color: #8EC860;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0 30px 30px 0;
+}
+
+.searchby-button:hover {
+  background-color: #77a551;
+}
+
+/* Sort Container Below the Search Bar */
+.sort-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;   /* Align to the right */
+}
+
+.sort-label {
+  margin-bottom: 5px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.sort-button {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}

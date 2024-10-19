@@ -1,0 +1,7 @@
+.main-container {
+    background-color: #4D55A5; /* Change to any color you prefer */
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
