@@ -12,30 +12,15 @@ html, body {
 
   @font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/Helvetica-Bold.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-
-  @font-face {
-    font-family: 'Helvetica';
-    src: url('../fonts/Helvetica-Bold.ttf') format('truetype');
+    src: url('../fonts/helvetica-bold.woff') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/Helvetica.ttf') format('truetype');
+    src: url('../fonts/helvetica.woff') format('truetype');
     font-weight: normal;
     font-style: normal;
-}
-/*Use font*/
-body, .side-menu {
-    font-family: 'Helvetica';
-    font-family: 'Helvetica-Bold';
-}
-
 }
 /*Use font*/
 body, .side-menu {
@@ -48,6 +33,7 @@ body, .side-menu {
     background-color: #4D55A5;
     min-height: 100vh;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
 }
@@ -109,7 +95,6 @@ body, .side-menu {
 /* Sign in text in middle of box */
 .sign-in-text {
     font-family: 'Helvetica-Bold';
-    font-family: 'Helvetica-Bold';
     color:#4D55A5;
     position: absolute;
     font-size: 55px !important;
@@ -121,14 +106,12 @@ body, .side-menu {
 
 .sign-in-email-text {
     font-family: 'Helvetica-Bold';
-    font-family: 'Helvetica-Bold';
     color:#4D55A5;
     position: absolute;
     bottom: -145px;
 }
 
 .sign-in-password-text {
-    font-family: 'Helvetica-Bold';
     font-family: 'Helvetica-Bold';
     color: #4D55A5;
     position: absolute;
@@ -177,7 +160,7 @@ body, .side-menu {
 .sign-in-submit-button {
     border-radius: 20px;
     border: none;
-    width: 410px;
+    width: 430px;
     height: 37px;
     background-color: #93C83D;
     font-weight: bold;
@@ -189,7 +172,6 @@ body, .side-menu {
 
 .sign-up-link {
     font-family: 'Helvetica';
-    font-family: 'Helvetica';
     position: absolute;
     right: -303px;
     bottom: -337px;
@@ -200,7 +182,6 @@ body, .side-menu {
 }
 
 .reset-password-link {
-    font-family: 'Helvetica';
     font-family: 'Helvetica';
     position: absolute;
     right: -335px;
@@ -214,7 +195,6 @@ body, .side-menu {
     position: absolute;
     font-size: small;
     font-family: 'Helvetica';
-    font-family: 'Helvetica';
     bottom: -350px;
     right: -250px;
 }
@@ -223,22 +203,26 @@ body, .side-menu {
     position: absolute;
     font-size: small;
     font-family: 'Helvetica';
-    font-family: 'Helvetica';
     bottom:-370px;
     right: -233px;
 }
 
-.error-message {
+.sign-in-error-message {
     color: red; /* Red color for error messages */
+    position: absolute;
+    bottom: -80px;
+    white-space: nowrap;
 }
 
-.success-message {
+.sign-in-success-message {
     color: green; /* Green color for success messages */
+    bottom: 80px;
+    position: absolute;
+    white-space: nowrap;
 }
 
 
 
 body {
     font-family: 'Helvetica';
-   
 }
