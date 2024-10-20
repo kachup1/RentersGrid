@@ -1,11 +1,12 @@
 /* Container for the search page */
 .search-page-container {
-  background-color: #4D55A5; /* Light gray background */
+  background-color: #4D55A5;
   min-height: 100vh;
-  padding: 20px;  /* Adjust padding as necessary */
-  margin: 0 auto; /* Center the content */
-  width: 100%; /* Ensure it takes up the full width */
+  padding: 20px;
+  margin: 0 auto;
+  width: 100%;
   box-sizing: border-box;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Heading inside search page */
@@ -41,12 +42,15 @@
 .left-icon {
   width: 80px; /* Adjust size as needed */
   height: auto;
+  cursor: pointer;
   margin-right: 30px; /* Space between left and right icons */
 }
 
 .account-right {
   width: 70px; /* Adjust size as needed */
   height: auto;
+  cursor: pointer;
+
 }
 
 /* Main Container for Search and Sort */
@@ -76,7 +80,14 @@
   border-left: none;
   border-radius: 0;
 }
-
+.clear-icon {
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 .searchby-button {
   padding: 11px 20px;
   font-size: 16px;
@@ -138,6 +149,7 @@
 }
 /* Result Card Styling */
 .result-card {
+  cursor: pointer;  /* Show hand cursor */
   display: flex;
   flex-direction: column;
   background-color: #ccc;
@@ -154,6 +166,7 @@
 /* Header section of the card containing the rating, name, and bookmark */
 .result-card-header {
   display: flex;
+  
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 10px;
@@ -208,6 +221,7 @@
   width: 24px;
   height: 24px;
   cursor: pointer;
+  
 }
 
 .result-card-header {
@@ -217,7 +231,72 @@
 .result-map-container {
   margin-top: 50px;
   padding:10px;
-  width: 50%;
-  height: 400px; /* Adjust height as needed */
+  width: 55%;
+  max-width: 60%;      /* Prevent it from exceeding the container's width */
+  height: 80vh;        /* Fixed height for the map */
+  max-height: 100%;
+  overflow: hidden;     /* Prevent map from overflowing */
+  box-sizing: border-box; /* Ensure padding doesn't add to the overall width */
+}
+@media (max-width: 768px) {
+  .search-page-container {
+    padding: 15px;
+  }
+
+  .buttons-container {
+    right: 30px;
+  }
+
+  .logo-container img {
+    width: 350px;
+  }
+
+  .searchby-and-sort-wrapper {
+    position: relative;
+    top: 150px;  /* Adjust vertical position for smaller screens */
+    right: 30px; /* Move container more to the left */
+  }
+
+  .searchby-input {
+    width: 250px;
+  }
+
+  .result-card {
+    max-width: 100%;
+  }
+
+  .result-map-container {
+    width: 100%;
+  }
 }
 
+@media (max-width: 480px) {
+  .search-page-container {
+    padding: 10px;
+  }
+
+  .buttons-container {
+    right: 15px;
+  }
+
+  .logo-container img {
+    width: 300px;
+  }
+
+  .searchby-and-sort-wrapper {
+    top: 120px;
+    right: 20px;
+  }
+
+  .searchby-input {
+    width: 200px;
+  }
+
+  .result-card {
+    max-width: 100%;
+  }
+
+  .result-map-container {
+    width: 100%;
+  }
+}

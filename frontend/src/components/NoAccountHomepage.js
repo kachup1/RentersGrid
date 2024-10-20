@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for routing
+import { isTokenValid } from './authentication';  // Import token utility
 
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
@@ -7,7 +8,9 @@ import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import Helvetica from '../fonts/Helvetica.ttf'; // Adjust path as necessary
 import DownArrow from '../Assets/downward.svg'; // Make sure the path to the arrow is correct
 import Map from '../components/Map';
-import SideMenu from './NoAccountSideMenu'; // Import the SideMenu component
+import SideMenu from './SideMenu';  // Import the logged-in side menu
+import NoAccountSideMenu from './NoAccountSideMenu';  // Import the logged-out side menu
+
 import './NoAccountHomepage.css';  // Create a CSS file for styling if needed
 // Function to refresh the page
 const refreshPage = () => {
@@ -15,8 +18,16 @@ const refreshPage = () => {
 }
 
 function NoAccountHomePage() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if the user is logged in
+    setIsLoggedIn(isTokenValid());
+  }, []);
     const [selectedOption, setSelectedOption] = useState('landlord'); // Default option
     const [dropdownOpen, setDropdownOpen] = useState(false); // To toggle the dropdown
+    const [searchInput, setSearchInput] = useState(''); // Track the search input\
+
     const navigate = useNavigate();
 
     const handleDropdownToggle = () => {
@@ -27,7 +38,39 @@ function NoAccountHomePage() {
         setSelectedOption(value);
         setDropdownOpen(false); // Close the dropdown after selection
     };
+    //function to handle account button click
+    const handleAccountButtonClick = () => {
+        navigate('/signin'); //navigate to the sign in page
+    }
+    const handleSearch = () => {
+        console.log('Search button clicked!'); // Log when search starts
 
+        if (searchInput.trim()) {
+            console.log('Fetching data from API...'); // Log before the fetch request
+
+            // Make the API call to your Flask back-end
+            fetch(`http://localhost:5000/api/search?searchBy=${selectedOption}&query=${encodeURIComponent(searchInput)}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Received search results:', data); // Log the search results received from the API
+
+                    // Navigate to the SearchResults page with the results in the state
+                    navigate('/SearchResults', { state: { results: data } });
+                })
+                .catch(error => {
+                    console.error('Error fetching search results:', error); // Log any errors encountered during the fetch
+                });
+        } else {
+
+            alert("Please enter a search query.");
+        }
+    };
+    // Function to detect Enter key press
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleSearch(); // Trigger search on Enter key press
+        }
+    };
 
     const options = [
         { value: 'landlord', label: 'Landlord Name' },
@@ -39,7 +82,7 @@ function NoAccountHomePage() {
 
     return (
         <div className="main-container">
-            <SideMenu />
+      {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
             <header className="headerhp">
                 <div className="main-logo">
                     <img
@@ -62,7 +105,13 @@ function NoAccountHomePage() {
                         src={AccountButton}
                         alt="Account Button"
                         className="noc-right-icon" // Adjusted class name
-                        onClick={() => navigate('/signin')} // Directly use navigate in the onClick
+                        onClick={() =>{ 
+                            if (isTokenValid()) {
+                            navigate('/myaccount');  // Navigate to "My Account" if logged in
+                          } else {
+                            navigate('/signin');  // Navigate to "Sign In" if not logged in
+                          }
+                        }} // Directly use navigate in the onClick
                     />
                 </div>
             </header>
@@ -98,6 +147,9 @@ function NoAccountHomePage() {
                     type="text"
                     placeholder={`Search by ${options.find(option => option.value === selectedOption)?.label}`} // Dynamic placeholder
                     className="search-input"
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)} // Update search input on change
+                    onKeyDown={handleKeyDown} // Detect Enter key press
                 />
             </div>
 
@@ -113,4 +165,4 @@ function NoAccountHomePage() {
 
 
 
-export default  NoAccountHomePage;
+export default NoAccountHomePage;
