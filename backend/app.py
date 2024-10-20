@@ -59,6 +59,9 @@ def signup():
 
     if not email or not password:
         return jsonify({"error: Email and Password are required"}),400
+    
+    if len(password) < 6 or not re.search(r'\d', password):
+        return jsonify({"error": "Password must be 6+ characters and include a number."}), 400
 
     #hashing the password that a user inputs:
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
