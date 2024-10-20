@@ -9,21 +9,48 @@ body {
 }
 
 
+.main-container {
+    background-color: #4D55A5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .main-logo {
-    width: 50vw;
+    display: flex;
+    justify-content: center; /* Center the logo */
+    align-items: center;
+    width:50vw;
     max-width: 370px;
     cursor: pointer;
     margin-top: 30px;
 }
 
-.noc-left-icon, .noc-right-icon {
-    width: 80px;  /* Scale with viewport */
-    max-width: auto;
+.noc-left-icon {
+    width: 80px;
     height: auto;
+    margin-right: 20px; /* Space between left and right icons */
     margin-top: 30px;
-    margin-right: 30px; /* Space between left and right icons */
     cursor: pointer;
 }
+
+/* Styling for the right icon (Account button) */
+.noc-right-icon {
+    width: 65px; /* Adjust size as needed */
+    height: auto;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0; /* Ensure no gap between dropdown and input */
+    margin-top: 50px;
+}
+
 
 .search-input {
     padding: 10px;
@@ -114,39 +141,32 @@ body {
     margin-top: 50px;
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
+/* This is what is needed when we minimize the screen all the icons get smaller*/
+
+@media(min-width:180px)and (max-width:1024px) {
     .main-container {
-        padding: 10px;
+        width: 100%;
+        padding: 20px;
     }
 
-    .main-logo {
-        width: 80%;
+    .buttons-container {
+        font-size: 14px;
+        justify-content: space-around;
     }
 
-    .noc-left-icon, .noc-right-icon {
-        width: 40px;
+    .logohp-container img {
+        width: 300px;
+    }
+
+    .account-right {
+        width: 45px;
+    }
+
+    .left-icon {
+        width: 50px;
     }
 
     .search-input {
-        width: 80%;
-    }
-}
-
-@media (max-width: 480px) {
-    .main-container {
-        padding: 5px;
-    }
-
-    .main-logo {
-        width: 100%;
-    }
-
-    .noc-left-icon, .noc-right-icon {
-        width: 30px;
-    }
-
-    .search-input {
-        width: 100%;
+        width: 300px;
     }
 }
