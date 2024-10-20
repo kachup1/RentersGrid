@@ -1,3 +1,14 @@
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('../fonts/helvetica.woff') format('truetype'); /* Adjust this path as necessary */
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  font-family: 'Helvetica';
+}
+
 /* Container for the search page */
 .search-page-container {
     background-color: #4D55A5; /* Light gray background */

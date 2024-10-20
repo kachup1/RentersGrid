@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
-import Helvetica from '../fonts/Helvetica.ttf'; // Adjust path as necessary
 import DownArrow from '../Assets/downward.svg'; // Make sure the path to the arrow is correct
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import Map from '../components/Map';
