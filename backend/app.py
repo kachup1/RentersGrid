@@ -49,6 +49,9 @@ def get_next_user_id():
     else:
         return 1
 
+def is_valid_email(email):
+    regex = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'   # string + @ + string + . , checks for whitespace
+    return re.match(regex, email)
 
 @app.route('/SignUp',
  methods = ['POST'])
@@ -59,6 +62,9 @@ def signup():
 
     if not email or not password:
         return jsonify({"error: Email and Password are required"}),400
+    
+    if not is_valid_email(email):
+        return jsonify({"error": "Invalid email address"}, 400)
     
     if len(password) < 6 or not re.search(r'\d', password):
         return jsonify({"error": "Password must be 6+ characters and include a number."}), 400
