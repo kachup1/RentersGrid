@@ -6,7 +6,7 @@ import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MenuAlt from '../Assets/menu-alt.svg';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import SideMenu from './SideMenu';
+import NoAccountSideMenu from './NoAccountSideMenu';
 import axios from 'axios'; // Import axios for making API requests
 
 function SignIn() {
@@ -35,10 +35,7 @@ function SignIn() {
             // Set success message
             setSuccessMessage('Login successful! Welcome!');
 
-            // Optional: Redirect to the profile page after a short delay
-            setTimeout(() => {
-                navigate('/Profile'); // Redirect to the profile page
-            }, 2000); // Redirect after 2 seconds
+           navigate('/');
 
         } catch (err) {
             console.error(err); // Log the full error object
@@ -49,7 +46,7 @@ function SignIn() {
 
     return (
         <div className="sign-in-main-container">  
-            <SideMenu />
+            <NoAccountSideMenu />
             <header>
                 {/* Home Page + logo */}
                 <div className="sign-in-logo-container">
@@ -122,10 +119,10 @@ function SignIn() {
                         <button type="submit" className="sign-in-submit-button">Sign In</button>
 
                         {/* Error Message */}
-                        {error && <p className="error-message">{error}</p>} {/* Display error message if any */}
+                        {error && <p className="sign-in-error-message">{error}</p>} {/* Display error message if any */}
 
                         {/* Success Message */}
-                        {successMessage && <p className="success-message">{successMessage}</p>} {/* Display success message if any */}
+                        {successMessage && <p className="sign-in-success-message">{successMessage}</p>} {/* Display success message if any */}
 
                         {/* Sign Up */}
                         <div className="sign-up">
@@ -136,7 +133,7 @@ function SignIn() {
                         {/* Forgot Password */}
                         <div className="forgot-password">
                             <h3 className="password-reset-text">Forgot your password?</h3>
-                            <a href="#" className="reset-password-link">Reset Password</a>
+                            <a href="/ResetPassword" className="reset-password-link">Reset Password</a>
                         </div>
                     </form>
                 </div>
