@@ -88,11 +88,11 @@ function SearchPage() {
             value={searchType}
             onChange={handleSearchTypeChange} // Update searchType on change
           >
-            <option value="landlord">Landlord Name</option>
+            <option value="Landlord">Landlord Name</option>
             <option value="Property">Property Name</option>
-            <option value="address">Address</option>
+            <option value="Address">Address</option>
             <option value="City">City</option>
-            <option value="zipcode">Zip Code</option>
+            <option value="Zipcode">Zip Code</option>
           </select>
           <input
             type="text"
