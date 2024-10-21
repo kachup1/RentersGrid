@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import home from '../Assets/home.svg'; // Example icons
+import home from '../Assets/home.svg'; 
 import searchIcon from '../Assets/menu-1.svg';
 import addLandlordIcon from '../Assets/menu-2.svg';
 import signOutIcon from '../Assets/menu-3.svg';
 import accountIcon from '../Assets/Account button.svg';
-//import ratingsIcon from '../Assets/ratings-icon.svg';
-//import bookmarksIcon from '../Assets/bookmarks-icon.svg';
 import './SideMenu.css'; // Include CSS styles for the side menu
 import { useNavigate } from 'react-router-dom';
+
 
 function SideMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

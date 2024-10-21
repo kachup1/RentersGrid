@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import home from '../Assets/home.svg'; // Example icons
 import searchIcon from '../Assets/menu-1.svg';
-
 import addLandlordIcon from '../Assets/menu-2.svg';
 import signIn from '../Assets/signin signup.svg';
 import './NoAccountSideMenu.css'; // Include CSS styles for the side menu

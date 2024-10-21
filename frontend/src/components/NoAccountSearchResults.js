@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for routing
 import { useLocation } from 'react-router-dom';
-
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MyBookmark from '../Assets/my bookmark.svg';
 import Map from '../components/Map';
-
 import './SearchResults.css';
 import NoAccountSideMenu from './NoAccountSideMenu';
 

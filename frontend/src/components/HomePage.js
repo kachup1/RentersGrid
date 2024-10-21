@@ -4,22 +4,9 @@ import AccountButton from '../Assets/Account button.svg';
 import DownArrow from '../Assets/downward.svg'; // Make sure the path to the arrow is correct
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import Map from '../components/Map';
-
 import SideMenu from './SideMenu'; // Import the SideMenu component
-
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';  // Create a CSS file for styling if needed
-
-/*const HomePage = () => {
-  const [searchInput, setSearchInput] = useState('');
-  const navigate = useNavigate();
-
-  const handleSearch = () => {
-    navigate(`/search-results?searchBy=${searchType}&query=${searchInput}`);
-  };*/
-
-
-
 
 // Function to refresh the page
 const refreshPage = () => {
