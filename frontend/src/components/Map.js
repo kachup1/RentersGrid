@@ -3,9 +3,8 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/ap
 
 const containerStyle = {
     width: '100%',  // Use the full width of the parent container
-    height: '650px' // Adjust height as needed
+    height: '600px' // Adjust height as needed
   };
-
 const center = {
   lat: 33.7701,
   lng: -118.1937,

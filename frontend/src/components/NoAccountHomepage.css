@@ -1,14 +1,4 @@
-﻿@font-face {
-    font-family: 'Helvetica';
-    src: url('../fonts/helvetica.woff') format('truetype'); /* Adjust this path as necessary */
-    font-weight: normal;
-    font-style: normal;
-}
-body {
-    font-family: 'Helvetica';
-}
-
-
+﻿
 .main-logo {
     width: 50vw;
     max-width: 370px;
@@ -39,9 +29,11 @@ body {
     position: relative;
     display: flex;
     align-items: center;
+    font-family: 'Helvetica';
 }
 
 .dropdown-selected {
+    font-family: 'Helvetica';
     padding: 10px 20px; /* Add more padding to the left and right */
     font-size: 16px;
     border: 1px solid #ccc;

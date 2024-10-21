@@ -1,7 +1,7 @@
 import React from 'react';
-import './LandlordProfile.css';
+import './AddLandlord.css';
 
-const LandlordProfile = () => {
+const AddLandlord = () => {
   return (
     <div className="txt">
       <h1>This page is for next sprint</h1>
@@ -9,4 +9,4 @@ const LandlordProfile = () => {
   );
 };
 
-export default LandlordProfile;
+export default AddLandlord;

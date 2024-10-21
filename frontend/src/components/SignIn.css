@@ -6,19 +6,19 @@ html, body {
     width: 100%;    /* Ensure full width */
     height: 100%;   /* Ensure full height */
     overflow-x: hidden; /* Prevent horizontal scrolling */
-  }
+}
 
-  /* Define the font */
+/* Define the font */
 
-  @font-face {
+@font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/helvetica-bold.woff') format('truetype');
+    src: url('../fonts/helvetica-bold.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/helvetica.woff') format('truetype');
+    src: url('../fonts/helvetica.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
