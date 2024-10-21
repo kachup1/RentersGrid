@@ -2,15 +2,15 @@ from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from pymongo.errors import DuplicateKeyError
-import jwt
 from pymongo import MongoClient
 from flask_cors import CORS #added this since we had issues with port 3000 & 5000
 from dotenv import load_dotenv
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required  # JWT handling
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity  # JWT handling
+import jwt
 import logging
 import os
-from flask_jwt_extended import get_jwt_identity
 import re
+
 logging.basicConfig(level=logging.INFO)
 
 # Load environment variables from the .env file
@@ -194,6 +194,8 @@ def search():
     logging.info(f"Found {len(results)} results for search criteria: {search_criteria}")
 
     return jsonify(results)
+
+#---------------------------Start of login---------------------------------------------------
 @app.route('/Login', methods=['POST'])
 def login():
     data = request.json
@@ -207,8 +209,10 @@ def login():
     if user and bcrypt.check_password_hash(user['password'], password):
         # Create JWT token with userId in the payload
         access_token = create_access_token(identity={"userId": str(user['_id'])})
+        # Return a JSON response containing the access token and HTTP status 200 for success.
         return jsonify({'access_token': access_token}), 200
     else:
+        # If credentials are invalid, return an error message with HTTP status 401.
         return jsonify({"error": "Invalid email or password"}), 401
 
 # Route to add a bookmark (requires JWT)
@@ -265,6 +269,7 @@ def get_bookmarks():
     bookmarked_landlords = [bookmark['landlordId'] for bookmark in user_bookmarks]
 
     return jsonify(bookmarked_landlords), 200
+
 @app.route('/VerifyEmail', methods=['POST'])
 def verify_email():
     data = request.json
