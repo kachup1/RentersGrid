@@ -202,7 +202,7 @@ useEffect(() => {
       {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
 
       <header className="header">
-        <div className="logo-container">
+        <div className="logo-container" onClick={() => navigate('/')}>
           <img src={OfficialLogo} alt="Official Logo" className="center-logo" />
         </div>
         <div className="buttons-container">
@@ -222,11 +222,11 @@ useEffect(() => {
   <div className="searchresults-bar-container">
     {/* Search Type Dropdown */}
     <select className="searchby-dropdown" value={searchType} onChange={handleSearchTypeChange}>
-      <option value="landlord">Landlord Name</option>
-      <option value="property">Property Name</option>
-      <option value="address">Address</option>
-      <option value="city">City</option>
-      <option value="zipcode">Zip Code</option>
+      <option value="Landlord Name">Landlord Name</option>
+      <option value="Property Name">Property Name</option>
+      <option value="Address">Address</option>
+      <option value="City">City</option>
+      <option value="Zipcode">ZipCode</option>
     </select>
 
     <div className="input-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
@@ -234,7 +234,7 @@ useEffect(() => {
     type="text"
     value={searchQuery}
     onChange={handleSearchChange}
-    placeholder="Search by Location"
+    placeholder={`Search by ${searchType}`}
     className="searchby-input"
     onKeyDown={handleKeyDown}
     style={{ paddingRight: '30px' }}  // Add padding to make room for the icon

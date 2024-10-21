@@ -8,20 +8,27 @@ import accountIcon from '../Assets/Account button.svg';
 //import ratingsIcon from '../Assets/ratings-icon.svg';
 //import bookmarksIcon from '../Assets/bookmarks-icon.svg';
 import './SideMenu.css'; // Include CSS styles for the side menu
+import { useNavigate } from 'react-router-dom';
 
-function SideMenu({ onSignOut }) {
+function SideMenu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate;
 
   // Toggle the menu open/close state
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleSignOut = () => {
+    localStorage.removeItem('token'); // Remove the token from localStorage
+    navigate('/');
+  };
+
   return (
     <div>
       {/* Menu button */}
       <div className="menu-button" onClick={toggleMenu}>
-        <span className="menu-icon">&#9776;</span>
+      <img src={require('../Assets/menu-bar.svg').default} alt="menuBar" className="menu-bar" />
       </div>
 
       {/* Side menu */}
@@ -53,13 +60,11 @@ function SideMenu({ onSignOut }) {
             </Link>
           </li>
           <li>
-            <a href="#" onClick={() => {
-              onSignOut(); // Call the sign-out function passed as a prop
-              toggleMenu(); // Close the menu after signing out
-            }}>
+            {/* Add navigation using Link for Sign Out */}
+            <Link to="#" onClick={handleSignOut}>
               <img src={signOutIcon} alt="Sign Out" className="menu-icon" />
               Sign Out
-            </a>
+            </Link>
           </li>
     
           <li>
