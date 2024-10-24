@@ -1,4 +1,20 @@
-﻿
+﻿@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/Helvetica.ttf') format('truetype'); /* Adjust this path as necessary */
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: 'Helvetica';
+}
+.main-container {
+    background-color: #4D55A5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .main-logo {
     width: 50vw;
     max-width: 370px;
@@ -29,11 +45,9 @@
     position: relative;
     display: flex;
     align-items: center;
-    font-family: 'Helvetica';
 }
 
 .dropdown-selected {
-    font-family: 'Helvetica';
     padding: 10px 20px; /* Add more padding to the left and right */
     font-size: 16px;
     border: 1px solid #ccc;
@@ -105,31 +119,7 @@
     gap: 0; /* Ensure no gap between dropdown and input */
     margin-top: 50px;
 }
-.map-section {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
 
-.map-container {
-    width: 90%;
-    height: 60vh;
-}
-
-@media only screen and (max-width: 768px) {
-    .search-bar-container {
-        flex-direction: column;
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    .map-container {
-        width: 95%;
-        height: 100vh;
-    }
-}
 /* Media Queries */
 @media (max-width: 768px) {
     .main-container {

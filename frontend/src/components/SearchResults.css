@@ -96,9 +96,7 @@
   border-radius: 0 30px 30px 0;
 }
 
-.searchby-button:hover {
-  background-color: #77a551;
-}
+
 
 /* Sort Container Below the Search Bar */
 /* Sort dropdown */
@@ -146,20 +144,28 @@
   width: 100%; /* Ensure the list takes full width */
 }
 /* Result Card Styling */
+/* Result Card Styling */
 .result-card {
   cursor: pointer;  /* Show hand cursor */
   display: flex;
   flex-direction: column;
-  background-color: #ccc;
+  background-color: #ccc !important;  /* Original background color */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 15px;
   width: 100%;
   max-width: 420px;
-  transition: box-shadow 0.3s ease;
-  position: relative; /* Position relative for bookmark */
+  transition: box-shadow 0.3s ease, background-color 0.3s ease; /* Add transition for background-color */
+  position: relative;
 }
+
+/* Hover Effect */
+.result-card:hover {
+  background-color: #9c9e9c !important;  /* Change background color on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Make the shadow stronger on hover */
+}
+
 
 /* Header section of the card containing the rating, name, and bookmark */
 .result-card-header {

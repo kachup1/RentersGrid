@@ -1,10 +1,9 @@
 /* HomePage.css */
 
-
 /*Define the font*/
 @font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/helvetica.woff') format('woff'); /* Adjust this path as necessary */
+    src: url('../fonts/Helvetica.ttf') format('truetype'); /* Adjust this path as necessary */
     font-weight: normal;
     font-style: normal;
 }
@@ -20,7 +19,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Helvetica';
 }
 
 .headerhp {
