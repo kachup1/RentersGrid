@@ -1,29 +1,7 @@
-@font-face {
-    font-family: 'Helvetica-Bold';
-    src: url('../fonts/helvetica-bold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
-body {
-    margin: 0;               /* Remove default margin from body */
-    background-color: #4D55A5; /* Set the background color */
-    height: 100vh;           /* Ensure the body takes full height */
-    font-family: 'Helvetica-Bold'; /* Apply the custom font */
-}
-
-.txt {
+.main-container {
+    background-color: #4D55A5; /* Change to any color you prefer */
+    min-height: 100vh; /* Full viewport height */
     display: flex;
-    justify-content: center;  /* Center horizontally */
-    align-items: center;      /* Center vertically */
-    height: 100vh;           /* Full viewport height */
-    text-align: center;       /* Center text alignment */
-}
-
-.txt h1 {
-    font-weight: normal;        /* Make the text bold */
-    font-size: 2rem;          /* Adjust the size if needed */
-    margin: 0;                /* Remove default margin */
-    color: white;             /* Set text color to white */
+    flex-direction: column;
+    align-items: center;
 }

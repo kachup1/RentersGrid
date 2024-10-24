@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import Map from './Map';
-import LandlordProfile from './LandlordProfile';
+//list of all assets and pages.
+import LandlordProfile from './LandlordProfile'; //not working 
 import ClearSelectionIcon from '../Assets/clear-selection.svg';
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MyBookmark from '../Assets/my bookmark.svg';
 import SelectedBookmark from '../Assets/mybookmark-title.svg';
-import './SearchResults.css';
-import SideMenu from './SideMenu';
-import { isTokenValid } from './authentication';  
 import NoAccountSideMenu from './NoAccountSideMenu';  // Import the logged-out side menu
+import SideMenu from './SideMenu';
+import './SearchResults.css';
+//authentication per page if user is logged in.
+import { isTokenValid } from './authentication';  
 
 function SearchPage() {
+  //keeps track of used states 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchType, setSearchType] = useState('landlord');
@@ -25,26 +27,31 @@ function SearchPage() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
   const { results: fetchedResults } = location.state || {};
 
+  const refreshAndNavigate = () => {
+    navigate('/');  
+    window.location.reload(); 
+  };
   // Function to fetch bookmarks when the user logs in
   const fetchBookmarks = (token) => {
     fetch('http://localhost:5000/api/bookmarks', {
       headers: {
-        'Authorization': `Bearer ${token}`  // Send JWT token for authentication
+        'Authorization': `Bearer ${token}`  // Sends JWT token for authentication
       }
     })
       .then(response => response.json())
       .then(bookmarkedLandlords => {
-        // Create a new object to store bookmark state
+        // Create a new object to store the bookmark state
         const updatedBookmarked = {};
 
-        // Mark the landlords as bookmarked
+        // Marks the landlords as bookmarked
         bookmarkedLandlords.forEach(landlordId => {
           updatedBookmarked[landlordId] = true;
         });
 
-        // Update the bookmark state
+        // Updates the bookmark state
         setBookmarked(updatedBookmarked);
       })
       .catch(error => {
@@ -53,13 +60,14 @@ function SearchPage() {
   };
 //checks if user is logged and if not would make user unable to bookmark and save it it 
 //their account
-
 useEffect(() => {
   if (isTokenValid()) {
     setIsLoggedIn(true);
     const token = localStorage.getItem('token');
     fetchBookmarks(token);  // Call your fetchBookmarks function
-  } else {
+  } 
+  // if no token is found the status is false.
+  else {
     setIsLoggedIn(false);
   }
 }, []);
@@ -81,13 +89,15 @@ useEffect(() => {
     }
   };
   const handleClear = () => {
-    setSearchQuery('');  // Clear the search query
-    setSortBy('');       // Clear the sort option
+    setSearchQuery('');  // Clears the search query
+    setSortBy('');       // Clears the sort option
   };
+
   const toggleBookmark = (landlordId) => {
+    // Redirects to sign-in page if user is not logged in
     if (!isLoggedIn) {
       alert('Please log in to bookmark landlords.');
-      navigate('/SignIn');  // Redirect to sign-in page if user is not logged in
+      navigate('/SignIn');  
       return;
     }
 
@@ -121,7 +131,7 @@ useEffect(() => {
       })
       .then(data => {
         if (data.message) {
-          console.log(data.message);  // Handle the success message
+          console.log(data.message);  // Handles the success message
         }
       })
       .catch(error => {
@@ -197,21 +207,27 @@ useEffect(() => {
   const handleLandlordClick = (landlordId) => {
     navigate(`/LandlordProfile/${landlordId}`);
   };
+
   return (
     <div className="search-page-container">
+      {/*//checks the login status and gives a type of sidemenu depending onit.*/}
       {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
 
+
       <header className="header">
-        <div className="logo-container" onClick={() => navigate('/')}>
-          <img src={OfficialLogo} alt="Official Logo" className="center-logo" />
+        <div className="logo-container">
+          <img src={OfficialLogo} alt="Official Logo" className="center-logo" onClick={refreshAndNavigate}/>
         </div>
         <div className="buttons-container">
           <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="left-icon" />
           <img src={AccountButton} alt="Account Button" className="account-right" 
           onClick={() =>{ 
             if (isTokenValid()) {
-            navigate('/myaccount');  // Navigate to "My Account" if logged in
-          } else {
+          // Navigates to "My Account" if user is logged by checking token.
+            navigate('/myaccount');  
+          } 
+          //If token is not found goes to sign in page.
+          else {
             navigate('/signin');  // Navigate to "Sign In" if not logged in
           }
         }}/>
@@ -222,11 +238,11 @@ useEffect(() => {
   <div className="searchresults-bar-container">
     {/* Search Type Dropdown */}
     <select className="searchby-dropdown" value={searchType} onChange={handleSearchTypeChange}>
-      <option value="Landlord Name">Landlord Name</option>
-      <option value="Property Name">Property Name</option>
-      <option value="Address">Address</option>
-      <option value="City">City</option>
-      <option value="Zipcode">ZipCode</option>
+      <option value="landlord">Landlord Name</option>
+      <option value="property">Property Name</option>
+      <option value="address">Address</option>
+      <option value="city">City</option>
+      <option value="zipcode">Zip Code</option>
     </select>
 
     <div className="input-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
@@ -234,13 +250,13 @@ useEffect(() => {
     type="text"
     value={searchQuery}
     onChange={handleSearchChange}
-    placeholder={`Search by ${searchType}`}
+    placeholder={`Search by ${searchType === 'landlord' ? 'Landlord Name' : searchType === 'property' ? 'Property Name' : searchType.charAt(0).toUpperCase() + searchType.slice(1)}`}
     className="searchby-input"
     onKeyDown={handleKeyDown}
-    style={{ paddingRight: '30px' }}  // Add padding to make room for the icon
+    style={{ paddingRight: '30px' }}  // Adds padding to make room for the icon
   />
 
-  {/* Add Clear Icon Inside Input */}
+  {/* Add Clear Icon Inside Input by checking if their is value.*/}
   {searchQuery || sortBy ? (
     <div
       className="clear-icon"
@@ -296,7 +312,7 @@ useEffect(() => {
                       <h2>{result.name}</h2>
                       {result.properties && result.properties.length > 0 ? (
                         result.properties.map((property, idx) => (
-                          <p key={idx}>{property.address}, {property.city}</p>
+                          <p key={idx}>{property.address}, {property.city}, {property.zipcode}</p>
                         ))
                       ) : (
                         <p>No address available</p>
