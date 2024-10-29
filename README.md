@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="https://github.com/kachup1/RentersGrid/raw/main/readme-assets/logo.svg" alt="Logo" width="550px">
+  <img src="https://github.com/kachup1/RentersGrid/raw/main/readme-assets/logo.svg" alt="Logo" width="600px">
 </p>
-
-<img src="https://github.com/kachup1/RentersGrid/raw/main/readme-assets/about.svg"  height="35px">
 
 A website that allows users to rate their landlords, providing a platform for honest feedback and transparency in the rental market. Our development process is guided by a series of carefully planned milestones, which are based on extensive user feedback, market analysis, and other key factors. We've documented each stage of our progress, and these documents are attached for a detailed overview of our approach and methodology, including a low-fidelity model.
 
