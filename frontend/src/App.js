@@ -10,6 +10,7 @@ import Bookmark from './components/Bookmark';
 import LandlordProfile from './components/LandlordProfile'; 
 import { useState } from 'react';
 import axios from 'axios';
+import AddAReview from './components/AddAReview';
 
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
         <Route path="/AddLandlord" element={<AddLandlord />} />
         <Route path="/LandlordProfile" element={<LandlordProfile />} />
         <Route path="/Bookmark" element={<Bookmark />} />
-       
+        <Route path="/AddAReview" element={<AddAReview />} />
+
         {/* Other Routes */}
       </Routes>
     </Router>

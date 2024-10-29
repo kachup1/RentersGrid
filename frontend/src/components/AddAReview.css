@@ -1,0 +1,66 @@
+/*Define the font*/
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica.woff') format('woff'); /* Adjust this path as necessary */
+    font-weight: normal;
+    font-style: normal;
+}
+/*Use font*/
+body {
+    font-family: 'Helvetica';
+}
+
+.main-container {
+    background-color: #4D55A5; /* Change to any color you prefer */
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Helvetica';
+}
+
+.headerhp {
+    width: 100%; /* Full width for the header */
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    margin-top: 20px; /* Adjust top spacing if needed */
+}
+
+.logohp-container img {
+    display: flex;
+    justify-content: center; /* Center the logo */
+    align-items: center;
+    width: 450px; /* Full width */
+}
+
+/* company logo */
+.center-logo {
+    width: 400px; /* Adjust size as needed */
+    height: auto;
+    margin-top: 30px; /* Top margin to fine-tune the position */
+    cursor: pointer; /* makes the company logo clickable*/
+}
+
+/* Account button styles */
+.buttons-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 50px; /* Adjust this to move the buttons more to the right */
+    top: 20px; /* Adjust top spacing as needed */
+}
+
+.left-icon {
+    width: 80px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 30px; /* Space between left and right icons */
+}
+
+/* Styling for the right icon (Account button) */
+.account-right {
+    width: 70px; /* Adjust size as needed */
+    height: auto;
+}
+
+
+
