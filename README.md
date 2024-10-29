@@ -21,8 +21,8 @@ A website that allows users to rate their landlords, providing a platform for ho
 <img src="https://github.com/kachup1/RentersGrid/raw/main/readme-assets/map.png" height="330px">
 </p>
 
-- **React:** Powers the Web app's frontend for a smooth user experience.
-- **Flask:** Handles backend functionality and recipe generation.
+- **React:** Drives the frontend of the web app, enabling a smooth, interactive, and responsive user experience. 
+- **Flask:** Manages the backend operations, processing requests, handling data, and supporting interactions between the frontend and the database. 
 - **Map AI:** Provides visual navigation, helping users locate landlords and rental properties, offering an interactive map-based experience to simplify searches.
 - **MongoDB** Serves as the database solution, efficiently storing and managing user information, landlord ratings, and other essential data with scalability and security.
 
