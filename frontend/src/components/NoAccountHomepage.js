@@ -7,7 +7,7 @@ import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import Helvetica from '../fonts/Helvetica.ttf'; // Adjust path as necessary
 import DownArrow from '../Assets/downward.svg'; // Make sure the path to the arrow is correct
-import Map from '../components/Map';
+import AllLocationsMap from './AllLocationsMap';
 import SideMenu from './SideMenu';  // Import the logged-in side menu
 import NoAccountSideMenu from './NoAccountSideMenu';  // Import the logged-out side menu
 
@@ -155,7 +155,7 @@ function NoAccountHomePage() {
 
             <section className="map-section">
                 <div className="map-container">
-                    <Map />
+                    <AllLocationsMap />
                 </div>
             </section>
 

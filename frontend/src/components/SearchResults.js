@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
-import Map from './Map';
+import SearchResultsMap from './SearchResultsMap';
 //list of all assets and pages.
 import LandlordProfile from './LandlordProfile'; //not working 
 import ClearSelectionIcon from '../Assets/clear-selection.svg';
@@ -158,6 +158,8 @@ useEffect(() => {
     return response.json();  // This could throw if the response is HTML
   })
   .then(data => {
+    console.log("Search API Data:", data); // Add this line
+
     setResults(data);
     setLoading(false);
   })
@@ -344,10 +346,10 @@ useEffect(() => {
           </div>
         </div>
       </div>
-      {/* Map Section */}
+      {/* Search Results Map */}
       <section className="result-map-section">
         <div className="result-map-container">
-          <Map mapHeight="400px" />
+          <SearchResultsMap filteredResults={results} />
         </div>
       </section>
     </div>
