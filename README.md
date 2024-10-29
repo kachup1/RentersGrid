@@ -20,7 +20,7 @@ A website that allows users to rate their landlords, providing a platform for ho
 
 <img src="https://github.com/kachup1/RentersGrid/raw/main/readme-assets/tech.svg" height="40px">
 <p align="center">
-<img src="https://github.com/kachup1/RentersGrid/raw/main/readme-assets/map.svg" height="330px">
+<img src="https://github.com/kachup1/RentersGrid/raw/main/readme-assets/map.png" height="330px">
 </p>
 
 - **React:** Powers the Web app's frontend for a smooth user experience.
