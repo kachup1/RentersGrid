@@ -1,17 +1,19 @@
-/*Define the font*/
+/* Define the font */
 @font-face {
     font-family: 'Helvetica';
     src: url('../fonts/helvetica.woff') format('woff'); /* Adjust this path as necessary */
     font-weight: normal;
     font-style: normal;
 }
-/*Use font*/
+
+/* Use font */
 body {
     font-family: 'Helvetica';
 }
 
+/* Main container styling */
 .main-container {
-    background-color: #4D55A5; /* Change to any color you prefer */
+    background-color: #4D55A5; /* Background color */
     min-height: 100vh; /* Full viewport height */
     display: flex;
     flex-direction: column;
@@ -19,6 +21,7 @@ body {
     font-family: 'Helvetica';
 }
 
+/* Header styles */
 .headerhp {
     width: 100%; /* Full width for the header */
     display: flex;
@@ -26,6 +29,7 @@ body {
     margin-top: 20px; /* Adjust top spacing if needed */
 }
 
+/* Company logo container */
 .logohp-container img {
     display: flex;
     justify-content: center; /* Center the logo */
@@ -33,12 +37,12 @@ body {
     width: 450px; /* Full width */
 }
 
-/* company logo */
+/* Company logo */
 .center-logo {
     width: 400px; /* Adjust size as needed */
     height: auto;
     margin-top: 30px; /* Top margin to fine-tune the position */
-    cursor: pointer; /* makes the company logo clickable*/
+    cursor: pointer; /* Makes the company logo clickable */
 }
 
 /* Account button styles */
@@ -50,6 +54,7 @@ body {
     top: 20px; /* Adjust top spacing as needed */
 }
 
+/* Left icon (Submit Landlord Rate) */
 .left-icon {
     width: 80px; /* Adjust size as needed */
     height: auto;
@@ -62,5 +67,183 @@ body {
     height: auto;
 }
 
+/* ================== Frame 1 (Review Section) ================== */
 
+/* Main container for the form, the gray box */
+.form-container {
+    background-color: #E6E6E6;  /* Light gray background for the box */
+    padding: 30px;  /* Padding inside the box */
+    border-radius: 10px;  /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    width: 1423px;  /* Set the width to 1423px */
+    height: 662px;  /* Set the height to 662px */   
+    margin: 50px auto;  /* Center the box horizontally and add 50px margin at the top */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.add-rating-title {
+    width: 117px;  /* Set the width to 1423px */
+    height: 124px;  /* Set the height to 662px */  
+    margin-top: 200px; /* Move the image down by 20px, adjust as needed */
+    margin-left: -500px; /* Move the image to the left by 30px, adjust as needed */
+    background-color: #E6E6E6;  /* Light gray background for the box */
+
+}
+
+.you-are-rating {
+    font-size: 12px;
+    margin-bottom: 10px;
+    margin-top: -275px; /* Adjust the value to move it higher */
+    margin-left: -230px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #4D55A5; 
+
+}
+
+.you-are-rating-landlord-name {
+    font-size: 22px;
+    margin-bottom: 10px;
+    margin-top: -415px; /* Adjust the value to move it higher */
+    margin-left: -130px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #4D55A5; 
+}
+
+/* Section for user rating and review */
+.review-section {
+    width: 100%;
+    max-width: 800px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px; /* Space between header and content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    color: #333;
+}
+
+/* Title of the review section */
+.review-section h2 {
+    font-size: 240px;
+    margin-bottom: 10px;
+    color: #4D55A5; /* Color for the landlord's name */
+}
+
+.review-section h2 span {
+    color: #4D55A5; /* Color for the landlord's name */
+}
+
+/* Write a review textarea */
+.review-box textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    font-family: 'Helvetica';
+}
+
+/* Guidelines for writing a review */
+.guidelines {
+    background-color: #DFF2E2;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* List for guidelines */
+.guidelines ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.guidelines li {
+    margin-bottom: 5px;
+}
+
+/* Select Property Dropdown */
+.select-property {
+    margin-bottom: 20px;
+}
+
+.select-property label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.select-property select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Rate Your Landlord (Smiley Faces) */
+.rate-landlord {
+    margin-bottom: 20px;
+}
+
+.rate-landlord label {
+    font-size: 16px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Container for rating icons */
+.rating-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.rating-icon {
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+    cursor: pointer;
+    opacity: 0.5; /* Default gray look */
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.rating-icon.active {
+    opacity: 1; /* Fully visible when active */
+    transform: scale(1.2); /* Slightly larger when active */
+}
+
+/* Colors for each smiley */
+.rating-icon.active.red {
+    filter: invert(27%) sepia(78%) saturate(5297%) hue-rotate(353deg) brightness(98%) contrast(103%);
+}
+
+.rating-icon.active.orange {
+    filter: invert(63%) sepia(53%) saturate(2396%) hue-rotate(355deg) brightness(100%) contrast(101%);
+}
+
+.rating-icon.active.yellow {
+    filter: invert(87%) sepia(23%) saturate(4392%) hue-rotate(5deg) brightness(102%) contrast(101%);
+}
+
+.rating-icon.active.light-green {
+    filter: invert(81%) sepia(19%) saturate(2149%) hue-rotate(54deg) brightness(96%) contrast(98%);
+}
+
+.rating-icon.active.green {
+    filter: invert(59%) sepia(57%) saturate(4003%) hue-rotate(85deg) brightness(97%) contrast(101%);
+}
+
+/* Next Button */
+.next-btn {
+    background-color: #66cc00;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.next-btn:hover {
+    background-color: #559900;
+}
