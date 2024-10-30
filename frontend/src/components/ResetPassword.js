@@ -4,20 +4,23 @@ import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MenuAlt from '../Assets/menu-alt.svg';
-import SideMenu from './SideMenu';
+import NoAccountSideMenu from './NoAccountSideMenu';
 import { Link, useNavigate } from 'react-router-dom';
+import Helvetica from '../fonts/helvetica.woff';
+
 
 function ResetPassword() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent the default form submission
 
         // Make API call to verify email
         try {
-            const response = await fetch('http://localhost:5000/VerifyEmail', {
+            const verifyResponse = await fetch('http://localhost:5000/VerifyEmail', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,13 +28,31 @@ function ResetPassword() {
                 body: JSON.stringify({ email }),
             });
 
-            const data = await response.json();
+            const verifyData = await verifyResponse.json();
 
-            if (response.ok) {
-                // Email exists, redirect to ResetPasswordUpdate
-                navigate('/resetpasswordupdate', { state: {email}});
+
+            if (!verifyResponse.ok) {
+                setErrorMessage(verifyData.error);
+                setSuccessMessage('');
+                return;
+            }
+
+            const sendResponse = await fetch('http://localhost:5000/SendEmail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const sendData = await sendResponse.json();
+
+            if(sendResponse.ok) {
+                setSuccessMessage('A reset password email has been sent!');
+                setErrorMessage('');
             } else {
-                setErrorMessage(data.error);
+                setErrorMessage(sendData.error);
+                setSuccessMessage('');
             }
         } catch (error) {
             setErrorMessage("An error occurred. Please try again.");
@@ -40,7 +61,7 @@ function ResetPassword() {
 
     return (
         <div className="reset-password-main-container">
-            <SideMenu />
+            <NoAccountSideMenu />
             <header>
                 <div className="reset-password-logo-container">
                     <a href="/">
