@@ -17,8 +17,11 @@ import Maintenance from '../Assets/mente.svg';
 import Pets from '../Assets/pets.svg';
 import Safe from '../Assets/safe.svg';
 import Money from '../Assets/money.svg';
-import UpGreen from '../Assets/up-green.svg';
-import DownRed from '../Assets/down-red.svg';
+import Reachable from '../Assets/reachable.svg';
+import Contract from '../Assets/contract.svg';
+import Recommend from '../Assets/reco.svg';
+import ThumbsUp from '../Assets/up-green.svg';
+import ThumbsDown from '../Assets/down-red.svg';
 
 
 
@@ -47,9 +50,43 @@ const AddAReview = () => {
         console.log('Submitting review...');
     };
 
-    const handleRatingSelect = (rating) => {
+    // Handle rating selection for each criterion with toggle functionality
+    const handleRatingSelect = (key, value) => {
+        setRatings(prevRatings => ({
+            ...prevRatings,
+            [key]: prevRatings[key] === value ? null : value
+        }));
+    };
+
+    const handleSmileyClick = (rating) => {
         setSelectedRating(rating);
     };
+    
+
+    const [ratings, setRatings] = useState({
+        maintenance: null,
+        pets: null,
+        safe: null,
+        rent: null,
+        reachable: null,
+        contract: null,
+        recommend: null
+    });
+
+    const Criterion = ({ name, icon, ratingKey, ratings, handleRatingSelect }) => (
+        <div className="criteria">
+            <img src={icon} alt={name} className="criterion-icon" />
+            <p className="criterion-text">{name}</p>
+            <div className="thumbs">
+                <img src={ThumbsUp} alt="Thumbs Up" className={`thumb ${ratings[ratingKey] === 'up' ? 'selected' : ''}`} onClick={() => handleRatingSelect(ratingKey, 'up')} />
+                <img src={ThumbsDown} alt="Thumbs Down" className={`thumb ${ratings[ratingKey] === 'down' ? 'selected' : ''}`} onClick={() => handleRatingSelect(ratingKey, 'down')} />
+            </div>
+        </div>
+    );
+
+    const [reviewText, setReviewText] = useState(""); // For the review text
+    const [isChecked, setIsChecked] = useState(false); // For the checkbox in Frame 4
+
 
     return (
         <div className="main-container-add-a-rating">
@@ -80,7 +117,7 @@ const AddAReview = () => {
                     </a>
                 </div>
             </header>
-
+{/**Frame 1 ----------------------------------------------- */}
             {currentStep === 1 && (
                 <div className="form-container-add-a-rating">
                     <div className="add-rating-image">
@@ -167,30 +204,204 @@ const AddAReview = () => {
                                 key={index}
                                 src={face}
                                 alt={`Rating ${index + 1}`}
-                                className={`rating-icon ${
-                                    selectedRating >= index + 1 || selectedRating === 0 ? 'active' : 'inactive'
-                                }`}
-                                onClick={() => handleRatingSelect(index + 1)}
+                                className={`rating-icon ${selectedRating === 0 || index + 1 <= selectedRating ? 'colored' : 'inactive'}`}
+                                onClick={() => handleSmileyClick(index + 1)}
                             />
                         ))}
                     </div>
-
                 </div>
             )}
 
-            {/* Button row to navigate between steps and submit the form */}
-            {currentStep < 4 ? (
-                <button 
-                    className="next-btn"
-                    onClick={() => setCurrentStep(currentStep + 1)}
+{/* Frame 2 Content ----------------------------------------------*/}
+{currentStep === 2 && (
+    <div className="rating-criteria-container">
+        {/* Maintenance Criterion */}
+        <div className="criteria">
+            <img src={Maintenance} alt="Maintenance" className="criterion-icon"/>
+            <p className="criterion-text">Timely Maintenance</p>
+            <div className="thumbs">
+                <img
+                    src={ThumbsUp}
+                    alt="Thumbs Up"
+                    className={`thumb ${ratings.maintenance === 'up' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('maintenance', 'up')}
                 />
-            ) : (
-                <button 
-                    className="next-btn"
-                    onClick={handleSubmit}
+                <img
+                    src={ThumbsDown}
+                    alt="Thumbs Down"
+                    className={`thumb ${ratings.maintenance === 'down' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('maintenance', 'down')}
                 />
-            )}
+            </div>
         </div>
+        
+        {/* Pets Criterion */}
+        <div className="criteria">
+            <img src={Pets} alt="Allows Pets" className="criterion-icon"/>
+            <p className="criterion-text">Allow Pets</p>
+            <div className="thumbs">
+                <img
+                    src={ThumbsUp}
+                    alt="Thumbs Up"
+                    className={`thumb ${ratings.pets === 'up' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('pets', 'up')}
+                />
+                <img
+                    src={ThumbsDown}
+                    alt="Thumbs Down"
+                    className={`thumb ${ratings.pets === 'down' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('pets', 'down')}
+                />
+            </div>
+        </div>
+        
+        {/* Safe Area Criterion */}
+        <div className="criteria">
+            <img src={Safe} alt="Safe Area" className="criterion-icon"/>
+            <p className="criterion-text">Safe Area</p>
+            <div className="thumbs">
+                <img
+                    src={ThumbsUp}
+                    alt="Thumbs Up"
+                    className={`thumb ${ratings.safe === 'up' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('safe', 'up')}
+                />
+                <img
+                    src={ThumbsDown}
+                    alt="Thumbs Down"
+                    className={`thumb ${ratings.safe === 'down' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('safe', 'down')}
+                />
+            </div>
+        </div>
+        
+        {/* Raise Rent Criterion */}
+        <div className="criteria">
+            <img src={Money} alt="Raise Rent Yearly" className="criterion-icon"/>
+            <p className="criterion-text">Raise Rent Yearly</p>
+            <div className="thumbs">
+                <img
+                    src={ThumbsUp}
+                    alt="Thumbs Up"
+                    className={`thumb ${ratings.rent === 'up' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('rent', 'up')}
+                />
+                <img
+                    src={ThumbsDown}
+                    alt="Thumbs Down"
+                    className={`thumb ${ratings.rent === 'down' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('rent', 'down')}
+                />
+            </div>
+        </div>
+    </div>
+)}
+{/* Frame 3 Content ---------------------------------------------- */}
+            {currentStep === 3 && (
+                <div className="rating-criteria-container">
+                    {/* Reachable & Responsive Criterion */}
+                    <div className="criteria">
+                        <img src={Reachable} alt="Reachable & Responsive" className="criterion-icon"/>
+                        <p className="criterion-text">Reachable & Responsive</p>
+                        <div className="thumbs">
+                            <img
+                                src={ThumbsUp}
+                                alt="Thumbs Up"
+                                className={`thumb ${ratings.reachable === 'up' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('reachable', 'up')}
+                            />
+                            <img
+                                src={ThumbsDown}
+                                alt="Thumbs Down"
+                                className={`thumb ${ratings.reachable === 'down' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('reachable', 'down')}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Clear & Fair Contract Criterion */}
+                    <div className="criteria">
+                        <img src={Contract} alt="Clear & Fair Contract" className="criterion-icon"/>
+                        <p className="criterion-text">Clear & Fair Contract</p>
+                        <div className="thumbs">
+                            <img
+                                src={ThumbsUp}
+                                alt="Thumbs Up"
+                                className={`thumb ${ratings.contract === 'up' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('contract', 'up')}
+                            />
+                            <img
+                                src={ThumbsDown}
+                                alt="Thumbs Down"
+                                className={`thumb ${ratings.contract === 'down' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('contract', 'down')}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Would you recommend to others? Criterion */}
+                    <div className="criteria">
+                        <img src={Recommend} alt="Would you recommend to others?" className="criterion-icon"/>
+                        <p className="criterion-text">Would you recommend?</p>
+                        <div className="thumbs">
+                            <img
+                                src={ThumbsUp}
+                                alt="Thumbs Up"
+                                className={`thumb ${ratings.recommend === 'up' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('recommend', 'up')}
+                            />
+                            <img
+                                src={ThumbsDown}
+                                alt="Thumbs Down"
+                                className={`thumb ${ratings.recommend === 'down' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('recommend', 'down')}
+                            />
+                           
+                        </div>
+                    </div>
+                </div>
+            )}
+{/* Frame 4 Content-------------------------------------------- */}
+
+
+
+
+
+
+
+{/* Button for frame 1 ------------------------------------*/}
+        {currentStep === 1 && (
+            <button
+                className="next-btn-frame1"
+                onClick={() => setCurrentStep(currentStep + 1)}
+            ></button>
+        )}
+
+        {/* Button row for frames 2 and onward */}
+        {currentStep > 1 && (
+            <div className="button-row">
+                <button
+                    className="back-btn"
+                    onClick={() => setCurrentStep(currentStep - 1)}
+                ></button>
+                {currentStep < 4 ? (
+                    <button
+                        className="next-btn"
+                        onClick={() => setCurrentStep(currentStep + 1)}
+                    ></button>
+                ) : (
+                    <button
+                        className="next-btn"
+                        onClick={handleSubmit}
+                    ></button>
+                )}
+            </div>
+        )}
+            
+        
+    </div>
+
+
     );
 };
 

@@ -331,29 +331,216 @@ body {
     border-radius: 50%; /* Ensure the grey overlay matches the round shape */
 }
 
-/* Next Button-------------------------------------------- */
-.next-btn {
-    width: 200px; /* Adjust button size */
-    height: 50px;
-    background-image: url('../Assets/next-green.svg');
-    background-size: cover; /* Scale the image to fit the button */
+/* ================== Frame 2 ================================================== */
+/* Frame 2 - Rating Criteria Section */
+.rating-criteria-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 200px;
+    gap: 40px;
+}
+
+/* Individual criterion styling */
+.criteria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #E6E6E6;
+    padding: 20px;
+    border-radius: 20px;
+    width: 250px;
+    height: 210px;
+    text-align: center;
+
+}
+
+.criterion-icon {
+    width: 100px;
+    height: 100px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.criterion-text {
+    font-size: 28px;
+    color: #4D55A5;
+    margin: 5px 0;
+}
+
+/* Thumbs container styling */
+.thumbs {
+    display: flex;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.thumb {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    filter: grayscale(100%); /* Start as grey by default */
+    transition: filter 0.2s ease;
+}
+
+.thumb.selected {
+    filter: none; /* Remove grey when selected */
+}
+
+/* Next and Back Button Styles */
+.next-btn, .back-btn {
+    width: 100px;
+    height: 40px;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    border: 0.5px solid #bfb1b1; /* Super thin border */
+    border: none;
     cursor: pointer;
-    transition: transform 0.2s ease;
-    outline: black; 
-    background-color: transparent; /* Ensure background is transparent */
-    border-radius: 25px; /* Add rounded edges */
-
-    /* Positioning */
-    position: absolute; /* Set position to absolute for precise placement */
-    top: 80%; /* Adjust this value to move it vertically */
-    left: 80%; /* Adjust this value to move it horizontally */
-    transform: translate(-50%, -50%); /* Center the button based on its position */
+    outline: none;
+    margin: 10px;
 }
 
-.next-btn:active {
-    transform: scale(0.95); /* Scale down on click */
+.next-btn {
+    background-image: url('../Assets/next-green.svg');
 }
 
+.back-btn {
+    background-image: url('../Assets/back-green.svg');
+}
+
+/* Frame 3-------------------------------------------- */
+/* Frame 3 - Rating Criteria Section */
+.rating-criteria-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 200px;
+    gap: 40px;
+}
+
+/* Individual criterion styling for Frame 3 */
+.criteria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #E6E6E6;
+    padding: 20px;
+    border-radius: 20px;
+    width: 250px;
+    height: 210px;
+    text-align: center;
+}
+
+/* Icons for each criterion in Frame 3 */
+.criterion-icon {
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+/* Text for each criterion in Frame 3 */
+.criterion-text {
+    font-size: 20px;
+    color: #4D55A5;
+    margin: 5px 0;
+}
+
+/* Thumbs container styling for Frame 3 */
+.thumbs {
+    display: flex;
+    gap: 20px;
+    margin-top: 60px;
+}
+
+/* Thumbs styling for Frame 3 */
+.thumb {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    filter: grayscale(100%); /* Start as grey by default */
+    transition: filter 0.2s ease;
+}
+
+.thumb.selected {
+    filter: none; /* Remove grey when selected */
+}
+
+/* Adjust Button Row for Frame 3 */
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 950px;
+    width: auto;
+    position: absolute;
+    bottom: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+}
+
+.back-btn, .next-btn {
+    width: 150px; /* Adjust button width */
+    height: 50px; /* Adjust button height */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border-radius: 25px;
+    box-sizing: border-box;
+    padding: 5px; /* Add some padding */
+}
+
+/* Next Button-------------------------------------------- */
+/* Next button styling specific to Frame 1 */
+.next-btn-frame1 {
+    width: 150px; /* Adjust button size as needed */
+    height: 50px;
+    background-image: url('../Assets/next-green.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    position: absolute;
+    bottom: 110px; 
+    left: 80%;
+    transform: translateX(-50%); /* Center horizontally */
+    border-radius: 25px;
+}
+
+/* Button row styling for frames 2 and onward */
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 950px;
+    width: auto;
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+
+}
+
+.back-btn, .next-btn {
+    width: 150px; /* Adjust button width */
+    height: 50px; /* Adjust button height */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border-radius: 25px;
+    box-sizing: border-box;
+    padding: 5px; /* Add some padding */
+}
+
+/*Frame 4-------------------------------------------*/
