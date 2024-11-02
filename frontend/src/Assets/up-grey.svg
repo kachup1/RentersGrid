@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 49.49 49.49">
+<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 49.49 49.49">
   <defs>
     <style>
       .cls-1 {
         fill: #bcbec0;
-      }
-
-      .cls-1, .cls-2 {
-        stroke-width: 0px;
       }
 
       .cls-2 {
@@ -15,7 +11,7 @@
       }
     </style>
   </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
+  <g id="Layer_1-2" data-name="Layer_1">
     <g>
       <circle class="cls-1" cx="24.75" cy="24.75" r="24.75"/>
       <g>

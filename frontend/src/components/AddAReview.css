@@ -12,7 +12,7 @@ body {
 }
 
 /* Main container styling */
-.main-container {
+.main-container-add-a-rating {
     background-color: #4D55A5; /* Background color */
     min-height: 100vh; /* Full viewport height */
     display: flex;
@@ -22,7 +22,7 @@ body {
 }
 
 /* Header styles */
-.headerhp {
+.headerhp-add-a-rating {
     width: 100%; /* Full width for the header */
     display: flex;
     justify-content: center; /* Center the content horizontally */
@@ -30,7 +30,7 @@ body {
 }
 
 /* Company logo container */
-.logohp-container img {
+.logohp-container-add-a-rating img {
     display: flex;
     justify-content: center; /* Center the logo */
     align-items: center;
@@ -38,7 +38,7 @@ body {
 }
 
 /* Company logo */
-.center-logo {
+.center-logo-add-a-rating {
     width: 400px; /* Adjust size as needed */
     height: auto;
     margin-top: 30px; /* Top margin to fine-tune the position */
@@ -46,7 +46,7 @@ body {
 }
 
 /* Account button styles */
-.buttons-container {
+.buttons-container-add-a-rating {
     display: flex;
     align-items: center;
     position: absolute;
@@ -55,14 +55,14 @@ body {
 }
 
 /* Left icon (Submit Landlord Rate) */
-.left-icon {
+.left-icon-add-a-rating {
     width: 80px; /* Adjust size as needed */
     height: auto;
     margin-right: 30px; /* Space between left and right icons */
 }
 
 /* Styling for the right icon (Account button) */
-.account-right {
+.account-right-add-a-rating {
     width: 70px; /* Adjust size as needed */
     height: auto;
 }
@@ -70,46 +70,63 @@ body {
 /* ================== Frame 1 (Review Section) ================== */
 
 /* Main container for the form, the gray box */
-.form-container {
+.form-container-add-a-rating {
     background-color: #E6E6E6;  /* Light gray background for the box */
     padding: 30px;  /* Padding inside the box */
     border-radius: 10px;  /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    width: 1423px;  /* Set the width to 1423px */
+    width: 1425px;  /* Set the width to 1423px */
     height: 662px;  /* Set the height to 662px */   
-    margin: 50px auto;  /* Center the box horizontally and add 50px margin at the top */
+    margin: 150px auto;  /* Center the box horizontally and add 50px margin at the top */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+
 }
 
-.add-rating-title {
-    width: 117px;  /* Set the width to 1423px */
-    height: 124px;  /* Set the height to 662px */  
-    margin-top: 200px; /* Move the image down by 20px, adjust as needed */
+.add-rating-image {
+    width: 137px;  /* Set the width*/
+    height: 134px;  /* Set the height*/  
+    margin-top: -950px; /* Move the image down by 20px, adjust as needed */
     margin-left: -500px; /* Move the image to the left by 30px, adjust as needed */
-    background-color: #E6E6E6;  /* Light gray background for the box */
+    background-color: transparent;  /* Light gray background for the box */
+    position: absolute;
 
 }
 
 .you-are-rating {
-    font-size: 12px;
-    margin-bottom: 10px;
-    margin-top: -275px; /* Adjust the value to move it higher */
-    margin-left: -230px; /* Move the element 20px to the left */
+    font-size: 18px;
+    margin-bottom: 500px;
+    margin-top: -90px; /* Adjust the value to move it higher */
+    margin-left: -100px; /* Move the element 20px to the left */
     font-weight: 100; /* Makes the font lighter */
-    color: #4D55A5; 
+    color: #9BA0CC; 
+    position: absolute;
+
 
 }
 
 .you-are-rating-landlord-name {
-    font-size: 22px;
+    font-size: 45px;
     margin-bottom: 10px;
-    margin-top: -415px; /* Adjust the value to move it higher */
-    margin-left: -130px; /* Move the element 20px to the left */
+    margin-top: -500px; /* Adjust the value to move it higher */
+    margin-left: 70px; /* Move the element 20px to the left */
     font-weight: 100; /* Makes the font lighter */
     color: #4D55A5; 
+    position: absolute;
+}
+
+.write-a-review-string {
+    font-size: 35px;
+    margin-bottom: 10px;
+    margin-top: -100px; /* Adjust the value to move it higher */
+    margin-left: -900px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #4D55A5; 
+    position: absolute;
+
 }
 
 /* Section for user rating and review */
@@ -122,6 +139,8 @@ body {
     margin-top: 30px; /* Space between header and content */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     color: #333;
+    position: absolute;
+
 }
 
 /* Title of the review section */
@@ -129,65 +148,153 @@ body {
     font-size: 240px;
     margin-bottom: 10px;
     color: #4D55A5; /* Color for the landlord's name */
+    position: absolute;
+
 }
 
 .review-section h2 span {
     color: #4D55A5; /* Color for the landlord's name */
+    position: absolute;
+
 }
 
 /* Write a review textarea */
 .review-box textarea {
-    width: 100%;
-    height: 100px;
+    width: 630px;
+    height: 300px;
     padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    border-radius: 2px;
+    margin-top: 160px; /* Adjust the value to move it higher */
+    margin-left: -590px; /* Move the element to the left */
+    border: 2px solid #645d5d9c;
+    box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.2); /* Left-bottom shadow */
     margin-bottom: 10px;
+    font-size: 19px;
+    font-weight: 300 !important;
     font-family: 'Helvetica';
+    position: absolute;
+    resize: none; /* Prevent resizing */
+
 }
 
-/* Guidelines for writing a review */
 .guidelines {
-    background-color: #DFF2E2;
+    width: 350px;
+    height: 150px;
+    padding: 10px;
+    border-radius: 2px;
+    margin-top: 180px; /* Adjust the value to move it higher */
+    margin-left: -190px; /* Move the element 20px to the left */
+    border: 2px solid #645d5d9c;
+    position: absolute;
+    top: -10px; /* Adjusts the position slightly above the review box */
+    background-color: #a3c091; /* Light green background */
     padding: 10px;
     border-radius: 5px;
-    font-size: 14px;
-    color: #333;
+    color: #f9f6f6;
+    font-size: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for the guidelines box */
+}
+
+.guidelines-string{
+    font-size: 22px;
+    margin-bottom: 500px;
+    margin-top: -20px; /* Adjust the value to move it higher */
+    margin-left: 10px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #ffffff; 
+    position: absolute;
 }
 
 /* List for guidelines */
 .guidelines ul {
+    font-size: 18px;
     list-style-type: none;
     padding-left: 0;
+    margin-top: 40px; /* Adjust the value to move it higher */
+    font-weight: 300; /* Set font weight to normal */
+    position: absolute;
+
 }
 
 .guidelines li {
     margin-bottom: 5px;
 }
 
-/* Select Property Dropdown */
+/* Select Property Dropdown----------------------------------------------------------- */
+/* Wrapper for the entire Select Property section */
 .select-property {
-    margin-bottom: 20px;
+    position: relative; /* Position the main container */
+    margin-bottom: 35px;
+    top: 290px; /* Adjusts vertical position of the whole section */
+    left: 950px; /* Adjusts horizontal position of the whole section */
+}
+
+/* Positioning for the label container */
+.select-property .label-container {
+    position: absolute;
+    top:-170px; /* Adjust as needed */
+    left: -800px; /* Adjust as needed */
 }
 
 .select-property label {
-    font-size: 16px;
-    margin-right: 10px;
+    font-size: 35px;
+    font-weight: bold;
+    color: #4D55A5;
 }
 
-.select-property select {
-    padding: 5px;
-    border-radius: 5px;
+/* Positioning for the dropdown container */
+.select-property .dropdown-container {
+    position: absolute;
+    top: -120px; /* Move dropdown below the label */
+    left: -770px; /* Adjust to move dropdown left or right */
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 20px; /* Fully rounded edges */
     border: 1px solid #ccc;
+    background-color: #fafaf5;
 }
 
-/* Rate Your Landlord (Smiley Faces) */
+/* Styles for the select dropdown */
+.select-property select {
+    padding: 7px 25px 7px 20px; /* Add left padding */    
+    border-radius: 20px; /* More rounded edges */
+    border: 1px solid #ccc;
+    background-color: #fafaf5;
+    font-size: 20px;
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 25px; /* Space for custom arrow */
+    width: 100%; /* Full width within the dropdown container */
+}
+
+/* Custom arrow for dropdown */
+.select-property select::after {
+    content: '▼'; /* Unicode for down arrow */
+    position: absolute;
+    right: 10px;
+    color: #66cc00; /* Green color for the arrow */
+    pointer-events: none;
+    font-size: 20px;
+}
+
+/* Rate Your Landlord----------------------------------------------------*/
+.rate-your-landlord-string {
+    font-size: 35px;
+    margin-bottom: -700px;
+    margin-top: -570px; /* Adjust the value to move it higher */
+    margin-left: 620px; /* Move the element left */
+    color: #4D55A5; 
+    position: absolute;
+}
+
+/* Rate Your Landlord (Smiley Faces)*/
 .rate-landlord {
     margin-bottom: 20px;
 }
 
 .rate-landlord label {
-    font-size: 16px;
+    font-size: 35px;
     display: block;
     margin-bottom: 10px;
 }
@@ -196,54 +303,57 @@ body {
 .rating-icons {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 250px;
+    margin-left: 790px; /* Move the element to the left */
+
 }
 
 .rating-icon {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     margin: 0 10px;
     cursor: pointer;
-    opacity: 0.5; /* Default gray look */
-    transition: transform 0.2s, opacity 0.2s;
+    transition: transform 0.2s, filter 0.2s;
 }
 
 .rating-icon.active {
-    opacity: 1; /* Fully visible when active */
-    transform: scale(1.2); /* Slightly larger when active */
+    opacity: 1;
+    filter: none;
+    transform: scale(1.1); /* Optional: slightly scale up selected icons */
 }
 
-/* Colors for each smiley */
-.rating-icon.active.red {
-    filter: invert(27%) sepia(78%) saturate(5297%) hue-rotate(353deg) brightness(98%) contrast(103%);
+/* Inactive icons show in grey but fully visible */
+.rating-icon.inactive {
+    opacity: 1;
+    filter: grayscale(100%) brightness(1.2);
+    /* Optional: You can add a slight overlay color to keep them consistently visible */
+    background-color: rgba(220, 220, 220, 0.3); /* Light grey overlay */
+    border-radius: 50%; /* Ensure the grey overlay matches the round shape */
 }
 
-.rating-icon.active.orange {
-    filter: invert(63%) sepia(53%) saturate(2396%) hue-rotate(355deg) brightness(100%) contrast(101%);
-}
-
-.rating-icon.active.yellow {
-    filter: invert(87%) sepia(23%) saturate(4392%) hue-rotate(5deg) brightness(102%) contrast(101%);
-}
-
-.rating-icon.active.light-green {
-    filter: invert(81%) sepia(19%) saturate(2149%) hue-rotate(54deg) brightness(96%) contrast(98%);
-}
-
-.rating-icon.active.green {
-    filter: invert(59%) sepia(57%) saturate(4003%) hue-rotate(85deg) brightness(97%) contrast(101%);
-}
-
-/* Next Button */
+/* Next Button-------------------------------------------- */
 .next-btn {
-    background-color: #66cc00;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+    width: 200px; /* Adjust button size */
+    height: 50px;
+    background-image: url('../Assets/next-green.svg');
+    background-size: cover; /* Scale the image to fit the button */
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 0.5px solid #bfb1b1; /* Super thin border */
     cursor: pointer;
+    transition: transform 0.2s ease;
+    outline: black; 
+    background-color: transparent; /* Ensure background is transparent */
+    border-radius: 25px; /* Add rounded edges */
+
+    /* Positioning */
+    position: absolute; /* Set position to absolute for precise placement */
+    top: 80%; /* Adjust this value to move it vertically */
+    left: 80%; /* Adjust this value to move it horizontally */
+    transform: translate(-50%, -50%); /* Center the button based on its position */
 }
 
-.next-btn:hover {
-    background-color: #559900;
+.next-btn:active {
+    transform: scale(0.95); /* Scale down on click */
 }
+
