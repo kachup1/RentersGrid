@@ -544,3 +544,195 @@ body {
 }
 
 /*Frame 4-------------------------------------------*/
+/* Frame 4 Specific Styles */
+.frame4-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #B2C891; 
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    height: 1500px; 
+    margin: 100px auto; /* Center align */
+    margin-top: 150px; /* Move the image down by 20px, adjust as needed */
+    position: absolute;
+}
+
+.frame-4-add-rating-image {
+    width: 137px;  /* Set the width*/
+    height: 134px;  /* Set the height*/  
+    margin-top: -200px; /* Move the image down by 20px, adjust as needed */
+    margin-left: -500px; /* Move the image to the left by 30px, adjust as needed */
+    background-color: transparent;  /* Light gray background for the box */
+    position: absolute;
+}
+
+.frame-4-you-are-rating {
+    font-size: 18px;
+    margin-bottom: 500px;
+    margin-top: -180px; /* Adjust the value to move it higher */
+    margin-left: -100px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #9BA0CC; 
+    position: absolute;
+}
+
+.frame-4-you-are-rating-landlord-name {
+    font-size: 45px;
+    margin-bottom: 10px;
+    margin-top: 3px; /* Adjust the value to move it higher */
+    margin-left: 70px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #4D55A5; 
+    position: absolute;
+}
+
+/*"Review" string*/
+.frame-4-write-a-review-string {
+    font-size: 35px;
+    margin-bottom: 10px;
+    margin-top: 200px; /* Adjust the value to move it higher */
+    margin-left: -1100px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #4D55A5; 
+    position: absolute;
+}
+
+/*Review Box*/
+.frame4-review-text {
+    width: 630px;
+    height: 300px;
+    padding: 10px;
+    border-radius: 2px;
+    margin-top: 290px; /* Adjust the value to move it higher */
+    margin-left: -590px; /* Move the element to the left */
+    border: 2px solid #645d5d9c;
+    box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.2); /* Left-bottom shadow */
+    background-color: #FFFFFF; /* Set background to white */
+    margin-bottom: 10px;
+    font-size: 19px;
+    font-weight: 300 !important;
+    font-family: 'Helvetica';
+    position: absolute;
+    resize: none; /* Prevent resizing */
+}
+
+/* Frame 4 specific positioning for select-property */
+.select-property.frame4-position {
+    position: relative; /* or absolute, depending on your layout */
+    top: 450px; /* Adjust these values as needed */
+    left: 960px;
+    /* Other styling adjustments unique to Frame 4 */
+}
+
+/* "Your Rating" string*/
+.frame-4-rate-your-landlord-string {
+    font-size: 35px;
+    margin-top: 370px; /* Adjust the value to move it higher */
+    margin-left: 520px; /* Move the element left */
+    color: #4D55A5; 
+    position: absolute;
+}
+
+/* smiley row*/
+.frame4-rating-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 500px;
+    left: 900px;
+    position: absolute;
+}
+.frame4-criterion-container-4 {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 700px;
+    left: 10px;
+    width: 100%;
+    gap: 80px; /* Adjust gap to make items closer */
+}
+
+.frame4-criterion-container-3 {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1100px;
+    left: 10px;
+    width: 100%;
+    gap: 80px; /* Adjust gap to make items closer */
+
+}
+
+/* Container for both buttons in Frame 4 */
+.frame4-buttons-container {
+    position: relative;
+    width: 100%; /* Full width to position buttons independently */
+    display: flex;
+    justify-content: space-between; /* Optional: spreads buttons to opposite ends */
+    padding: 0 100px; /* Optional: add padding if needed */
+}
+
+/* Frame 4 Back Button Container */
+.frame4-back-container {
+    position: absolute;
+    left: 200px; /* Position from the left side */
+    bottom: -1450px; /* Position from the bottom */
+    width: 150px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+}
+
+/* Frame 4 Submit Button Container */
+.frame4-submit-container {
+    position: absolute;
+    right: 720px; /* Position from the right side */
+    bottom: -1700px; /* Position from the bottom */
+    width: 300px; /* Adjust as needed */
+    height: 300px; /* Adjust as needed */
+}
+
+/* Styling for Back and Submit Buttons */
+.frame4-back-btn,
+.frame4-submit-btn {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Additional styling for button images */
+.frame4-back-btn img,
+.frame4-submit-btn img {
+    width: 100%; /* Ensure the image scales to fit button */
+    height: auto;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-top: 1440px;
+    position: absolute;
+    left: 900px;
+    font-size: 18px;
+    color: #ffffff; /* Text color */
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 25px; /* Adjust size */
+    height: 25px;
+    margin-right: 10px; /* Space between checkbox and text */
+    border: 2px solid #ff0000; /* Red border for checkbox */
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"]:checked {
+    background-color: #4D55A5; /* Color when checked */
+}
+

@@ -22,6 +22,8 @@ import Contract from '../Assets/contract.svg';
 import Recommend from '../Assets/reco.svg';
 import ThumbsUp from '../Assets/up-green.svg';
 import ThumbsDown from '../Assets/down-red.svg';
+import SubmitReview from '../Assets/submit-review_1.svg';
+
 
 
 
@@ -30,6 +32,8 @@ const AddAReview = () => {
     const [selectedRating, setSelectedRating] = useState(0);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [selectedProperty, setSelectedProperty] = useState("Fairview Apartment");
+    const [reviewText, setReviewText] = useState(""); // For the review text
+    const [isChecked, setIsChecked] = useState(false); // For the checkbox in Frame 4
 
     const handleDropdownToggle = () => {
         setDropdownOpen(!dropdownOpen);
@@ -47,7 +51,12 @@ const AddAReview = () => {
     ];
 
     const handleSubmit = () => {
-        console.log('Submitting review...');
+        if (isChecked) {
+            console.log('Review submitted');
+            // Add your submit logic here
+        } else {
+            alert("Please confirm your review is truthful.");
+        }
     };
 
     // Handle rating selection for each criterion with toggle functionality
@@ -84,9 +93,25 @@ const AddAReview = () => {
         </div>
     );
 
-    const [reviewText, setReviewText] = useState(""); // For the review text
-    const [isChecked, setIsChecked] = useState(false); // For the checkbox in Frame 4
+    const CriterionReview = ({ name, rating, icon }) => (
+        <div className="criteria">
+            <img src={icon} alt={name} className="criterion-icon" />
+            <p className="criterion-text">{name}</p>
+            <div className="thumbs">
+                {rating === 'up' ? (
+                    <img src={ThumbsUp} alt="Thumbs Up" className="thumb selected" />
+                ) : rating === 'down' ? (
+                    <img src={ThumbsDown} alt="Thumbs Down" className="thumb selected" />
+                ) : (
+                    <p>Not rated</p>
+                )}
+            </div>
+        </div>
+    );
 
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked);
+    };
 
     return (
         <div className="main-container-add-a-rating">
@@ -361,47 +386,138 @@ const AddAReview = () => {
                     </div>
                 </div>
             )}
-{/* Frame 4 Content-------------------------------------------- */}
-
-
-
-
-
-
-
-{/* Button for frame 1 ------------------------------------*/}
-        {currentStep === 1 && (
-            <button
-                className="next-btn-frame1"
-                onClick={() => setCurrentStep(currentStep + 1)}
-            ></button>
-        )}
-
-        {/* Button row for frames 2 and onward */}
-        {currentStep > 1 && (
-            <div className="button-row">
-                <button
-                    className="back-btn"
-                    onClick={() => setCurrentStep(currentStep - 1)}
-                ></button>
-                {currentStep < 4 ? (
-                    <button
-                        className="next-btn"
-                        onClick={() => setCurrentStep(currentStep + 1)}
-                    ></button>
-                ) : (
-                    <button
-                        className="next-btn"
-                        onClick={handleSubmit}
-                    ></button>
-                )}
-            </div>
-        )}
-            
+{/* Frame 4 Content -------------------------------------------- */}
+{currentStep === 4 && (
+    <div className="frame4-container">
+        {/* Header and Landlord Info */}
+        <div className="frame-4-add-rating-image">
+            <h1>
+                <img
+                    src={AddRatingTitle}
+                    alt="Add Rating Title"
+                    className="add-rating-title"
+                />
+            </h1>
+        </div>
         
+        <div className="frame-4-you-are-rating">
+            <h2>You Are Rating:</h2>
+        </div>
+
+        <div className="frame-4-you-are-rating-landlord-name">
+            <h3>Francisco Diaz</h3>
+        </div>
+
+        {/* Review Text Display */}
+        <div className="frame-4-write-a-review-string">
+            <h3>Review:</h3>
+        </div>
+        <div className="frame4-review-text">
+            <p>{reviewText || "No review provided"}</p>
+        </div>
+
+        {/* Property Display */}
+        <div className="select-property frame4-position">
+            <div className="label-container">
+                <label>Property:</label>
+            </div>
+            <div className="dropdown-container">
+                <span className="dropdown-selected">{selectedProperty}</span>
+            </div>
+        </div>
+
+        {/* Overall Rating Icons */}
+        <div className="frame-4-rate-your-landlord-string">
+            <h4>Your Rating:</h4>
+        </div>
+        <div className="frame4-rating-icons">
+            {[Face1, Face2, Face3, Face4, Face5].map((face, index) => (
+                <img
+                    key={index}
+                    src={face}
+                    alt={`Rating ${index + 1}`}
+                    className={`rating-icon ${selectedRating >= index + 1 ? 'active' : 'inactive'}`}
+                />
+            ))}
+        </div>
+
+        {/* Criterion Ratings */}
+        <div className="frame4-criterion-container-4">
+            <CriterionReview name="Timely Maintenance" rating={ratings.maintenance} icon={Maintenance} />
+            <CriterionReview name="Allows Pets" rating={ratings.pets} icon={Pets} />
+            <CriterionReview name="Safe Area" rating={ratings.safe} icon={Safe} />
+            <CriterionReview name="Raises Rent Yearly" rating={ratings.rent} icon={Money} />
+        </div>
+        <div className="frame4-criterion-container-3">
+            <CriterionReview name="Reachable & Responsive" rating={ratings.reachable} icon={Reachable} />
+            <CriterionReview name="Clear & Fair Contract" rating={ratings.contract} icon={Contract} />
+            <CriterionReview name="Would you recommend?" rating={ratings.recommend} icon={Recommend} />
+        </div>
+
+        {/* Checkbox Section */}
+        <div className="checkbox-container">
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={isChecked}
+                                onChange={handleCheckboxChange}
+                            />
+                            I confirm that my review is truthful and based on my personal experience.
+                        </label>
+                    </div>
+
+                    {/* Buttons for Frame 4 */}
+                    <div className="frame4-buttons-container">
+                        <div className="frame4-back-container">
+                            <button
+                                className="frame4-back-btn"
+                                onClick={() => setCurrentStep(currentStep - 1)}
+                            >
+                                <img src={BackButton} alt="Back" />
+                            </button>
+                        </div>
+
+                        <div className="frame4-submit-container">
+                            <button
+                                className="frame4-submit-btn"
+                                onClick={handleSubmit}
+                                disabled={!isChecked} // Disable unless checked
+                            >
+                                <img src={SubmitReview} alt="Submit Review" />
+                            </button>
+                        </div>
+                    </div>
+
     </div>
+)}
 
 
+
+
+{/* Button for frame 1 */}
+{/* Button for frame 1 (Next Button) */}
+{currentStep === 1 && (
+    <button
+        className="next-btn-frame1"
+        onClick={() => setCurrentStep(currentStep + 1)}
+    ></button>
+)}
+
+{/* Button Row for frames 2 and 3 */}
+{currentStep > 1 && currentStep < 4 && (
+    <div className="button-row">
+        <button
+            className="back-btn"
+            onClick={() => setCurrentStep(currentStep - 1)}
+        ></button>
+        <button
+            className="next-btn"
+            onClick={() => setCurrentStep(currentStep + 1)}
+        ></button>
+    </div>
+)}
+  
+    </div>
     );
 };
 
