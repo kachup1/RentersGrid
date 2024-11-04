@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import React, { useEffect, useState } from 'react';
-import { useNavigate,useLocation } from 'react-router-dom';
-import Map from './Map';
-=======
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import SearchResultsMap from './SearchResultsMap';
->>>>>>> francisco-b
 //list of all assets and pages.
 import LandlordProfile from './LandlordProfile'; //not working 
 import ClearSelectionIcon from '../Assets/clear-selection.svg';
@@ -29,11 +23,8 @@ function SearchPage() {
   const [sortBy, setSortBy] = useState('');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
-<<<<<<< HEAD
-=======
   const resultsRefs = useRef([]); // Array of refs for each search result
 
->>>>>>> francisco-b
   const [bookmarked, setBookmarked] = useState({});
 
   const navigate = useNavigate();
@@ -71,10 +62,7 @@ function SearchPage() {
   };
 //checks if user is logged and if not would make user unable to bookmark and save it it 
 //their account
-<<<<<<< HEAD
-=======
 
->>>>>>> francisco-b
 useEffect(() => {
   if (isTokenValid()) {
     setIsLoggedIn(true);
@@ -173,11 +161,8 @@ useEffect(() => {
     return response.json();  // This could throw if the response is HTML
   })
   .then(data => {
-<<<<<<< HEAD
-=======
     console.log("Search API Data:", data); // Add this line
 
->>>>>>> francisco-b
     setResults(data);
     setLoading(false);
   })
@@ -228,15 +213,12 @@ useEffect(() => {
     navigate(`/LandlordProfile/${landlordId}`);
   };
 
-<<<<<<< HEAD
-=======
   const scrollToResult = (index) => {
     if (resultsRefs.current[index]) {
       resultsRefs.current[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
->>>>>>> francisco-b
   return (
     <div className="search-page-container">
       {/*//checks the login status and gives a type of sidemenu depending onit.*/}
@@ -328,11 +310,6 @@ useEffect(() => {
         <div className="search-results-container">
           <h1>Search Page</h1>
           <div className="results-list">
-<<<<<<< HEAD
-            {results && results.length > 0 ? (
-              results.map((result) => (
-                <div className="result-card" key={result.landlordId} onClick={() => handleLandlordClick(result.landlordId)}>
-=======
           {results && results.length > 0 ? (
               results.map((result, index) => (
                 <div
@@ -341,7 +318,6 @@ useEffect(() => {
                   ref={(el) => (resultsRefs.current[index] = el)} // Attach ref to each result
                   onClick={() => handleLandlordClick(result.landlordId)}
                 >
->>>>>>> francisco-b
                   <div className="result-card-header">
                     <div className="rating-box">
                       <span>Avg Rating</span>
@@ -384,19 +360,12 @@ useEffect(() => {
           </div>
         </div>
       </div>
-<<<<<<< HEAD
-      {/* Map Section */}
-      <section className="result-map-section">
-        <div className="result-map-container">
-          <Map mapHeight="400px" />
-=======
       {/* Search Results Map */}
       <section className="result-map-section">
         <div className="result-map-container">
           <SearchResultsMap filteredResults={results} 
           onMarkerClick={scrollToResult} // Pass scrollToResult as a prop
 />
->>>>>>> francisco-b
         </div>
       </section>
     </div>
