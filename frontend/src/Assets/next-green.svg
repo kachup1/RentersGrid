@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 101.97 31.52">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#New_Gradient_Swatch);
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: .75px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        stroke-width: 0px;
+      }
+    </style>
+    <linearGradient id="New_Gradient_Swatch" data-name="New Gradient Swatch" x1="50.98" y1="31.15" x2="50.98" y2=".38" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e3efcf"/>
+      <stop offset=".28" stop-color="#93c83f"/>
+      <stop offset=".39" stop-color="#95c942"/>
+      <stop offset=".49" stop-color="#9ccc4f"/>
+      <stop offset=".59" stop-color="#a7d263"/>
+      <stop offset=".7" stop-color="#b7da7f"/>
+      <stop offset=".8" stop-color="#cbe4a3"/>
+      <stop offset=".9" stop-color="#e4f1cf"/>
+      <stop offset=".99" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <rect class="cls-1" x=".38" y=".38" width="101.22" height="30.77" rx="15.39" ry="15.39"/>
+    <g>
+      <path class="cls-2" d="M44,22.11h-2.47l-4.82-8.39v8.39h-2.3v-11.81h2.59l4.7,8.25v-8.25h2.3v11.81Z"/>
+      <path class="cls-2" d="M53.59,19.54c-.06.52-.33,1.04-.81,1.58-.75.85-1.8,1.27-3.14,1.27-1.11,0-2.09-.36-2.94-1.07-.85-.72-1.27-1.88-1.27-3.49,0-1.51.38-2.67,1.15-3.48.77-.81,1.76-1.21,2.99-1.21.73,0,1.38.14,1.96.41s1.06.7,1.44,1.29c.34.52.56,1.12.67,1.8.06.4.08.98.07,1.73h-5.98c.03.88.31,1.49.83,1.84.32.22.69.33,1.14.33.47,0,.85-.13,1.15-.4.16-.14.3-.34.42-.6h2.33ZM51.33,16.86c-.04-.6-.22-1.06-.55-1.37-.33-.31-.74-.47-1.22-.47-.53,0-.94.17-1.23.5-.29.33-.47.78-.55,1.35h3.55Z"/>
+      <path class="cls-2" d="M63.03,22.11h-2.85l-1.51-2.62-1.52,2.62h-2.77l2.98-4.42-2.85-4.3h2.8l1.46,2.53,1.43-2.53h2.72l-2.87,4.26,2.98,4.46Z"/>
+      <path class="cls-2" d="M68.37,20.48v1.71l-1.08.04c-1.08.04-1.82-.15-2.21-.56-.26-.26-.38-.67-.38-1.21v-5.38h-1.22v-1.63h1.22v-2.44h2.26v2.44h1.42v1.63h-1.42v4.62c0,.36.05.58.14.67.09.09.37.13.83.13.07,0,.14,0,.22,0,.08,0,.15,0,.23-.01Z"/>
+    </g>
+  </g>
+</svg>

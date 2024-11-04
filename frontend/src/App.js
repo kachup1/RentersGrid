@@ -12,6 +12,7 @@ import AddProperty from './components/AddProperty';
 
 import { useState } from 'react';
 import axios from 'axios';
+import AddAReview from './components/AddAReview';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {

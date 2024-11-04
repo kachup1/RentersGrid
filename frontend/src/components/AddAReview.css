@@ -1,0 +1,738 @@
+/* Define the font */
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica.woff') format('woff'); /* Adjust this path as necessary */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Use font */
+body {
+    font-family: 'Helvetica';
+}
+
+/* Main container styling */
+.main-container-add-a-rating {
+    background-color: #4D55A5; /* Background color */
+    min-height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Helvetica';
+}
+
+/* Header styles */
+.headerhp-add-a-rating {
+    width: 100%; /* Full width for the header */
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    margin-top: 20px; /* Adjust top spacing if needed */
+}
+
+/* Company logo container */
+.logohp-container-add-a-rating img {
+    display: flex;
+    justify-content: center; /* Center the logo */
+    align-items: center;
+    width: 450px; /* Full width */
+}
+
+/* Company logo */
+.center-logo-add-a-rating {
+    width: 400px; /* Adjust size as needed */
+    height: auto;
+    margin-top: 30px; /* Top margin to fine-tune the position */
+    cursor: pointer; /* Makes the company logo clickable */
+}
+
+/* Account button styles */
+.buttons-container-add-a-rating {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 50px; /* Adjust this to move the buttons more to the right */
+    top: 20px; /* Adjust top spacing as needed */
+}
+
+/* Left icon (Submit Landlord Rate) */
+.left-icon-add-a-rating {
+    width: 80px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 30px; /* Space between left and right icons */
+}
+
+/* Styling for the right icon (Account button) */
+.account-right-add-a-rating {
+    width: 70px; /* Adjust size as needed */
+    height: auto;
+}
+
+/* ================== Frame 1 (Review Section) ================== */
+
+/* Main container for the form, the gray box */
+.form-container-add-a-rating {
+    background-color: #E6E6E6;  /* Light gray background for the box */
+    padding: 30px;  /* Padding inside the box */
+    border-radius: 10px;  /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    width: 1425px;  /* Set the width to 1423px */
+    height: 662px;  /* Set the height to 662px */   
+    margin: 150px auto;  /* Center the box horizontally and add 50px margin at the top */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+
+}
+
+.add-rating-image {
+    width: 137px;  /* Set the width*/
+    height: 134px;  /* Set the height*/  
+    margin-top: -950px; /* Move the image down by 20px, adjust as needed */
+    margin-left: -500px; /* Move the image to the left by 30px, adjust as needed */
+    background-color: transparent;  /* Light gray background for the box */
+    position: absolute;
+
+}
+
+.you-are-rating {
+    font-size: 18px;
+    margin-bottom: 500px;
+    margin-top: -90px; /* Adjust the value to move it higher */
+    margin-left: -100px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #9BA0CC; 
+    position: absolute;
+
+
+}
+
+.you-are-rating-landlord-name {
+    font-size: 45px;
+    margin-bottom: 10px;
+    margin-top: -500px; /* Adjust the value to move it higher */
+    margin-left: 70px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #4D55A5; 
+    position: absolute;
+}
+
+.write-a-review-string {
+    font-size: 35px;
+    margin-bottom: 10px;
+    margin-top: -100px; /* Adjust the value to move it higher */
+    margin-left: -900px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #4D55A5; 
+    position: absolute;
+
+}
+
+/* Section for user rating and review */
+.review-section {
+    width: 100%;
+    max-width: 800px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px; /* Space between header and content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    color: #333;
+    position: absolute;
+
+}
+
+/* Title of the review section */
+.review-section h2 {
+    font-size: 240px;
+    margin-bottom: 10px;
+    color: #4D55A5; /* Color for the landlord's name */
+    position: absolute;
+
+}
+
+.review-section h2 span {
+    color: #4D55A5; /* Color for the landlord's name */
+    position: absolute;
+
+}
+
+/* Write a review textarea */
+.review-box textarea {
+    width: 630px;
+    height: 300px;
+    padding: 10px;
+    border-radius: 2px;
+    margin-top: 160px; /* Adjust the value to move it higher */
+    margin-left: -590px; /* Move the element to the left */
+    border: 2px solid #645d5d9c;
+    box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.2); /* Left-bottom shadow */
+    margin-bottom: 10px;
+    font-size: 19px;
+    font-weight: 300 !important;
+    font-family: 'Helvetica';
+    position: absolute;
+    resize: none; /* Prevent resizing */
+
+}
+
+.guidelines {
+    width: 350px;
+    height: 150px;
+    padding: 10px;
+    border-radius: 2px;
+    margin-top: 180px; /* Adjust the value to move it higher */
+    margin-left: -190px; /* Move the element 20px to the left */
+    border: 2px solid #645d5d9c;
+    position: absolute;
+    top: -10px; /* Adjusts the position slightly above the review box */
+    background-color: #a3c091; /* Light green background */
+    padding: 10px;
+    border-radius: 5px;
+    color: #f9f6f6;
+    font-size: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for the guidelines box */
+}
+
+.guidelines-string{
+    font-size: 22px;
+    margin-bottom: 500px;
+    margin-top: -20px; /* Adjust the value to move it higher */
+    margin-left: 10px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #ffffff; 
+    position: absolute;
+}
+
+/* List for guidelines */
+.guidelines ul {
+    font-size: 18px;
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 40px; /* Adjust the value to move it higher */
+    font-weight: 300; /* Set font weight to normal */
+    position: absolute;
+
+}
+
+.guidelines li {
+    margin-bottom: 5px;
+}
+
+/* Select Property Dropdown----------------------------------------------------------- */
+/* Wrapper for the entire Select Property section */
+.select-property {
+    position: relative; /* Position the main container */
+    margin-bottom: 35px;
+    top: 290px; /* Adjusts vertical position of the whole section */
+    left: 950px; /* Adjusts horizontal position of the whole section */
+}
+
+/* Positioning for the label container */
+.select-property .label-container {
+    position: absolute;
+    top:-170px; /* Adjust as needed */
+    left: -800px; /* Adjust as needed */
+}
+
+.select-property label {
+    font-size: 35px;
+    font-weight: bold;
+    color: #4D55A5;
+}
+
+/* Positioning for the dropdown container */
+.select-property .dropdown-container {
+    position: absolute;
+    top: -120px; /* Move dropdown below the label */
+    left: -770px; /* Adjust to move dropdown left or right */
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 20px; /* Fully rounded edges */
+    border: 1px solid #ccc;
+    background-color: #fafaf5;
+}
+
+/* Styles for the select dropdown */
+.select-property select {
+    padding: 7px 25px 7px 20px; /* Add left padding */    
+    border-radius: 20px; /* More rounded edges */
+    border: 1px solid #ccc;
+    background-color: #fafaf5;
+    font-size: 20px;
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 25px; /* Space for custom arrow */
+    width: 100%; /* Full width within the dropdown container */
+}
+
+/* Custom arrow for dropdown */
+.select-property select::after {
+    content: '▼'; /* Unicode for down arrow */
+    position: absolute;
+    right: 10px;
+    color: #66cc00; /* Green color for the arrow */
+    pointer-events: none;
+    font-size: 20px;
+}
+
+/* Rate Your Landlord----------------------------------------------------*/
+.rate-your-landlord-string {
+    font-size: 35px;
+    margin-bottom: -700px;
+    margin-top: -570px; /* Adjust the value to move it higher */
+    margin-left: 620px; /* Move the element left */
+    color: #4D55A5; 
+    position: absolute;
+}
+
+/* Rate Your Landlord (Smiley Faces)*/
+.rate-landlord {
+    margin-bottom: 20px;
+}
+
+.rate-landlord label {
+    font-size: 35px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Container for rating icons */
+.rating-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 250px;
+    margin-left: 790px; /* Move the element to the left */
+
+}
+
+.rating-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.rating-icon.active {
+    opacity: 1;
+    filter: none;
+    transform: scale(1.1); /* Optional: slightly scale up selected icons */
+}
+
+/* Inactive icons show in grey but fully visible */
+.rating-icon.inactive {
+    opacity: 1;
+    filter: grayscale(100%) brightness(1.2);
+    /* Optional: You can add a slight overlay color to keep them consistently visible */
+    background-color: rgba(220, 220, 220, 0.3); /* Light grey overlay */
+    border-radius: 50%; /* Ensure the grey overlay matches the round shape */
+}
+
+/* ================== Frame 2 ================================================== */
+/* Frame 2 - Rating Criteria Section */
+.rating-criteria-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 200px;
+    gap: 40px;
+}
+
+/* Individual criterion styling */
+.criteria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #E6E6E6;
+    padding: 20px;
+    border-radius: 20px;
+    width: 250px;
+    height: 210px;
+    text-align: center;
+
+}
+
+.criterion-icon {
+    width: 100px;
+    height: 100px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.criterion-text {
+    font-size: 28px;
+    color: #4D55A5;
+    margin: 5px 0;
+}
+
+/* Thumbs container styling */
+.thumbs {
+    display: flex;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.thumb {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    filter: grayscale(100%); /* Start as grey by default */
+    transition: filter 0.2s ease;
+}
+
+.thumb.selected {
+    filter: none; /* Remove grey when selected */
+}
+
+/* Next and Back Button Styles */
+.next-btn, .back-btn {
+    width: 100px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    margin: 10px;
+}
+
+.next-btn {
+    background-image: url('../Assets/next-green.svg');
+}
+
+.back-btn {
+    background-image: url('../Assets/back-green.svg');
+}
+
+/* Frame 3-------------------------------------------- */
+/* Frame 3 - Rating Criteria Section */
+.rating-criteria-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 200px;
+    gap: 40px;
+}
+
+/* Individual criterion styling for Frame 3 */
+.criteria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #E6E6E6;
+    padding: 20px;
+    border-radius: 20px;
+    width: 250px;
+    height: 210px;
+    text-align: center;
+}
+
+/* Icons for each criterion in Frame 3 */
+.criterion-icon {
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+/* Text for each criterion in Frame 3 */
+.criterion-text {
+    font-size: 20px;
+    color: #4D55A5;
+    margin: 5px 0;
+}
+
+/* Thumbs container styling for Frame 3 */
+.thumbs {
+    display: flex;
+    gap: 20px;
+    margin-top: 60px;
+}
+
+/* Thumbs styling for Frame 3 */
+.thumb {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    filter: grayscale(100%); /* Start as grey by default */
+    transition: filter 0.2s ease;
+}
+
+.thumb.selected {
+    filter: none; /* Remove grey when selected */
+}
+
+/* Adjust Button Row for Frame 3 */
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 950px;
+    width: auto;
+    position: absolute;
+    bottom: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+}
+
+.back-btn, .next-btn {
+    width: 150px; /* Adjust button width */
+    height: 50px; /* Adjust button height */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border-radius: 25px;
+    box-sizing: border-box;
+    padding: 5px; /* Add some padding */
+}
+
+/* Next Button-------------------------------------------- */
+/* Next button styling specific to Frame 1 */
+.next-btn-frame1 {
+    width: 150px; /* Adjust button size as needed */
+    height: 50px;
+    background-image: url('../Assets/next-green.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    position: absolute;
+    bottom: 110px; 
+    left: 80%;
+    transform: translateX(-50%); /* Center horizontally */
+    border-radius: 25px;
+}
+
+/* Button row styling for frames 2 and onward */
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 950px;
+    width: auto;
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+
+}
+
+.back-btn, .next-btn {
+    width: 150px; /* Adjust button width */
+    height: 50px; /* Adjust button height */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border-radius: 25px;
+    box-sizing: border-box;
+    padding: 5px; /* Add some padding */
+}
+
+/*Frame 4-------------------------------------------*/
+/* Frame 4 Specific Styles */
+.frame4-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #B2C891; 
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    height: 1500px; 
+    margin: 100px auto; /* Center align */
+    margin-top: 150px; /* Move the image down by 20px, adjust as needed */
+    position: absolute;
+}
+
+.frame-4-add-rating-image {
+    width: 137px;  /* Set the width*/
+    height: 134px;  /* Set the height*/  
+    margin-top: -200px; /* Move the image down by 20px, adjust as needed */
+    margin-left: -500px; /* Move the image to the left by 30px, adjust as needed */
+    background-color: transparent;  /* Light gray background for the box */
+    position: absolute;
+}
+
+.frame-4-you-are-rating {
+    font-size: 18px;
+    margin-bottom: 500px;
+    margin-top: -180px; /* Adjust the value to move it higher */
+    margin-left: -100px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #9BA0CC; 
+    position: absolute;
+}
+
+.frame-4-you-are-rating-landlord-name {
+    font-size: 45px;
+    margin-bottom: 10px;
+    margin-top: 3px; /* Adjust the value to move it higher */
+    margin-left: 70px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #4D55A5; 
+    position: absolute;
+}
+
+/*"Review" string*/
+.frame-4-write-a-review-string {
+    font-size: 35px;
+    margin-bottom: 10px;
+    margin-top: 200px; /* Adjust the value to move it higher */
+    margin-left: -1100px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #4D55A5; 
+    position: absolute;
+}
+
+/*Review Box*/
+.frame4-review-text {
+    width: 630px;
+    height: 300px;
+    padding: 10px;
+    border-radius: 2px;
+    margin-top: 290px; /* Adjust the value to move it higher */
+    margin-left: -590px; /* Move the element to the left */
+    border: 2px solid #645d5d9c;
+    box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.2); /* Left-bottom shadow */
+    background-color: #FFFFFF; /* Set background to white */
+    margin-bottom: 10px;
+    font-size: 19px;
+    font-weight: 300 !important;
+    font-family: 'Helvetica';
+    position: absolute;
+    resize: none; /* Prevent resizing */
+}
+
+/* Frame 4 specific positioning for select-property */
+.select-property.frame4-position {
+    position: relative; /* or absolute, depending on your layout */
+    top: 450px; /* Adjust these values as needed */
+    left: 960px;
+    /* Other styling adjustments unique to Frame 4 */
+}
+
+/* "Your Rating" string*/
+.frame-4-rate-your-landlord-string {
+    font-size: 35px;
+    margin-top: 370px; /* Adjust the value to move it higher */
+    margin-left: 520px; /* Move the element left */
+    color: #4D55A5; 
+    position: absolute;
+}
+
+/* smiley row*/
+.frame4-rating-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 500px;
+    left: 900px;
+    position: absolute;
+}
+.frame4-criterion-container-4 {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 700px;
+    left: 10px;
+    width: 100%;
+    gap: 80px; /* Adjust gap to make items closer */
+}
+
+.frame4-criterion-container-3 {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1100px;
+    left: 10px;
+    width: 100%;
+    gap: 80px; /* Adjust gap to make items closer */
+
+}
+
+/* Container for both buttons in Frame 4 */
+.frame4-buttons-container {
+    position: relative;
+    width: 100%; /* Full width to position buttons independently */
+    display: flex;
+    justify-content: space-between; /* Optional: spreads buttons to opposite ends */
+    padding: 0 100px; /* Optional: add padding if needed */
+}
+
+/* Frame 4 Back Button Container */
+.frame4-back-container {
+    position: absolute;
+    left: 200px; /* Position from the left side */
+    bottom: -1450px; /* Position from the bottom */
+    width: 150px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+}
+
+/* Frame 4 Submit Button Container */
+.frame4-submit-container {
+    position: absolute;
+    right: 720px; /* Position from the right side */
+    bottom: -1700px; /* Position from the bottom */
+    width: 300px; /* Adjust as needed */
+    height: 300px; /* Adjust as needed */
+}
+
+/* Styling for Back and Submit Buttons */
+.frame4-back-btn,
+.frame4-submit-btn {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Additional styling for button images */
+.frame4-back-btn img,
+.frame4-submit-btn img {
+    width: 100%; /* Ensure the image scales to fit button */
+    height: auto;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-top: 1440px;
+    position: absolute;
+    left: 900px;
+    font-size: 18px;
+    color: #ffffff; /* Text color */
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 25px; /* Adjust size */
+    height: 25px;
+    margin-right: 10px; /* Space between checkbox and text */
+    border: 2px solid #ff0000; /* Red border for checkbox */
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"]:checked {
+    background-color: #4D55A5; /* Color when checked */
+}
+
