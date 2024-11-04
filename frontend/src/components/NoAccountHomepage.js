@@ -1,3 +1,4 @@
+
 import React, { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for routing
 import { isTokenValid } from './authentication';  // Import token utility
@@ -162,7 +163,4 @@ function NoAccountHomePage() {
         </div>
     );
 }
-
-
-
 export default NoAccountHomePage;

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 184.08 37.65">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#New_Gradient_Swatch_copy_2);
+      }
+    </style>
+    <linearGradient id="New_Gradient_Swatch_copy_2" data-name="New Gradient Swatch copy 2" x1="92.04" y1="37.65" x2="92.04" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e3efcf"/>
+      <stop offset=".05" stop-color="#e5ceb1"/>
+      <stop offset=".12" stop-color="#e7a38a"/>
+      <stop offset=".19" stop-color="#ea8069"/>
+      <stop offset=".27" stop-color="#eb6450"/>
+      <stop offset=".34" stop-color="#ed503e"/>
+      <stop offset=".41" stop-color="#ed4433"/>
+      <stop offset=".49" stop-color="#ee4130"/>
+      <stop offset=".61" stop-color="#ee4332"/>
+      <stop offset=".69" stop-color="#ee4a3a"/>
+      <stop offset=".75" stop-color="#f05748"/>
+      <stop offset=".8" stop-color="#f16a5c"/>
+      <stop offset=".85" stop-color="#f38276"/>
+      <stop offset=".89" stop-color="#f69f96"/>
+      <stop offset=".94" stop-color="#f9c2bc"/>
+      <stop offset=".98" stop-color="#fde9e7"/>
+      <stop offset=".99" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer_1">
+    <rect class="cls-1" x="0" y="0" width="184.08" height="37.65" rx="18.83" ry="18.83"/>
+  </g>
+</svg>
