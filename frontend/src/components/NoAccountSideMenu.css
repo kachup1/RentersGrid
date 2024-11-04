@@ -1,0 +1,173 @@
+﻿/*Define the font*/
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/Helvetica-Bold.ttf') format('truetype'); /* Adjust this path as necessary */
+    font-weight: normal;
+    font-style: normal;
+}
+/*Use font*/
+body, .side-menu {
+    font-family: 'Helvetica-Bold';
+}
+
+/*for the 3 bar icon*/
+.menu-bar{
+    width: 60px;
+    height: auto;
+    cursor: pointer;
+    margin-top: 40px;
+    margin-left: 40px;
+   
+}
+/*for the 3 bar menu icon*/
+.menu-button {
+    background: none;
+    border:none;
+}
+/* Container for each menu item */
+.side-menu ul li {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    padding: 15px 0; /* Add some padding for spacing */
+    cursor: pointer;
+}
+
+/* Ensure consistent text alignment */
+.menu-text {
+    font-size: 25px;
+    display: flex;
+    align-items: center; /* Align text vertically in the center */
+}
+
+/* Icon styles */
+.menu-homepage, .menu-search, .menu-add, .menu-sign {
+    height: auto;
+    margin-right: 20px; /* Space between the icon and the text */
+}
+
+/* Adjust individual icon sizes */
+.menu-homepage {
+    width: 33px; 
+}
+
+.menu-search {
+    width: 29px; 
+}
+
+.menu-add {
+    width: 28px; 
+}
+
+.menu-sign {
+    width: 28px; 
+}
+
+.side-menu.open {
+    margin-top: 0px;
+    margin-left: 20px;
+    width: 430px;
+    border-radius: 30px;
+    transform: scale(1);
+    transition: width 0.3s ease,height 0.3s ease;
+    height: 500px;
+    overflow:hidden;
+}
+
+/* Close button styling */
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.close-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.side-menu img.menu-logo {
+    display: block;
+    margin-top: 10px;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.side-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-menu ul li {
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    padding: 10px 16px;  /*Moves the icons and texts up or down*/
+    text-align: left;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    transition: background-color 0.3s;
+    border-radius:15px;
+}
+
+.side-menu ul li:hover {
+    background-color: #575757;
+    border-radius:15px;
+}
+
+.side-menu a {
+    text-decoration: none; /* Remove underline */
+    color: #575757; /* Set your preferred color */
+    font-weight: 500; /* Optional: Make the text a bit bolder */
+}
+
+    .side-menu a:visited {
+        color: white; /* Ensure visited links keep the same color */
+    }
+
+    .side-menu a:hover {
+        color: white; /* Prevent color change on hover */
+    }
+
+    .side-menu a:active {
+        color: white; /* Prevent color change when clicked */
+    }
+.map-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.map-container {
+    width: 90%;
+    height: 60vh;
+}
+
+@media only screen and (max-width: 768px) {
+    .search-bar-container {
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .map-container {
+        width: 95%;
+        height: 100vh;
+    }
+}
+/*Resizing the menu popup when the screen gets smaller*/
+@media(min-width:180px)and (max-width:1024px) {
+    .side-menu {
+        padding:30px;
+    }
+
+        .side-menu.open {
+            width: 250px;
+        }
+}

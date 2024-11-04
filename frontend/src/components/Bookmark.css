@@ -1,0 +1,210 @@
+/* Main container for the bookmark page */
+.mybookmark-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #4D55A5;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.mybookmark-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+  margin-top: 50px; /* Increase the margin from the top */
+
+}
+
+.myheader-bookmark-icon {
+  width: 60px;  /* Increase size */
+  height: auto;
+  margin-right: 10px;  /* Adjust spacing between icon and text */
+}
+
+.mybookmark-header h1 {
+  font-size: 3.5rem;  /* Increase font size */
+  color: #fff;
+}
+
+.myhighlight-bookmarks {
+  color: #8EC860;  /* The green color used in 'Bookmarks' */
+}
+
+
+/* Search dropdown */
+.mybookmark-search-container {
+  width: 40%;
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.mybookmark-search-dropdown {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #fff;
+  color: #4D55A4;
+}
+
+/* Permanent side menu */
+.mybookmark-left-side-menu {
+  width: 250px;
+  background-color: #4D55A5;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align content to the left */
+  position: fixed; /* Keep the menu fixed on the left side */
+  top:100px;
+  left: 40px;
+  height: 100vh; /* Full height */
+}
+
+/* Styling for the menu logo */
+.mybookmark-left-menu-logo {
+  width: 350px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* Styling for the list items */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Styling for each menu item */
+li {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.mybookmark-left-menu-icon {
+  margin-right: 10px;
+  width: 40px; /* Set a fixed size for the icons */
+  height: auto;
+}
+
+li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+li a:hover {
+  color: #7CC365; /* Add a hover effect for better interaction */
+}
+
+/* Content container (the rest of the page) */
+.bookmark-content {
+  margin-left: 250px; /* Push content to the right, considering sidebar width */
+  flex-grow: 1;
+  padding: 20px;
+}
+
+/* Container for the list of landlords */
+.mylandlord-list {
+  width: 40%;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* Styling for individual landlord cards */
+.mylandlord-card {
+  background-color: #DCDDDE;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative; /* This ensures the bookmark icon can be positioned relative to the card */
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover effect for the cards */
+.mylandlord-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Rating box in the landlord card */
+.myrating-box {
+  background-color: #B1B3B5;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  color: #616162;
+  font-weight: bold;
+}
+
+.myrating-box h3 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.myrating-box span {
+  display: block;
+  margin-top: 5px;
+}
+
+.myrating-box p {
+  margin-top: 10px;
+}
+
+/* Landlord information */
+.mylandlord-info {
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+.mylandlord-info h2 {
+  font-size: 1.8rem;
+  color: #616162;
+  margin-bottom: 10px;
+}
+
+.landlord-info p {
+  font-size: 1rem;
+  color: #616162;
+  margin-bottom: 5px;
+}
+
+/* Bookmark icon */
+.mybookmark-icon {
+  position: absolute; /* Ensure it's placed relative to the card */
+  top: 10px;          /* Distance from the top */
+  right: 10px;        /* Distance from the right side of the card */
+  width: auto;        /* Adjust width */
+  height: 50px;       /* Adjust height */
+  cursor: pointer;    /* Make it clickable */
+}
+.my-bookmark-icon {
+  width: auto; /* Adjust to desired size */
+  height: 45px;
+  max-width: 100%;
+  margin-right: 10px;
+
+  max-height: 100%;
+}
+.mybookmark-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensure the icon fits within the box */
+}
+/* Message when there are no bookmarks */
+.mybookmark-page p {
+  color: #616162;
+  font-size: 1.2rem;
+}
