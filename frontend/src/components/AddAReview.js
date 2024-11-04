@@ -491,10 +491,6 @@ const AddAReview = () => {
     </div>
 )}
 
-
-
-
-{/* Button for frame 1 */}
 {/* Button for frame 1 (Next Button) */}
 {currentStep === 1 && (
     <button
