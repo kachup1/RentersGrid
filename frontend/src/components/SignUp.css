@@ -11,7 +11,7 @@ html, body {
 /* Define the font */
 @font-face {
   font-family: 'Helvetica';
-  src: url('../fonts/helvetica.woff') format('truetype');
+  src: url('../fonts/Helvetica.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -205,4 +205,3 @@ body {
   bottom: -300px;
   
 }
-

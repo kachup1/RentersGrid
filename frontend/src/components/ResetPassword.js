@@ -4,7 +4,7 @@ import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MenuAlt from '../Assets/menu-alt.svg';
-import NoAccountSideMenu from './NoAccountSideMenu';
+import SideMenu from './SideMenu';
 import { Link, useNavigate } from 'react-router-dom';
 
 function ResetPassword() {
@@ -40,7 +40,7 @@ function ResetPassword() {
 
     return (
         <div className="reset-password-main-container">
-            <NoAccountSideMenu />
+            <SideMenu />
             <header>
                 <div className="reset-password-logo-container">
                     <a href="/">
