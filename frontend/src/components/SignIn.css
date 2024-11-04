@@ -12,13 +12,13 @@ html, body {
 
   @font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/Helvetica-Bold.ttf') format('truetype');
+    src: url('../fonts/helvetica-bold.woff') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/Helvetica.ttf') format('truetype');
+    src: url('../fonts/helvetica.woff') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
