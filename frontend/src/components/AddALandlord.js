@@ -61,8 +61,7 @@ function AddALandlord() {
                 {/* Right Image: Account Button */}
                 <img src={AccountButton} alt="Account Button" className="add-a-landlord-right"/>
 
-                {/* Triangle to show where we are */}
-                <img src={Triangle} alt="Triangle" className="add-a-landlord-triangle"/>
+                
 
             </header>
 
@@ -90,6 +89,8 @@ function AddALandlord() {
                     <Link to="/add-landlord">
                     <img src={addLandlordIcon} alt="Add a Landlord" className="add-a-landlord-left-menu-icon" />
                     Add a Landlord
+                    {/* Triangle to show where we are */}
+                    <img src={Triangle} alt="Triangle" className="add-a-landlord-triangle"/>   
                     </Link>
                 </li>
                 <li>
@@ -118,6 +119,7 @@ function AddALandlord() {
                     <Link to="/bookmarks">
                     <img src={myBookmark} alt="Add a Landlord" className="add-a-landlord-left-menu-icon" />
                     My Bookmarks
+                
                     </Link>
                 </li>
                 </ul>
@@ -264,6 +266,7 @@ function AddALandlord() {
                             
                         </div>
 
+                        {/* Additional City */}
                         <div className="add-a-landlord-additional-input-box">
                         <label className="add-a-landlord-additional-city-text">City:</label>
                                 <input
@@ -276,6 +279,7 @@ function AddALandlord() {
                             
                         </div>
 
+                        {/* Additional State */}
                         <div className="add-a-landlord-additional-input-box">
                             <label className="add-a-landlord-additional-state-text">State:</label>
                             <select className="add-a-landlord-additional-state-dropdown" required>
@@ -286,6 +290,7 @@ function AddALandlord() {
                             </select>
                         </div>
 
+                        {/* Additional Zip Code */}
                         <div className="add-a-landlord-additional-input-box">
                                 <label className="add-a-landlord-additional-zip-code-text">Zip Code:</label>
                                 <input
