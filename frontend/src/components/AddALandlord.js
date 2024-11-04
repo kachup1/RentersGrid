@@ -28,7 +28,7 @@ function AddALandlord() {
     const [showStates, setShowStates] = useState(false);
     const [selectedState, setSelectedState] = useState('');
     const [nameType, setNameType] = useState('individual');
-    const [showAddProperty, setShowAddProperty] = useState('false');
+    const [showAddProperty, setShowAddProperty] = useState(false);
 
     // List of U.S. states
     const states = [
