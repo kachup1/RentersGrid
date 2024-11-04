@@ -8,11 +8,15 @@ import LandlordProfile from './components/LandlordProfile';
 import ResetPassword from './components/ResetPassword';
 import ResetPasswordUpdate from './components/ResetPasswordUpdate';
 import AddProperty from './components/AddProperty';
+import AddAReview from './components/AddAReview';
+import AddALandlord from './components/AddALandlord';
+
+
 
 
 import { useState } from 'react';
 import axios from 'axios';
-import AddAReview from './components/AddAReview';
+
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
@@ -29,6 +33,10 @@ function App() {
                 <Route path="/resetpassword" element={<ResetPassword />} />
                 <Route path="/resetpasswordupdate" element={<ResetPasswordUpdate />} />
                 <Route path="/addproperty" element={<AddProperty />} />
+                <Route path="/AddAReview" element={<AddAReview />} />
+                <Route path="/AddALandlord" element={<AddALandlord />} />
+
+
 
                 {/* Other Routes */}
             </Routes>
