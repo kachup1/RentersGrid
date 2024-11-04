@@ -1,15 +1,4 @@
-<<<<<<< Updated upstream
-import React from 'react';
-import './LandlordProfile.css';
 
-const LandlordProfile = () => {
-  return (
-    <div className="txt">
-      <h1>This page is for next sprint</h1>
-    </div>
-  );
-};
-=======
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
@@ -279,6 +268,6 @@ function LandlordProfile() {
         </div>
     );
 }
->>>>>>> Stashed changes
+
 
 export default LandlordProfile;

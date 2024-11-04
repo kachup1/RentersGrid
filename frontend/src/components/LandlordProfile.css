@@ -1,39 +1,13 @@
-<<<<<<< Updated upstream
-@font-face {
-    font-family: 'Helvetica-Bold';
-    src: url('../fonts/helvetica-bold.woff') format('woff');
-=======
+
 /* Define the font */
 @font-face {
     font-family: 'Helvetica';
     src: url('../fonts/helvetica.woff') format('truetype');
->>>>>>> Stashed changes
     font-weight: normal;
     font-style: normal;
 }
 
-<<<<<<< Updated upstream
-body {
-    margin: 0;               /* Remove default margin from body */
-    background-color: #4D55A5; /* Set the background color */
-    height: 100vh;           /* Ensure the body takes full height */
-    font-family: 'Helvetica-Bold'; /* Apply the custom font */
-}
 
-.txt {
-    display: flex;
-    justify-content: center;  /* Center horizontally */
-    align-items: center;      /* Center vertically */
-    height: 100vh;           /* Full viewport height */
-    text-align: center;       /* Center text alignment */
-}
-
-.txt h1 {
-    font-weight: normal;        /* Make the text bold */
-    font-size: 2rem;          /* Adjust the size if needed */
-    margin: 0;                /* Remove default margin */
-    color: white;             /* Set text color to white */
-=======
 @font-face {
     font-family: 'Helvetica-Bold';
     src: url('../fonts/helvetica-bold.woff') format('truetype');
@@ -620,5 +594,5 @@ body {
     .review-date {
         font-size: 0.9rem;
     }
->>>>>>> Stashed changes
+
 }

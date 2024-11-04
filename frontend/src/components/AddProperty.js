@@ -68,7 +68,7 @@ function AddProperty() {
             {/*This is the title of the page*/ }
             <div className="title-section">
                 <img src={Person} alt="Person Icon" className="person-icon" />
-                <h1 className="title-text">Add a Landlord</h1>
+                <h1 className="title-text">Add a Property</h1>
             </div>
             {/*This is the form*/ }
             <div className="form-section">
