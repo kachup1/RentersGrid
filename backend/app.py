@@ -319,5 +319,57 @@ def change_password():
 
     return jsonify({"message": "Password changed successfully"}), 200  # Return success if everything works
 
+
+
+#-------------------------------------------Landlord Profile---------------------------------------------------
+@app.route('/api/landlord/<landlordId>', methods=['GET'])
+def get_landlord_profile(landlordId):
+    pipeline = [
+        {
+            '$match': {'landlordId': landlordId}
+        },
+        {
+            '$lookup': {
+                'from': 'properties',
+                'localField': 'propertyId',
+                'foreignField': 'propertyId',
+                'as': 'properties'
+            }
+        },
+        {
+            '$lookup': {
+                'from': 'ratings',
+                'localField': 'landlordId',
+                'foreignField': 'landlordId',
+                'as': 'ratings'
+            }
+        },
+        {
+            '$addFields': {
+                'averageRating': {'$avg': '$ratings.score'},
+                'reviewCount': {'$size': '$ratings'}
+            }
+        },
+        {
+            '$project': {
+                '_id': 0,
+                'landlordId': 1,
+                'name': 1,
+                'averageRating': 1,
+                'reviewCount': 1,
+                'properties': 1,
+                'ratings': 1
+            }
+        }
+    ]
+
+    landlord = landlords_collection.aggregate(pipeline)
+    landlord_data = list(landlord)  # Convert cursor to list
+    if landlord_data:
+        return jsonify(landlord_data[0]), 200
+    else:
+        return jsonify({'error': 'Landlord not found'}), 404
+
+
 if __name__ == '__main__':
     app.run(debug=True)

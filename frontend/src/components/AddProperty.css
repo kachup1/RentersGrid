@@ -1,0 +1,157 @@
+﻿/* Define the font */
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica.woff') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica-Bold';
+    src: url('../fonts/helvetica-bold.woff') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.add-property-container {
+    background-color: #4D55A5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* This keeps the sidebar fixed if needed */
+}
+
+.top-right-icons {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    display: flex;
+    gap: 60px;
+}
+
+.top-right-icons img {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+
+/*This is the title:*/
+.title-section {
+    display: flex;
+    align-items: center;
+    margin-top: -35%;
+    margin-left: 0%;
+    position:absolute;
+}
+
+.person-icon {
+    width: 60px; /* Adjust as needed */
+    height: 60px; /* Adjust as needed */
+    margin-right: 10px;
+}
+
+.title-text {
+    font-family: 'Helvetica-Bold';
+    font-size: 60px;
+    color: white;
+}
+
+/*Sidemenu:*/
+/* Sidebar styles */
+.sidebar {
+    width: 200px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 200px;
+    left: 50px;
+    color: white;
+    gap: 5px;
+}
+
+.sidebar-logo {
+    width: 170px; /* Adjust as needed */
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.menu-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+    gap:20px;
+}
+
+.menu-item img {
+    width: 34px; /* Adjust as needed */
+    height: 34px;
+    margin-right: 10px;
+   
+    
+}
+
+.menu-item span {
+    font-family: 'Helvetica';
+    font-size: 20px;
+}
+
+/*FORM SECTION:*/
+/* Form section */
+.form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 350px; /* Adjust as needed */
+    gap: 10px;
+    color: white;
+    margin-top:200px;
+    margin-bottom:20px;
+}
+
+/* Labels */
+.form-label {
+    font-family: 'Helvetica';
+    font-size: 16px;
+    color: white;
+}
+
+    .form-label.required::before {
+        content: '* ';
+        color: red;
+    }
+
+/* Input fields */
+.form-input {
+    width: 300px;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    background-color: #cfcfcf;
+    border-radius: 5px;
+}
+
+.form-select {
+    width: 100px;
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    background-color: #cfcfcf;
+    border-radius: 5px;
+}
+
+/* Submit button */
+.submit-button {
+    width: 200px;
+    padding: 10px;
+    background-color: #a4c639;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+}
