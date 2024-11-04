@@ -1,33 +1,32 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import home from '../Assets/home.svg'; 
+import { Link,useNavigate  } from 'react-router-dom';
+import home from '../Assets/home.svg'; // Example icons
 import searchIcon from '../Assets/menu-1.svg';
 import addLandlordIcon from '../Assets/menu-2.svg';
 import signOutIcon from '../Assets/menu-3.svg';
 import accountIcon from '../Assets/Account button.svg';
+//import ratingsIcon from '../Assets/ratings-icon.svg';
+//import bookmarksIcon from '../Assets/bookmarks-icon.svg';
 import './SideMenu.css'; // Include CSS styles for the side menu
-import { useNavigate } from 'react-router-dom';
 
-
-function SideMenu() {
+function SideMenu({ onSignOut }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   // Toggle the menu open/close state
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
   const handleSignOut = () => {
-    localStorage.removeItem('token'); // Remove the token from localStorage
-    navigate('/');
+    localStorage.removeItem('token');  // Remove the token from localStorage
+    navigate('/');  // Redirect to the homepage after sign-out
   };
 
   return (
     <div>
       {/* Menu button */}
       <div className="menu-button" onClick={toggleMenu}>
-      <img src={require('../Assets/menu-bar.svg').default} alt="menuBar" className="menu-bar" />
+        <span className="menu-icon">&#9776;</span>
       </div>
 
       {/* Side menu */}
@@ -59,11 +58,10 @@ function SideMenu() {
             </Link>
           </li>
           <li>
-            {/* Add navigation using Link for Sign Out */}
-            <Link to="#" onClick={handleSignOut}>
+            <a href="#" onClick={(handleSignOut)} >
               <img src={signOutIcon} alt="Sign Out" className="menu-icon" />
               Sign Out
-            </Link>
+            </a>
           </li>
     
           <li>
