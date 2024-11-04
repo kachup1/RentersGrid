@@ -1,6 +1,23 @@
-﻿@font-face {
+@font-face {
     font-family: 'Helvetica';
     src: url('../fonts/Helvetica.ttf') format('truetype'); /* Adjust this path as necessary */
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: 'Helvetica';
+}
+.main-container {
+    background-color: #4D55A5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+﻿@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica.woff') format('truetype'); /* Adjust this path as necessary */
     font-weight: normal;
     font-style: normal;
 }
@@ -155,4 +172,5 @@ body {
     .search-input {
         width: 100%;
     }
+
 }
