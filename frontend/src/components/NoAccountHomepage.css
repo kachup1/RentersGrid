@@ -1,11 +1,15 @@
 ﻿@font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/Helvetica.ttf') format('truetype'); /* Adjust this path as necessary */
+    src: url('../fonts/helvetica.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
-body {
+
+@font-face {
     font-family: 'Helvetica';
+    src: url('../fonts/helvetica-bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
 }
 .main-container {
     background-color: #4D55A5;
