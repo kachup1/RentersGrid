@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ReportProblem.css';
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
-import ReportButton from '../Assets/3-ppl-icon.svg';
+import ReportButton from '../Assets/report-title.svg';
 import MenuAlt from '../Assets/main-logo.svg';
 import NoAccountSideMenu from './NoAccountSideMenu';
 import { Link } from 'react-router-dom';

@@ -31,7 +31,7 @@ function ReportReviewConfirmation() {
             </header>
 
             <div className="report-review-confirmation-wrapper">
-                <h1 className="report-review-title">Report a review</h1>
+                <h1 className="report-review-title">Report a Review</h1>
                 <p className="report-review-message">
                     Thank you for bringing this to our attention. We will thoroughly investigate the matter.
                 </p>

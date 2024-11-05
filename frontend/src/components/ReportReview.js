@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ReportReview.css';
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
-import ReportButton from '../Assets/3-ppl-icon.svg';
+import ReportButton from '../Assets/report-title.svg';
 import MenuAlt from '../Assets/main-logo.svg';
 import NoAccountSideMenu from './NoAccountSideMenu';
 import { Link } from 'react-router-dom';
@@ -52,7 +52,7 @@ function ReportReview() {
                 <div className="report-review-form-box">
                     <div className="title-container">
                     <img src={ReportButton} alt="Report Button" className="report-review-icon" />
-                    <h1 className="report-review-title">Report a review</h1>
+                    <h1 className="report-review-title">Report a Review</h1>
                     </div>
                     <label htmlFor="review-select" className="report-review-label">*Why are you reporting?</label>
                     <select
