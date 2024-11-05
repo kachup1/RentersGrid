@@ -11,7 +11,8 @@ import AddProperty from './components/AddProperty';
 import AddAReview from './components/AddAReview';
 import AddALandlord from './components/AddALandlord';
 
-
+import MyAccount from './components/MyAccount';
+import MyRatings from './components/MyRatings';
 
 
 import { useState } from 'react';
@@ -35,7 +36,8 @@ function App() {
                 <Route path="/addproperty" element={<AddProperty />} />
                 <Route path="/AddAReview" element={<AddAReview />} />
                 <Route path="/AddALandlord" element={<AddALandlord />} />
-
+                <Route path="/myaccount" element={<MyAccount />} />
+                <Route path="/myratings" element={<MyRatings />} />
 
 
                 {/* Other Routes */}
