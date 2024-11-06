@@ -11,7 +11,7 @@ import signOutIcon from '../Assets/signout.svg';
 import accountIcon from '../Assets/Account button.svg';
 import myrating from '../Assets/my-rating.svg';
 import myBookmark from '../Assets/my bookmark.svg'; // Empty bookmark icon
-
+import triangle from '../Assets/triangle.svg';
 function Bookmark() {
   const [bookmarkedLandlords, setBookmarkedLandlords] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
@@ -190,6 +190,7 @@ function Bookmark() {
         <Link to="/bookmarks">
         <img src={myBookmark} alt="Add a Landlord" className="mybookmark-leftmenu-icon my-bookmark-icon" />
           My Bookmarks
+          <img src={require('../Assets/triangle.svg').default} alt="Triangle Icon" className="triangle-icon" />
         </Link>
       </li>
     </ul>
@@ -206,7 +207,7 @@ function Bookmark() {
               onClick={() => navigate(`/LandlordProfile/${landlord.landlordId}`)}
             >
               <div className="myrating-box">
-                <h3>{landlord.averageRating ? landlord.averageRating.toFixed(1) : 'No Rating'}</h3>
+                <h2>{landlord.averageRating ? landlord.averageRating.toFixed(1) : 'No Rating'}</h2>
                 <span>Rating</span>
                 <p>{landlord.reviewCount} Reviews</p>
               </div>

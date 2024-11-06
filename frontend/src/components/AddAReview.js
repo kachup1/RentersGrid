@@ -514,7 +514,7 @@ const AddAReview = () => {
 )}
   
     </div>
-    );
+    ); 
 };
 
 export default AddAReview;

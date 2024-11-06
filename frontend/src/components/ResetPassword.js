@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ResetPassword.css';
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
@@ -6,11 +6,14 @@ import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MenuAlt from '../Assets/menu-alt.svg';
 import SideMenu from './SideMenu';
 import { Link, useNavigate } from 'react-router-dom';
+import NoAccountSideMenu from './NoAccountSideMenu';
+import { isTokenValid } from './authentication';
 
 function ResetPassword() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent the default form submission
@@ -38,9 +41,22 @@ function ResetPassword() {
         }
     };
 
+    
+    useEffect(() => {
+        if (isTokenValid()) {
+          setIsLoggedIn(true);
+          
+          
+        } 
+        // if no token is found the status is false.
+        else {
+          setIsLoggedIn(false);
+        }
+      }, []);
+
     return (
         <div className="reset-password-main-container">
-            <SideMenu />
+            {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
             <header>
                 <div className="reset-password-logo-container">
                     <a href="/">

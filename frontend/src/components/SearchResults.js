@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
-import Map from './Map';
+import SearchResultsMap from './SearchResultsMap';
 //list of all assets and pages.
 import LandlordProfile from './LandlordProfile'; //not working 
 import ClearSelectionIcon from '../Assets/clear-selection.svg';
@@ -23,6 +23,8 @@ function SearchPage() {
   const [sortBy, setSortBy] = useState('');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
+  const resultsRefs = useRef([]); // Array of refs for each search result
+
   const [bookmarked, setBookmarked] = useState({});
 
   const navigate = useNavigate();
@@ -60,6 +62,7 @@ function SearchPage() {
   };
 //checks if user is logged and if not would make user unable to bookmark and save it it 
 //their account
+
 useEffect(() => {
   if (isTokenValid()) {
     setIsLoggedIn(true);
@@ -158,6 +161,8 @@ useEffect(() => {
     return response.json();  // This could throw if the response is HTML
   })
   .then(data => {
+    console.log("Search API Data:", data); // Add this line
+
     setResults(data);
     setLoading(false);
   })
@@ -206,6 +211,12 @@ useEffect(() => {
   // Use navigate to navigate to the landlord profile page
   const handleLandlordClick = (landlordId) => {
     navigate(`/LandlordProfile/${landlordId}`);
+  };
+
+  const scrollToResult = (index) => {
+    if (resultsRefs.current[index]) {
+      resultsRefs.current[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -299,9 +310,14 @@ useEffect(() => {
         <div className="search-results-container">
           <h1>Search Page</h1>
           <div className="results-list">
-            {results && results.length > 0 ? (
-              results.map((result) => (
-                <div className="result-card" key={result.landlordId} onClick={() => handleLandlordClick(result.landlordId)}>
+          {results && results.length > 0 ? (
+              results.map((result, index) => (
+                <div
+                  className="result-card"
+                  key={result.landlordId}
+                  ref={(el) => (resultsRefs.current[index] = el)} // Attach ref to each result
+                  onClick={() => handleLandlordClick(result.landlordId)}
+                >
                   <div className="result-card-header">
                     <div className="rating-box">
                       <span>Avg Rating</span>
@@ -344,10 +360,12 @@ useEffect(() => {
           </div>
         </div>
       </div>
-      {/* Map Section */}
+      {/* Search Results Map */}
       <section className="result-map-section">
         <div className="result-map-container">
-          <Map mapHeight="400px" />
+          <SearchResultsMap filteredResults={results} 
+          onMarkerClick={scrollToResult} // Pass scrollToResult as a prop
+/>
         </div>
       </section>
     </div>

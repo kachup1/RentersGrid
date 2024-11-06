@@ -1,0 +1,191 @@
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica-bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* whole page container */
+.my-account-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Side menu */
+.side-menu {
+    width: 350px;
+    background-color: #4D55A5;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    padding-top: 300px;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
+    font-size: 19px;
+}
+
+.side-menu nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.side-menu nav ul li {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+/* Icons next to sidemenus text */
+.icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+    fill: white;
+}
+
+
+.logo img {
+    width: 300px; /* Adjust width as needed */
+    height: auto;  /* Keeps aspect ratio */
+    margin-bottom: 30px; 
+}
+
+.main-content {
+    padding-top: 100px;
+    padding-left: 240px;
+    flex-grow: 1;
+    background-color: #4D55A5;
+    min-height: 100vh; /* to fill all with color*/
+    overflow: hidden;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: normal;
+}
+
+.background-logo {
+    position: absolute;
+    right: 100px;
+    margin-top: 270px;
+    opacity: 0.3; /* 30% opacity */
+    width: 580px; /* Adjust width as needed */
+    height: auto;
+    pointer-events: none; /* Prevents the background from interfering with other elements */
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 35pt;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
+}
+
+.titleicon {
+    width: 90px;
+    height: 90px;
+    margin-right: 15px;
+}
+
+/* Container for form */
+.user-info-container {
+    margin-top: 10px;
+    border-radius: 8px;
+    max-width: 600px;
+}
+
+/* space between email and password forms */
+.input-group {
+    margin-bottom: 20px;
+}
+
+/* label sizes */
+.input-group label {
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 5px;
+    display: block;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
+}
+
+/* Align input and icons horizontally */
+.input-with-icons {
+    display: flex;
+    align-items: center;
+}
+
+/* box sizes */
+.input-with-icons input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 350px;
+    transition: border-color 0.5s ease;
+}
+
+/* box border color when selecting */
+.input-with-icons input:focus {
+    border-color: #94C841; 
+    outline: none; /* Removes the default blue outline */
+    border-width: 4px;
+}
+.confirm {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 350px;
+}
+
+/* Icons for edit and save */
+.mainicon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* margin to the first icon only (edit icon) */
+.input-with-icons img:first-of-type {
+    margin-left: 25px; /* Space between input and edit icon */
+}
+
+/* Smaller margin between edit and save icons */
+.input-with-icons img + img {
+    margin-left: 15px; /* Adjust space between icons */
+}
+
+.confirm-group {
+    margin-top: -8px; /* space between password and confirm pw box */
+}
+
+
+.top-right-icons {
+    position: absolute;
+    top: 80px;
+    right: 70px;
+    display: flex;
+    gap: 20px; /* Space between the icons */
+    
+}
+
+.add-icon {
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+}
+
+.account-icon {
+    width: auto;
+    height: 65px;
+    cursor: pointer;
+}

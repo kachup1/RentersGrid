@@ -1,6 +1,8 @@
 /* Container for the search page */
 .search-page-container {
   background-color: #4D55A5;
+  flex-direction: row; /* Side-by-side layout */
+
   min-height: 100vh;
   padding: 20px;
   margin: 0 auto;
@@ -76,7 +78,7 @@
   width: 300px;
   border: 1px solid #ccc;
   border-left: none;
-  border-radius: 0;
+  border-radius:0 30px 30px 0; /* Rounded left corners */
 }
 .clear-icon {
   margin-left: 10px;
@@ -125,39 +127,51 @@
 
 /* Adjusted Container for search results */
 .search-results-container {
+  flex: 1; /* Map container takes up available space */
+  position: relative;
+min-width: 50%;
   padding: 10px; /* Reduce padding inside the container */
   background-color: #f0f0f0;
   display: flex;
   flex-direction: column; /* Stack cards vertically */
   align-items: flex-start; /* Align items to the left inside the container */
-  width: 100%; /* Take up full width of the right section */
-  max-width: 500px; /* Set a maximum width */
+  width: auto; /* Take up full width of the right section */
+  max-width: auto; /* Set a maximum width */
   margin: 0; /* Reset margin */
   box-sizing: border-box;
+  border-radius:15px 15px 15px 15px ; /* Rounded left corners */
+
 }
 
 /* Results List */
 .results-list {
+  flex: 1; /* Map container takes up available space */
+position: relative;
   list-style-type: none;
-  padding: 0;
+  padding: 10px;
   margin: 0;
-  width: 100%; /* Ensure the list takes full width */
+  max-height: 500px; /* Set a fixed height to show two cards at a time */
+  overflow-y: auto;  /* Enable vertical scrolling */
+  max-width: auto;    /* Make sure the list takes the full width */
+  min-width: 650px;
 }
+
 /* Result Card Styling */
 /* Result Card Styling */
 .result-card {
   cursor: pointer;  /* Show hand cursor */
   display: flex;
   flex-direction: column;
-  background-color: #ccc !important;  /* Original background color */
+  background-color: #b0aeae !important;  /* Original background color */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 15px;
-  width: 100%;
-  max-width: 420px;
+  width: auto;
+  max-width: auto;
   transition: box-shadow 0.3s ease, background-color 0.3s ease; /* Add transition for background-color */
   position: relative;
+  
 }
 
 /* Hover Effect */
@@ -222,8 +236,8 @@
 }
 
 .bookmark-icon-img {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   
 }
@@ -232,75 +246,13 @@
   position: relative;
   padding-right: 40px; /* To make room for the bookmark icon */
 }
+
 .result-map-container {
+  z-index: 12;
   margin-top: 50px;
-  padding:10px;
-  width: 55%;
+  display: flex;
+  width: auto;
   max-width: 60%;      /* Prevent it from exceeding the container's width */
-  height: 80vh;        /* Fixed height for the map */
-  max-height: 100%;
-  overflow: hidden;     /* Prevent map from overflowing */
-  box-sizing: border-box; /* Ensure padding doesn't add to the overall width */
-}
-@media (max-width: 768px) {
-  .search-page-container {
-    padding: 15px;
-  }
+  height: 600px;        /* Fixed height for the map */
 
-  .buttons-container {
-    right: 30px;
-  }
-
-  .logo-container img {
-    width: 350px;
-  }
-
-  .searchby-and-sort-wrapper {
-    position: relative;
-    top: 150px;  /* Adjust vertical position for smaller screens */
-    right: 30px; /* Move container more to the left */
-  }
-
-  .searchby-input {
-    width: 250px;
-  }
-
-  .result-card {
-    max-width: 100%;
-  }
-
-  .result-map-container {
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .search-page-container {
-    padding: 10px;
-  }
-
-  .buttons-container {
-    right: 15px;
-  }
-
-  .logo-container img {
-    width: 300px;
-  }
-
-  .searchby-and-sort-wrapper {
-    top: 120px;
-    right: 20px;
-  }
-
-  .searchby-input {
-    width: 200px;
-  }
-
-  .result-card {
-    max-width: 100%;
-  }
-
-  .result-map-container {
-    width: 100%;
-  }
 }
