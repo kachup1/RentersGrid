@@ -10,6 +10,10 @@ import ResetPasswordUpdate from './components/ResetPasswordUpdate';
 import AddProperty from './components/AddProperty';
 import AddAReview from './components/AddAReview';
 import AddALandlord from './components/AddALandlord';
+import ReportProblem from './components/ReportProblem';
+import ReportProblemConfirmation from './components/ReportProblemConfirmation'
+import ReportReview from './components/ReportReview';
+import ReportReviewConfirmation from './components/ReportReviewConfirmation'
 
 import MyAccount from './components/MyAccount';
 import MyRatings from './components/MyRatings';
@@ -38,6 +42,11 @@ function App() {
                 <Route path="/AddALandlord" element={<AddALandlord />} />
                 <Route path="/myaccount" element={<MyAccount />} />
                 <Route path="/myratings" element={<MyRatings />} />
+                <Route path="/ReportProblem" element={<ReportProblem />} />
+                <Route path="/ReportProblemConfirmation" element={<ReportProblemConfirmation />} />
+                <Route path="/ReportReview" element={<ReportReview />} />
+                <Route path="/ReportReviewConfirmation" element={<ReportReviewConfirmation />} />
+
 
 
                 {/* Other Routes */}
