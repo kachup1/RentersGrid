@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import SearchResultsMap from './SearchResultsMap';
 //list of all assets and pages.
@@ -23,6 +23,8 @@ function SearchPage() {
   const [sortBy, setSortBy] = useState('');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
+  const resultsRefs = useRef([]); // Array of refs for each search result
+
   const [bookmarked, setBookmarked] = useState({});
 
   const navigate = useNavigate();
@@ -60,6 +62,7 @@ function SearchPage() {
   };
 //checks if user is logged and if not would make user unable to bookmark and save it it 
 //their account
+
 useEffect(() => {
   if (isTokenValid()) {
     setIsLoggedIn(true);
@@ -210,100 +213,112 @@ useEffect(() => {
     navigate(`/LandlordProfile/${landlordId}`);
   };
 
+  const scrollToResult = (index) => {
+    if (resultsRefs.current[index]) {
+      resultsRefs.current[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="search-page-container">
-      {/*//checks the login status and gives a type of sidemenu depending onit.*/}
+      {/* Check login status to show the appropriate side menu */}
       {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
-
-
+  
       <header className="header">
         <div className="logo-container">
-          <img src={OfficialLogo} alt="Official Logo" className="center-logo" onClick={refreshAndNavigate}/>
+          <img src={OfficialLogo} alt="Official Logo" className="center-logo" onClick={refreshAndNavigate} />
         </div>
         <div className="buttons-container">
           <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="left-icon" />
-          <img src={AccountButton} alt="Account Button" className="account-right" 
-          onClick={() =>{ 
-            if (isTokenValid()) {
-          // Navigates to "My Account" if user is logged by checking token.
-            navigate('/myaccount');  
-          } 
-          //If token is not found goes to sign in page.
-          else {
-            navigate('/signin');  // Navigate to "Sign In" if not logged in
-          }
-        }}/>
+          <img
+            src={AccountButton}
+            alt="Account Button"
+            className="account-right"
+            onClick={() => {
+              if (isTokenValid()) {
+                navigate('/myaccount'); // Navigate to "My Account" if logged in
+              } else {
+                navigate('/signin'); // Navigate to "Sign In" if not logged in
+              }
+            }}
+          />
         </div>
       </header>
-
+  
+      {/* Search and Sort Section */}
       <div className="searchby-and-sort-wrapper">
-  <div className="searchresults-bar-container">
-    {/* Search Type Dropdown */}
-    <select className="searchby-dropdown" value={searchType} onChange={handleSearchTypeChange}>
-      <option value="landlord">Landlord Name</option>
-      <option value="property">Property Name</option>
-      <option value="address">Address</option>
-      <option value="city">City</option>
-      <option value="zipcode">Zip Code</option>
-    </select>
-
-    <div className="input-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
-  <input
-    type="text"
-    value={searchQuery}
-    onChange={handleSearchChange}
-    placeholder={`Search by ${searchType === 'landlord' ? 'Landlord Name' : searchType === 'property' ? 'Property Name' : searchType.charAt(0).toUpperCase() + searchType.slice(1)}`}
-    className="searchby-input"
-    onKeyDown={handleKeyDown}
-    style={{ paddingRight: '30px' }}  // Adds padding to make room for the icon
-  />
-
-  {/* Add Clear Icon Inside Input by checking if their is value.*/}
-  {searchQuery || sortBy ? (
-    <div
-      className="clear-icon"
-      style={{
-        position: 'absolute',
-        right: '10px',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        cursor: 'pointer',
-        width: '20px',
-        height: '20px',
-        backgroundImage: `url(${ClearSelectionIcon})`,
-        backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat',
-      }}
-      onClick={handleClear}  // Make the div clickable
-    />
-  ) : null}
-</div>
-  </div>
-
-  {/* Sort Dropdown */}
-  <div className="sort-container">
-    <label htmlFor="sort" className="sort-label">Search Results:</label>
-    <select
-      id="sort"
-      className="sort-button"
-      value={sortBy}
-      onChange={handleSortChange}
-    >
-      <option value="">Sort By</option>
-      <option value="rating">Highest Rating</option>
-      <option value="Landlord name">Landlord Name</option>
-      <option value="lowest rating">Lowest Rating</option>
-      <option value="property name">Property Name</option>
-      <option value="reviews">Most Reviews</option>
-    </select>
-  </div>
-
+        <div className="searchresults-bar-container">
+          {/* Search Type Dropdown */}
+          <select className="searchby-dropdown" value={searchType} onChange={handleSearchTypeChange}>
+            <option value="landlord">Landlord Name</option>
+            <option value="property">Property Name</option>
+            <option value="address">Address</option>
+            <option value="city">City</option>
+            <option value="zipcode">Zip Code</option>
+          </select>
+  
+          <div className="input-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              placeholder={`Search by ${searchType === 'landlord' ? 'Landlord Name' : searchType === 'property' ? 'Property Name' : searchType.charAt(0).toUpperCase() + searchType.slice(1)}`}
+              className="searchby-input"
+              onKeyDown={handleKeyDown}
+              style={{ paddingRight: '30px' }}
+            />
+            {searchQuery || sortBy ? (
+              <div
+                className="clear-icon"
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  cursor: 'pointer',
+                  width: '20px',
+                  height: '20px',
+                  backgroundImage: `url(${ClearSelectionIcon})`,
+                  backgroundSize: 'contain',
+                  backgroundRepeat: 'no-repeat',
+                }}
+                onClick={handleClear}
+              />
+            ) : null}
+          </div>
+        </div>
+  
+        {/* Sort Dropdown */}
+        <div className="sort-container">
+          <label htmlFor="sort" className="sort-label">Search Results: </label>
+          <select id="sort" className="sort-button" value={sortBy} onChange={handleSortChange}>
+            <option value="">Sort By</option>
+            <option value="rating">Highest Rating</option>
+            <option value="Landlord name">Landlord Name</option>
+            <option value="lowest rating">Lowest Rating</option>
+            <option value="property name">Property Name</option>
+            <option value="reviews">Most Reviews</option>
+          </select>
+        </div>
+      </div>
+  
+      {/* Main Content: Map and Search Results */}
+      <div className="main-content">
+        <div className="result-map-container">
+          <SearchResultsMap filteredResults={results} onMarkerClick={scrollToResult} />
+        </div>
+  
         <div className="search-results-container">
-          <h1>Search Page</h1>
+          <h1>Search Results</h1>
           <div className="results-list">
-            {results && results.length > 0 ? (
-              results.map((result) => (
-                <div className="result-card" key={result.landlordId} onClick={() => handleLandlordClick(result.landlordId)}>
+            {results.length > 0 ? (
+              results.map((result, index) => (
+                <div
+                  className="result-card"
+                  key={result.landlordId}
+                  ref={(el) => (resultsRefs.current[index] = el)}
+                  onClick={() => handleLandlordClick(result.landlordId)}
+                >
                   <div className="result-card-header">
                     <div className="rating-box">
                       <span>Avg Rating</span>
@@ -312,31 +327,26 @@ useEffect(() => {
                     </div>
                     <div className="landlord-info">
                       <h2>{result.name}</h2>
-                      {result.properties && result.properties.length > 0 ? (
-                        result.properties.map((property, idx) => (
-                          <p key={idx}>{property.address}, {property.city}, {property.zipcode}</p>
-                        ))
-                      ) : (
-                        <p>No address available</p>
-                      )}
+                      {result.properties?.map((property, idx) => (
+                        <p key={idx}>{property.address}, {property.city}, {property.zipcode}</p>
+                      )) || <p>No address available</p>}
                     </div>
-                    <div className="bookmark-icon" onClick={(e) => {
-                      e.stopPropagation(); // Prevents the card click event from being triggered
-                      toggleBookmark(result.landlordId);
-                    }}><img
+                    <div
+                      className="bookmark-icon"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleBookmark(result.landlordId);
+                      }}
+                    >
+                      <img
                         src={bookmarked[result.landlordId] ? SelectedBookmark : MyBookmark}
                         alt="Bookmark"
                         className="bookmark-icon-img"
                       />
                     </div>
                   </div>
-
                   <div className="result-card-body">
-                    {result.properties && result.properties.length > 0 && result.properties[0].propertyname ? (
-                      <p>{result.properties[0].propertyname}</p>
-                    ) : (
-                      <p>No property information available</p>
-                    )}
+                    <p>{result.properties?.[0]?.propertyname || 'No property information available'}</p>
                   </div>
                 </div>
               ))
@@ -346,14 +356,9 @@ useEffect(() => {
           </div>
         </div>
       </div>
-      {/* Search Results Map */}
-      <section className="result-map-section">
-        <div className="result-map-container">
-          <SearchResultsMap filteredResults={results} />
-        </div>
-      </section>
     </div>
   );
+  
 }
 
 export default SearchPage;

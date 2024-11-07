@@ -1,12 +1,15 @@
-﻿@font-face {
+﻿/* Main styles remain the same */
+@font-face {
     font-family: 'Helvetica';
-    src: url('../fonts/Helvetica.ttf') format('truetype'); /* Adjust this path as necessary */
+    src: url('../fonts/Helvetica.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
+
 body {
     font-family: 'Helvetica';
 }
+
 .main-container {
     background-color: #4D55A5;
     min-height: 100vh;
@@ -16,31 +19,31 @@ body {
 }
 
 .main-logo {
-    width: 50vw;
-    max-width: 370px;
+    width: 450px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 30px;
 }
 
 .noc-left-icon, .noc-right-icon {
-    width: 80px;  /* Scale with viewport */
-    max-width: auto;
+    width: 80px;
     height: auto;
-    margin-top: 30px;
-    margin-right: 30px; /* Space between left and right icons */
+    margin-top: -100px;
+    margin-right: 30px;
     cursor: pointer;
 }
 
 .search-input {
     padding: 10px;
     font-size: 16px;
-    width: 300px; /* Adjust width as needed */
+    width: 300px;
     border: 1px solid #ccc;
-    border-left: none; /* Remove left border to connect with dropdown */
-    border-radius: 0; /* No border radius to connect the sides */
+    border-left: none;
+    border-radius: 0;
 }
 
-/* Dropdown container */
 .dropdown-container {
     position: relative;
     display: flex;
@@ -48,42 +51,41 @@ body {
 }
 
 .dropdown-selected {
-    padding: 10px 20px; /* Add more padding to the left and right */
+    padding: 10px 20px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 30px 0 0 30px; /* Rounded left corners */
+    border-radius: 30px 0 0 30px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 200px;
-    background-color: white; /* Background for dropdown */
+    background-color: white;
 }
 
 .down-arrow {
     width: 20px;
     height: auto;
-    margin-left: 10px; /* Add some space between label and arrow */
+    margin-left: 10px;
     transition: transform 0.3s ease;
 }
 
-    .down-arrow.open {
-        transform: rotate(180deg); /* Rotate the arrow when dropdown is open */
-    }
-
+.down-arrow.open {
+    transform: rotate(180deg);
+}
 
 .dropdown-options {
     position: absolute;
-    top: 100%; /* Position it just below the selected item */
+    top: 100%;
     left: 0;
     background-color: white;
     border: 1px solid #ccc;
-    border-radius: 0 0 10px 10px; /* Rounded edges in dropdown window */
+    border-radius: 0 0 10px 10px;
     width: 100%;
-    z-index: 100; /* Ensure it appears above other elements */
-    list-style-type: none; /* Ensure bullet points are removed */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
+    z-index: 100;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 .dropdown-item {
@@ -91,36 +93,49 @@ body {
     cursor: pointer;
 }
 
-    .dropdown-item:hover, .dropdown-item.selected {
-        background-color: #f0f0f0; /* Highlight on hover or if selected */
-    }
+.dropdown-item:hover, .dropdown-item.selected {
+    background-color: #f0f0f0;
+}
 
-/* Search input with rounded corners on both sides */
 .search-input {
     padding: 10px;
     font-size: 16px;
-    width: 400px; /* Adjust width as needed */
+    width: 400px;
     border: 1px solid #ccc;
-    border-radius: 0 30px 30px 0; /* Rounded corners for right side only */
-    outline: none; /* Removes the outline on focus */
+    border-radius: 0 30px 30px 0;
+    outline: none;
 }
 
-    /* Optional: Add focus effect */
-    .search-input:focus {
-        border-color: #8EC860; /* Change border color on focus */
-        box-shadow: 0 0 5px rgba(142, 200, 96, 0.5); /* Add a slight shadow */
-    }
+.search-input:focus {
+    border-color: #8EC860;
+    box-shadow: 0 0 5px rgba(142, 200, 96, 0.5);
+}
 
-/* Centering the dropdown container and search input */
 .search-bar-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0; /* Ensure no gap between dropdown and input */
+    gap: 0;
     margin-top: 50px;
 }
 
+/* Map container */
+.map-container {
+    width: 100%; /* Full width by default */
+    height: 70vh; /* Set a default height */
+    z-index: 10;
+}
+
 /* Media Queries */
+
+/* For screens larger than 1080px */
+@media (min-width: 1080px) {
+    .map-container {
+        width: 80%; /* Adjust width to better fit larger screens */
+        height: 80vh; /* Increase height for better view on larger screens */
+    }
+}
+
 @media (max-width: 768px) {
     .main-container {
         padding: 10px;
@@ -136,6 +151,11 @@ body {
 
     .search-input {
         width: 80%;
+    }
+
+    .map-container {
+        width: 90%; /* Adjust map to fit the smaller screen */
+        height: 60vh; /* Reduce height on smaller screens */
     }
 }
 
@@ -154,5 +174,10 @@ body {
 
     .search-input {
         width: 100%;
+    }
+
+    .map-container {
+        width: 100%; /* Full width for mobile */
+        height: 50vh; /* Reduce height further for mobile screens */
     }
 }

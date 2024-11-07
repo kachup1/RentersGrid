@@ -4,20 +4,20 @@ import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MenuAlt from '../Assets/menu-alt.svg';
-import SideMenu from './SideMenu';
+import NoAccountSideMenu from './NoAccountSideMenu';
 import { Link, useNavigate } from 'react-router-dom';
 
 function ResetPassword() {
-    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent the default form submission
+        e.preventDefault();
 
-        // Make API call to verify email
         try {
-            const response = await fetch('http://localhost:5000/VerifyEmail', {
+            const response = await fetch('http://localhost:5000/api/password-reset', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -28,19 +28,24 @@ function ResetPassword() {
             const data = await response.json();
 
             if (response.ok) {
-                // Email exists, redirect to ResetPasswordUpdate
-                navigate('/resetpasswordupdate', { state: {email}});
+                setSuccessMessage('A reset password email has been sent!');
+                setErrorMessage('');
+
+                // Navigate to a success page or show a confirmation
+                navigate('/ResetPasswordConfirmation', { state: { email } });  // Adjust this path as needed
             } else {
                 setErrorMessage(data.error);
+                setSuccessMessage('');
             }
         } catch (error) {
             setErrorMessage("An error occurred. Please try again.");
+            setSuccessMessage('');
         }
     };
 
     return (
         <div className="reset-password-main-container">
-            <SideMenu />
+            <NoAccountSideMenu />
             <header>
                 <div className="reset-password-logo-container">
                     <a href="/">
@@ -52,27 +57,10 @@ function ResetPassword() {
                     </a>
                 </div>
 
-                {/* Background Image */}
-                <img
-                    src={MenuAlt}
-                    alt="background"
-                    className="reset-password-background-image"
-                />
-
-                {/* Left Image: Submit Landlord Rate */}
-                <img
-                    src={SubmitLandlordRate}
-                    alt="Submit Landlord Rate"
-                    className="reset-password-left-icon"
-                />
-
-                {/* Right Image: Account Button */}
+                <img src={MenuAlt} alt="background" className="reset-password-background-image" />
+                <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="reset-password-left-icon" />
                 <a href="signin">
-                    <img
-                        src={AccountButton}
-                        alt="Account Button"
-                        className="reset-password-account-right"
-                    />
+                    <img src={AccountButton} alt="Account Button" className="reset-password-account-right" />
                 </a>
             </header>
 
@@ -80,7 +68,6 @@ function ResetPassword() {
                 <div className="reset-password-form-box-login">
                     <h1 className='reset-password-text'>Reset Password</h1>
                     <form onSubmit={handleSubmit}>
-                        {/* Email */}
                         <div className="reset-password-input-box">
                             <span className="icon">
                                 <input 
@@ -88,19 +75,17 @@ function ResetPassword() {
                                     className="reset-password-email-box" 
                                     required 
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)} // Update state on change
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                                 <label className="reset-password-email-text">Email:</label>
                             </span>
                         </div>
 
-                        {/* Error Message */}
                         {errorMessage && <div className="reset-password-error">{errorMessage}</div>}
+                        {successMessage && <div className="reset-password-success">{successMessage}</div>}
 
-                        {/* Submit Button */}
                         <button type="submit" className="reset-password-continue-button">Continue</button>
 
-                        {/* Sign In */}
                         <div className="reset-password-sign-in">
                             <h3 className="small-sign-in-text-remember">Remembered your password?</h3>
                             <Link to="/SignIn" className="sign-in-link-remember">Sign In</Link>

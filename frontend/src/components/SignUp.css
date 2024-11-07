@@ -96,7 +96,7 @@ body {
   position: absolute;
   font-size: 55px !important;
   white-space: nowrap;
-  bottom: -150px;
+  top: 20px;  
   font-family: 'Helvetica-Bold';
 }
 

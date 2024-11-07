@@ -4,16 +4,16 @@
   flex-direction: column;
   align-items: center;
   background-color: #4D55A5;
-  min-height: 100vh;
-  padding: 20px;
+  height: 100vh;
 }
 
 .mybookmark-header {
   display: flex;
+  position: relative; /* Make it a positioning context for the background image */
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 30px;
-  margin-top: 50px; /* Increase the margin from the top */
+
+
 
 }
 
@@ -21,15 +21,18 @@
   width: 60px;  /* Increase size */
   height: auto;
   margin-right: 10px;  /* Adjust spacing between icon and text */
+  
 }
 
 .mybookmark-header h1 {
   font-size: 3.5rem;  /* Increase font size */
+  
   color: #fff;
 }
 
 .myhighlight-bookmarks {
   color: #8EC860;  /* The green color used in 'Bookmarks' */
+  
 }
 
 
@@ -37,9 +40,11 @@
 .mybookmark-search-container {
   width: 40%;
   max-width: 100%;
+  margin-top: -30px;
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  margin-left: 200px;
 }
 
 .mybookmark-search-dropdown {
@@ -51,87 +56,78 @@
   color: #4D55A4;
 }
 
-/* Permanent side menu */
-.mybookmark-left-side-menu {
-  width: 250px;
-  background-color: #4D55A5;
-  color: white;
+/*Sidemenu:*/
+/* Sidebar styles */
+.sidebar {
+  width: 100px;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align content to the left */
-  position: fixed; /* Keep the menu fixed on the left side */
-  top:100px;
-  left: 40px;
-  height: 100vh; /* Full height */
+  align-items: flex-start;
+  position: absolute;
+  top: 100px;
+  left: 50px;
+  color: white;
+  gap: 5px;
 }
 
-/* Styling for the menu logo */
-.mybookmark-left-menu-logo {
-  width: 350px;
-  height: auto;
+.sidebar-logo {
+  width: 200px; /* Adjust as needed */
   margin-bottom: 20px;
+  cursor: pointer;
 }
-
-/* Styling for the list items */
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* Styling for each menu item */
-li {
-  padding: 10px 0;
+.menu-item {
   display: flex;
   align-items: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+  gap:20px;
 }
 
-.mybookmark-left-menu-icon {
+.menu-item img {
+  width: 34px; /* Adjust as needed */
+  height: 34px;
   margin-right: 10px;
-  width: 40px; /* Set a fixed size for the icons */
-  height: auto;
+ 
+  
 }
-
-li a {
-  color: white;
-  text-decoration: none;
-  font-size: 1.1rem;
-}
-
-li a:hover {
-  color: #7CC365; /* Add a hover effect for better interaction */
-}
-
-/* Content container (the rest of the page) */
-.bookmark-content {
-  margin-left: 250px; /* Push content to the right, considering sidebar width */
-  flex-grow: 1;
-  padding: 20px;
-}
-
-/* Container for the list of landlords */
+.menu-item span {
+  font-family: 'Helvetica';
+  font-size: 20px;
+}/* Container for the list of landlords */
 .mylandlord-list {
-  width: 40%;
-  max-width: 100%;
+  width: 100%; /* Full width of the container */
+  max-width: 700px; /* Adjust max width for larger screens */
+  padding-left: 20px; /* Add padding to create space from the sidebar */
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
+  max-height: 70vh; /* Set max height to allow scrolling */
+  overflow-y: auto;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  z-index: 2; /* Send it behind other elements */
+
 }
 
 /* Styling for individual landlord cards */
 .mylandlord-card {
   background-color: #DCDDDE;
   border-radius: 8px;
-  padding: 20px;
+  padding: 15px;
+  width: 90%; /* Reduce width to make cards narrower */
+  max-width: 600px; /* Set a maximum width for each card */
+  margin: 0 auto; /* Center the card within the container */
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative; /* This ensures the bookmark icon can be positioned relative to the card */
+  position: relative;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 1; /* Send it behind other elements */
+
 }
+
 
 /* Hover effect for the cards */
 .mylandlord-card:hover {
@@ -170,25 +166,26 @@ li a:hover {
 }
 
 .mylandlord-info h2 {
-  font-size: 1.8rem;
+  font-size: 1.5rem; /* Reduced font size */
   color: #616162;
   margin-bottom: 10px;
 }
 
-.landlord-info p {
-  font-size: 1rem;
+.mylandlord-info p {
+  font-size: 0.9rem; /* Slightly smaller for compact view */
   color: #616162;
   margin-bottom: 5px;
 }
 
 /* Bookmark icon */
 .mybookmark-icon {
-  position: absolute; /* Ensure it's placed relative to the card */
-  top: 10px;          /* Distance from the top */
-  right: 10px;        /* Distance from the right side of the card */
-  width: auto;        /* Adjust width */
-  height: 50px;       /* Adjust height */
-  cursor: pointer;    /* Make it clickable */
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  width: 30px; /* Adjust size as needed */
+  height: 30px;
+  cursor: pointer;
+  opacity: 1; /* Ensure icon is always visible */
 }
 .my-bookmark-icon {
   width: auto; /* Adjust to desired size */
@@ -207,4 +204,139 @@ li a:hover {
 .mybookmark-page p {
   color: #616162;
   font-size: 1.2rem;
+}
+.triangle-icon{
+  width: 10px; /* Adjust the size */
+  height: auto;
+  margin-left: 5px;
+
+}
+.bookmark-background-image {
+  position: absolute; /* Absolute positioning for background placement */
+  top: 280px; /* Adjust vertical positioning */
+  justify-content: right;
+  right: 10px;
+  width: 700px; /* Size of the background image */
+  height: auto;
+  opacity: 0.2; /* Lower opacity for a subtle background effect */
+  z-index: 100; /* Send it behind other elements */
+  pointer-events: none; /* Prevent any interaction with the image */
+
+}
+/* Media Query for Medium Screens (Tablets or smaller laptops, e.g., 768px to 1024px) */
+@media (max-width: 1024px) {
+  .mybookmark-header h1 {
+    font-size: 2.8rem; /* Smaller header font size */
+  }
+
+  .mybookmark-search-container {
+    margin-left: 0;
+    width: 60%; /* Increase width to allow easier access */
+  }
+
+  .mylandlord-list {
+    max-width: 600px;
+  }
+
+  .mylandlord-card {
+    width: 95%; /* Increase card width slightly to fill the space */
+    max-width: 500px;
+  }
+
+  .bookmark-background-image {
+    width: 500px; /* Scale down background image */
+    right: 5px;
+  }
+}
+
+/* Media Query for Small Screens (Phones and small tablets, e.g., up to 768px) */
+@media (max-width: 768px) {
+  .mybookmark-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .mybookmark-page {
+    padding: 10px;
+  }
+
+  .sidebar {
+    width: 80px; /* Reduce sidebar width */
+    padding: 10px;
+  }
+
+  .sidebar-logo {
+    width: 150px;
+  }
+
+  .menu-item img {
+    width: 28px; /* Smaller icons */
+    height: 28px;
+  }
+
+  .menu-item span {
+    font-size: 16px; /* Smaller text */
+  }
+
+  .mylandlord-list {
+    max-width: 100%;
+    padding-left: 0; /* Remove extra padding on smaller screens */
+  }
+
+  .mylandlord-card {
+    width: 100%; /* Full width */
+    max-width: none;
+  }
+
+  .mybookmark-header {
+    justify-content: center; /* Center-align header on small screens */
+  }
+
+  .bookmark-background-image {
+    width: 400px;
+    right: 0; /* Adjust positioning */
+    top: 250px;
+  }
+}
+
+/* Media Query for Extra Small Screens (e.g., mobile devices up to 480px) */
+@media (max-width: 480px) {
+  .mybookmark-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .mylandlord-info h2 {
+    font-size: 1.2rem;
+  }
+
+  .mylandlord-info p {
+    font-size: 0.8rem;
+  }
+
+  .sidebar {
+    width: 60px;
+    padding: 5px;
+  }
+
+  .sidebar-logo {
+    width: 100px;
+  }
+
+  .menu-item img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .menu-item span {
+    font-size: 14px;
+  }
+
+  .bookmark-background-image {
+    width: 300px; /* Reduce background image size */
+    right: -50px; /* Position it further out for better layout */
+    top: 200px;
+  }
+
+  .mybookmark-search-container {
+    width: 80%; /* Expand search container width */
+  }
 }
