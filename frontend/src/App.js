@@ -15,7 +15,8 @@ import ReportProblemConfirmation from './components/ReportProblemConfirmation'
 import ReportReview from './components/ReportReview';
 import ReportReviewConfirmation from './components/ReportReviewConfirmation'
 
-
+import MyAccount from './components/MyAccount';
+import MyRatings from './components/MyRatings';
 
 
 import { useState } from 'react';
@@ -39,6 +40,8 @@ function App() {
                 <Route path="/addproperty" element={<AddProperty />} />
                 <Route path="/AddAReview" element={<AddAReview />} />
                 <Route path="/AddALandlord" element={<AddALandlord />} />
+                <Route path="/myaccount" element={<MyAccount />} />
+                <Route path="/myratings" element={<MyRatings />} />
                 <Route path="/ReportProblem" element={<ReportProblem />} />
                 <Route path="/ReportProblemConfirmation" element={<ReportProblemConfirmation />} />
                 <Route path="/ReportReview" element={<ReportReview />} />
