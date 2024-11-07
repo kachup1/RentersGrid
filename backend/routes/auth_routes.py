@@ -1,9 +1,11 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
+from flask_mail import Message
 from flask_bcrypt import Bcrypt
-from models.database import users_collection
-from utility.utililty import get_next_user_id
 from flask_jwt_extended import create_access_token
+from models.database import users_collection
+from utility.email_utililty import send_email, is_valid_email, get_next_user_id
 import re
+
 auth_blueprint = Blueprint('auth', __name__)
 bcrypt = Bcrypt()
 
@@ -47,7 +49,6 @@ def login():
     else:
         return jsonify({"error": "Invalid email or password"}), 401
 
-
 @auth_blueprint.route('/VerifyEmail', methods=['POST'])
 def verify_email():
     data = request.json
@@ -55,14 +56,12 @@ def verify_email():
 
     if not email:
         return jsonify({"error": "Email is required"}), 400
-    
-    user = db.users.find_one({"email": email})
+
+    user = users_collection.find_one({"email": email})
 
     if user:
-        # If the email exists
         return jsonify({"message": "Email exists."}), 200
     else:
-        # If the email doesn't exist
         return jsonify({"error": "Email not found"}), 404
 
 @auth_blueprint.route('/ChangePassword', methods=['POST'])
@@ -92,3 +91,21 @@ def change_password():
         return jsonify({"error": "Failed to update the password"}), 500
 
     return jsonify({"message": "Password changed successfully"}), 200
+
+# Email sending route added to auth blueprint
+@auth_blueprint.route('/SendEmail', methods=['POST'])
+def send_email():
+    data = request.get_json()
+    recipient_email = data.get('email')
+
+    if recipient_email:
+        msg = Message(
+            'do-not-reply',
+            sender=current_app.config['MAIL_DEFAULT_SENDER'],  # Use default sender from config
+            recipients=[recipient_email],
+            body='Here is your link: http://localhost:3000/resetpasswordupdate'
+        )
+        mail = current_app.extensions.get('mail')  # Get the mail instance
+        mail.send(msg)
+        return jsonify({'message': 'Email Sent!'}), 200
+    return jsonify({'message': 'Email not provided!'}), 400
