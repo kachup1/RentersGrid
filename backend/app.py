@@ -9,6 +9,7 @@ from routes.auth_routes import auth_blueprint
 from routes.bookmark_routes import bookmarks_blueprint
 from routes.search_routes import search_blueprint
 from routes.map_routes import map_blueprint
+from routes.rp_routes import rp_routes
 from routes.landlord_profile_routes import landlord_profile_blueprint
 
 # Load environment variables
@@ -29,6 +30,8 @@ app.register_blueprint(auth_blueprint)
 app.register_blueprint(bookmarks_blueprint)
 app.register_blueprint(search_blueprint)
 app.register_blueprint(map_blueprint)
+app.register_blueprint(rp_routes)
+
 app.register_blueprint(landlord_profile_blueprint)
 
 if __name__ == "__main__":
