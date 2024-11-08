@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AddAReview.css'; // import the CSS file
 import OfficialLogo from '../Assets/official logo.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
@@ -23,6 +23,8 @@ import Recommend from '../Assets/reco.svg';
 import ThumbsUp from '../Assets/up-green.svg';
 import ThumbsDown from '../Assets/down-red.svg';
 import SubmitReview from '../Assets/submit-review_1.svg';
+//this is needed to get landlordID:
+import { useParams } from 'react-router-dom';
 
 
 
@@ -34,6 +36,12 @@ const AddAReview = () => {
     const [selectedProperty, setSelectedProperty] = useState("Fairview Apartment");
     const [reviewText, setReviewText] = useState(""); // For the review text
     const [isChecked, setIsChecked] = useState(false); // For the checkbox in Frame 4
+    //needed to get landlordID:
+    const{landlordId} = useParams();//this gets the landlordId from the URL
+
+    useEffect(()=>{
+        console.log("Landlord Id for review:",landlordId);
+    },[landlordId]);
 
     const handleDropdownToggle = () => {
         setDropdownOpen(!dropdownOpen);
