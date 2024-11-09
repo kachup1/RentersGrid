@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AddAReview.css'; // import the CSS file
 import OfficialLogo from '../Assets/official logo.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
@@ -23,17 +23,27 @@ import Recommend from '../Assets/reco.svg';
 import ThumbsUp from '../Assets/up-green.svg';
 import ThumbsDown from '../Assets/down-red.svg';
 import SubmitReview from '../Assets/submit-review_1.svg';
-
-
+//this is needed to get landlordID:
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { getUserIdFromToken, isTokenValid } from './authentication';
 
 
 const AddAReview = () => {
+
+    const landlordId = 1;  // Hardcoded value for testing
+
+
     const [currentStep, setCurrentStep] = useState(1);
     const [selectedRating, setSelectedRating] = useState(0);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [selectedProperty, setSelectedProperty] = useState("Fairview Apartment");
     const [reviewText, setReviewText] = useState(""); // For the review text
     const [isChecked, setIsChecked] = useState(false); // For the checkbox in Frame 4
+    //const { landlordId } = useParams();  // This captures landlordId from the URL
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate();
 
     const handleDropdownToggle = () => {
         setDropdownOpen(!dropdownOpen);
@@ -44,26 +54,51 @@ const AddAReview = () => {
         setDropdownOpen(false);
     };
 
+    const handleReviewChange = (e) => {
+        setReviewText(e.target.value);  // Update state as user types
+    };
+
     const propertyOptions = [
         "Fairview Apartment",
         "Greenwood Residence",
         "Maple Street Complex"
     ];
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (isChecked) {
-            console.log('Review submitted');
-            // Add your submit logic here
+            console.log("Ratings before submission:", ratings);  // Debugging line
+            try {
+                await axios.post('http://localhost:5000/api/landlord/addareview', {
+                    landlordId: landlordId,
+                    ratingId: Math.floor(Math.random() * 1000),
+                    score: selectedRating,
+                    comment: reviewText,
+                    maintenance: ratings.maintenance,
+                    pets: ratings.pets,
+                    safety: ratings.safety,
+                    raisemoney: ratings.raisemoney,
+                    reachable: ratings.reachable,
+                    clearcontract: ratings.clearcontract,
+                    recommend: ratings.recommend,
+                    userId: isLoggedIn ? getUserIdFromToken() : null
+                });
+                alert('Review submitted successfully');
+            } catch (error) {
+                console.error("Error submitting review:", error.response?.data || error.message);
+                alert('Failed to submit review');
+            }
         } else {
             alert("Please confirm your review is truthful.");
         }
     };
+    
+    
 
     // Handle rating selection for each criterion with toggle functionality
     const handleRatingSelect = (key, value) => {
         setRatings(prevRatings => ({
             ...prevRatings,
-            [key]: prevRatings[key] === value ? null : value
+            [key]: prevRatings[key] === value ? "No Response" : value
         }));
     };
 
@@ -73,22 +108,23 @@ const AddAReview = () => {
     
 
     const [ratings, setRatings] = useState({
-        maintenance: null,
-        pets: null,
-        safe: null,
-        rent: null,
-        reachable: null,
-        contract: null,
-        recommend: null
+        maintenance: "No Response",
+        pets: "No Response",
+        safety: "No Response",
+        raisemoney: "No Response",
+        reachable: "No Response",
+        clearcontract: "No Response",
+        recommend: "No Response"
     });
+    
 
     const Criterion = ({ name, icon, ratingKey, ratings, handleRatingSelect }) => (
         <div className="criteria">
             <img src={icon} alt={name} className="criterion-icon" />
             <p className="criterion-text">{name}</p>
             <div className="thumbs">
-                <img src={ThumbsUp} alt="Thumbs Up" className={`thumb ${ratings[ratingKey] === 'up' ? 'selected' : ''}`} onClick={() => handleRatingSelect(ratingKey, 'up')} />
-                <img src={ThumbsDown} alt="Thumbs Down" className={`thumb ${ratings[ratingKey] === 'down' ? 'selected' : ''}`} onClick={() => handleRatingSelect(ratingKey, 'down')} />
+                <img src={ThumbsUp} alt="Thumbs Up" className={`thumb ${ratings[ratingKey] === 'Yes' ? 'selected' : ''}`} onClick={() => handleRatingSelect(ratingKey, 'Yes')} />
+                <img src={ThumbsDown} alt="Thumbs Down" className={`thumb ${ratings[ratingKey] === 'No' ? 'selected' : ''}`} onClick={() => handleRatingSelect(ratingKey, 'No')} />
             </div>
         </div>
     );
@@ -98,9 +134,9 @@ const AddAReview = () => {
             <img src={icon} alt={name} className="criterion-icon" />
             <p className="criterion-text">{name}</p>
             <div className="thumbs">
-                {rating === 'up' ? (
+                {rating === 'Yes' ? (
                     <img src={ThumbsUp} alt="Thumbs Up" className="thumb selected" />
-                ) : rating === 'down' ? (
+                ) : rating === 'No' ? (
                     <img src={ThumbsDown} alt="Thumbs Down" className="thumb selected" />
                 ) : (
                     <p>Not rated</p>
@@ -112,6 +148,10 @@ const AddAReview = () => {
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
     };
+
+    useEffect(() => {
+        setIsLoggedIn(isTokenValid());
+    }, []);
 
     return (
         <div className="main-container-add-a-rating">
@@ -166,8 +206,13 @@ const AddAReview = () => {
                         <h3>Write a Review:</h3>
                     </div>
                     <div className="review-box">
-                        <textarea placeholder="What do you want other tenants to know about this landlord?" />
-                    </div>
+                    <textarea
+                        placeholder="What do you want other tenants to know about this landlord?"
+                        value={reviewText}  // Bind to reviewText state
+                        onChange={handleReviewChange}  // Update state on change
+                    />
+                </div>
+
 
                     <div className="guidelines">
                         <div className="guidelines-string">
@@ -248,14 +293,14 @@ const AddAReview = () => {
                 <img
                     src={ThumbsUp}
                     alt="Thumbs Up"
-                    className={`thumb ${ratings.maintenance === 'up' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('maintenance', 'up')}
+                    className={`thumb ${ratings.maintenance === 'Yes' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('maintenance', 'Yes')}
                 />
                 <img
                     src={ThumbsDown}
                     alt="Thumbs Down"
-                    className={`thumb ${ratings.maintenance === 'down' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('maintenance', 'down')}
+                    className={`thumb ${ratings.maintenance === 'No' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('maintenance', 'No')}
                 />
             </div>
         </div>
@@ -268,14 +313,14 @@ const AddAReview = () => {
                 <img
                     src={ThumbsUp}
                     alt="Thumbs Up"
-                    className={`thumb ${ratings.pets === 'up' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('pets', 'up')}
+                    className={`thumb ${ratings.pets === 'Yes' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('pets', 'Yes')}
                 />
                 <img
                     src={ThumbsDown}
                     alt="Thumbs Down"
-                    className={`thumb ${ratings.pets === 'down' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('pets', 'down')}
+                    className={`thumb ${ratings.pets === 'No' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('pets', 'No')}
                 />
             </div>
         </div>
@@ -288,14 +333,14 @@ const AddAReview = () => {
                 <img
                     src={ThumbsUp}
                     alt="Thumbs Up"
-                    className={`thumb ${ratings.safe === 'up' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('safe', 'up')}
+                    className={`thumb ${ratings.safety === 'Yes' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('safety', 'Yes')}
                 />
                 <img
                     src={ThumbsDown}
                     alt="Thumbs Down"
-                    className={`thumb ${ratings.safe === 'down' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('safe', 'down')}
+                    className={`thumb ${ratings.safety === 'No' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('safety', 'No')}
                 />
             </div>
         </div>
@@ -308,14 +353,14 @@ const AddAReview = () => {
                 <img
                     src={ThumbsUp}
                     alt="Thumbs Up"
-                    className={`thumb ${ratings.rent === 'up' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('rent', 'up')}
+                    className={`thumb ${ratings.raisemoney === 'Yes' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('raisemoney', 'Yes')}
                 />
                 <img
                     src={ThumbsDown}
                     alt="Thumbs Down"
-                    className={`thumb ${ratings.rent === 'down' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('rent', 'down')}
+                    className={`thumb ${ratings.raisemoney === 'No' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('raisemoney', 'No')}
                 />
             </div>
         </div>
@@ -332,14 +377,14 @@ const AddAReview = () => {
                             <img
                                 src={ThumbsUp}
                                 alt="Thumbs Up"
-                                className={`thumb ${ratings.reachable === 'up' ? 'selected' : ''}`}
-                                onClick={() => handleRatingSelect('reachable', 'up')}
+                                className={`thumb ${ratings.reachable === 'Yes' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('reachable', 'Yes')}
                             />
                             <img
                                 src={ThumbsDown}
                                 alt="Thumbs Down"
-                                className={`thumb ${ratings.reachable === 'down' ? 'selected' : ''}`}
-                                onClick={() => handleRatingSelect('reachable', 'down')}
+                                className={`thumb ${ratings.reachable === 'No' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('reachable', 'No')}
                             />
                         </div>
                     </div>
@@ -352,14 +397,14 @@ const AddAReview = () => {
                             <img
                                 src={ThumbsUp}
                                 alt="Thumbs Up"
-                                className={`thumb ${ratings.contract === 'up' ? 'selected' : ''}`}
-                                onClick={() => handleRatingSelect('contract', 'up')}
+                                className={`thumb ${ratings.clearcontract === 'Yes' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('clearcontract', 'Yes')}
                             />
                             <img
                                 src={ThumbsDown}
                                 alt="Thumbs Down"
-                                className={`thumb ${ratings.contract === 'down' ? 'selected' : ''}`}
-                                onClick={() => handleRatingSelect('contract', 'down')}
+                                className={`thumb ${ratings.clearcontract === 'No' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('clearcontract', 'No')}
                             />
                         </div>
                     </div>
@@ -372,14 +417,14 @@ const AddAReview = () => {
                             <img
                                 src={ThumbsUp}
                                 alt="Thumbs Up"
-                                className={`thumb ${ratings.recommend === 'up' ? 'selected' : ''}`}
-                                onClick={() => handleRatingSelect('recommend', 'up')}
+                                className={`thumb ${ratings.recommend === 'Yes' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('recommend', 'Yes')}
                             />
                             <img
                                 src={ThumbsDown}
                                 alt="Thumbs Down"
-                                className={`thumb ${ratings.recommend === 'down' ? 'selected' : ''}`}
-                                onClick={() => handleRatingSelect('recommend', 'down')}
+                                className={`thumb ${ratings.recommend === 'No' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('recommend', 'No')}
                             />
                            
                         </div>

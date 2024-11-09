@@ -1,3 +1,6 @@
+import { jwtDecode } from 'jwt-decode';
+
+
 // authUtils.js
 export const isTokenValid = () => {
     const token = localStorage.getItem('token');
@@ -26,3 +29,12 @@ export const isTokenValid = () => {
     }
   };
   
+  // Function to get user ID from the token if available
+export const getUserIdFromToken = () => {
+  const token = localStorage.getItem('token');
+  if (token && isTokenValid()) {
+      const decodedToken = jwtDecode(token);
+      return decodedToken.userId; // Ensure token includes userId
+  }
+  return null;
+};
