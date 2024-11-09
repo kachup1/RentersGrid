@@ -36,6 +36,12 @@ function LandlordProfile() {
     const [isThumbsDownSelected, setIsThumbsDownSelected] = useState(false);
     const navigate = useNavigate();
 
+    // Check if properties data is available before attempting to access it
+    const property = landlordData.properties && landlordData.properties.length > 0 ? landlordData.properties[0] : null;
+    const propertyLocation = property 
+        ? `${property.propertyname} at ${property.address}, ${property.city}, ${property.state}`
+        : "Location not available";
+
     useEffect(() => {
         fetch(`/api/landlord/${landlordId}`)
             .then(response => response.json())
@@ -119,8 +125,8 @@ function LandlordProfile() {
                             <p className="landlord-rates">2</p>
                         </div>
                         <div>
-                            <h2 className="landlord-name">Alicia Keys</h2>
-                            <p className="landlord-location">Landlord in Pine Plaza at Long Beach, CA</p>
+                            <h2 className="landlord-name">{landlordData.name}</h2>
+                            <p className="landlord-location">{propertyLocation}</p>
                         </div>
                         <div className="landlord-bookmark-icon" onClick={(e) => {
                             e.stopPropagation();
