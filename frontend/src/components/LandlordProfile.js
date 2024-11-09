@@ -88,6 +88,9 @@ function LandlordProfile() {
         navigate('/addproperty'); // Assuming '/add-property' is the route for AddProperty.js
     };
 
+    const handleAddReviewClick =()=>{
+        navigate(`/addareview/${landlordId}`);  //this navigates to addareview with the landlordID
+    };
 
     return (
         <div className="landlord-profile-container">
@@ -128,7 +131,7 @@ function LandlordProfile() {
                     </div>
 
                     <div className="button-container">
-                        <button className="green-button">
+                        <button className="green-button" onClick={handleAddReviewClick}>
                             <img src={GreenButton} alt="Add Review" />
                             <span className="green-text">Add a Review</span>
                         </button>

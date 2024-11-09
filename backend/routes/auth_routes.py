@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, current_app
+from flask import Blueprint, request, jsonify
 from flask_mail import Message
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token
@@ -92,20 +92,3 @@ def change_password():
 
     return jsonify({"message": "Password changed successfully"}), 200
 
-# Email sending route added to auth blueprint
-@auth_blueprint.route('/SendEmail', methods=['POST'])
-def send_email():
-    data = request.get_json()
-    recipient_email = data.get('email')
-
-    if recipient_email:
-        msg = Message(
-            'do-not-reply',
-            sender=current_app.config['MAIL_DEFAULT_SENDER'],  # Use default sender from config
-            recipients=[recipient_email],
-            body='Here is your link: http://localhost:3000/resetpasswordupdate'
-        )
-        mail = current_app.extensions.get('mail')  # Get the mail instance
-        mail.send(msg)
-        return jsonify({'message': 'Email Sent!'}), 200
-    return jsonify({'message': 'Email not provided!'}), 400

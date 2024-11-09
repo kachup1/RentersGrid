@@ -34,11 +34,11 @@ function App() {
                 <Route path="/SignIn" element={<SignIn />} />
                 <Route path="/SignUp" element={<SignUp />} />
                 <Route path="/bookmarks" element={<Bookmark />} />
-                <Route path="/LandlordProfile/:landlord" element={<LandlordProfile />} />
+                <Route path="/LandlordProfile/:landlordId" element={<LandlordProfile />} />
                 <Route path="/resetpassword" element={<ResetPassword />} />
                 <Route path="/resetpasswordupdate" element={<ResetPasswordUpdate />} />
                 <Route path="/addproperty" element={<AddProperty />} />
-                <Route path="/AddAReview" element={<AddAReview />} />
+                <Route path="/AddAReview/:landlordId" element={<AddAReview />} />
                 <Route path="/AddALandlord" element={<AddALandlord />} />
                 <Route path="/myaccount" element={<MyAccount />} />
                 <Route path="/myratings" element={<MyRatings />} />
