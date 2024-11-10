@@ -221,62 +221,68 @@ body {
 }
 
 /* Select Property Dropdown----------------------------------------------------------- */
-/* Wrapper for the entire Select Property section */
-.select-property {
-    position: relative; /* Position the main container */
-    margin-bottom: 35px;
-    top: 290px; /* Adjusts vertical position of the whole section */
-    left: 950px; /* Adjusts horizontal position of the whole section */
-}
+/* AddAReviewDropdown.css */
 
-/* Positioning for the label container */
-.select-property .label-container {
-    position: absolute;
-    top:-170px; /* Adjust as needed */
-    left: -800px; /* Adjust as needed */
-}
-
-.select-property label {
-    font-size: 35px;
-    font-weight: bold;
-    color: #4D55A5;
-}
-
-/* Positioning for the dropdown container */
-.select-property .dropdown-container {
-    position: absolute;
-    top: -120px; /* Move dropdown below the label */
-    left: -770px; /* Adjust to move dropdown left or right */
-    display: inline-block;
-    overflow: hidden;
-    border-radius: 20px; /* Fully rounded edges */
+/* Main container for the dropdown */
+.dropdown-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  /* Selected item styling */
+  .dropdown-selected {
+    padding: 10px 20px;
+    font-size: 16px;
     border: 1px solid #ccc;
-    background-color: #fafaf5;
-}
-
-/* Styles for the select dropdown */
-.select-property select {
-    padding: 7px 25px 7px 20px; /* Add left padding */    
-    border-radius: 20px; /* More rounded edges */
-    border: 1px solid #ccc;
-    background-color: #fafaf5;
-    font-size: 20px;
-    appearance: none; /* Remove default arrow */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    padding-right: 25px; /* Space for custom arrow */
-    width: 100%; /* Full width within the dropdown container */
-}
-
-/* Custom arrow for dropdown */
-.select-property select::after {
-    content: '▼'; /* Unicode for down arrow */
+    border-radius: 30px; /* Rounded corners */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px; /* Adjust width as needed */
+    background-color: white;
+  }
+  
+  .down-arrow {
+    width: 20px;
+    height: auto;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .down-arrow.open {
+    transform: rotate(180deg); /* Rotate the arrow when dropdown is open */
+  }
+  
+  /* Dropdown options list */
+  .dropdown-options {
     position: absolute;
-    right: 10px;
-    color: #66cc00; /* Green color for the arrow */
-    pointer-events: none;
-    font-size: 20px;
-}
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+    z-index: 100;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  }
+  
+  .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .dropdown-item:hover,
+  .dropdown-item.selected {
+    background-color: #f0f0f0; /* Highlight on hover or if selected */
+  }
+  
 
 /* Rate Your Landlord----------------------------------------------------*/
 .rate-your-landlord-string {

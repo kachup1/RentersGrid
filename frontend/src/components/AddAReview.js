@@ -29,45 +29,48 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getUserIdFromToken, isTokenValid } from './authentication';
 
-
-
 const AddAReview = () => {
-
 
     const [currentStep, setCurrentStep] = useState(1);
     const [selectedRating, setSelectedRating] = useState(0);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [selectedProperty, setSelectedProperty] = useState("Fairview Apartment");
+    const [selectedProperty, setSelectedProperty] = useState("");
     const [reviewText, setReviewText] = useState(""); // For the review text
     const [isChecked, setIsChecked] = useState(false); // For the checkbox in Frame 4
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [landlordName, setLandlordName] = useState(""); // For the landlord's name
+    const [propertyOptions, setPropertyOptions] = useState([]); // For the landlord's properties
+
     const navigate = useNavigate();
 
     //needed to get landlordID:
     const{landlordId} = useParams();//this gets the landlordId from the URL
 
-    useEffect(()=>{
-        console.log("Landlord Id for review:",landlordId);
-    },[landlordId]);
+    useEffect(() => {
+        const fetchLandlordDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/landlord/details/${landlordId}`);
+                setPropertyOptions(response.data.properties); // Assuming properties is an array of property names
+            } catch (error) {
+                console.error("Error fetching landlord details:", error);
+            }
+        };
+        
+        fetchLandlordDetails();
+    }, [landlordId]);
     
     const handleDropdownToggle = () => {
         setDropdownOpen(!dropdownOpen);
     };
-
-    const handleOptionSelect = (value) => {
-        setSelectedProperty(value);
-        setDropdownOpen(false);
+    
+    const handleOptionSelect = (option) => {
+        setSelectedProperty(option);
+        setDropdownOpen(false); // Close the dropdown after selection
     };
-
+    
     const handleReviewChange = (e) => {
         setReviewText(e.target.value);  // Update state as user types
     };
-
-    const propertyOptions = [
-        "Fairview Apartment",
-        "Greenwood Residence",
-        "Maple Street Complex"
-    ];
 
     const handleSubmit = async () => {
         if (isChecked) {
@@ -204,7 +207,7 @@ const AddAReview = () => {
                     </div>
 
                     <div className="you-are-rating-landlord-name">
-                        <h3>Francisco Diaz</h3>
+                        <h3>{landlordName}</h3>
                     </div>
 
                     <div className="write-a-review-string">
@@ -234,38 +237,32 @@ const AddAReview = () => {
                     </div>
 
                     {/* Select Property Section */}
-                    <div className="select-property">
-                        <div className="label-container">
-                            <label>* Select Property:</label>
+                    <div> 
+                    <div className="dropdown-container">
+                        <div className="dropdown-selected" onClick={handleDropdownToggle}>
+                            <span>{selectedProperty || "Select a Property"}</span>
+                            <img
+                                src={DownArrow}
+                                alt="Down Arrow"
+                                className={`down-arrow ${dropdownOpen ? 'open' : ''}`}
+                            />
                         </div>
-                            <div className="dropdown-container">
-                                <div className="dropdown-selected" onClick={handleDropdownToggle}>
-                                    <span>{selectedProperty}</span>
-                                    <img
-                                        src={DownArrow}
-                                        alt="Down Arrow"
-                                        className={`down-arrow ${dropdownOpen ? 'open' : ''}`} // Rotate arrow when open
-                                        style={{
-                                            transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                                            transition: 'transform 0.3s ease'
-                                        }}
-                                    />
-                                </div>
 
-                                {dropdownOpen && (
-                                    <ul className="dropdown-options">
-                                        {propertyOptions.map((option) => (
-                                            <li
-                                                key={option}
-                                                onClick={() => handleOptionSelect(option)}
-                                                className={`dropdown-item ${selectedProperty === option ? 'selected' : ''}`}
-                                            >
-                                                {option}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </div>
+                        {dropdownOpen && (
+                            <ul className="dropdown-options">
+                                {propertyOptions.map((option, index) => (
+                                    <li
+                                        key={index}
+                                        onClick={() => handleOptionSelect(option)}
+                                        className="dropdown-item"
+                                    >
+                                        {option}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+        </div>
+
                         
                     </div>
 
@@ -455,7 +452,7 @@ const AddAReview = () => {
         </div>
 
         <div className="frame-4-you-are-rating-landlord-name">
-            <h3>Francisco Diaz</h3>
+            <h3>{landlordName}</h3>
         </div>
 
         {/* Review Text Display */}
