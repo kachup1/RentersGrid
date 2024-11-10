@@ -89,7 +89,7 @@ body {
 .add-rating-image {
     width: 137px;  /* Set the width*/
     height: 134px;  /* Set the height*/  
-    margin-top: -950px; /* Move the image down by 20px, adjust as needed */
+    margin-top: -550px; /* Move the image down by 20px, adjust as needed */
     margin-left: -500px; /* Move the image to the left by 30px, adjust as needed */
     background-color: transparent;  /* Light gray background for the box */
     position: absolute;
