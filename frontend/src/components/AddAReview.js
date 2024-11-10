@@ -171,12 +171,12 @@ const AddAReview = () => {
             <SideMenu />
 
             {/* Header section */}
-            <header className="headerhp">
-                <div className="logohp-container">
+            <header className="headerhp-add-a-rating">
+                <div className="logohp-container-add-a-rating">
                     <img
                         src={OfficialLogo}
                         alt="Official Logo"
-                        className="center-logo"
+                        className="center-logo-add-a-rating"
                     />
                 </div>
 
@@ -443,6 +443,7 @@ const AddAReview = () => {
             )}
 {/* Frame 4 Content -------------------------------------------- */}
 {currentStep === 4 && (
+    <div class="frame4-background-container">
     <div className="frame4-container">
         {/* Header and Landlord Info */}
         <div className="frame-4-add-rating-image">
@@ -543,6 +544,7 @@ const AddAReview = () => {
                         </div>
                     </div>
 
+    </div>
     </div>
 )}
 
