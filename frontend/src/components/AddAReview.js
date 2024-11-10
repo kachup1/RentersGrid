@@ -50,13 +50,18 @@ const AddAReview = () => {
         const fetchLandlordDetails = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/landlord/details/${landlordId}`);
+                
+                // Assuming the API returns `name` and `properties` fields
+                setLandlordName(response.data.name);
                 setPropertyOptions(response.data.properties); // Assuming properties is an array of property names
             } catch (error) {
                 console.error("Error fetching landlord details:", error);
             }
         };
-        
-        fetchLandlordDetails();
+
+        if (landlordId) {
+            fetchLandlordDetails();
+        }
     }, [landlordId]);
     
     const handleDropdownToggle = () => {
@@ -235,11 +240,14 @@ const AddAReview = () => {
                             </ul>
                         </div>
                     </div>
+                    <div className="select-property-add-a-review"> 
+                            <h4>Select Property:</h4>
 
+                        </div>
                     {/* Select Property Section */}
                     <div> 
-                    <div className="dropdown-container">
-                        <div className="dropdown-selected" onClick={handleDropdownToggle}>
+                    <div className="dropdown-container-add-a-review">
+                        <div className="dropdown-selected-add-a-review" onClick={handleDropdownToggle}>
                             <span>{selectedProperty || "Select a Property"}</span>
                             <img
                                 src={DownArrow}
@@ -249,12 +257,12 @@ const AddAReview = () => {
                         </div>
 
                         {dropdownOpen && (
-                            <ul className="dropdown-options">
+                            <ul className="dropdown-options-add-a-review">
                                 {propertyOptions.map((option, index) => (
                                     <li
                                         key={index}
                                         onClick={() => handleOptionSelect(option)}
-                                        className="dropdown-item"
+                                        className="dropdown-item-add-a-review"
                                     >
                                         {option}
                                     </li>

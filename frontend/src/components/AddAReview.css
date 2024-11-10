@@ -75,8 +75,8 @@ body {
     padding: 30px;  /* Padding inside the box */
     border-radius: 10px;  /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    width: 1425px;  /* Set the width to 1423px */
-    height: 662px;  /* Set the height to 662px */   
+    width: 995px;  /* Set the width to 1423px */
+    height: 412px;  /* Set the height to 662px */   
     margin: 150px auto;  /* Center the box horizontally and add 50px margin at the top */
     display: flex;
     flex-direction: column;
@@ -87,42 +87,41 @@ body {
 }
 
 .add-rating-image {
-    width: 137px;  /* Set the width*/
-    height: 134px;  /* Set the height*/  
-    margin-top: -550px; /* Move the image down by 20px, adjust as needed */
-    margin-left: -500px; /* Move the image to the left by 30px, adjust as needed */
+    width: 97px;  /* Set the width*/
+    height: 94px;  /* Set the height*/  
+    margin-top: -390px; /* Move the image down by 20px, adjust as needed */
+    margin-left: -300px; /* Move the image to the left by 30px, adjust as needed */
     background-color: transparent;  /* Light gray background for the box */
     position: absolute;
 
 }
 
 .you-are-rating {
-    font-size: 18px;
+    font-size: 15px;
     margin-bottom: 500px;
-    margin-top: -90px; /* Adjust the value to move it higher */
-    margin-left: -100px; /* Move the element 20px to the left */
+    margin-top: 100px; /* Adjust the value to move it higher */
+    margin-left: -30px; /* Move the element 20px to the left */
     font-weight: 100; /* Makes the font lighter */
     color: #9BA0CC; 
     position: absolute;
-
-
 }
 
 .you-are-rating-landlord-name {
-    font-size: 45px;
+    font-size: 40px;
     margin-bottom: 10px;
-    margin-top: -500px; /* Adjust the value to move it higher */
-    margin-left: 70px; /* Move the element 20px to the left */
-    font-weight: 100; /* Makes the font lighter */
-    color: #4D55A5; 
+    margin-top: -320px; /* Adjust the value as needed */
+    margin-left: 60px; /* Adjust as needed */
+    font-weight: 100;
+    color: #4D55A5;
     position: absolute;
 }
 
+
 .write-a-review-string {
-    font-size: 35px;
+    font-size: 20px;
     margin-bottom: 10px;
-    margin-top: -100px; /* Adjust the value to move it higher */
-    margin-left: -900px; /* Move the element 20px to the left */
+    margin-top: -90px; /* Adjust the value to move it higher */
+    margin-left: -800px; /* Move the element 20px to the left */
     font-weight: 100; /* Makes the font lighter */
     color: #4D55A5; 
     position: absolute;
@@ -160,16 +159,16 @@ body {
 
 /* Write a review textarea */
 .review-box textarea {
-    width: 630px;
-    height: 300px;
+    width: 500px;
+    height: 200px;
     padding: 10px;
     border-radius: 2px;
-    margin-top: 160px; /* Adjust the value to move it higher */
-    margin-left: -590px; /* Move the element to the left */
+    margin-top: -35px; /* Adjust the value to move it higher */
+    margin-left: -490px; /* Move the element to the left */
     border: 2px solid #645d5d9c;
     box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.2); /* Left-bottom shadow */
     margin-bottom: 10px;
-    font-size: 19px;
+    font-size: 12px;
     font-weight: 300 !important;
     font-family: 'Helvetica';
     position: absolute;
@@ -178,11 +177,11 @@ body {
 }
 
 .guidelines {
-    width: 350px;
-    height: 150px;
+    width: 200px;
+    height: 60px;
     padding: 10px;
     border-radius: 2px;
-    margin-top: 180px; /* Adjust the value to move it higher */
+    margin-top: 140px; /* Adjust the value to move it higher */
     margin-left: -190px; /* Move the element 20px to the left */
     border: 2px solid #645d5d9c;
     position: absolute;
@@ -191,14 +190,14 @@ body {
     padding: 10px;
     border-radius: 5px;
     color: #f9f6f6;
-    font-size: 12px;
+    font-size: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for the guidelines box */
 }
 
 .guidelines-string{
-    font-size: 22px;
+    font-size: 15px;
     margin-bottom: 500px;
-    margin-top: -20px; /* Adjust the value to move it higher */
+    margin-top: -25px; /* Adjust the value to move it higher */
     margin-left: 10px; /* Move the element 20px to the left */
     font-weight: 100; /* Makes the font lighter */
     color: #ffffff; 
@@ -207,42 +206,61 @@ body {
 
 /* List for guidelines */
 .guidelines ul {
-    font-size: 18px;
+    font-size: 10px;
     list-style-type: none;
     padding-left: 0;
-    margin-top: 40px; /* Adjust the value to move it higher */
-    font-weight: 300; /* Set font weight to normal */
+    margin-top: 20px;
+    font-weight: 300;
     position: absolute;
-
+    line-height: 1; /* Keep line-height at a balanced value */
 }
+
+.guidelines ul li {
+    margin-bottom: 1px; /* Minimal space between items */
+    padding: 0;
+}
+
 
 .guidelines li {
     margin-bottom: 5px;
 }
 
 /* Select Property Dropdown----------------------------------------------------------- */
-/* AddAReviewDropdown.css */
+
+/*String 'Select property'*/
+.select-property-add-a-review {
+    font-size: 20px;
+    margin-bottom: 500px;
+    margin-top: 395px; /* Adjust the value to move it higher */
+    margin-left: 300px; /* Move the element 20px to the left */
+    font-weight: 100; /* Makes the font lighter */
+    color: #4D55A5; 
+    position: absolute;
+
+}
 
 /* Main container for the dropdown */
-.dropdown-container {
-    position: relative;
+.dropdown-container-add-a-review {
+    position: absolute;
     display: flex;
     align-items: center;
-    margin-top: 20px;
+    margin-top: -30px;
+    margin-left: 60px;
   }
   
-  /* Selected item styling */
-  .dropdown-selected {
+  /* Selected item styling string*/
+  .dropdown-selected-add-a-review {
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 12px;
     border: 1px solid #ccc;
     border-radius: 30px; /* Rounded corners */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 200px; /* Adjust width as needed */
+    width: 150px; /* Adjust width as needed */
     background-color: white;
+
   }
   
   .down-arrow {
@@ -257,7 +275,7 @@ body {
   }
   
   /* Dropdown options list */
-  .dropdown-options {
+  .dropdown-options-add-a-review {
     position: absolute;
     top: 100%;
     left: 0;
@@ -272,7 +290,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
   }
   
-  .dropdown-item {
+  .dropdown-item-add-a-review {
     padding: 10px;
     cursor: pointer;
     font-size: 16px;
@@ -286,10 +304,10 @@ body {
 
 /* Rate Your Landlord----------------------------------------------------*/
 .rate-your-landlord-string {
-    font-size: 35px;
-    margin-bottom: -700px;
-    margin-top: -570px; /* Adjust the value to move it higher */
-    margin-left: 620px; /* Move the element left */
+    font-size: 20px;
+    margin-bottom: -400px;
+    margin-top: -290px; /* Adjust the value to move it higher */
+    margin-left: 330px; /* Move the element left */
     color: #4D55A5; 
     position: absolute;
 }
@@ -309,14 +327,15 @@ body {
 .rating-icons {
     display: flex;
     justify-content: center;
-    margin-top: 250px;
-    margin-left: 790px; /* Move the element to the left */
+    margin-top: 200px;
+    margin-left: 490px; /* Move the element to the left */
+    position: absolute;
 
 }
 
 .rating-icon {
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 60px;
     margin: 0 10px;
     cursor: pointer;
     transition: transform 0.2s, filter 0.2s;
@@ -503,8 +522,8 @@ body {
 /* Next Button-------------------------------------------- */
 /* Next button styling specific to Frame 1 */
 .next-btn-frame1 {
-    width: 150px; /* Adjust button size as needed */
-    height: 50px;
+    width: 140px; /* Adjust button size as needed */
+    height: 40px;
     background-image: url('../Assets/next-green.svg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -514,7 +533,7 @@ body {
     outline: none;
     background-color: transparent;
     position: absolute;
-    bottom: 110px; 
+    bottom: 50px; 
     left: 80%;
     transform: translateX(-50%); /* Center horizontally */
     border-radius: 25px;
