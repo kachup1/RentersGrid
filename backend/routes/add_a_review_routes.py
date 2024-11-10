@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models.database import ratings_collection
+from models.database import ratings_collection, landlords_collection, properties_collection
 
 add_a_review_blueprint = Blueprint('add_a_review', __name__)
 
@@ -36,3 +36,23 @@ def add_review():
     except Exception as e:
         print("Error:", e)
         return jsonify({"error": str(e)}), 500
+
+
+@add_a_review_blueprint.route('/api/landlord/details/<landlord_id>', methods=['GET'])
+def get_landlord_details(landlord_id):
+    """Fetch landlord's name and properties with names for the Add A Review page."""
+    # Fetch landlord information
+    landlord = landlords_collection.find_one({"landlordId": int(landlord_id)}, {"name": 1, "propertyId": 1})
+    if not landlord:
+        return jsonify({"error": "Landlord not found"}), 404
+
+    # Fetch property details based on the property IDs
+    property_ids = landlord.get("propertyId", [])
+    properties = list(properties_collection.find({"propertyId": {"$in": property_ids}}, {"propertyname": 1}))
+
+    # Structure response with landlord name and property names
+    landlord_data = {
+        "name": landlord.get("name"),
+        "properties": [prop["propertyname"] for prop in properties]
+    }
+    return jsonify(landlord_data), 200
