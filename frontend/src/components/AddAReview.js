@@ -30,6 +30,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUserIdFromToken, isTokenValid } from './authentication';
 
 
+
 const AddAReview = () => {
 
     const landlordId = 1;  // Hardcoded value for testing
@@ -45,6 +46,13 @@ const AddAReview = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
 
+    //needed to get landlordID:
+    const{landlordId} = useParams();//this gets the landlordId from the URL
+
+    useEffect(()=>{
+        console.log("Landlord Id for review:",landlordId);
+    },[landlordId]);
+    
     const handleDropdownToggle = () => {
         setDropdownOpen(!dropdownOpen);
     };
