@@ -33,8 +33,6 @@ import { getUserIdFromToken, isTokenValid } from './authentication';
 
 const AddAReview = () => {
 
-    const landlordId = 1;  // Hardcoded value for testing
-
 
     const [currentStep, setCurrentStep] = useState(1);
     const [selectedRating, setSelectedRating] = useState(0);
@@ -42,7 +40,6 @@ const AddAReview = () => {
     const [selectedProperty, setSelectedProperty] = useState("Fairview Apartment");
     const [reviewText, setReviewText] = useState(""); // For the review text
     const [isChecked, setIsChecked] = useState(false); // For the checkbox in Frame 4
-    //const { landlordId } = useParams();  // This captures landlordId from the URL
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
 

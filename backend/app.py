@@ -31,7 +31,6 @@ app.register_blueprint(auth_blueprint)
 app.register_blueprint(bookmarks_blueprint)
 app.register_blueprint(search_blueprint)
 app.register_blueprint(map_blueprint)
-
 app.register_blueprint(rp_routes)
 app.register_blueprint(landlord_profile_blueprint)
 app.register_blueprint(add_a_review_blueprint)
@@ -43,11 +42,6 @@ def add_cors_headers(response):
     response.headers["Access-Control-Allow-Headers"] = "Content-Type,Authorization"
     response.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS,PUT,DELETE"
     return response
-
-
-
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
