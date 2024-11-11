@@ -26,6 +26,7 @@ import NoAccountSideMenu from './NoAccountSideMenu';
 import SideMenu from './SideMenu';
 import './LandlordProfile.css';
 import { isTokenValid } from './authentication';
+import ReportProblem from './ReportProblem';
 
 function LandlordProfile() {
     const { landlordId } = useParams();
@@ -90,6 +91,10 @@ function LandlordProfile() {
 
     const handleAddReviewClick =()=>{
         navigate(`/addareview/${landlordId}`);  //this navigates to addareview with the landlordID
+    };
+    
+    const handleReportClick = () => {
+        navigate(`/ReportProblem/${landlordId}`); 
     };
 
     return (
@@ -263,8 +268,10 @@ function LandlordProfile() {
                 {/* Icons Container for Share and Report */}
                 <div className="icons-container">
                     <img src={Share} alt="Share" className="icon share-icon" />
-                    <img src={Report} alt="Report" className="icon report-icon" />
+                    <img src={Report} alt="Report" className="icon report-icon" onClick={handleReportClick} />
                 </div>
+                
+                
             </div>
 
 

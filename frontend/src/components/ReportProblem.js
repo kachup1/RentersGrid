@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ReportProblem.css';
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import ReportButton from '../Assets/report-title.svg';
 import MenuAlt from '../Assets/main-logo.svg';
 import NoAccountSideMenu from './NoAccountSideMenu';
-import { Link } from 'react-router-dom';
-import { useNavigate} from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
-function ReportProblem() {
+function ReportProblem() {  // landlordId is received as a prop
+    const { landlordId } = useParams();
     const [selectedProblem, setSelectedProblem] = useState('');
     const [comments, setComments] = useState('');
     const [charCount, setCharCount] = useState(0);
@@ -22,11 +22,37 @@ function ReportProblem() {
         setComments(e.target.value);
         setCharCount(e.target.value.length);
     };
-
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        console.log("Received landlordId in ReportProblem:", landlordId); // Debugging
+    }, [landlordId]);
+    
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission 
-        navigate('/ReportProblemConfirmation');
+
+        // Prepare the report data to send to the backend
+        const reportData = {
+            landlordId,
+            comment: comments,
+            category: selectedProblem,
+            type: 'Problem', 
+        };
+
+        try {
+            // Send POST request to the backend
+            const response = await fetch('http://localhost:5000/api/report', { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(reportData),
+            });
+
+            if (response.ok) {
+                navigate('/ReportProblemConfirmation');  // Navigate to confirmation page on success
+            } else {
+                console.error('Failed to submit report');
+            }
+        } catch (error) {
+            console.error('Error submitting report:', error);
+        }
     };
 
     return (
@@ -51,8 +77,8 @@ function ReportProblem() {
             <div className="report-problem-wrapper">
                 <div className="report-problem-form-box">
                     <div className="title-container">
-                    <img src={ReportButton} alt="Report Button" className="report-problem-icon" />
-                    <h1 className="report-problem-title">Report a Problem</h1>
+                        <img src={ReportButton} alt="Report Button" className="report-problem-icon" />
+                        <h1 className="report-problem-title">Report a Problem</h1>
                     </div>
                     <label htmlFor="problem-select" className="report-problem-label">*Why are you reporting?</label>
                     <select
@@ -63,9 +89,9 @@ function ReportProblem() {
                         required
                     >
                         <option value="">Select Problem</option>
-                        <option value="maintenance">Wrong Landlord name</option>
-                        <option value="noise">Wrong Review under Landlord</option>
-                        <option value="safety">Other</option>
+                        <option value="Wrong Landlord Name">Wrong Landlord Name</option>
+                        <option value="Wrong Review under Landlord">Wrong Review under Landlord</option>
+                        <option value="Other">Other</option>
                         {/* Add more options as needed */}
                     </select>
                     <label htmlFor="comments" className="report-problem-comments-label">Additional comments:</label>
@@ -85,11 +111,7 @@ function ReportProblem() {
                 </div>
             </div>
 
-            { /* POSSIBLE SUPPORT ??
-             <div className="report-problem-sign-in">
-                <h3 className="report-problem-sign-in-text">Need more help?</h3>
-                <Link to="/Support" className="report-problem-support-link">Contact Support</Link>
-            </div> */}
+            
         </div>
     );
 }
