@@ -3,6 +3,7 @@ import './AddAReview.css'; // import the CSS file
 import OfficialLogo from '../Assets/official logo.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import SideMenu from './SideMenu';
+import NoAccountSideMenu from './NoAccountSideMenu';
 import AccountButton from '../Assets/Account button.svg';
 import AddRatingTitle from '../Assets/add-rating-title.svg';
 import DownArrow from '../Assets/downward.svg'; // Use the downward arrow SVG
@@ -55,6 +56,10 @@ const AddAReview = () => {
         console.log("User ID:", getUserIdFromToken());
 
     }, []);
+
+    useEffect(() => {
+        console.log("User ID:", getUserIdFromToken());
+    }, []); // This will run once when the component mounts
 
     // 2nd useEffect: Fetch landlord details based on the landlordId
     useEffect(() => {
@@ -202,7 +207,11 @@ const AddAReview = () => {
 
     return (
         <div className="main-container-add-a-rating">
-            <SideMenu isLoggedIn={isLoggedIn} />
+        {isLoggedIn ? (
+            <SideMenu />
+        ) : (
+            <NoAccountSideMenu />
+        )}
 
             {/* Header section */}
             <header className="headerhp-add-a-rating">

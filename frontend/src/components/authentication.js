@@ -35,7 +35,7 @@ export const isTokenValid = () => {
     if (token) {
         const decoded = jwtDecode(token);
         console.log("Decoded token:", decoded); // Log the decoded token to inspect its structure
-        return decoded.sub.userId; // Access `userId` inside `sub`
+        return decoded.sub.userId; // This should be a simple value
     }
     return null;
 };
