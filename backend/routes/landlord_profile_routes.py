@@ -26,9 +26,19 @@ def get_landlord_profile(landlord_id):
     properties = [serialize_mongo_document(prop)for prop in properties]
 
     # Fetch all reviews for this landlord and convert ObjectId fields
+    reviews = list(ratings_collection.find({"landlordId":int(landlord_id)}))
     reviews = [serialize_mongo_document(review) for review in ratings_collection.find({"landlordId": int(landlord_id)})]
 
     avg_rating = sum(r['score'] for r in reviews) / len(reviews) if reviews else None
+
+    # Calculate rating distribution, of how many of each score are given
+    rating_distribution = {
+        "Excellent": sum(1 for r in reviews if r['score'] == 5),
+        "Good": sum(1 for r in reviews if r['score'] == 4),
+        "Average": sum(1 for r in reviews if r['score'] == 3),
+        "Decent": sum(1 for r in reviews if r['score'] == 2),
+        "Poor": sum(1 for r in reviews if r['score'] == 1),
+    }
 
     landlord_data = {
         "landlordId": landlord.get("landlordId"),
@@ -37,6 +47,9 @@ def get_landlord_profile(landlord_id):
         "properties": properties,
         "averageRating": avg_rating,
         "reviewCount": len(reviews),
-        "reviews": reviews
+        "reviews": reviews,
+        "ratingDistribution":rating_distribution,
+        
+
     }
     return jsonify(landlord_data), 200
