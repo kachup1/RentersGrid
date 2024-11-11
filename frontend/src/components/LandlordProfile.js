@@ -98,6 +98,19 @@ function LandlordProfile() {
         navigate(`/addareview/${landlordId}`);  //this navigates to addareview with the landlordID
     };
 
+    //Bar graph:
+    const { ratingDistribution = {}, reviewCount = 0 } = landlordData; // Default to empty object if undefined
+
+    // LandlordProfile.js
+    const getBarWidth = (count) => {
+        const width= reviewCount ? (count / reviewCount) * 100 : 0;
+        console.log(`Width for count ${count}: ${width}%`);
+        return width;
+    };
+
+     // Log the ratingDistribution to verify values
+    console.log("Rating Distribution:", ratingDistribution);
+
     return (
         <div className="landlord-profile-container">
             <header className="landlord-header">
@@ -122,7 +135,7 @@ function LandlordProfile() {
                 <div className="landlord-information">
                     <div className="landlord-details">
                         <div className="rating-box">
-                            <p className="landlord-rates">2</p>
+                            <p className="landlord-rates">{landlordData.averageRating ? landlordData.averageRating.toFixed(1):"No Ratings"}</p>
                         </div>
                         <div>
                             <h2 className="landlord-name">{landlordData.name}</h2>
@@ -151,41 +164,38 @@ function LandlordProfile() {
 
                 {/* Rating Summary */}
                 <div className="rating-summary">
-                    <div className="rating-item">
-                        <img src={ExcellentFace} alt="Excellent" className="rating-face" />
-                        <span className="rating-label">Excellent</span>
-                        <div className="rating-bar grey-bar"></div>
+                {[
+                    { label: "Excellent", icon: ExcellentFace, count: ratingDistribution.Excellent || 0, colorClass: "green-bar" },
+                    { label: "Good", icon: GoodFace, count: ratingDistribution.Good || 0, colorClass: "green-bar" },
+                    { label: "Average", icon: AverageFace, count: ratingDistribution.Average || 0, colorClass: "yellow-bar" },
+                    { label: "Decent", icon: DecentFace, count: ratingDistribution.Decent || 0, colorClass: "orange-bar" },
+                    { label: "Poor", icon: PoorFace, count: ratingDistribution.Poor || 0, colorClass: "red-bar" },
+                ].map((rating) => (
+                    <div className="rating-item" key={rating.label}>
+                        <img src={rating.icon} alt={rating.label} className="rating-face" />
+                        <span className="rating-label">{rating.label}</span>
+                        <div className="rating-bar grey-bar">
+                            <div className={`${rating.colorClass}`} style={{ width: `${getBarWidth(rating.count)}%` }}></div>
+                        </div>
                     </div>
-                    <div className="rating-item">
-                        <img src={GoodFace} alt="Good" className="rating-face" />
-                        <span className="rating-label">Good</span>
-                        <div className="rating-bar grey-bar"></div>
-                    </div>
-                    <div className="rating-item">
-                        <img src={AverageFace} alt="Average" className="rating-face" />
-                        <span className="rating-label">Average</span>
-                        <div className="rating-bar grey-bar"></div>
-                    </div>
-                    <div className="rating-item">
-                        <img src={DecentFace} alt="Decent" className="rating-face" />
-                        <span className="rating-label">Decent</span>
-                        <div className="rating-bar green-bar"></div>
-                    </div>
-                    <div className="rating-item">
-                        <img src={PoorFace} alt="Poor" className="rating-face" />
-                        <span className="rating-label">Poor</span>
-                        <div className="rating-bar grey-bar"></div>
-                    </div>
-                </div>
+                ))}
+            </div>
+                
             </div>
             {/* Dropdowns for Select Property and Sort By */}
             <div className="dropdown-container">
                 <div className="dropdown">
                     <label htmlFor="propertySelect">Select Property:</label>
                     <select id="propertySelect" name="propertySelect">
-                        <option value="FairviewApartment">Fairview Apartment</option>
-                        <option value="OceanView">Ocean View</option>
-                        <option value="SunsetVilla">Sunset Villa</option>
+                    {landlordData.properties && landlordData.properties.length > 0 ? (
+                    landlordData.properties.map((property) => (
+                        <option key={property.propertyId} value={property.propertyId}>
+                            {property.propertyname}
+                        </option>
+                            ))
+                        ) : (
+                            <option>No properties available</option>
+                        )}
                         {/* Add more options as needed */}
                     </select>
                 </div>
