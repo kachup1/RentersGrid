@@ -91,7 +91,7 @@ function LandlordProfile() {
     };
 
     const handleAddPropertyClick = () => {
-        navigate('/addproperty');
+        navigate(`/addproperty/${landlordId}`);
     };
 
     //navigation to review

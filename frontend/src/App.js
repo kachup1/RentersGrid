@@ -37,7 +37,7 @@ function App() {
                 <Route path="/LandlordProfile/:landlordId" element={<LandlordProfile />} />
                 <Route path="/resetpassword" element={<ResetPassword />} />
                 <Route path="/resetpasswordupdate" element={<ResetPasswordUpdate />} />
-                <Route path="/addproperty" element={<AddProperty />} />
+                <Route path="/addproperty/:landlordId" element={<AddProperty />} />
                 <Route path="/AddAReview/:landlordId" element={<AddAReview />} />
                 <Route path="/AddALandlord" element={<AddALandlord />} />
                 <Route path="/myaccount" element={<MyAccount />} />
