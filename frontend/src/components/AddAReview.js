@@ -46,6 +46,7 @@ const AddAReview = () => {
     const [checkboxError, setCheckboxError] = useState(false);//tracks checkbox error message
     const navigate = useNavigate();
     const{landlordId} = useParams();//this gets the landlordId from the URL
+    const [wordCount, setWordCount] = useState(0); // For counting words
 
     // 1st useEffect: Check if the user is logged in when the component mounts
     useEffect(() => {
@@ -101,7 +102,15 @@ const AddAReview = () => {
     
     //handle review text change
     const handleReviewChange = (e) => {
-        setReviewText(e.target.value);  // Update state as user types
+        const originalText = e.target.value;
+        const words = originalText.trim().split(/\s+/); // Split text into words
+        const count = words.filter(word => word !== "").length;
+    
+        if (count <= 300) { // Allow typing only if under the limit
+            const censoredText = censorText(originalText); // Apply censoring
+            setReviewText(censoredText);  // Update state with censored text
+            setWordCount(count); // Update word count
+        }
     };
 
     //to submit review
@@ -209,6 +218,24 @@ const AddAReview = () => {
         setIsLoggedIn(isTokenValid());
     }, []);
 
+    const profaneWords = [
+        "fucker", "fuck", "shit", "damn", "asshole", "bitch", "bastard", "dick", "piss", "crap", 
+        "cunt", "prick", "slut", "whore", "cock", "douche", "motherfucker", "nigger", "kike", 
+        "chink", "spic", "beaner","wop", "dyke", "fag", "faggot", "wanker", "twat", "retard", "idiot", 
+        "moron", "scumbag", "shithead", "tits", "boobs", "balls", "dickhead", "ass", "arse","bugger", 
+        "bollocks", "tosser", "shag", "slag", "skank", "jackass", "suck", "arsehole", "bloody", 
+        "bollock", "bollocks", "bollocking", "git", "pussy", "minge", "nonce", "pikey", "sod", 
+        "sodding", "wank", "bellend", "shite", "spaz", "twit", "choad", "knob", "wazzock", 
+        "minger", "numpty", "pillock", "knobhead", "knob-end", "plonker", "queer", "wop", "boobies", "gash", "smeg", "prat", "nonce", "chuffer"
+    ];    
+
+    const censorText = (text) => {
+        const regex = new RegExp(`\\b(${profaneWords.join('|')})\\b`, 'gi');
+        return text.replace(regex, (match) => '*'.repeat(match.length));
+    };
+    
+
+
     return (
         <div className="main-container-add-a-rating">
         {isLoggedIn ? (
@@ -275,6 +302,8 @@ const AddAReview = () => {
                         value={reviewText}  // Bind to reviewText state
                         onChange={handleReviewChange}  // Update state on change
                     />
+                    <p className="word-counter">{wordCount}/300</p> {/* Word counter display */}
+
                 </div>
 
 

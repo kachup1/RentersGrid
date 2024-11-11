@@ -179,6 +179,18 @@ body {
 
 }
 
+/*text box word counter*/
+.word-counter {
+    font-size: 12px;
+    color: #4D55A5;
+    text-align: right;
+    position: absolute;
+    right: 0;
+    margin-right: 500px; /* Adjusts position next to the textarea */
+    margin-top: 190px;
+}
+
+
 .guidelines {
     width: 200px;
     height: 60px;
@@ -607,7 +619,7 @@ body{
 /*Review Box*/
 .frame4-review-text {
     width: 500px;
-    height: 200px;
+    height: 210px;
     padding: 10px;
     border-radius: 2px;
     margin-top: 140px; /* Adjust the value to move it higher */
@@ -621,6 +633,10 @@ body{
     font-family: 'Helvetica';
     position: absolute;
     resize: none; /* Prevent resizing */
+    max-height: 300px; /* Adjust height as needed */
+    overflow-y: auto; /* Adds vertical scrollbar if text exceeds the container */
+    padding: 10px; /* Optional: for some padding around the text */
+    box-sizing: border-box; /* Ensures padding doesn't increase total width */
 }
 
 
