@@ -42,7 +42,7 @@ function App() {
                 <Route path="/AddALandlord" element={<AddALandlord />} />
                 <Route path="/myaccount" element={<MyAccount />} />
                 <Route path="/myratings" element={<MyRatings />} />
-                <Route path="/ReportProblem" element={<ReportProblem />} />
+                <Route path="/ReportProblem/:landlordId" element={<ReportProblem />} />
                 <Route path="/ReportProblemConfirmation" element={<ReportProblemConfirmation />} />
                 <Route path="/ReportReview" element={<ReportReview />} />
                 <Route path="/ReportReviewConfirmation" element={<ReportReviewConfirmation />} />

@@ -91,12 +91,18 @@ function LandlordProfile() {
     };
 
     const handleAddPropertyClick = () => {
-        navigate('/addproperty'); // Assuming '/add-property' is the route for AddProperty.js
+        navigate('/addproperty');
     };
 
+    //navigation to review
     const handleAddReviewClick =()=>{
         navigate(`/addareview/${landlordId}`);  //this navigates to addareview with the landlordID
     };
+    //This navigates to report page
+    const handleReportClick = () => {
+        navigate(`/ReportProblem/${landlordId}`); // Navigate to the report page with landlord ID
+    };
+
 
     //Bar graph:
     const { ratingDistribution = {}, reviewCount = 0 } = landlordData; // Default to empty object if undefined
@@ -147,6 +153,15 @@ function LandlordProfile() {
                         }}>
                             <img src={bookmarked[landlordId] ? SelectedBookmark : Bookmark} alt="Bookmark Icon" className="bookmark-icon-img" />
                         </div>
+                        <div className='landlord-report-icon'>
+                            <img
+                        src={Report}
+                        alt="Report"
+                        className="report-icon-img"
+                        onClick={handleReportClick} // Add click event to navigate
+                            />
+                        </div>
+                        
                     </div>
 
                     <div className="button-container">
@@ -274,14 +289,17 @@ function LandlordProfile() {
 
                         </div>
                     </div>
+                   
                 </div>
-
-                {/* Icons Container for Share and Report */}
+                  {/* Icons Container for Share and Report */}
                 <div className="icons-container">
-                    <img src={Share} alt="Share" className="icon share-icon" />
-                    <img src={Report} alt="Report" className="icon report-icon" />
-                </div>
+                        <img src={Share} alt="Share" className="icon share-icon" />
+                        <img src={Report} alt="Report" className="icon report-icon" />
+                    </div>
+
+                
             </div>
+           
 
 
         </div>

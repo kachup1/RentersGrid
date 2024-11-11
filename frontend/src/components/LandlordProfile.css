@@ -148,6 +148,18 @@
     width: 24px;
     height: auto;
 }
+/*Report Icon*/
+.landlord-report-icon{
+    cursor: pointer;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.report-icon-img{
+    width: 35px;
+    height: 35px;
+}
 
 /* Button Container */
 .button-container {
@@ -454,21 +466,23 @@
 }
 
 /*Side icons*/
+/* Icons Container for Share and Report */
 .icons-container {
-    position: fixed;
-    bottom: 400px; /* Adjust this to place it where you want vertically */
-    right: 200px;  /* Adjust this to place it where you want horizontally */
+    
+    transform:translateY(-500px); /* Adjusts for perfect vertical centering */
+    margin-left: 1300px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     z-index: 1000; /* Ensures it stays above other content */
 }
 
 .icon {
-    width: 24px; /* Adjust to desired size */
-    height: 24px;
+    width: 30px; /* Adjust to desired size */
+    height: 30px;
     cursor: pointer;
 }
+
 
 
 /* Responsive Media Queries */
