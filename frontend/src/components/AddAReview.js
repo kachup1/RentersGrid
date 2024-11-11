@@ -24,15 +24,14 @@ import Recommend from '../Assets/reco.svg';
 import ThumbsUp from '../Assets/up-green.svg';
 import ThumbsDown from '../Assets/down-red.svg';
 import SubmitReview from '../Assets/submit-review_1.svg';
-//this is needed to get landlordID:
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { getUserIdFromToken, isTokenValid } from './authentication';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';//this is needed to get landlordID:
 
 const AddAReview = () => {
-
+    //state hooks
     const [currentStep, setCurrentStep] = useState(1);
     const [selectedRating, setSelectedRating] = useState(0);
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -46,8 +45,6 @@ const AddAReview = () => {
     const [ratingError, setRatingError] = useState(false);
     
     const navigate = useNavigate();
-
-    //needed to get landlordID:
     const{landlordId} = useParams();//this gets the landlordId from the URL
 
     // 1st useEffect: Check if the user is logged in when the component mounts
@@ -80,6 +77,7 @@ const AddAReview = () => {
         }
     }, [landlordId]);
 
+    //navigate based on account status
     const handleAccountClick = () => {
         if (isLoggedIn) {
             // If logged in, navigate to the user account page
@@ -90,20 +88,23 @@ const AddAReview = () => {
         }
     };
     
-    
+    //toggle dropdown visibility
     const handleDropdownToggle = () => {
         setDropdownOpen(!dropdownOpen);
     };
     
+    //select dropdown property
     const handleOptionSelect = (option) => {
         setSelectedProperty(option);
         setDropdownOpen(false); // Close the dropdown after selection
     };
     
+    //handle review text change
     const handleReviewChange = (e) => {
         setReviewText(e.target.value);  // Update state as user types
     };
 
+    //to submit review
     const handleSubmit = async () => {
         if (isChecked) {
             const userId = getUserIdFromToken(); // Get the userId from the token
@@ -135,7 +136,7 @@ const AddAReview = () => {
         }
     };
     
-    
+    //validate and move to next step
     const handleNextClick = () => {
         if (!selectedProperty) setPropertyError(true); // Show error if no property selected
         if (selectedRating === 0) setRatingError(true); // Show error if no rating selected
@@ -237,7 +238,7 @@ const AddAReview = () => {
                         alt="Account Button"
                         className="account-right"
                         onClick={handleAccountClick} // Use the click handler here
-                        style={{ cursor: 'pointer' }} // Optional: change cursor to pointer
+                        style={{ cursor: 'pointer' }} // change cursor to pointer
                     />
                 </div>
             </header>

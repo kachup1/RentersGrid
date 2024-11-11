@@ -1,3 +1,5 @@
+
+/*====================================Main frame (offical logo, menu, ect=========================*/
 /* Define the font */
 @font-face {
     font-family: 'Helvetica';
@@ -67,7 +69,7 @@ body {
     height: auto;
 }
 
-/* ================== Frame 1 (Review Section) ================== */
+/* =========================================================== Frame 1 (Review Section) =================================== */
 
 /* Main container for the form, the gray box */
 .form-container-add-a-rating {
@@ -75,9 +77,9 @@ body {
     padding: 30px;  /* Padding inside the box */
     border-radius: 10px;  /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    width: 995px;  /* Set the width to 1423px */
-    height: 380px;  /* Set the height to 662px */   
-    margin: 150px auto;  /* Center the box horizontally and add 50px margin at the top */
+    width: 995px; 
+    height: 380px; 
+    margin: 150px auto;  /* Center the box horizontally  */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -89,9 +91,9 @@ body {
 .add-rating-image {
     width: 97px;  /* Set the width*/
     height: 94px;  /* Set the height*/  
-    margin-top: -360px; /* Move the image down by 20px, adjust as needed */
-    margin-left: -300px; /* Move the image to the left by 30px, adjust as needed */
-    background-color: transparent;  /* Light gray background for the box */
+    margin-top: -360px; 
+    margin-left: -300px;
+    background-color: transparent;  /* color background for the box */
     position: absolute;
 
 }
@@ -101,7 +103,7 @@ body {
     font-size: 15px;
     margin-bottom: 500px;
     margin-top: 130px; /* Adjust the value to move it higher */
-    margin-left: -10px; /* Move the element 20px to the left */
+    margin-left: -10px; 
     font-weight: 100; /* Makes the font lighter */
     color: #9BA0CC; 
     position: absolute;
@@ -122,7 +124,7 @@ body {
     font-size: 20px;
     margin-bottom: 10px;
     margin-top: -90px; /* Adjust the value to move it higher */
-    margin-left: -800px; /* Move the element 20px to the left */
+    margin-left: -800px; 
     font-weight: 100; /* Makes the font lighter */
     color: #4D55A5; 
     position: absolute;
@@ -153,12 +155,12 @@ body {
 }
 
 .review-section h2 span {
-    color: #4D55A5; /* Color for the landlord's name */
+    color: #4D55A5;
     position: absolute;
 
 }
 
-/* Write a review textarea */
+/* Write a review textarea AKA the box where user writes in their comments*/
 .review-box textarea {
     width: 500px;
     height: 200px;
@@ -183,7 +185,7 @@ body {
     padding: 10px;
     border-radius: 2px;
     margin-top: 120px; /* Adjust the value to move it higher */
-    margin-left: -190px; /* Move the element 20px to the left */
+    margin-left: -190px; 
     border: 2px solid #645d5d9c;
     position: absolute;
     top: -10px; /* Adjusts the position slightly above the review box */
@@ -199,7 +201,7 @@ body {
     font-size: 15px;
     margin-bottom: 500px;
     margin-top: -25px; /* Adjust the value to move it higher */
-    margin-left: 10px; /* Move the element 20px to the left */
+    margin-left: 10px; 
     font-weight: 100; /* Makes the font lighter */
     color: #ffffff; 
     position: absolute;
@@ -233,7 +235,7 @@ body {
     font-size: 20px;
     margin-bottom: 500px;
     margin-top: 395px; /* Adjust the value to move it higher */
-    margin-left: 300px; /* Move the element 20px to the left */
+    margin-left: 300px; 
     font-weight: 100; /* Makes the font lighter */
     color: #4D55A5; 
     position: absolute;
@@ -364,7 +366,6 @@ body {
 .rating-icon.inactive {
     opacity: 1;
     filter: grayscale(100%) brightness(1.2);
-    /* Optional: You can add a slight overlay color to keep them consistently visible */
     background-color: rgba(220, 220, 220, 0.3); /* Light grey overlay */
     border-radius: 50%; /* Ensure the grey overlay matches the round shape */
     background-color: transparent; /* Set to transparent or match the exact background color */
@@ -374,7 +375,7 @@ body {
 /* Individual error message style */
 .error-message-1 {
     color: red; /* Red color for visibility */
-    font-size: 12px; /* Adjust font size */
+    font-size: 12px;
     margin: 5px 0; /* Space between each message */
     position: absolute;
     text-align: left;
@@ -383,7 +384,7 @@ body {
 }
 .error-message-2 {
     color: red; /* Red color for visibility */
-    font-size: 12px; /* Adjust font size */
+    font-size: 12px;
     margin: 5px 0; /* Space between each message */
     position: absolute;
     text-align: left;
@@ -558,7 +559,7 @@ body{
     width: 80%;
     height: 950px; 
     margin: 100px auto; /* Center align */
-    margin-top: 10px; /* Move the image down by 20px, adjust as needed */
+    margin-top: 10px; 
     position: absolute;
 
 }
@@ -566,8 +567,8 @@ body{
 .frame-4-add-rating-image {
     width: 137px;  /* Set the width*/
     height: 134px;  /* Set the height*/  
-    margin-top: -40px; /* Move the image down by 20px, adjust as needed */
-    margin-left: -330px; /* Move the image to the left by 30px, adjust as needed */
+    margin-top: -40px; 
+    margin-left: -330px; 
     background-color: transparent;  /* Light gray background for the box */
     position: absolute;
 }
@@ -576,7 +577,7 @@ body{
     font-size: 15px;
     margin-bottom: 500px;
     margin-top: -20px; /* Adjust the value to move it higher */
-    margin-left: 10px; /* Move the element 20px to the left */
+    margin-left: 10px; 
     font-weight: 100; /* Makes the font lighter */
     color: #9BA0CC; 
     position: absolute;
@@ -586,7 +587,7 @@ body{
     font-size: 40px;
     margin-bottom: 10px;
     margin-top: -20px; /* Adjust the value to move it higher */
-    margin-left: 80px; /* Move the element 20px to the left */
+    margin-left: 80px; 
     font-weight: 100; /* Makes the font lighter */
     color: #4D55A5; 
     position: absolute;
@@ -597,7 +598,7 @@ body{
     font-size: 20px;
     margin-bottom: 10px;
     margin-top: 90px; /* Adjust the value to move it higher */
-    margin-left: -780px; /* Move the element 20px to the left */
+    margin-left: -780px; 
     font-weight: 100; /* Makes the font lighter */
     color: #4D55A5; 
     position: absolute;
@@ -622,7 +623,7 @@ body{
     resize: none; /* Prevent resizing */
 }
 
-/* Frame 4 property display*/
+
 /* Frame 4 - Property Display */
 .frame4-select-property {
     display: flex;
@@ -724,8 +725,8 @@ body{
     position: absolute;
     right: 320px; /* Position from the right side */
     bottom: -1200px; /* Position from the bottom */
-    width: 200px; /* Adjust as needed */
-    height: 300px; /* Adjust as needed */
+    width: 200px; 
+    height: 300px; 
 }
 
 /* Styling for Back and Submit Buttons */
