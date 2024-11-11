@@ -241,11 +241,11 @@ body {
 
 /* Main container for the dropdown */
 .dropdown-container-add-a-review {
-    position: absolute;
     display: flex;
     align-items: center;
-    margin-top: -30px;
+    margin-top: -15px;
     margin-left: 60px;
+    position: absolute;
   }
   
   /* Selected item styling string*/
@@ -260,6 +260,12 @@ body {
     justify-content: space-between;
     width: 150px; /* Adjust width as needed */
     background-color: white;
+    position: absolute;
+    background-color: white;
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden; /* Ensures text does not overflow */
+    text-overflow: ellipsis; /* Adds "..." if text is too long */
+    position: absolute;
 
   }
   
@@ -279,7 +285,7 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: white;
+    background-color: rgb(253, 250, 250);
     border: 1px solid #ccc;
     border-radius: 0 0 10px 10px;
     width: 100%;
@@ -288,12 +294,18 @@ body {
     padding: 0;
     margin: 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    position: absolute;
+
   }
   
   .dropdown-item-add-a-review {
     padding: 10px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 12px;
+    white-space: nowrap; /* Prevents text from wrapping */
+    background-color: white; /* Ensures each option has a white background */
+    position: absolute;
+
   }
   
   .dropdown-item:hover,
@@ -306,7 +318,7 @@ body {
 .rate-your-landlord-string {
     font-size: 20px;
     margin-bottom: -400px;
-    margin-top: -290px; /* Adjust the value to move it higher */
+    margin-top: -190px; /* Adjust the value to move it higher */
     margin-left: 330px; /* Move the element left */
     color: #4D55A5; 
     position: absolute;
@@ -327,7 +339,7 @@ body {
 .rating-icons {
     display: flex;
     justify-content: center;
-    margin-top: 200px;
+    margin-top: 300px;
     margin-left: 490px; /* Move the element to the left */
     position: absolute;
 
@@ -354,7 +366,30 @@ body {
     /* Optional: You can add a slight overlay color to keep them consistently visible */
     background-color: rgba(220, 220, 220, 0.3); /* Light grey overlay */
     border-radius: 50%; /* Ensure the grey overlay matches the round shape */
+    background-color: transparent; /* Set to transparent or match the exact background color */
+
 }
+
+/* Individual error message style */
+.error-message-1 {
+    color: red; /* Red color for visibility */
+    font-size: 12px; /* Adjust font size */
+    margin: 5px 0; /* Space between each message */
+    position: absolute;
+    text-align: left;
+    margin-top: -60px;
+    margin-left: 240px;
+}
+.error-message-2 {
+    color: red; /* Red color for visibility */
+    font-size: 12px; /* Adjust font size */
+    margin: 5px 0; /* Space between each message */
+    position: absolute;
+    text-align: left;
+    margin-top: 95px;
+    margin-left: 270px;
+}
+
 
 /* ================== Frame 2 ================================================== */
 /* Frame 2 - Rating Criteria Section  Frame 2 and 3*/
@@ -402,8 +437,8 @@ body {
 }
 /* Thumbs container styling Frames 2 and 3*/
 .thumb {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     cursor: pointer;
     filter: grayscale(100%); /* Start as grey by default */
     transition: filter 0.2s ease;
@@ -449,7 +484,6 @@ body {
 .next-btn-frame1 {
     width: 140px; /* Adjust button size as needed */
     height: 40px;
-    background-image: url('../Assets/next-green.svg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -458,10 +492,11 @@ body {
     outline: none;
     background-color: transparent;
     position: absolute;
-    bottom: 50px; 
+    bottom: -20px; 
     left: 80%;
     transform: translateX(-50%); /* Center horizontally */
     border-radius: 25px;
+    z-index: 10;
 }
 
 /* Button row styling for frames 2 and onward */
@@ -520,7 +555,7 @@ body{
     border-radius: 60px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 80%;
-    height: 920px; 
+    height: 950px; 
     margin: 100px auto; /* Center align */
     margin-top: 10px; /* Move the image down by 20px, adjust as needed */
     position: absolute;
@@ -586,19 +621,48 @@ body{
     resize: none; /* Prevent resizing */
 }
 
-/* Frame 4 specific positioning for select-property */
-.select-property.frame4-position {
-    position: relative; /* or absolute, depending on your layout */
-    top: 450px; /* Adjust these values as needed */
-    left: 960px;
-    /* Other styling adjustments unique to Frame 4 */
+/* Frame 4 property display*/
+/* Frame 4 - Property Display */
+.frame4-select-property {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 150px; /* Adjust as needed */
+    margin-left: 350px; /* Adjust as needed */
+    color: #4D55A5; /* Color of the label */
 }
+
+.frame4-label-container label {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4D55A5;
+    margin-bottom: 5px; /* Spacing between label and selected property */
+}
+
+.frame4-dropdown-container {
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF; /* Background for the display area */
+    border: 1px solid #CCC; /* Border style */
+    padding: 10px 15px; /* Padding around the text */
+    border-radius: 5px; /* Rounded corners */
+    width: auto; /* Width adapts to content */
+    max-width: 300px; /* Max width, adjust as needed */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+
+.frame4-dropdown-selected {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333; /* Text color for selected property */
+}
+
 
 /* "Your Rating" string*/
 .frame-4-rate-your-landlord-string {
     font-size: 20px;
     margin-top: 220px; /* Adjust the value to move it higher */
-    margin-left: 320px; /* Move the element left */
+    margin-left: 350px; /* Move the element left */
     color: #4D55A5; 
     position: absolute;
 }
@@ -607,9 +671,10 @@ body{
 .frame4-rating-icons {
     display: flex;
     justify-content: center;
-    margin-top: 300px;
+    margin-top: 280px;
     left: 650px;
     position: absolute;
+    
 }
 .frame4-criterion-container-4 {
     position: absolute;
@@ -678,12 +743,13 @@ body{
 .frame4-submit-btn img {
     width: 100%; /* Ensure the image scales to fit button */
     height: auto;
+    margin-top: -40px;
 }
 
 .checkbox-container {
     display: flex;
     align-items: center;
-    margin-top: 1040px;
+    margin-top: 1000px;
     position: absolute;
     left: 650px;
     font-size: 18px;
@@ -701,6 +767,6 @@ body{
 }
 
 .checkbox-container input[type="checkbox"]:checked {
-    background-color: #4D55A5; /* Color when checked */
+    background-color: #db0b0b; /* Color when checked */
 }
 

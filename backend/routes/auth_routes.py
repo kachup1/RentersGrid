@@ -44,7 +44,10 @@ def login():
     user = users_collection.find_one({"email": email})
 
     if user and bcrypt.check_password_hash(user['password'], password):
-        access_token = create_access_token(identity={"userId": str(user['_id'])})
+        access_token = create_access_token(identity={
+            "mongoId": str(user['_id']),
+            "userId": user.get('userId')
+            })
         return jsonify({'access_token': access_token}), 200
     else:
         return jsonify({"error": "Invalid email or password"}), 401

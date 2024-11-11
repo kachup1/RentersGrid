@@ -28,6 +28,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getUserIdFromToken, isTokenValid } from './authentication';
+import { Link } from 'react-router-dom';
 
 const AddAReview = () => {
 
@@ -40,12 +41,22 @@ const AddAReview = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [landlordName, setLandlordName] = useState(""); // For the landlord's name
     const [propertyOptions, setPropertyOptions] = useState([]); // For the landlord's properties
-
+    const [propertyError, setPropertyError] = useState(false);
+    const [ratingError, setRatingError] = useState(false);
+    
     const navigate = useNavigate();
 
     //needed to get landlordID:
     const{landlordId} = useParams();//this gets the landlordId from the URL
 
+    // 1st useEffect: Check if the user is logged in when the component mounts
+    useEffect(() => {
+        setIsLoggedIn(isTokenValid());
+        console.log("User ID:", getUserIdFromToken());
+
+    }, []);
+
+    // 2nd useEffect: Fetch landlord details based on the landlordId
     useEffect(() => {
         const fetchLandlordDetails = async () => {
             try {
@@ -63,6 +74,17 @@ const AddAReview = () => {
             fetchLandlordDetails();
         }
     }, [landlordId]);
+
+    const handleAccountClick = () => {
+        if (isLoggedIn) {
+            // If logged in, navigate to the user account page
+            navigate('/account');
+        } else {
+            // If not logged in, navigate to the sign-in page
+            navigate('/signin');
+        }
+    };
+    
     
     const handleDropdownToggle = () => {
         setDropdownOpen(!dropdownOpen);
@@ -79,7 +101,9 @@ const AddAReview = () => {
 
     const handleSubmit = async () => {
         if (isChecked) {
-            console.log("Ratings before submission:", ratings);  // Debugging line
+            const userId = getUserIdFromToken(); // Get the userId from the token
+            console.log("User ID:", userId); // Log the user ID for debugging
+    
             try {
                 await axios.post('http://localhost:5000/api/landlord/addareview', {
                     landlordId: landlordId,
@@ -93,9 +117,10 @@ const AddAReview = () => {
                     reachable: ratings.reachable,
                     clearcontract: ratings.clearcontract,
                     recommend: ratings.recommend,
-                    userId: isLoggedIn ? getUserIdFromToken() : null
+                    userId: userId // Assign userId from token if logged in
                 });
                 alert('Review submitted successfully');
+                navigate(`/LandlordProfile/${landlordId}`);
             } catch (error) {
                 console.error("Error submitting review:", error.response?.data || error.message);
                 alert('Failed to submit review');
@@ -105,6 +130,15 @@ const AddAReview = () => {
         }
     };
     
+    
+    const handleNextClick = () => {
+        if (!selectedProperty) setPropertyError(true); // Show error if no property selected
+        if (selectedRating === 0) setRatingError(true); // Show error if no rating selected
+    
+        if (selectedProperty && selectedRating !== 0) {
+            setCurrentStep(currentStep + 1); // Move to the next frame only if both fields are valid
+        }
+    };
     
 
     // Handle rating selection for each criterion with toggle functionality
@@ -168,33 +202,37 @@ const AddAReview = () => {
 
     return (
         <div className="main-container-add-a-rating">
-            <SideMenu />
+            <SideMenu isLoggedIn={isLoggedIn} />
 
             {/* Header section */}
             <header className="headerhp-add-a-rating">
-                <div className="logohp-container-add-a-rating">
-                    <img
-                        src={OfficialLogo}
-                        alt="Official Logo"
-                        className="center-logo-add-a-rating"
+                <Link to="/" className="logohp-container-add-a-rating">
+                    <img 
+                        src={OfficialLogo} 
+                        alt="Official Logo" 
+                        className="center-logo-add-a-rating" 
                     />
-                </div>
-
-                <div className="buttons-container">
-                    <img
-                        src={SubmitLandlordRate}
-                        alt="Submit Landlord Rate"
-                        className="left-icon"
-                    />
-                    <a href="/account">
+                </Link>
+                
+                <div className="buttons-container-add-a-rating">
+                    <Link to="/addalandlord">
                         <img
-                            src={AccountButton}
-                            alt="Account Button"
-                            className="account-right"
+                            src={SubmitLandlordRate}
+                            alt="Submit Landlord Rate"
+                            className="left-icon"
                         />
-                    </a>
+                    </Link>
+                    
+                    <img
+                        src={AccountButton}
+                        alt="Account Button"
+                        className="account-right"
+                        onClick={handleAccountClick} // Use the click handler here
+                        style={{ cursor: 'pointer' }} // Optional: change cursor to pointer
+                    />
                 </div>
             </header>
+
 {/**Frame 1 ----------------------------------------------- */}
             {currentStep === 1 && (
                 <div className="form-container-add-a-rating">
@@ -240,15 +278,18 @@ const AddAReview = () => {
                             </ul>
                         </div>
                     </div>
-                    <div className="select-property-add-a-review"> 
-                            <h4>Select Property:</h4>
 
-                        </div>
+
+
                     {/* Select Property Section */}
+                    <div className="select-property-add-a-review"> 
+                            <h4>* Select Property:</h4>
+
+                    </div>
                     <div> 
-                    <div className="dropdown-container-add-a-review">
-                        <div className="dropdown-selected-add-a-review" onClick={handleDropdownToggle}>
-                            <span>{selectedProperty || "Select a Property"}</span>
+                    <div className={`dropdown-container-add-a-review`}>
+                    <div className="dropdown-selected-add-a-review" onClick={() => setDropdownOpen(!dropdownOpen)}>
+                    <span>{selectedProperty || "Select a Property"}</span>
                             <img
                                 src={DownArrow}
                                 alt="Down Arrow"
@@ -269,8 +310,7 @@ const AddAReview = () => {
                                 ))}
                             </ul>
                         )}
-        </div>
-
+                    </div>
                         
                     </div>
 
@@ -289,6 +329,18 @@ const AddAReview = () => {
                             />
                         ))}
                     </div>
+
+
+                    {/* Moved Error Messages */}
+                    <div className="error-container-1">
+                        {propertyError && <p className="error-message-1">* Please select a property</p>}
+                    </div>
+
+                    <div className="error-containe-2">
+                        {ratingError && <p className="error-message-2">* Please rate your landlord</p>}
+                    </div>
+
+
                 </div>
             )}
 
@@ -473,14 +525,18 @@ const AddAReview = () => {
         </div>
 
         {/* Property Display */}
-        <div className="select-property frame4-position">
-            <div className="label-container">
+        {/* Property Display in Frame 4 */}
+        <div className="frame4-select-property">
+            <div className="frame4-label-container">
                 <label>Property:</label>
             </div>
-            <div className="dropdown-container">
-                <span className="dropdown-selected">{selectedProperty}</span>
+            <div className="frame4-dropdown-container">
+                <span className="frame4-dropdown-selected">
+                    {selectedProperty || "No property selected"}
+                </span>
             </div>
         </div>
+
 
         {/* Overall Rating Icons */}
         <div className="frame-4-rate-your-landlord-string">
@@ -501,12 +557,12 @@ const AddAReview = () => {
         <div className="frame4-criterion-container-4">
             <CriterionReview name="Timely Maintenance" rating={ratings.maintenance} icon={Maintenance} />
             <CriterionReview name="Allows Pets" rating={ratings.pets} icon={Pets} />
-            <CriterionReview name="Safe Area" rating={ratings.safe} icon={Safe} />
-            <CriterionReview name="Raises Rent Yearly" rating={ratings.rent} icon={Money} />
+            <CriterionReview name="Safe Area" rating={ratings.safety} icon={Safe} />
+            <CriterionReview name="Raises Rent Yearly" rating={ratings.raisemoney} icon={Money} />
         </div>
         <div className="frame4-criterion-container-3">
             <CriterionReview name="Reachable & Responsive" rating={ratings.reachable} icon={Reachable} />
-            <CriterionReview name="Clear & Fair Contract" rating={ratings.contract} icon={Contract} />
+            <CriterionReview name="Clear & Fair Contract" rating={ratings.clearcontract} icon={Contract} />
             <CriterionReview name="Would you recommend?" rating={ratings.recommend} icon={Recommend} />
         </div>
 
@@ -550,10 +606,11 @@ const AddAReview = () => {
 
 {/* Button for frame 1 (Next Button) */}
 {currentStep === 1 && (
-    <button
-        className="next-btn-frame1"
-        onClick={() => setCurrentStep(currentStep + 1)}
-    ></button>
+    <button className="next-btn-frame1" 
+    onClick={handleNextClick}>
+    <img src={NextButton} alt="Next" />
+</button>
+
 )}
 
 {/* Button Row for frames 2 and 3 */}

@@ -30,11 +30,12 @@ export const isTokenValid = () => {
   };
   
   // Function to get user ID from the token if available
-export const getUserIdFromToken = () => {
-  const token = localStorage.getItem('token');
-  if (token && isTokenValid()) {
-      const decodedToken = jwtDecode(token);
-      return decodedToken.userId; // Ensure token includes userId
-  }
-  return null;
+  export const getUserIdFromToken = () => {
+    const token = localStorage.getItem('token'); // Adjust if you store the token elsewhere
+    if (token) {
+        const decoded = jwtDecode(token);
+        console.log("Decoded token:", decoded); // Log the decoded token to inspect its structure
+        return decoded.sub.userId; // Access `userId` inside `sub`
+    }
+    return null;
 };
