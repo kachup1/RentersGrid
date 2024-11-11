@@ -772,3 +772,11 @@ body{
     background-color: #db0b0b; /* Color when checked */
 }
 
+.error-message-checkbox {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: left;
+}
+
+

@@ -43,7 +43,7 @@ const AddAReview = () => {
     const [propertyOptions, setPropertyOptions] = useState([]); // For the landlord's properties
     const [propertyError, setPropertyError] = useState(false);
     const [ratingError, setRatingError] = useState(false);
-    
+    const [checkboxError, setCheckboxError] = useState(false);//tracks checkbox error message
     const navigate = useNavigate();
     const{landlordId} = useParams();//this gets the landlordId from the URL
 
@@ -106,35 +106,38 @@ const AddAReview = () => {
 
     //to submit review
     const handleSubmit = async () => {
-        if (isChecked) {
-            const userId = getUserIdFromToken(); // Get the userId from the token
-            console.log("User ID:", userId); // Log the user ID for debugging
+        if (!isChecked) {
+            setCheckboxError(true); // Display error if checkbox is not checked
+            return;
+        }
     
-            try {
-                await axios.post('http://localhost:5000/api/landlord/addareview', {
-                    landlordId: landlordId,
-                    ratingId: Math.floor(Math.random() * 1000),
-                    score: selectedRating,
-                    comment: reviewText,
-                    maintenance: ratings.maintenance,
-                    pets: ratings.pets,
-                    safety: ratings.safety,
-                    raisemoney: ratings.raisemoney,
-                    reachable: ratings.reachable,
-                    clearcontract: ratings.clearcontract,
-                    recommend: ratings.recommend,
-                    userId: userId // Assign userId from token if logged in
-                });
-                alert('Review submitted successfully');
-                navigate(`/LandlordProfile/${landlordId}`);
-            } catch (error) {
-                console.error("Error submitting review:", error.response?.data || error.message);
-                alert('Failed to submit review');
-            }
-        } else {
-            alert("Please confirm your review is truthful.");
+        setCheckboxError(false); // Clear error if checkbox is checked
+        const userId = getUserIdFromToken();
+        console.log("User ID:", userId);
+    
+        try {
+            await axios.post('http://localhost:5000/api/landlord/addareview', {
+                landlordId: landlordId,
+                ratingId: Math.floor(Math.random() * 1000),
+                score: selectedRating,
+                comment: reviewText,
+                maintenance: ratings.maintenance,
+                pets: ratings.pets,
+                safety: ratings.safety,
+                raisemoney: ratings.raisemoney,
+                reachable: ratings.reachable,
+                clearcontract: ratings.clearcontract,
+                recommend: ratings.recommend,
+                userId: userId
+            });
+            alert('Review submitted successfully');
+            navigate(`/LandlordProfile/${landlordId}`);
+        } catch (error) {
+            console.error("Error submitting review:", error.response?.data || error.message);
+            alert('Failed to submit review');
         }
     };
+    
     
     //validate and move to next step
     const handleNextClick = () => {
@@ -586,6 +589,7 @@ const AddAReview = () => {
                             />
                             I confirm that my review is truthful and based on my personal experience.
                         </label>
+                        <p className="error-message-checkbox">* Please check this box to submit your review</p>
                     </div>
 
                     {/* Buttons for Frame 4 */}
