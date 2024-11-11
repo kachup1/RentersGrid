@@ -6,138 +6,223 @@ import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MenuAlt from '../Assets/menu-alt.svg';
 import NoAccountSideMenu from './NoAccountSideMenu';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import home from '../Assets/home.svg'; // Example icons
+import home from '../Assets/home.svg';
 import searchIcon from '../Assets/menu-1.svg';
 import addLandlordIcon from '../Assets/menu-2.svg';
 import signOutIcon from '../Assets/signout.svg';
 import accountIcon from '../Assets/Account button.svg';
 import myrating from '../Assets/my-rating.svg';
-import myBookmark from '../Assets/my bookmark.svg'; // Empty bookmark icon
+import myBookmark from '../Assets/my bookmark.svg';
 import addALandlord from '../Assets/add-a-landlord-title.svg';
 import Triangle from '../Assets/triangle.svg';
+import axios from 'axios';
 
 function AddALandlord() {
     const navigate = useNavigate();
     const location = useLocation();
-    const handleSignOut = () => {
-        localStorage.removeItem('token');  // Remove the token from localStorage
-        navigate('/');  // Redirect to the homepage after sign-out
-      };
 
-    // States for managing state list visibility
-    const [showStates, setShowStates] = useState(false);
-    const [selectedState, setSelectedState] = useState('');
+    const handleSignOut = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    };
+
+    const [name, setName] = useState('');
+    const [propertyName, setPropertyName] = useState('');
+    const [propertyAddress, setPropertyAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zipCode, setZipCode] = useState('');
+
     const [nameType, setNameType] = useState('individual');
     const [showAddProperty, setShowAddProperty] = useState(false);
 
-    // List of U.S. states
+    const [additionalPropertyName, setAdditionalPropertyName] = useState('');
+    const [additionalPropertyAddress, setAdditionalPropertyAddress] = useState('');
+    const [additionalCity, setAdditionalCity] = useState('');
+    const [additionalState, setAdditionalState] = useState('');
+    const [additionalZipCode, setAdditionalZipCode] = useState('');
+    const [addressSuggestions, setAddressSuggestions] = useState([]);
+    const [additionalAddressSuggestions, setAdditionalAddressSuggestions] = useState([]); // For additional property suggestions
+
     const states = [
-        "Alabama", "Alaska", "Arizona", "Arkansas", "California",
-        "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
-        "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
-        "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland",
-        "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri",
-        "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
-        "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio",
-        "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina",
-        "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
-        "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+        "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+        "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
+        "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan",
+        "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+        "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio",
+        "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
+        "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia",
+        "Wisconsin", "Wyoming"
     ];
+
+    const handleAddressInputChange = async (e) => {
+        const input = e.target.value;
+        setPropertyAddress(input);
+
+        if (input.length > 2) {
+            try {
+                const response = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(input)}.json`, {
+                    params: {
+                        access_token: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
+                        types: 'address',
+                        autocomplete: true
+                    }
+                });
+
+                console.log("Mapbox API Response:", response.data.features);
+                setAddressSuggestions(response.data.features);
+            } catch (error) {
+                console.error("Error fetching address suggestions:", error);
+            }
+        } else {
+            setAddressSuggestions([]);
+        }
+    };
+
+    const handleSuggestionClick = (suggestion) => {
+        const fullAddress = suggestion.place_name || suggestion.text;
+        const [streetAddress] = fullAddress.split(',');
+        setPropertyAddress(streetAddress);
+
+        const city = suggestion.context.find(c => c.id.includes('place'))?.text || '';
+        const state = suggestion.context.find(c => c.id.includes('region'))?.text || '';
+        const zipCode = suggestion.context.find(c => c.id.includes('postcode'))?.text || '';
+
+        setCity(city);
+        setState(state);
+        setZipCode(zipCode);
+        setAddressSuggestions([]);
+    };
+    // Additional property address autofill handler
+    const handleAdditionalAddressInputChange = async (e) => {
+        const input = e.target.value;
+        setAdditionalPropertyAddress(input);
+
+        if (input.length > 2) {
+            try {
+                const response = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(input)}.json`, {
+                    params: {
+                        access_token: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
+                        types: 'address',
+                        autocomplete: true
+                    }
+                });
+                setAdditionalAddressSuggestions(response.data.features);
+            } catch (error) {
+                console.error("Error fetching additional address suggestions:", error);
+            }
+        } else {
+            setAdditionalAddressSuggestions([]);
+        }
+    };
+
+    const handleAdditionalSuggestionClick = (suggestion) => {
+        const fullAddress = suggestion.place_name || suggestion.text;
+        const [streetAddress] = fullAddress.split(',');
+        setAdditionalPropertyAddress(streetAddress);
+
+        const city = suggestion.context.find(c => c.id.includes('place'))?.text || '';
+        const state = suggestion.context.find(c => c.id.includes('region'))?.text || '';
+        const zipCode = suggestion.context.find(c => c.id.includes('postcode'))?.text || '';
+
+        setAdditionalCity(city);
+        setAdditionalState(state);
+        setAdditionalZipCode(zipCode);
+        setAdditionalAddressSuggestions([]);
+    };
+    const handleSubmit = async () => {
+        try {
+             // Log field values to verify they are set correctly
+        console.log("Additional Property Fields:");
+        console.log("Show Additional Property:", showAddProperty);
+        console.log("Additional Property Name:", additionalPropertyName);
+        console.log("Additional Property Address:", additionalPropertyAddress);
+        console.log("Additional City:", additionalCity);
+        console.log("Additional State:", additionalState);
+        console.log("Additional Zip Code:", additionalZipCode);
+            // Prepare the main payload
+            const payload = {
+                name,
+                type: nameType === 'individual' ? 'name' : 'Company',
+                propertyName,
+                propertyAddress,
+                city,
+                state,
+                zipCode,
+                additionalProperties: []
+            };
     
+            // Check if the additional property fields are filled
+            if (
+                showAddProperty &&
+                additionalPropertyName &&
+                additionalPropertyAddress &&
+                additionalCity &&
+                additionalState &&
+                additionalZipCode
+            ) {
+                payload.additionalProperties.push({
+                    propertyName: additionalPropertyName,
+                    propertyAddress: additionalPropertyAddress,
+                    city: additionalCity,
+                    state: additionalState,
+                    zipCode: additionalZipCode
+                });
+            }
+    
+            console.log("Payload:", payload); // Debugging - check payload structure
+    
+            const response = await axios.post(
+                'http://localhost:5000/add_landlord',
+                payload,
+                { headers: { 'Content-Type': 'application/json' } }
+            );
+    
+            if (response.status === 201 || response.status === 200) {
+                navigate('/');
+            } else {
+                console.error('Failed to add landlord:', response.data.message);
+            }
+        } catch (error) {
+            console.error('An error occurred:', error.response?.data?.message || error.message);
+        }
+    };
+    
+
     return (
         <div className="add-a-landlord-main-container">
             <header>
- 
-                    <img src={addALandlord} alt="OfficialLogo" className="add-a-landlord-center-logo"/>
-                    <label className="add-a-landlord-center-logo-text">Add a Landlord</label>
-                
-
-                {/* Background Image */}
-                <img src={SubmitLandlordRate} alt="background" className="add-a-landlord-background-image"/>
-
-                {/* Left Image: Submit Landlord Rate */}
-                <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="add-a-landlord-left-icon"/>
-
-                {/* Right Image: Account Button */}
-                <img src={AccountButton} alt="Account Button" className="add-a-landlord-right"/>
-
-                
-
+                <img src={addALandlord} alt="OfficialLogo" className="add-a-landlord-center-logo" />
+                <label className="add-a-landlord-center-logo-text">Add a Landlord</label>
+                <img src={SubmitLandlordRate} alt="background" className="add-a-landlord-background-image" />
+                <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="add-a-landlord-left-icon" />
+                <img src={AccountButton} alt="Account Button" className="add-a-landlord-right" />
             </header>
 
-            {/* Permanent side menu */}
             <div className="add-a-landlord-left-side-menu">
-                <img src={require('../Assets/official logo.svg').default} alt="Logo" className="add-a-landlord-left-menu-logo" />
-
+                <img src={OfficialLogo} alt="Logo" className="add-a-landlord-left-menu-logo" />
                 <ul>
-                <li>
-                    {/* Homepage link */}
-                    <Link to="/">
-                    <img src={home} alt="Home" className="add-a-landlord-left-menu-icon" />
-                    Homepage
-                    </Link>
-                </li>
-                <li>
-                    {/* Search link */}
-                    <Link to="/SearchResults">
-                    <img src={searchIcon} alt="Search" className="add-a-landlord-left-menu-icon" />
-                    Search
-                    </Link>
-                </li>
-                <li>
-                    {/* Add Landlord link */}
-                    <Link to="/add-landlord">
-                    <img src={addLandlordIcon} alt="Add a Landlord" className="add-a-landlord-left-menu-icon" />
-                    Add a Landlord
-                    {/* Triangle to show where we are */}
-                    <img src={Triangle} alt="Triangle" className="add-a-landlord-triangle"/>   
-                    </Link>
-                </li>
-                <li>
-                    {/* Sign Out link */}
-                    <a href="#" onClick={handleSignOut}>
-                    <img src={signOutIcon} alt="Sign Out" className="add-a-landlord-left-menu-icon" />
-                    Sign Out
-                    </a>
-                </li>
-                <li>
-                    {/* My Account link */}
-                    <Link to="/account">
-                    <img src={accountIcon} alt="My Account" className="add-a-landlord-left-menu-icon" />
-                    My Account
-                    </Link>
-                </li>
-                <li>
-                    {/* My Ratings link */}
-                    <Link to="/ratings">
-                    <img src={myrating} alt="Add a Landlord" className="add-a-landlord-left-menu-icon" />
-                    My Ratings
-                    </Link>
-                </li>
-                <li>
-                    {/* My Bookmarks link */}
-                    <Link to="/bookmarks">
-                    <img src={myBookmark} alt="Add a Landlord" className="add-a-landlord-left-menu-icon" />
-                    My Bookmarks
-                
-                    </Link>
-                </li>
+                    <li><Link to="/"><img src={home} alt="Home" className="add-a-landlord-left-menu-icon" />Homepage</Link></li>
+                    <li><Link to="/SearchResults"><img src={searchIcon} alt="Search" className="add-a-landlord-left-menu-icon" />Search</Link></li>
+                    <li><Link to="/add-landlord"><img src={addLandlordIcon} alt="Add a Landlord" className="add-a-landlord-left-menu-icon" />Add a Landlord<img src={Triangle} alt="Triangle" className="add-a-landlord-triangle" /></Link></li>
+                    <li><a href="#" onClick={handleSignOut}><img src={signOutIcon} alt="Sign Out" className="add-a-landlord-left-menu-icon" />Sign Out</a></li>
+                    <li><Link to="/account"><img src={accountIcon} alt="My Account" className="add-a-landlord-left-menu-icon" />My Account</Link></li>
+                    <li><Link to="/ratings"><img src={myrating} alt="My Ratings" className="add-a-landlord-left-menu-icon" />My Ratings</Link></li>
+                    <li><Link to="/bookmarks"><img src={myBookmark} alt="My Bookmarks" className="add-a-landlord-left-menu-icon" />My Bookmarks</Link></li>
                 </ul>
-                </div>
-
-            {/* Enter name */}
-            <div className="add-a-landlord-input-box">
-                <span className="icon">
-                    <input
-                        type="text"
-                        className="add-a-landlord-name-box"
-                        placeholder={nameType === 'individual' ? "First and Last Name" : "Company Name"}
-                        required
-                    />
-                </span>
             </div>
 
-            {/* Toggle button */}
+            {/* Main Form */}
+            <div className="add-a-landlord-input-box">
+                <input
+                    type="text"
+                    className="add-a-landlord-name-box"
+                    placeholder={nameType === 'individual' ? "First and Last Name" : "Company Name"}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                />
+            </div>
             <div className="add-a-landlord-name-toggle-button">
                 <button
                     type="button"
@@ -154,50 +239,57 @@ function AddALandlord() {
                 </button>
             </div>
 
-            {/* Enter Property Name */}
+            {/* Property Name, Address, City, State, Zip Code */}
             <div className="add-a-landlord-input-box">
-                <span className="icon">
-                    <input
-                        type="text"
-                        className="add-a-landlord-property-name-box"
-                        required
-                    />
-                    <label className="add-a-landlord-property-name-text">Property Name:</label>
-                </span>
+                <input
+                    type="text"
+                    className="add-a-landlord-property-name-box"
+                    value={propertyName}
+                    onChange={(e) => setPropertyName(e.target.value)}
+                    required
+                />
+                <label className="add-a-landlord-property-name-text">Property Name:</label>
             </div>
 
-            {/* Property Address */}
             <div className="add-a-landlord-input-box">
-                <span className="icon">
-                    <input
-                        type="text"
-                        className="add-a-landlord-property-address-box"
-                        placeholder="Street Address"
-                        required
-                    />
-                    <label className="add-a-landlord-property-address-text">Property Address:</label>
-                </span>
+                <input
+                    type="text"
+                    className="add-a-landlord-property-address-box"
+                    placeholder="Street Address"
+                    value={propertyAddress}
+                    onChange={handleAddressInputChange}
+                    required
+                />
+                <label className="add-a-landlord-property-address-text">Property Address:</label>
+
+                {addressSuggestions.length > 0 && (
+                    <ul className="address-suggestions">
+                        {addressSuggestions.map((suggestion, index) => (
+                            <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+                                {suggestion.place_name}
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
 
-            {/* City */}
             <div className="add-a-landlord-input-box">
-                <span className="icon">
-                    <input
-                        type="text"
-                        className="add-a-landlord-city-box"
-                        required
-                    />
-                    <label className="add-a-landlord-city-text">City:</label>
-                </span>
+                <input
+                    type="text"
+                    className="add-a-landlord-city-box"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    required
+                />
+                <label className="add-a-landlord-city-text">City:</label>
             </div>
 
-            {/* State */}
             <div className="add-a-landlord-input-box">
                 <label className="add-a-landlord-state-text">State:</label>
                 <select
                     className="add-a-landlord-state-dropdown"
-                    value={selectedState}
-                    onChange={(e) => setSelectedState(e.target.value)}
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
                     required
                 >
                     <option value="" disabled>Select a State</option>
@@ -207,31 +299,18 @@ function AddALandlord() {
                 </select>
             </div>
 
-            {/* State List */}
-            {showStates && (
-                <div className="state-list">
-                    <ul>
-                        {states.map((state, index) => (
-                            <li key={index}>{state}</li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-
-
-            {/* Zip Code */}
             <div className="add-a-landlord-input-box">
-                <span className="icon">
-                    <input
-                        type="text"
-                        className="add-a-landlord-zip-code"
-                        required
-                    />
-                    <label className="add-a-landlord-zip-code-text">Zip Code:</label>
-                </span>
+                <input
+                    type="text"
+                    className="add-a-landlord-zip-code"
+                    value={zipCode}
+                    onChange={(e) => setZipCode(e.target.value)}
+                    required
+                />
+                <label className="add-a-landlord-zip-code-text">Zip Code:</label>
             </div>
 
-            {/* Add another property */}
+            {/* Additional Property Section */}
             <div className="add-a-landlord-additional-property-container">
                 <button
                     className="add-a-landlord-additional-property-button"
@@ -245,45 +324,61 @@ function AddALandlord() {
                         {/* Additional Property Name */}
                         <div className="add-a-landlord-additional-input-box">
                             <label className="add-a-landlord-additional-property-name-text">Property Name:</label>
-                                <input
-                                    type="text"
-                                    className="add-a-landlord-additional-property-name-box"
-                                    placeholder="Property Name"
-                                    required
-                                />
-                            
+                            <input
+                                type="text"
+                                className="add-a-landlord-additional-property-name-box"
+                                placeholder="Property Name"
+                                value={additionalPropertyName}
+                                onChange={(e) => setAdditionalPropertyName(e.target.value)}
+                                required
+                            />
                         </div>
 
                         {/* Additional Property Address */}
-                        <div className="add-a-landlord-additional-input-box">
+                        <div className="add-a-landlord-additional-input-box" style={{ position: 'relative' }}>
                             <label className="add-a-landlord-additional-property-address-text">Property Address:</label>
-                                <input
-                                    type="text"
-                                    className="add-a-landlord-additional-property-address-box"
-                                    placeholder="Street Address"
-                                    required
-                                />
-                            
+                            <input
+                                type="text"
+                                className="add-a-landlord-additional-property-address-box"
+                                placeholder="Street Address"
+                                value={additionalPropertyAddress}
+                                onChange={handleAdditionalAddressInputChange}
+                                required
+                            />
+                            {additionalAddressSuggestions.length > 0 && (
+                                <ul className="additional-address-suggestions">
+                                    {additionalAddressSuggestions.map((suggestion, index) => (
+                                        <li key={index} onClick={() => handleAdditionalSuggestionClick(suggestion)}>
+                                            {suggestion.place_name}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
 
                         {/* Additional City */}
                         <div className="add-a-landlord-additional-input-box">
-                        <label className="add-a-landlord-additional-city-text">City:</label>
-                                <input
-                                    type="text"
-                                    className="add-a-landlord-additional-city-box"
-                                    placeholder="City"
-                                    required
-                                />
-                                
-                            
+                            <label className="add-a-landlord-additional-city-text">City:</label>
+                            <input
+                                type="text"
+                                className="add-a-landlord-additional-city-box"
+                                placeholder="City"
+                                value={additionalCity}
+                                onChange={(e) => setAdditionalCity(e.target.value)}
+                                required
+                            />
                         </div>
 
                         {/* Additional State */}
                         <div className="add-a-landlord-additional-input-box">
                             <label className="add-a-landlord-additional-state-text">State:</label>
-                            <select className="add-a-landlord-additional-state-dropdown" required>
-                                <option value ="" disabled>Select a State</option>
+                            <select
+                                className="add-a-landlord-additional-state-dropdown"
+                                value={additionalState}
+                                onChange={(e) => setAdditionalState(e.target.value)}
+                                required
+                            >
+                                <option value="" disabled>Select a State</option>
                                 {states.map((state, index) => (
                                     <option key={index} value={state}>{state}</option>
                                 ))}
@@ -292,22 +387,26 @@ function AddALandlord() {
 
                         {/* Additional Zip Code */}
                         <div className="add-a-landlord-additional-input-box">
-                                <label className="add-a-landlord-additional-zip-code-text">Zip Code:</label>
-                                <input
-                                    type="text"
-                                    className="add-a-landlord-additional-zip-code-box"
-                                    placeholder="Zip Code"
-                                    required
-                                />
-                                
-                            
+                            <label className="add-a-landlord-additional-zip-code-text">Zip Code:</label>
+                            <input
+                                type="text"
+                                className="add-a-landlord-additional-zip-code-box"
+                                placeholder="Zip Code"
+                                value={additionalZipCode}
+                                onChange={(e) => setAdditionalZipCode(e.target.value)}
+                                required
+                            />
                         </div>
                     </div>
                 )}
             </div>
 
             {/* Submit Button */}
-            <button type="submit" className="add-a-landlord-submit-button">Submit Landlord</button>
+            <button type="button" onClick={handleSubmit} className="add-a-landlord-submit-button">
+                Submit Landlord
+            </button>
+
+
         </div>
     );
 }
