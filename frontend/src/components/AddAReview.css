@@ -76,7 +76,7 @@ body {
     border-radius: 10px;  /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
     width: 995px;  /* Set the width to 1423px */
-    height: 412px;  /* Set the height to 662px */   
+    height: 380px;  /* Set the height to 662px */   
     margin: 150px auto;  /* Center the box horizontally and add 50px margin at the top */
     display: flex;
     flex-direction: column;
@@ -89,18 +89,19 @@ body {
 .add-rating-image {
     width: 97px;  /* Set the width*/
     height: 94px;  /* Set the height*/  
-    margin-top: -390px; /* Move the image down by 20px, adjust as needed */
+    margin-top: -360px; /* Move the image down by 20px, adjust as needed */
     margin-left: -300px; /* Move the image to the left by 30px, adjust as needed */
     background-color: transparent;  /* Light gray background for the box */
     position: absolute;
 
 }
 
+/*'You are rating' String*/
 .you-are-rating {
     font-size: 15px;
     margin-bottom: 500px;
-    margin-top: 100px; /* Adjust the value to move it higher */
-    margin-left: -30px; /* Move the element 20px to the left */
+    margin-top: 130px; /* Adjust the value to move it higher */
+    margin-left: -10px; /* Move the element 20px to the left */
     font-weight: 100; /* Makes the font lighter */
     color: #9BA0CC; 
     position: absolute;
@@ -109,7 +110,7 @@ body {
 .you-are-rating-landlord-name {
     font-size: 40px;
     margin-bottom: 10px;
-    margin-top: -320px; /* Adjust the value as needed */
+    margin-top: -289px; /* Adjust the value as needed */
     margin-left: 60px; /* Adjust as needed */
     font-weight: 100;
     color: #4D55A5;
@@ -181,7 +182,7 @@ body {
     height: 60px;
     padding: 10px;
     border-radius: 2px;
-    margin-top: 140px; /* Adjust the value to move it higher */
+    margin-top: 120px; /* Adjust the value to move it higher */
     margin-left: -190px; /* Move the element 20px to the left */
     border: 2px solid #645d5d9c;
     position: absolute;
@@ -317,7 +318,7 @@ body {
 /* Rate Your Landlord----------------------------------------------------*/
 .rate-your-landlord-string {
     font-size: 20px;
-    margin-bottom: -400px;
+    margin-bottom: -300px;
     margin-top: -190px; /* Adjust the value to move it higher */
     margin-left: 330px; /* Move the element left */
     color: #4D55A5; 
@@ -339,7 +340,7 @@ body {
 .rating-icons {
     display: flex;
     justify-content: center;
-    margin-top: 300px;
+    margin-top: 200px;
     margin-left: 490px; /* Move the element to the left */
     position: absolute;
 
@@ -386,7 +387,7 @@ body {
     margin: 5px 0; /* Space between each message */
     position: absolute;
     text-align: left;
-    margin-top: 95px;
+    margin-top: 45px;
     margin-left: 270px;
 }
 
@@ -492,7 +493,7 @@ body {
     outline: none;
     background-color: transparent;
     position: absolute;
-    bottom: -20px; 
+    bottom: 20px; 
     left: 80%;
     transform: translateX(-50%); /* Center horizontally */
     border-radius: 25px;
