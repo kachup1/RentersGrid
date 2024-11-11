@@ -7,12 +7,16 @@ import MenuAlt from '../Assets/main-logo.svg';
 import NoAccountSideMenu from './NoAccountSideMenu';
 import { Link } from 'react-router-dom';
 import { useNavigate} from 'react-router-dom';
+//I added this to get the landlordId from the url
+import { useParams } from 'react-router-dom'; 
 
 function ReportProblem() {
     const [selectedProblem, setSelectedProblem] = useState('');
     const [comments, setComments] = useState('');
     const [charCount, setCharCount] = useState(0);
     const navigate = useNavigate();
+    //I added this to get the landlordId from the url so you can use to get information
+    const { landlordId } = useParams(); // Retrieve landlordId from URL
 
     const handleProblemChange = (e) => {
         setSelectedProblem(e.target.value);
