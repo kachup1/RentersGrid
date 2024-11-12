@@ -123,6 +123,8 @@ const AddAReview = () => {
         setCheckboxError(false); // Clear error if checkbox is checked
         const userId = getUserIdFromToken();
         console.log("User ID:", userId);
+        const timestamp = new Date().toISOString(); // Generate the current timestamp in ISO format
+
     
         try {
             await axios.post('http://localhost:5000/api/landlord/addareview', {
