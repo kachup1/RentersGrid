@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom';
 import { useNavigate} from 'react-router-dom';
 //I added this to get the landlordId from the url
 import { useParams } from 'react-router-dom'; 
+//I added this to get the landlordId from the url
+import { useParams } from 'react-router-dom'; 
 
 function ReportProblem() {  // landlordId is received as a prop
     const { landlordId } = useParams();
