@@ -52,6 +52,11 @@
     fill: white;
 }
 
+.this {
+    width: 13px;
+    height: 13px;
+    padding-left: 10px;
+}
 
 .logo img {
     width: 300px; /* Adjust width as needed */
