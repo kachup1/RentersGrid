@@ -1,4 +1,3 @@
-
 /* Define the font */
 @font-face {
     font-family: 'Helvetica';
@@ -6,7 +5,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 
 @font-face {
     font-family: 'Helvetica-Bold';
@@ -80,7 +78,7 @@
     margin-top: 5vw;
     width: 100%;
     max-width: 1200px;
-    justify-content:space-between;
+    justify-content: space-between;
     padding: 20px;
     box-sizing: border-box;
 }
@@ -89,7 +87,7 @@
 .middle-icon {
     width: 200px;
     height: 200px;
-    flex-shrink:0;
+    flex-shrink: 0;
 }
 
 /* Landlord Information */
@@ -150,6 +148,18 @@
     width: 24px;
     height: auto;
 }
+/*Report Icon*/
+.landlord-report-icon{
+    cursor: pointer;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.report-icon-img{
+    width: 35px;
+    height: 35px;
+}
 
 /* Button Container */
 .button-container {
@@ -165,19 +175,19 @@
     justify-content: center;
     position: relative;
     cursor: pointer;
-    background-color: transparent; /* Remove background */
+    background-color: transparent;
     border: none;
 }
 
-    /* Image inside the button */
-    .green-button img,
-    .red-button img {
-        width: 120px; /* Adjust size as needed */
-        height: auto;
-        display: block;
-    }
+.green-button img,
+.red-button img {
+    width: 120px;
+    height: auto;
+    display: block;
+}
 
-.red-text, .green-text {
+.red-text,
+.green-text {
     position: absolute;
     font-family: Helvetica;
     font-size: 12px;
@@ -193,7 +203,7 @@
     gap: 10px;
     background-color: #ffffff;
     width: 100%;
-    max-width: 400px; /* Ensures it aligns with landlord-information */
+    max-width: 400px;
     padding: 20px;
     border-radius: 10px;
     box-sizing: border-box;
@@ -202,7 +212,7 @@
 .rating-item {
     display: flex;
     align-items: center;
-    padding: 5px 0; /* Adds padding */
+    padding: 5px 0;
 }
 
 .rating-face {
@@ -219,36 +229,44 @@
     text-align: left;
 }
 
+/* Rating Bars */
 .rating-bar {
     flex-grow: 1;
+    background-color: #d3d3d3; /* Grey background */
     height: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
 }
 
 .green-bar {
     background-color: #8EC860;
-    width: 50%;
+    height: 100%;
 }
 
-.grey-bar {
-    background-color: #d3d3d3;
-    width: 50%;
+.yellow-bar {
+    background-color: #FFD700;
+    height: 100%;
 }
-/*total reviews text:*/
+
+.orange-bar {
+    background-color: #FFA500;
+    height: 100%;
+}
+
+.red-bar {
+    background-color: #FF4500;
+    height: 100%;
+}
+
+/* Total Reviews Text */
 .total-reviews {
     text-align: right;
     font-size: 1.5rem;
     color: white;
-    margin-bottom: 10px; /* Adds space between Total Reviews and the review card */
-    padding-left: 20px; /* Adjust for alignment if needed */
+    margin-bottom: 10px;
+    padding-left: 20px;
 }
-
-.reviews-header-and-card {
-    display: flex;
-    flex-direction: column;
-    align-items: self-end;
-    gap: 5px; /* Space between Total Reviews and the review card */
-}
-
 
 /* Reviews Section */
 .reviews-section {
@@ -256,10 +274,9 @@
     justify-content: center;
     width: 80%;
     box-sizing: border-box;
-    margin-top:20px;
+    margin-top: 20px;
 }
 
-/*This is the Total Reviews: text */
 .reviews-section h2 {
     color: white;
     font-size: 1.5rem;
@@ -268,31 +285,29 @@
 
 .review-card {
     display: flex;
-    flex-direction: row; /* Force side-by-side layout */
+    flex-direction: row;
     align-items: flex-start;
     background-color: #f0f0f0;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    margin-right:-80px;
+    margin-right: -80px;
     gap: 20px;
     width: 1200px;
     box-sizing: border-box;
 }
 
-
-
-/*Score rating*/
+/* Score Rating */
 .review-rating {
     font-size: 1.5rem;
-    color:black;
+    color: black;
     font-weight: bold;
-    margin-bottom:10px;
-    flex-basis:100px;
-    flex-shrink:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    margin-bottom: 10px;
+    flex-basis: 100px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .score-text {
@@ -307,13 +322,13 @@
     height: 80px;
 }
 
-
-/*comment section*/
+/* Comment Section */
 .review-text {
     font-size: 0.9rem;
     color: black;
     margin-top: 10px;
 }
+
 .comment-container {
     background-color: #E4E4E4;
     padding: 20px;
@@ -322,8 +337,9 @@
     gap: 10px;
     border-radius: 10px;
     flex: 1;
-    position: relative; /* To position Helpful absolutely within this container */
+    position: relative;
 }
+
 /* Top Row for Title and Helpful Container */
 .comment-header {
     display: flex;
@@ -331,7 +347,6 @@
     align-items: center;
     width: 100%;
 }
-
 
 .recommend-container {
     display: flex;
@@ -357,10 +372,9 @@
     font-weight: bold;
     color: black;
     font-family: Helvetica;
-    margin-bottom: 10px; /* Add spacing below address */
+    margin-bottom: 10px;
 }
 
-/* Helpful Container */
 .helpful-container {
     display: flex;
     align-items: center;
@@ -384,23 +398,22 @@
     font-style: italic;
 }
 
-/*review section(left)*/
+/* Left Column in Review Section */
 .left-column {
     display: flex;
     flex-direction: column;
-    width: 250px; /* Adjust as necessary */
-    gap: 20px; /* Space between score and details */
+    width: 250px;
+    gap: 20px;
 }
 
 .review-details {
     background-color: #FFFFFF;
-    width: 40px; /* Adjust as necessary */
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     border-radius: 10px;
-  
 }
+
 .maintenance-container,
 .pets-container,
 .safety-container,
@@ -414,110 +427,63 @@
     color: black;
     border-radius: 10px;
     height: 60px;
-    width:100px;
+    width: 100px;
     text-align: center;
     padding: 5px;
 }
 
 .maintenance-container {
     background-color: #92C740;
-    
 }
 
 .pets-container {
     background-color: #FF7A7A;
-  
 }
 
 .safety-container {
     background-color: #92C740;
-   
 }
 
 .raise-rent-container {
     background-color: #FF7A7A;
-   
 }
 
 .reachable-container {
     background-color: #FF7A7A;
-    
 }
 
 .contract-container {
     background-color: #92C740;
-    
-}
-/*These are the icons next to the reviews section*/
-/* Container for Share and Report icons with reviews section*/
-.reviews-and-icons {
-    display: flex;
-    align-items: flex-start; /* Aligns icons to the top of the reviews section */
-    gap: 20px; /* Space between reviews and icons */
-    width: 100%; /* Ensures it takes the full container width */
 }
 
-/* Container for Share and Report icons */
-.icons-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* Individual icon styles */
-.icon {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    transform:translateX(60px);
-   
-}
-
-.share-icon {
-    /* Add additional styles for the share icon if needed */
-    margin-top: 120px;
-}
-
-.report-icon {
-    /* Add additional styles for the report icon if needed */
-}
-
-
-/*these are the dropdown options*/
 /* Dropdown Container */
 .dropdown-container {
     display: flex;
     gap: 20px;
-    justify-content:flex-start;
-    margin-top: 20px; /* Adjusts space above dropdowns */
-    margin-bottom: 20px; /* Adds space below dropdowns, separating them from the reviews */
-  
+    justify-content: flex-start;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-/* Dropdown Label */
-.dropdown label {
-    display: block;
-    font-size: 0.9rem;
-    color: white;
-    margin-bottom: 5px;
+/*Side icons*/
+/* Icons Container for Share and Report */
+.icons-container {
+    
+    transform:translateY(-500px); /* Adjusts for perfect vertical centering */
+    margin-left: 1300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000; /* Ensures it stays above other content */
 }
 
-/* Dropdown Select Element */
-.dropdown select {
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    background-color: white;
-    font-size: 1rem;
-    color: #4D55A5;
-    text-align: center;
-    appearance: none; /* Hides default arrow in some browsers */
-    padding-right: 25px; /* Space for custom arrow */
-    background-image: url('../Assets/downward.svg'); /* Add your arrow icon here */
-    background-repeat: no-repeat;
-    background-position: right 5px center;
-    background-size:15px;
+.icon {
+    width: 30px; /* Adjust to desired size */
+    height: 30px;
+    cursor: pointer;
 }
+
+
 
 /* Responsive Media Queries */
 @media (max-width: 768px) {
@@ -531,40 +497,33 @@
         flex-direction: column;
         align-items: center;
     }
-
     .landlord-information {
         width: 90%;
         max-width: 400px;
         padding: 5vw;
     }
-
     .middle-icon {
         width: 60px;
         height: 60px;
     }
-
     .landlord-left-icon,
     .landlord-account-right {
         width: 10vw;
         max-width: 50px;
     }
-
     .landlord-center-logo {
         width: 80vw;
     }
-
     .reviews-section h2 {
         font-size: 1.2rem;
     }
-
     .review-card {
-        
-        flex-direction:column;
+        flex-direction: column;
     }
     .comment-container,
-    .review-details{
-        width:100%;
-        order:0;
+    .review-details {
+        width: 100%;
+        order: 0;
     }
 }
 
@@ -572,27 +531,21 @@
     .landlord-center-logo {
         width: 50vw;
     }
-
     .landlord-info {
         width: 100%;
     }
-
     .landlord-information {
         width: 95%;
     }
-
     .reviews-section h2 {
         font-size: 1rem;
     }
-
     .review-card {
         padding: 4vw;
     }
-
     .landlord-location,
     .review-text,
     .review-date {
         font-size: 0.9rem;
     }
-
 }

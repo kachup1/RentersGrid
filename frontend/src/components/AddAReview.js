@@ -226,7 +226,8 @@ const AddAReview = () => {
         "bollocks", "tosser", "shag", "slag", "skank", "jackass", "suck", "arsehole", "bloody", 
         "bollock", "bollocks", "bollocking", "git", "pussy", "minge", "nonce", "pikey", "sod", 
         "sodding", "wank", "bellend", "shite", "spaz", "twit", "choad", "knob", "wazzock", 
-        "minger", "numpty", "pillock", "knobhead", "knob-end", "plonker", "queer", "wop", "boobies", "gash", "smeg", "prat", "nonce", "chuffer"
+        "minger", "numpty", "pillock", "knobhead", "knob-end", "plonker", "queer", "wop", "boobies", 
+        "gash", "smeg", "prat", "nonce", "chuffer"
     ];    
 
     const censorText = (text) => {

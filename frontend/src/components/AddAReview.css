@@ -261,6 +261,8 @@ body {
     margin-top: -15px;
     margin-left: 60px;
     position: absolute;
+    width: 18%; /* Ensure container takes full width */
+
   }
   
   /* Selected item styling string*/
@@ -276,7 +278,6 @@ body {
     width: 150px; /* Adjust width as needed */
     background-color: white;
     position: absolute;
-    background-color: white;
     white-space: nowrap; /* Prevents text from wrapping */
     overflow: hidden; /* Ensures text does not overflow */
     text-overflow: ellipsis; /* Adds "..." if text is too long */
@@ -300,34 +301,49 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: rgb(253, 250, 250);
+    background-color: white;
     border: 1px solid #ccc;
-    border-radius: 0 0 10px 10px;
+    border-radius: 8px;
     width: 100%;
     z-index: 100;
     list-style-type: none;
     padding: 0;
     margin: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
     position: absolute;
+    margin-top: 19px; /* Space between dropdown and input */
+    z-index: 100; /* Ensure it appears above other elements */
+    max-height: 200px; /* Adjust as needed */
+    overflow-y: auto;
 
   }
+
+  /* Rounded corners for the first and last items */
+    .dropdown-options-add-a-review li:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.dropdown-options-add-a-review li:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
   
   .dropdown-item-add-a-review {
     padding: 10px;
     cursor: pointer;
     font-size: 12px;
-    white-space: nowrap; /* Prevents text from wrapping */
-    background-color: white; /* Ensures each option has a white background */
-    position: absolute;
+    background-color: white;
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    white-space: nowrap;
+    text-align: center;
 
   }
   
-  .dropdown-item:hover,
-  .dropdown-item.selected {
-    background-color: #f0f0f0; /* Highlight on hover or if selected */
-  }
-  
+  .dropdown-item-add-a-review:hover {
+    background-color: #eaf3ea !important; /* Ensure hover color with !important */
+}
 
 /* Rate Your Landlord----------------------------------------------------*/
 .rate-your-landlord-string {
