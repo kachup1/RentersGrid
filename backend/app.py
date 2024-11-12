@@ -15,6 +15,7 @@ from routes.add_a_review_routes import add_a_review_blueprint
 
 from routes.editmyaccount import edit_account_bp
 from routes.report_routes import report_routes
+from routes.add_property_route import add_property_blueprint
 
 # Load environment variables
 load_dotenv()
@@ -49,6 +50,7 @@ def add_cors_headers(response):
     return response
 
 
+app.register_blueprint(add_property_blueprint)
 
 if __name__ == "__main__":
     app.run(debug=True)
