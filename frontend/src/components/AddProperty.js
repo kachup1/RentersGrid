@@ -18,12 +18,50 @@ import './AddProperty.css';
 
 function AddProperty() {
 
-    const [isDisabled, setIsDisabled] = useState(true);
+    const [isDisabled, setIsDisabled] = useState(false);
+    const [propertyName,setPropertyName]=useState('');
+    const [propertyAddress, setPropertyAddress]=useState('');
+    const [city, setCity] = useState('Long Beach');
+    const [state, setState] = useState('California');
+    const [propertyZipcode, setZipcode] = useState('');
+    const{landlordId} = useParams()
     const navigate = useNavigate();
 
     const handleSelectChange = (event) => {
         setIsDisabled(event.target.value === "No");
     };
+
+    const handleSubmit = async ( )=> {
+        if (isDisabled) return;
+        const propertyData = {
+            name:propertyName,
+            address: propertyAddress,
+            city,
+            state,
+            zipcode:propertyZipcode
+        };
+        try{
+            const response = await fetch(`http://localhost:5000/api/addproperty/${landlordId}`,
+                {method:'POST',
+                headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify(propertyData)
+            });
+            if(response.status ===409){
+                alert('A property with this address already exists.');
+            }
+            else if(response.ok){
+                alert('Property added successfully');
+                navigate(`/LandlordProfile/${landlordId}`); //redirects after the submission
+            }else{
+                alert('Failed to add property');
+            }
+
+        }catch(error)
+        {
+            console.error('Error adding property', error);
+        }
+    };
+
 
     return (
         <div className="add-property-container">
@@ -79,10 +117,10 @@ function AddProperty() {
                 </select>
 
                 <label className="form-label required">Property 2 Name:</label>
-                <input type="text" className="form-input" placeholder="Property Name" disabled={isDisabled} />
+                <input type="text" className="form-input" placeholder="Property Name" disabled={isDisabled} onChange={(e)=> setPropertyName(e.target.value)}/>
 
                 <label className="form-label required">Property 2 Address:</label>
-                <input type="text" className="form-input" placeholder="Street Address" disabled={isDisabled} />
+                <input type="text" className="form-input" placeholder="Street Address" disabled={isDisabled} onChange={(e)=> setPropertyAddress(e.target.value)} />
 
                 <label className="form-label">City:</label>
                 <input type="text" className="form-input" placeholder="City" defaultValue="Long Beach" disabled={isDisabled} />
@@ -94,9 +132,9 @@ function AddProperty() {
                 </select>
 
                 <label className="form-label">Zipcode:</label>
-                <input type="text" className="form-input" placeholder="Zipcode" defaultValue="90805" disabled={isDisabled} />
+                <input type="text" className="form-input" placeholder="Zipcode" disabled={isDisabled} onChange={(e)=> setZipcode(e.target.value)}/>
 
-                <button className="submit-button">Submit Landlord</button>
+                <button className="submit-button" onClick={handleSubmit} disabled ={isDisabled}> Submit Property</button>
             </div>
 
 

@@ -11,6 +11,7 @@ from routes.search_routes import search_blueprint
 from routes.map_routes import map_blueprint
 from routes.rp_routes import rp_routes
 from routes.landlord_profile_routes import landlord_profile_blueprint
+from routes.add_property_route import add_property_blueprint
 
 # Load environment variables
 load_dotenv()
@@ -33,6 +34,7 @@ app.register_blueprint(map_blueprint)
 app.register_blueprint(rp_routes)
 
 app.register_blueprint(landlord_profile_blueprint)
+app.register_blueprint(add_property_blueprint)
 
 if __name__ == "__main__":
     app.run(debug=True)
