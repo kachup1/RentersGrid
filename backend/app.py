@@ -14,6 +14,7 @@ from routes.landlord_profile_routes import landlord_profile_blueprint
 from routes.add_a_review_routes import add_a_review_blueprint
 
 from routes.editmyaccount import edit_account_bp
+from routes.report_routes import report_routes
 
 # Load environment variables
 load_dotenv()
@@ -38,6 +39,7 @@ app.register_blueprint(rp_routes)
 app.register_blueprint(landlord_profile_blueprint)
 app.register_blueprint(add_a_review_blueprint)
 app.register_blueprint(edit_account_bp)
+app.register_blueprint(report_routes)
 # Add global CORS headers for all responses
 @app.after_request
 def add_cors_headers(response):
@@ -45,6 +47,8 @@ def add_cors_headers(response):
     response.headers["Access-Control-Allow-Headers"] = "Content-Type,Authorization"
     response.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS,PUT,DELETE"
     return response
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
