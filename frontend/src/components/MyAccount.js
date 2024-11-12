@@ -19,12 +19,17 @@ import BackgroundLogo from '../Assets/myaccount-bg.svg';
 import TopRightAddIcon from '../Assets/topright-add.svg'
 import Triangle from '../Assets/triangle.svg'
 
+import EditSelected from '../Assets/edit-green.svg';
+import SaveSelected from '../Assets/save-green.svg';
+
 const MyAccount = () => {
     // State variables for email, password, and edit mode
     const [email, setEmail] = useState(''); // Example initial value
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isEditing, setIsEditing] = useState(false);
+    const [isSaved, setIsSaved] = useState(false);
+
 
     // Assume userId = 1 for unit testing
     const userId = 1;
@@ -38,7 +43,7 @@ const MyAccount = () => {
                 });
                 if (response.status === 200) {
                     setEmail(response.data.email);
-                    setPassword(response.data.password); // Only for demonstration; avoid displaying passwords
+                    setPassword(response.data.password); // Note: Avoid displaying plain passwords in production
                 }
             } catch (error) {
                 console.error("Error fetching user data:", error);
@@ -73,6 +78,10 @@ const MyAccount = () => {
             if (response.status === 200) {
                 alert("User info updated successfully!");
                 setIsEditing(false);
+                setIsSaved(true);
+                setTimeout(() => {
+                    setIsSaved(false);
+                }, 1000); // Reset after 1 second
             }
         } catch (error) {
             console.error("Error updating user:", error);
@@ -156,15 +165,15 @@ const MyAccount = () => {
                             />
                             {/* Always show the Edit icon */}
                             <img
-                                src={EditIcon}
+                                src={isEditing ? EditSelected : EditIcon}
                                 alt="Edit"
                                 className={styles.mainicon}
-                                onClick={() => setIsEditing(true)}
+                                onClick={() => setIsEditing(!isEditing)}
                             />
 
                             {/* Always show the Save icon */}
                             <img
-                                src={SaveIcon}
+                                src={isSaved ? SaveSelected : SaveIcon}
                                 alt="Save"
                                 className={styles.mainicon}
                                 onClick={handleSave}
@@ -184,20 +193,7 @@ const MyAccount = () => {
                                 readOnly={!isEditing}
                                 placeholder="Password"
                             />
-                            {/* Always show the Edit icon */}
-                            <img
-                                src={EditIcon}
-                                alt="Edit"
-                                className={styles.mainicon}
-                                onClick={() => setIsEditing(true)}
-                            />
-                            {/* Always show the Save icon */}
-                            <img
-                                src={SaveIcon}
-                                alt="Save"
-                                className={styles.mainicon}
-                                onClick={handleSave}
-                            />
+                            
                         </div>
                     </div>
 

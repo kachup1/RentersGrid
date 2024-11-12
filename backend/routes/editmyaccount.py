@@ -4,16 +4,20 @@ from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
 import os
 
-# Load environment variables from .env
+# Load environment variables
 load_dotenv()
+
+# Fetch the MongoDB URI from .env
+mongo_uri = os.getenv("MONGO_URI")
+if not mongo_uri:
+    raise ValueError("MongoDB URI is not set. Check your .env file.")
 
 # Create Blueprint and initialize Bcrypt
 edit_account_bp = Blueprint('edit_account', __name__)
 bcrypt = Bcrypt()
 
-# MongoDB connection using environment variable
-MONGODB_URI = os.getenv('MONGODB_URI')
-client = MongoClient(MONGODB_URI)
+# MongoDB connection
+client = MongoClient(mongo_uri)
 db = client.RentersDB
 users_collection = db.users
 
@@ -27,14 +31,8 @@ def edit_user():
     if not user_id or not new_email:
         return jsonify({'error': 'Missing required fields'}), 400
 
-    # Hash the password if it's not empty
-    if new_password:
-        try:
-            hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
-        except ValueError as e:
-            return jsonify({'error': str(e)}), 400
-    else:
-        hashed_password = None
+    # Hash the password if provided
+    hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8') if new_password else None
 
     # Prepare update data
     update_data = {'email': new_email}
@@ -42,10 +40,7 @@ def edit_user():
         update_data['password'] = hashed_password
 
     # Update user info in MongoDB
-    result = users_collection.update_one(
-        {'userId': int(user_id)},
-        {'$set': update_data}
-    )
+    result = users_collection.update_one({'userId': int(user_id)}, {'$set': update_data})
 
     if result.modified_count == 0:
         return jsonify({'error': 'User not found or no changes made'}), 404
