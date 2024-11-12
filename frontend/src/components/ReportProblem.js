@@ -8,12 +8,7 @@ import NoAccountSideMenu from './NoAccountSideMenu';
 import SideMenu from './SideMenu';  // Import the logged-in side menu
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { isTokenValid } from './authentication';
-import { Link } from 'react-router-dom';
-import { useNavigate} from 'react-router-dom';
-//I added this to get the landlordId from the url
-import { useParams } from 'react-router-dom'; 
-//I added this to get the landlordId from the url
-import { useParams } from 'react-router-dom'; 
+
 
 function ReportProblem() {  // landlordId is received as a prop
     const { landlordId } = useParams();
@@ -22,8 +17,7 @@ function ReportProblem() {  // landlordId is received as a prop
     const [charCount, setCharCount] = useState(0);
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    //I added this to get the landlordId from the url so you can use to get information
-    const { landlordId } = useParams(); // Retrieve landlordId from URL
+    
 
   useEffect(() => {
     // Check if the user is logged in
