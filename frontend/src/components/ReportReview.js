@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import './ReportReview.css';
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import ReportButton from '../Assets/report-title.svg';
 import MenuAlt from '../Assets/main-logo.svg';
-import NoAccountSideMenu from './NoAccountSideMenu';
-import { Link } from 'react-router-dom';
-import { useNavigate} from 'react-router-dom';
+import SideMenu from './SideMenu';  // Import the logged-in side menu
+import NoAccountSideMenu from './NoAccountSideMenu'; 
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { isTokenValid } from './authentication';
 
 function ReportReview() {
+    const { landlordId } = useParams();
     const [selectedreview, setSelectedreview] = useState('');
     const [comments, setComments] = useState('');
     const [charCount, setCharCount] = useState(0);
     const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    // Check if the user is logged in
+    setIsLoggedIn(isTokenValid());
+  }, []);
     const handlereviewChange = (e) => {
         setSelectedreview(e.target.value);
     };
@@ -22,16 +29,40 @@ function ReportReview() {
         setComments(e.target.value);
         setCharCount(e.target.value.length);
     };
+    useEffect(() => {
+        console.log("Received landlordId in ReportReview:", landlordId); // Debugging
+    }, [landlordId]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission 
-        navigate('/ReportreviewConfirmation');
-    };
+        // Prepare the report data to send to the backend
+        const reportData = {
+            landlordId,
+            comment: comments,
+            category: selectedreview,
+            type: 'Review', 
+        };
 
+        try {
+            // Send POST request to the backend
+            const response = await fetch('http://localhost:5000/api/report', { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(reportData),
+            });
+
+            if (response.ok) {
+                navigate('/ReportReviewConfirmation');  // Navigate to confirmation page on success
+            } else {
+                console.error('Failed to submit report');
+            }
+        } catch (error) {
+            console.error('Error submitting report:', error);
+        }
+    };
     return (
         <div className="report-review-main-container">
-            <NoAccountSideMenu />
+            {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
             <header>
                 <div className="report-review-logo-container">
                     <a href="/">
@@ -43,9 +74,18 @@ function ReportReview() {
                 <img src={MenuAlt} alt="Menu" className="report-review-background-image" />
 
                 {/* Right Image: Account Button */}
-                <a href="signin">
-                    <img src={AccountButton} alt="Account Button" className="report-review-right-icon" />
-                </a>
+                <img
+                        src={AccountButton}
+                        alt="Account Button"
+                        className="report-review-right-icon" // Adjusted class name
+                        onClick={() =>{ 
+                            if (isTokenValid()) {
+                            navigate('/myaccount');  // Navigate to "My Account" if logged in
+                          } else {
+                            navigate('/signin');  // Navigate to "Sign In" if not logged in
+                          }
+                        }} // Directly use navigate in the onClick
+                    />
             </header>
             
             <div className="report-review-wrapper">
@@ -64,12 +104,10 @@ function ReportReview() {
                     >
                         <option value="">Select problem</option>
                         <option value="maintenance">Wrong Address</option>
-                        <option value="noise">Wrong Name</option>
-                        <option value="noise">Violent Speech</option>
-                        <option value="noise">Harrassment</option>
-                        <option value="noise">Bullying</option>
-                        <option value="noise">Spam</option>
-                        <option value="noise">False Information</option>
+                        <option value="wrong-name">Wrong Name</option>
+                        <option value="harrassment">Harrassment</option>
+                        <option value="spam">Spam</option>
+                        <option value="false-information">False Information</option>
                         <option value="safety">Other</option>
                         {/* Add more options as needed */}
                     </select>
