@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from models.database import ratings_collection, landlords_collection, properties_collection
+from datetime import datetime
 
 add_a_review_blueprint = Blueprint('add_a_review', __name__)
 
@@ -26,7 +27,9 @@ def add_review():
             "reachable": data.get("reachable", "N/A"),
             "clearcontract": data.get("clearcontract", "N/A"),
             "recommend": data.get("recommend", "N/A"),
-            "userId": data.get("userId")
+            "userId": data.get("userId"),
+            "timestamp": datetime.utcnow()  # Add timestamp for review submission
+
         }
 
         # Insert the review into the ratings collection
