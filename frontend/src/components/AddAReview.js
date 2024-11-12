@@ -47,6 +47,8 @@ const AddAReview = () => {
     const navigate = useNavigate();
     const{landlordId} = useParams();//this gets the landlordId from the URL
     const [wordCount, setWordCount] = useState(0); // For counting words
+    const selectedPropertyName = propertyOptions.find(option => option.propertyId === selectedProperty)?.propertyname;
+
 
     // 1st useEffect: Check if the user is logged in when the component mounts
     useEffect(() => {
@@ -78,6 +80,20 @@ const AddAReview = () => {
         }
     }, [landlordId]);
 
+    useEffect(() => {
+        const fetchProperties = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/landlord/details/${landlordId}`);
+                setPropertyOptions(response.data.properties);  // Ensure properties are set correctly
+            } catch (error) {
+                console.error("Error fetching properties:", error);
+            }
+        };
+    
+        fetchProperties();
+    }, [landlordId]);
+    
+
     //navigate based on account status
     const handleAccountClick = () => {
         if (isLoggedIn) {
@@ -96,7 +112,7 @@ const AddAReview = () => {
     
     //select dropdown property
     const handleOptionSelect = (option) => {
-        setSelectedProperty(option);
+        setSelectedProperty(option.propertyId);  // Store propertyId for submission
         setDropdownOpen(false); // Close the dropdown after selection
     };
     
@@ -123,6 +139,10 @@ const AddAReview = () => {
         setCheckboxError(false); // Clear error if checkbox is checked
         const userId = getUserIdFromToken();
         console.log("User ID:", userId);
+        const timestamp = new Date().toISOString(); // Generate the current timestamp in ISO format
+
+        console.log("Submitting review with propertyId:", selectedProperty); // Log selectedProperty
+
     
         try {
             await axios.post('http://localhost:5000/api/landlord/addareview', {
@@ -137,7 +157,9 @@ const AddAReview = () => {
                 reachable: ratings.reachable,
                 clearcontract: ratings.clearcontract,
                 recommend: ratings.recommend,
-                userId: userId
+                userId: userId,
+                timestamp: timestamp,  // Add timestamp to data
+                propertyId: selectedProperty // Send propertyId to backend
             });
             alert('Review submitted successfully');
             navigate(`/LandlordProfile/${landlordId}`);
@@ -332,8 +354,10 @@ const AddAReview = () => {
                     <div> 
                     <div className={`dropdown-container-add-a-review`}>
                     <div className="dropdown-selected-add-a-review" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                    <span>{selectedProperty || "Select a Property"}</span>
-                            <img
+                    <span>{selectedProperty 
+                        ? propertyOptions.find(opt => opt.propertyId === selectedProperty)?.propertyname 
+                        : "Select a Property"}</span>
+                    <img
                                 src={DownArrow}
                                 alt="Down Arrow"
                                 className={`down-arrow ${dropdownOpen ? 'open' : ''}`}
@@ -348,7 +372,7 @@ const AddAReview = () => {
                                         onClick={() => handleOptionSelect(option)}
                                         className="dropdown-item-add-a-review"
                                     >
-                                        {option}
+                                        {option.propertyname}  {/* Display property name */}
                                     </li>
                                 ))}
                             </ul>
@@ -575,7 +599,7 @@ const AddAReview = () => {
             </div>
             <div className="frame4-dropdown-container">
                 <span className="frame4-dropdown-selected">
-                    {selectedProperty || "No property selected"}
+                <div>{selectedPropertyName || "No property selected"}</div>
                 </span>
             </div>
         </div>
