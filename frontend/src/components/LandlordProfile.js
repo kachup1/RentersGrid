@@ -103,6 +103,9 @@ function LandlordProfile() {
         navigate(`/ReportProblem/${landlordId}`); // Navigate to the report page with landlord ID
     };
 
+    const handleReportReviewClick =() =>{
+        navigate(`/ReportReview/${landlordId}`);
+    }
 
     //Bar graph:
     const { ratingDistribution = {}, reviewCount = 0 } = landlordData; // Default to empty object if undefined
@@ -229,31 +232,36 @@ function LandlordProfile() {
                 {/* Reviews Section */}
                 <div className="reviews-section">
                     <div className="reviews-header-and-card">
+
                         {/* Total Reviews Text */}
-                        <div className="total-reviews">
-                            <h2>Total Reviews: 1</h2>
-                        </div>
-                        <div className="review-card">
+                        
+                            <h2>Total Reviews: {landlordData.reviewCount || 0}</h2>
+                            {landlordData.reviews?.map(review=>(
+
+                            
+
+                        
+                        <div key ={review.ratingId} className="review-card">
                             {/* Left Column containing the score and review details */}
                             <div className="left-column">
                                 <div className="review-rating">
-                                    <p className="score-text">2/5</p>
+                                    <p className="score-text">{review.score}/5</p>
                                 </div>
                                 <div className="review-details">
-                                    <div className="maintenance-container">Timely Maintenance</div>
-                                    <div className="pets-container">Allow Pets</div>
-                                    <div className="safety-container">Safe Area</div>
-                                    <div className="raise-rent-container">Raise Rent Yearly</div>
-                                    <div className="reachable-container">Reachable & Responsive</div>
-                                    <div className="contract-container">Clear & Fair Contract</div>
+                                    <div className={review.maintenance === "Yes"?"green":"red"}>Timely Maintenance</div>
+                                    <div className={review.pets === "Yes"?"green":"red"}>Allow Pets</div>
+                                    <div className={review.safety==="Yes"?"green":"red"}>Safe Area</div>
+                                    <div className={review.raisemoney === "Yes"?"green":"red"}>Raise Rent Yearly</div>
+                                    <div className={review.reachable === "Yes"? "green":"red"}>Reachable</div>
+                                    <div className={review.clearcontract === "Yes"?"green":"red"}>Clear & Fair Contract</div>
                                 </div>
                             </div>
                             {/* Right Column containing the comment section */}
                             <div className="comment-container">
                                 <div className="comment-header">
                                     <div className="address-container">
-                                        <h2>Park Montair</h2>
-                                        <p>4550 Montair Ave, Long Beach, CA 90808</p>
+                                        <h2>{property.propertyname}</h2>
+                                        <p>{property.address}, {property.city}, {property.state} {property.zipcode}</p>
                                     </div>
 
                                     <div className="helpful-container">
@@ -274,28 +282,49 @@ function LandlordProfile() {
                                 </div>
 
                                 <div className="review-text">
-                                    <p>Landlord is not reachable</p>
+                                    <p>{review.comment}</p>
                                 </div>
 
                                 <div className="recommend-container">
                                     <p>Recommend:</p>
-                                    <button className="recommend-button">Yes</button>
-                                    <button className="recommend-button">No</button>
+                                    {review.recommend === "No Response"?(
+                                        <span className="black">No Response</span>
+                                    ):(
+                                        <>
+                                            <button
+                                                    className={`recommend-button ${review.recommend === 'Yes' ? 'selected' : ''}`}
+                                                >
+                                                    Yes
+                                            </button>
+                                                <button
+                                                    className={`recommend-button ${review.recommend === 'No' ? 'selected' : ''}`}
+                                                >
+                                                    No
+                                                </button>
+                                                </>
+                                        
+                                    )}
+                                    
                                 </div>
 
-                                <span className="review-date">September 3, 2023</span>
+                                <span className="review-date">{new Date(review.timestamp).toLocaleDateString()}</span>
+                                {/* Icons Container for Share and Report */}
+                                <div className="icons-container">
+                                    <img src={Share} alt="Share" className="icon share-icon" />
+                                    <img src={Report} alt="Report" className="icon report-icon" onClick={handleReportReviewClick}/>
+                                    
+                                </div>
+                     
                             </div>
-
-
+                                 
                         </div>
+                        
+                         ))}
                     </div>
-                   
+               
                 </div>
-                  {/* Icons Container for Share and Report */}
-                <div className="icons-container">
-                        <img src={Share} alt="Share" className="icon share-icon" />
-                        <img src={Report} alt="Report" className="icon report-icon" />
-                    </div>
+           
+                  
 
                 
             </div>

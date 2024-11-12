@@ -148,18 +148,6 @@
     width: 24px;
     height: auto;
 }
-/*Report Icon*/
-.landlord-report-icon{
-    cursor: pointer;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-}
-
-.report-icon-img{
-    width: 35px;
-    height: 35px;
-}
 
 /* Button Container */
 .button-container {
@@ -357,13 +345,25 @@
     margin-top: 15px;
 }
 
+/*This is for the no response text:*/
+.black{
+
+    color:black;
+    font-size: 18px;
+
+}
+
+/*This is for the recommend buttons,yes or no*/
+.recommend-button.selected{
+    background-color: #808080;
+}
 .recommend-button {
     background-color: #d3d3d3;
     border: none;
     padding: 5px 10px;
     border-radius: 15px;
     color: #666;
-    cursor: pointer;
+    
     font-size: 0.9rem;
 }
 
@@ -414,12 +414,9 @@
     border-radius: 10px;
 }
 
-.maintenance-container,
-.pets-container,
-.safety-container,
-.raise-rent-container,
-.reachable-container,
-.contract-container {
+.green,
+.red
+ {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -432,29 +429,17 @@
     padding: 5px;
 }
 
-.maintenance-container {
+.green {
     background-color: #92C740;
+    border-radius: 5px;
 }
 
-.pets-container {
+
+.red {
     background-color: #FF7A7A;
 }
 
-.safety-container {
-    background-color: #92C740;
-}
 
-.raise-rent-container {
-    background-color: #FF7A7A;
-}
-
-.reachable-container {
-    background-color: #FF7A7A;
-}
-
-.contract-container {
-    background-color: #92C740;
-}
 
 /* Dropdown Container */
 .dropdown-container {
@@ -466,23 +451,21 @@
 }
 
 /*Side icons*/
-/* Icons Container for Share and Report */
 .icons-container {
-    
-    transform:translateY(-500px); /* Adjusts for perfect vertical centering */
-    margin-left: 1300px;
+    position: absolute;
+    bottom: 240px; /* Adjust this to place it where you want vertically */
+    right: -150px;  /* Adjust this to place it where you want horizontally */
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     z-index: 1000; /* Ensures it stays above other content */
 }
 
 .icon {
-    width: 30px; /* Adjust to desired size */
-    height: 30px;
+    width: 50px; /* Adjust to desired size */
+    height: 50px;
     cursor: pointer;
 }
-
 
 
 /* Responsive Media Queries */
