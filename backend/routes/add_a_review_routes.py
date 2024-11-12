@@ -28,7 +28,8 @@ def add_review():
             "clearcontract": data.get("clearcontract", "N/A"),
             "recommend": data.get("recommend", "N/A"),
             "userId": data.get("userId"),
-            "timestamp": datetime.utcnow()  # Add timestamp for review submission
+            "timestamp": datetime.utcnow(),  # Add timestamp for review submission
+            "propertyId": data.get("propertyId")  
 
         }
 
@@ -51,11 +52,12 @@ def get_landlord_details(landlord_id):
 
     # Fetch property details based on the property IDs
     property_ids = landlord.get("propertyId", [])
-    properties = list(properties_collection.find({"propertyId": {"$in": property_ids}}, {"propertyname": 1}))
+    properties = list(properties_collection.find({"propertyId": {"$in": property_ids}}, {"propertyId": 1, "propertyname": 1}))
 
-    # Structure response with landlord name and property names
+    # Structure response with landlord name and properties including both propertyId and propertyname
     landlord_data = {
         "name": landlord.get("name"),
-        "properties": [prop["propertyname"] for prop in properties]
+        "properties": [{"propertyId": prop["propertyId"], "propertyname": prop["propertyname"]} for prop in properties]
     }
+    
     return jsonify(landlord_data), 200
