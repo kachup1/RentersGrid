@@ -548,3 +548,8 @@
         font-size: 0.9rem;
     }
 }
+
+.highlight {
+    background-color: yellow; /* Highlight color */
+    transition: background-color 0.5s ease-out;
+}

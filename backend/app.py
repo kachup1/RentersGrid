@@ -11,15 +11,10 @@ from routes.search_routes import search_blueprint
 from routes.map_routes import map_blueprint
 from routes.rp_routes import rp_routes
 from routes.landlord_profile_routes import landlord_profile_blueprint
-from routes.add_property_route import add_property_blueprint
 from routes.add_a_review_routes import add_a_review_blueprint
-from routes.add_landlord_routes import landlord_blueprint
-
-from routes.editmyaccount import edit_account_bp
-from routes.report_routes import report_routes
-from routes.add_property_route import add_property_blueprint
-
-from routes.vote_routes import vote_blueprint
+from routes.get_ratings import ratings_blueprint
+from routes.delete_ratings import delete_ratings_blueprint
+from routes.edit_myaccount import edit_account_bp
 
 
 # Load environment variables
@@ -43,12 +38,10 @@ app.register_blueprint(search_blueprint)
 app.register_blueprint(map_blueprint)
 app.register_blueprint(rp_routes)
 app.register_blueprint(landlord_profile_blueprint)
-app.register_blueprint(add_property_blueprint)
 app.register_blueprint(add_a_review_blueprint)
 app.register_blueprint(edit_account_bp)
-app.register_blueprint(report_routes)
-app.register_blueprint(landlord_blueprint)
-app.register_blueprint(vote_blueprint)
+app.register_blueprint(ratings_blueprint)
+app.register_blueprint(delete_ratings_blueprint)
 
 # Add global CORS headers for all responses
 @app.after_request
