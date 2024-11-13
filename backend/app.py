@@ -15,7 +15,9 @@ from routes.add_a_review_routes import add_a_review_blueprint
 from routes.get_ratings import ratings_blueprint
 from routes.delete_ratings import delete_ratings_blueprint
 from routes.edit_myaccount import edit_account_bp
-
+from routes.add_property_route import add_property_blueprint
+from routes.add_landlord_routes import landlord_blueprint
+from routes.vote_routes import vote_blueprint
 
 # Load environment variables
 load_dotenv()
@@ -42,6 +44,10 @@ app.register_blueprint(add_a_review_blueprint)
 app.register_blueprint(edit_account_bp)
 app.register_blueprint(ratings_blueprint)
 app.register_blueprint(delete_ratings_blueprint)
+app.register_blueprint(add_property_blueprint)
+app.register_blueprint(landlord_blueprint)
+app.register_blueprint(vote_blueprint)
+
 
 # Add global CORS headers for all responses
 @app.after_request
