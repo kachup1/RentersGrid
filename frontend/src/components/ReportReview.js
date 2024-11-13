@@ -10,7 +10,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { isTokenValid } from './authentication';
 
 function ReportReview() {
-    const { landlordId } = useParams();
+    const { landlordId, ratingId } = useParams();
     const [selectedreview, setSelectedreview] = useState('');
     const [comments, setComments] = useState('');
     const [charCount, setCharCount] = useState(0);
@@ -31,13 +31,17 @@ function ReportReview() {
     };
     useEffect(() => {
         console.log("Received landlordId in ReportReview:", landlordId); // Debugging
-    }, [landlordId]);
+        console.log("Received ratingId in ReportReview:", ratingId); // Debugging
+    }, [landlordId, ratingId]);
+   
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Prepare the report data to send to the backend
         const reportData = {
             landlordId,
+            ratingId,
             comment: comments,
             category: selectedreview,
             type: 'Review', 

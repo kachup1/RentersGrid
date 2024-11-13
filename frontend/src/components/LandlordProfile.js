@@ -28,14 +28,12 @@ import './LandlordProfile.css';
 import { isTokenValid } from './authentication';
 
 function LandlordProfile() {
-    const { landlordId } = useParams();
+    const { landlordId , ratingId} = useParams();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [bookmarked, setBookmarked] = useState({});
     const [landlordData, setLandlordData] = useState({});
     const [isThumbsUpSelected, setIsThumbsUpSelected] = useState(false);
     const [isThumbsDownSelected, setIsThumbsDownSelected] = useState(false);
-    const [sortOrder, setSortOrder] = useState("mostRecent");
-
     const navigate = useNavigate();
 
     // Check if properties data is available before attempting to access it
@@ -105,9 +103,14 @@ function LandlordProfile() {
         navigate(`/ReportProblem/${landlordId}`); // Navigate to the report page with landlord ID
     };
 
-    const handleReportReviewClick =() =>{
-        navigate(`/ReportReview/${landlordId}`);
-    }
+    const handleReportReviewClick = (ratingId) => {
+        if (!ratingId) {
+            console.error("ratingId is missing.");
+            return;
+        }
+        navigate(`/ReportReview/${landlordId}/${ratingId}`); // Navigate to report review page with landlordId and ratingId
+    };
+    
 
     //Bar graph:
     const { ratingDistribution = {}, reviewCount = 0 } = landlordData; // Default to empty object if undefined
@@ -121,29 +124,6 @@ function LandlordProfile() {
 
      // Log the ratingDistribution to verify values
     console.log("Rating Distribution:", ratingDistribution);
-
-    //SORTING 
-    const handleSortChange = (e) => {
-        setSortOrder(e.target.value);
-        console.log("Selected Sort Order:", e.target.value);
-
-    };
-    
-    const sortedReviews = landlordData.reviews
-    ? [...landlordData.reviews].sort((a, b) => {
-        if (sortOrder === "highestRating") {
-            return b.score - a.score; // Sort by highest score first
-        } else if (sortOrder === "lowestRating") {
-            return a.score - b.score; // Sort by lowest score first
-        } else {
-            return new Date(b.date) - new Date(a.date); // Default to most recent first
-        }
-    })
-    : [];
-
-
-
-    console.log(sortedReviews)
 
     return (
         <div className="landlord-profile-container">
@@ -245,8 +225,8 @@ function LandlordProfile() {
 
                 <div className="dropdown">
                     <label htmlFor="sortSelect">Sort By:</label>
-                    <select id="sortSelect" name="sortSelect" value={sortOrder} onChange={handleSortChange}>
-                    <option value="mostRecent">Most Recent</option>
+                    <select id="sortSelect" name="sortSelect">
+                        <option value="mostRecent">Most Recent</option>
                         <option value="highestRating">Highest Rating</option>
                         <option value="lowestRating">Lowest Rating</option>
                         {/* Add more sorting options as needed */}
@@ -261,7 +241,8 @@ function LandlordProfile() {
                         {/* Total Reviews Text */}
                         
                             <h2>Total Reviews: {landlordData.reviewCount || 0}</h2>
-                            {sortedReviews.map(review => (
+                            {landlordData.reviews?.map(review=>(
+
                             
 
                         
@@ -335,9 +316,10 @@ function LandlordProfile() {
                                 {/* Icons Container for Share and Report */}
                                 <div className="icons-container">
                                     <img src={Share} alt="Share" className="icon share-icon" />
-                                    <img src={Report} alt="Report" className="icon report-icon" onClick={handleReportReviewClick}/>
+                                    <img src={Report} alt="Report" className="icon report-icon" onClick={() => handleReportReviewClick(review.ratingId)}/>
                                     
                                 </div>
+                     
                             </div>
                                  
                         </div>
