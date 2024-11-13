@@ -34,6 +34,8 @@ function LandlordProfile() {
     const [landlordData, setLandlordData] = useState({});
     const [isThumbsUpSelected, setIsThumbsUpSelected] = useState(false);
     const [isThumbsDownSelected, setIsThumbsDownSelected] = useState(false);
+    const [sortOrder, setSortOrder] = useState("mostRecent");
+
     const navigate = useNavigate();
 
     // Check if properties data is available before attempting to access it
@@ -119,6 +121,29 @@ function LandlordProfile() {
 
      // Log the ratingDistribution to verify values
     console.log("Rating Distribution:", ratingDistribution);
+
+    //SORTING 
+    const handleSortChange = (e) => {
+        setSortOrder(e.target.value);
+        console.log("Selected Sort Order:", e.target.value);
+
+    };
+    
+    const sortedReviews = landlordData.reviews
+    ? [...landlordData.reviews].sort((a, b) => {
+        if (sortOrder === "highestRating") {
+            return b.score - a.score; // Sort by highest score first
+        } else if (sortOrder === "lowestRating") {
+            return a.score - b.score; // Sort by lowest score first
+        } else {
+            return new Date(b.date) - new Date(a.date); // Default to most recent first
+        }
+    })
+    : [];
+
+
+
+    console.log(sortedReviews)
 
     return (
         <div className="landlord-profile-container">
@@ -220,8 +245,8 @@ function LandlordProfile() {
 
                 <div className="dropdown">
                     <label htmlFor="sortSelect">Sort By:</label>
-                    <select id="sortSelect" name="sortSelect">
-                        <option value="mostRecent">Most Recent</option>
+                    <select id="sortSelect" name="sortSelect" value={sortOrder} onChange={handleSortChange}>
+                    <option value="mostRecent">Most Recent</option>
                         <option value="highestRating">Highest Rating</option>
                         <option value="lowestRating">Lowest Rating</option>
                         {/* Add more sorting options as needed */}
@@ -236,8 +261,7 @@ function LandlordProfile() {
                         {/* Total Reviews Text */}
                         
                             <h2>Total Reviews: {landlordData.reviewCount || 0}</h2>
-                            {landlordData.reviews?.map(review=>(
-
+                            {sortedReviews.map(review => (
                             
 
                         
@@ -314,7 +338,6 @@ function LandlordProfile() {
                                     <img src={Report} alt="Report" className="icon report-icon" onClick={handleReportReviewClick}/>
                                     
                                 </div>
-                     
                             </div>
                                  
                         </div>
