@@ -31,11 +31,11 @@ function LandlordProfile() {
     const { landlordId , ratingId} = useParams();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [bookmarked, setBookmarked] = useState({});
-    const [landlordData, setLandlordData] = useState({});
+    const [landlordData, setLandlordData] = useState({properties:[],reviews:[]});
     const [isThumbsUpSelected, setIsThumbsUpSelected] = useState(false);
     const [isThumbsDownSelected, setIsThumbsDownSelected] = useState(false);
-    const [sortOrder, setSortOrder] = useState("mostRecent");
-
+    const [selectedPropertyId,setSelectedPropertyId] = useState('all');
+    const[sortOrder, setSortOrder] = useState("mostRecent");
     const navigate = useNavigate();
 
     // Check if properties data is available before attempting to access it
@@ -48,8 +48,55 @@ function LandlordProfile() {
         fetch(`/api/landlord/${landlordId}`)
             .then(response => response.json())
             .then(data => setLandlordData(data))
+                    /*setSelectedPropertyId("all");*/
+                    
+                    
+                
+            
             .catch(error => console.error(error));
     }, [landlordId]);
+
+    const handlePropertyChange = (event) => {
+        /*const value = event.target.value;*/
+       setSelectedPropertyId(event.target.value === "all"?"all":parseInt(event.target.value,10));
+    };
+
+    const handleSortChange = (event)=>{
+        setSortOrder(event.target.value);
+    }
+
+    /*Applying both sort property and options to reviews */
+    const filteredAndSortedReviews= landlordData.reviews
+    ?landlordData.reviews
+    .filter(review => selectedPropertyId ==="all"||review.propertyId===selectedPropertyId)
+    .sort((a,b)=>{
+        if(sortOrder === "highestRating"){
+            return b.score - a.score;
+        }
+        else if(sortOrder === "lowestRating"){
+            return a.score - b.score;
+        }
+        else{
+            return new Date(b.timestamp) - new Date(a.timestamp);
+        }
+
+    })
+    :[];
+
+    /*let filteredReviews;
+    if(selectedPropertyId === "all"){
+        filteredReviews=landlordData.reviews;
+    }
+    else{
+        filteredReviews = landlordData.reviews.filter(
+            review => review.propertyId === parseInt(selectedPropertyId,10)
+
+        );
+    }*/
+
+    console.log("Selected Property ID:", selectedPropertyId); // Debugging line
+    console.log("Filtered and Sorted Reviews:", filteredAndSortedReviews);
+
 
     useEffect(() => {
         if (isTokenValid()) {
@@ -127,24 +174,7 @@ function LandlordProfile() {
      // Log the ratingDistribution to verify values
     console.log("Rating Distribution:", ratingDistribution);
 
-//SORTING --------------------------------------------------------------------
-    const handleSortChange = (e) => {
-        setSortOrder(e.target.value);
-        console.log("Selected Sort Order:", e.target.value);
 
-    };
-    
-    const sortedReviews = landlordData.reviews
-    ? [...landlordData.reviews].sort((a, b) => {
-        if (sortOrder === "highestRating") {
-            return b.score - a.score; // Sort by highest score first
-        } else if (sortOrder === "lowestRating") {
-            return a.score - b.score; // Sort by lowest score first
-        } else {
-            return new Date(b.date) - new Date(a.date); // Default to most recent first
-        }
-    })
-    : [];
 
 //VOTING helpfull thumbs up or down------------------------------------------------
 const [reviewVotes, setReviewVotes] = useState({});
@@ -211,7 +241,7 @@ const handleVote = (reviewId, type) => {
 };
 
 
-    console.log(sortedReviews)
+  
 
     return (
         <div className="landlord-profile-container">
@@ -297,15 +327,14 @@ const handleVote = (reviewId, type) => {
             <div className="dropdown-container">
                 <div className="dropdown">
                     <label htmlFor="propertySelect">Select Property:</label>
-                    <select id="propertySelect" name="propertySelect">
-                    {landlordData.properties && landlordData.properties.length > 0 ? (
+                    <select id="propertySelect" name="propertySelect" onChange={handlePropertyChange}>
+                        <option value="all">All Properties</option>
+                    {
                     landlordData.properties.map((property) => (
                         <option key={property.propertyId} value={property.propertyId}>
                             {property.propertyname}
                         </option>
-                            ))
-                        ) : (
-                            <option>No properties available</option>
+                            )
                         )}
                         {/* Add more options as needed */}
                     </select>
@@ -313,8 +342,8 @@ const handleVote = (reviewId, type) => {
 
                 <div className="dropdown">
                     <label htmlFor="sortSelect">Sort By:</label>
-                    <select id="sortSelect" name="sortSelect" value={sortOrder} onChange={handleSortChange}>
-                    <option value="mostRecent">Most Recent</option>
+                    <select id="sortSelect" name="sortSelect" onChange={handleSortChange}>
+                        <option value="mostRecent">Most Recent</option>
                         <option value="highestRating">Highest Rating</option>
                         <option value="lowestRating">Lowest Rating</option>
                         {/* Add more sorting options as needed */}
@@ -323,14 +352,16 @@ const handleVote = (reviewId, type) => {
             </div>
             <div className="reviews-and-icons">
                 {/* Reviews Section */}
-                <div className="reviews-section">
+                <div className="landlord-reviews-section">
                     <div className="reviews-header-and-card">
 
                         {/* Total Reviews Text */}
                         
-                            <h2>Total Reviews: {landlordData.reviewCount || 0}</h2>
-                            {sortedReviews.map(review => (
-                            
+                            <h2>Total Reviews: {filteredAndSortedReviews.length}</h2>
+                            {filteredAndSortedReviews.map(review=>(
+
+                        
+
                         
                         <div key ={review.ratingId} className="review-card">
                             {/* Left Column containing the score and review details */}
