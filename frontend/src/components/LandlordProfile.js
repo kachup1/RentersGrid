@@ -35,6 +35,7 @@ function LandlordProfile() {
     const [isThumbsUpSelected, setIsThumbsUpSelected] = useState(false);
     const [isThumbsDownSelected, setIsThumbsDownSelected] = useState(false);
     const [selectedPropertyId,setSelectedPropertyId] = useState('all');
+    const[sortOrder, setSortOrder] = useState("mostRecent");
     const navigate = useNavigate();
 
     // Check if properties data is available before attempting to access it
@@ -46,21 +47,43 @@ function LandlordProfile() {
     useEffect(() => {
         fetch(`/api/landlord/${landlordId}`)
             .then(response => response.json())
-            .then(data => {setLandlordData(data);
-                    setSelectedPropertyId("all");
+            .then(data => setLandlordData(data))
+                    /*setSelectedPropertyId("all");*/
                     
                     
                 
-            })
+            
             .catch(error => console.error(error));
     }, [landlordId]);
 
     const handlePropertyChange = (event) => {
-        const value = event.target.value;
-       setSelectedPropertyId(value === "all"?"all":parseInt(value,10));
+        /*const value = event.target.value;*/
+       setSelectedPropertyId(event.target.value === "all"?"all":parseInt(event.target.value,10));
     };
 
-    let filteredReviews;
+    const handleSortChange = (event)=>{
+        setSortOrder(event.target.value);
+    }
+
+    /*Applying both sort property and options to reviews */
+    const filteredAndSortedReviews= landlordData.reviews
+    ?landlordData.reviews
+    .filter(review => selectedPropertyId ==="all"||review.propertyId===selectedPropertyId)
+    .sort((a,b)=>{
+        if(sortOrder === "highestRating"){
+            return b.score - a.score;
+        }
+        else if(sortOrder === "lowestRating"){
+            return a.score - b.score;
+        }
+        else{
+            return new Date(b.timestamp) - new Date(a.timestamp);
+        }
+
+    })
+    :[];
+
+    /*let filteredReviews;
     if(selectedPropertyId === "all"){
         filteredReviews=landlordData.reviews;
     }
@@ -69,10 +92,11 @@ function LandlordProfile() {
             review => review.propertyId === parseInt(selectedPropertyId,10)
 
         );
-    }
+    }*/
 
     console.log("Selected Property ID:", selectedPropertyId); // Debugging line
-    console.log("Filtered Reviews:", filteredReviews); // Debugging line
+    console.log("Filtered and Sorted Reviews:", filteredAndSortedReviews);
+
 
     useEffect(() => {
         if (isTokenValid()) {
@@ -244,7 +268,7 @@ function LandlordProfile() {
 
                 <div className="dropdown">
                     <label htmlFor="sortSelect">Sort By:</label>
-                    <select id="sortSelect" name="sortSelect">
+                    <select id="sortSelect" name="sortSelect" onChange={handleSortChange}>
                         <option value="mostRecent">Most Recent</option>
                         <option value="highestRating">Highest Rating</option>
                         <option value="lowestRating">Lowest Rating</option>
@@ -259,10 +283,10 @@ function LandlordProfile() {
 
                         {/* Total Reviews Text */}
                         
-                            <h2>Total Reviews: {filteredReviews.length}</h2>
-                            {filteredReviews.map(review=>(
+                            <h2>Total Reviews: {filteredAndSortedReviews.length}</h2>
+                            {filteredAndSortedReviews.map(review=>(
 
-                            
+                        
 
                         
                         <div key ={review.ratingId} className="review-card">
