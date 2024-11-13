@@ -54,7 +54,7 @@ function SideMenu({ onSignOut }) {
           </li>
           <li>
             {/* Add navigation using Link for Add a Landlord */}
-            <Link to="/add-landlord" onClick={toggleMenu}>
+            <Link to="/AddALandlord" onClick={toggleMenu}>
               <img src={addLandlordIcon} alt="Add a Landlord" className="menu-icon" />
               Add a Landlord
             </Link>
