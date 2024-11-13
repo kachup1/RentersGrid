@@ -1,59 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ResetPasswordUpdate.css';
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MenuAlt from '../Assets/menu-alt.svg';
 import SideMenu from './SideMenu';
-import { useNavigate } from 'react-router-dom';
-import { useLocation} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-function ResetPassword() {
+function ResetPasswordUpdate() {
     const navigate = useNavigate();
-    
-    // State to hold the input values
+    const { token } = useParams();  // Get the token from the URL
+
     const [email, setEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const location = useLocation();
-    const emailFromReset = location.state?.email;
+
+    // Fetch the email associated with the token by decoding it (on the server side)
+    useEffect(() => {
+        const fetchEmailFromToken = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/verify-token/${token}`);
+                const data = await response.json();
+                if (response.ok) {
+                    setEmail(data.email);  // Set the decoded email from token
+                } else {
+                    setErrorMessage(data.error || "Invalid token. Please try resetting your password again.");
+                    navigate('/resetpassword');
+                }
+            } catch (error) {
+                setErrorMessage("An error occurred. Please try again.");
+                navigate('/resetpassword');
+            }
+        };
+
+        fetchEmailFromToken();
+    }, [token, navigate]);
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent the default form submission
-   
-        // Basic validation
+        e.preventDefault();
+
         if (newPassword !== confirmPassword) {
             setErrorMessage("Passwords do not match.");
+            setSuccessMessage('');
             return;
         }
-   
-        // Make API call to update password
+
         try {
-            const response = await fetch('http://localhost:5000/ChangePassword', {
+            const response = await fetch(`http://localhost:5000/api/reset-password/${token}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                // Convert to JSON string
-                body: JSON.stringify({ email: emailFromReset, new_password: newPassword }),
+                body: JSON.stringify({ password: newPassword }),
             });
-   
+
             const data = await response.json();
-   
+
             if (response.ok) {
-                setSuccessMessage(data.message);
-                // Optionally navigate to signin or another page
+                setSuccessMessage(data.message || 'Password updated successfully!');
+                setErrorMessage('');
                 setTimeout(() => navigate('/signin'), 2000);
             } else {
                 setErrorMessage(data.error || "Password update failed.");
+                setSuccessMessage('');
             }
         } catch (error) {
             setErrorMessage("An error occurred. Please try again.");
+            setSuccessMessage('');
         }
     };
-   
 
     return (
         <div className="reset-password-update-main-container">
@@ -65,13 +82,8 @@ function ResetPassword() {
                     </a>
                 </div>
 
-                {/* Background Image */}
                 <img src={MenuAlt} alt="background" className="reset-password-update-background-image" />
-
-                {/* Left Image: Submit Landlord Rate */}
                 <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="reset-password-update-left-icon" />
-
-                {/* Right Image: Account Button */}
                 <a href="signin">
                     <img src={AccountButton} alt="Account Button" className="reset-password-update-account-right" />
                 </a>
@@ -81,20 +93,18 @@ function ResetPassword() {
                 <div className="reset-password-update-form-box-login">
                     <h1 className='reset-password-update-text'>Reset Password</h1>
                     <form onSubmit={handleSubmit}>
-                        {/* Email Input - Autofilled */}
                         <div className="reset-password-update-input-box">
                             <span className="icon">
                                 <input
                                     type="email"
                                     className="reset-password-update-email-box"
-                                    value={emailFromReset}
+                                    value={email}
                                     readOnly
                                 />
                                 <label className="reset-password-update-email-text">Email:</label>
                             </span>
                         </div>
 
-                        {/* New Password */}
                         <div className="reset-password-update-input-box">
                             <span className="icon">
                                 <input
@@ -109,7 +119,6 @@ function ResetPassword() {
                             </span>
                         </div>
 
-                        {/* Password Confirm */}
                         <div className="reset-password-update-input-type">
                             <span className="icon">
                                 <input
@@ -123,11 +132,9 @@ function ResetPassword() {
                             </span>
                         </div>
 
-                        {/* Error and Success Messages */}
                         {errorMessage && <div className="reset-password-update-error">{errorMessage}</div>}
                         {successMessage && <div className="reset-password-update-success">{successMessage}</div>}
 
-                        {/* Submit Button */}
                         <button type="submit" className="reset-password-update-continue-button">Update Password</button>
                     </form>
                 </div>
@@ -136,4 +143,4 @@ function ResetPassword() {
     );
 }
 
-export default ResetPassword;
+export default ResetPasswordUpdate;
