@@ -6,6 +6,7 @@ import SignUp from './components/SignUp';
 import Bookmark from './components/Bookmark';
 import LandlordProfile from './components/LandlordProfile';
 import ResetPassword from './components/ResetPassword';
+import ResetPasswordConfirmation from './components/ResetPasswordConfirmation';
 import ResetPasswordUpdate from './components/ResetPasswordUpdate';
 import AddProperty from './components/AddProperty';
 import AddAReview from './components/AddAReview';
@@ -36,7 +37,8 @@ function App() {
                 <Route path="/bookmarks" element={<Bookmark />} />
                 <Route path="/LandlordProfile/:landlordId" element={<LandlordProfile />} />
                 <Route path="/resetpassword" element={<ResetPassword />} />
-                <Route path="/resetpasswordupdate" element={<ResetPasswordUpdate />} />
+                <Route path="/reset-password/:token" element={<ResetPasswordUpdate />} />
+                <Route path="/ResetPasswordConfirmation" element={<ResetPasswordConfirmation />} />
                 <Route path="/addproperty/:landlordId" element={<AddProperty />} />
                 <Route path="/AddAReview/:landlordId" element={<AddAReview />} />
                 <Route path="/AddALandlord" element={<AddALandlord />} />

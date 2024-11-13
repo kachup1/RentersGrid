@@ -67,11 +67,13 @@ function SignIn() {
                 />
 
                 {/* Left Image: Submit Landlord Rate */}
-                <img
-                    src={SubmitLandlordRate}
-                    alt="Submit Landlord Rate"
-                    className="sign-in-left-icon"
-                />
+                <a href="addalandlord">
+                    <img
+                        src={SubmitLandlordRate}
+                        alt="Submit Landlord Rate"
+                        className="sign-in-left-icon"
+                    />
+                </a>
 
                 {/* Right Image: Account Button */}
                 <a href="SignIn">

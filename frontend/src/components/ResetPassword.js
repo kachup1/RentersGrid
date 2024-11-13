@@ -75,7 +75,13 @@ function ResetPassword() {
                 </div>
 
                 <img src={MenuAlt} alt="background" className="reset-password-background-image" />
-                <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="reset-password-left-icon" />
+                <a href="addalandlord">
+                    <img
+                        src={SubmitLandlordRate}
+                        alt="Submit Landlord Rate"
+                        className="sign-in-left-icon"
+                    />
+                </a>
                 <a href="signin">
                     <img src={AccountButton} alt="Account Button" className="reset-password-account-right" />
                 </a>
