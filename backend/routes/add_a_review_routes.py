@@ -1,3 +1,4 @@
+import uuid
 from flask import Blueprint, request, jsonify
 from models.database import ratings_collection, landlords_collection, properties_collection
 from datetime import datetime
@@ -14,9 +15,12 @@ def add_review():
         landlord_id = data.get("landlordId")
         if landlord_id is None:
             return jsonify({"error": "landlordId is required"}), 400
+        
+        # Generate a unique ratingId and limit its size by taking a portion
+        ratingId = int(str(uuid.uuid4().int)[:12])  # Limit to the first 12 digits
 
         new_review = {
-            "ratingId": data.get("ratingId"),
+            "ratingId": ratingId,  # Use the generated ratingId here
             "landlordId": int(landlord_id),  # Convert only if it's not None
             "score": data.get("score", 0),
             "comment": data.get("comment", ""),
@@ -29,7 +33,9 @@ def add_review():
             "recommend": data.get("recommend", "N/A"),
             "userId": data.get("userId"),
             "timestamp": datetime.utcnow(),  # Add timestamp for review submission
-            "propertyId": data.get("propertyId")  
+            "propertyId": data.get("propertyId"),
+            "helpful": 0,
+            "notHelpful": 0
 
         }
 
