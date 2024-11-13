@@ -1,3 +1,6 @@
+import { jwtDecode } from 'jwt-decode';
+
+
 // authUtils.js
 export const isTokenValid = () => {
     const token = localStorage.getItem('token');
@@ -26,3 +29,13 @@ export const isTokenValid = () => {
     }
   };
   
+  // Function to get user ID from the token if available
+  export const getUserIdFromToken = () => {
+    const token = localStorage.getItem('token'); // Adjust if you store the token elsewhere
+    if (token) {
+        const decoded = jwtDecode(token);
+        console.log("Decoded token:", decoded); // Log the decoded token to inspect its structure
+        return decoded.sub.userId; // This should be a simple value
+    }
+    return null;
+};

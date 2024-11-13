@@ -1,7 +1,7 @@
 ﻿/*Define the font*/
 @font-face {
-    font-family: 'Helvetica-Bold';
-    src: url('../fonts/helvetica-bold.woff') format('woff');
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica-bold.woff') format('truetype'); /* Adjust this path as necessary */
     font-weight: normal;
     font-style: normal;
 }
@@ -136,13 +136,30 @@ body, .side-menu {
     .side-menu a:active {
         color: white; /* Prevent color change when clicked */
     }
+.map-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    z-index: 1;
+}
 
+.map-container {
+    width: 90%;
+    height: 60vh;
+}
 
 @media only screen and (max-width: 768px) {
     .search-bar-container {
         flex-direction: column;
         width: 100%;
         margin-bottom: 20px;
+    }
+
+    .map-container {
+        width: 95%;
+        height: 100vh;
     }
 }
 /*Resizing the menu popup when the screen gets smaller*/

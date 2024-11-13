@@ -1,0 +1,209 @@
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica-bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* whole page container */
+.my-account-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Side menu */
+.side-menu {
+    width: 350px;
+    background-color: #4D55A5;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    padding-top: 300px;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
+    font-size: 19px;
+}
+
+.side-menu nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.side-menu nav ul li {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+/* Icons next to sidemenus text */
+.icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+    fill: white;
+}
+
+.this {
+    width: 13px;
+    height: 13px;
+    padding-left: 10px;
+}
+
+.logo img {
+    width: 300px; /* Adjust width as needed */
+    height: auto;  /* Keeps aspect ratio */
+    margin-bottom: 30px; 
+}
+
+.main-content {
+    padding-top: 100px;
+    padding-left: 240px;
+    flex-grow: 1;
+    background-color: #4D55A5;
+    min-height: 100vh; /* to fill all with color*/
+    overflow: hidden;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: normal;
+}
+
+.background-logo {
+    position: absolute;
+    right: 100px;
+    margin-top: 270px;
+    opacity: 0.3; /* 30% opacity */
+    width: 580px; /* Adjust width as needed */
+    height: auto;
+    pointer-events: none; /* Prevents the background from interfering with other elements */
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 35pt;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.titleicon {
+    width: 90px;
+    height: 90px;
+    margin-right: 15px;
+}
+
+.top-right-icons {
+    position: absolute;
+    top: 80px;
+    right: 70px;
+    display: flex;
+    gap: 20px; /* Space between the icons */
+    
+}
+
+.add-icon {
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+}
+
+.account-icon {
+    width: auto;
+    height: 65px;
+    cursor: pointer;
+}
+
+.rating-container {
+    position: relative;
+    background-color: #ccc;
+    padding: 30px;
+    border-radius: 2px;
+    width: 700px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between elements */
+    margin-bottom: 80px;
+}
+
+/* Score box styling */
+.score-box {
+    position: absolute;
+    top: -50px;
+    right: -60px;
+    background-color: #94C841;
+    color: white;
+    padding: 10px 70px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    border: 2px solid white;
+}
+
+.rating-number {
+    font-size: 60px; /* Larger number */
+    font-weight: bold;
+}
+
+.rating-total {
+    font-size: 16px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+/* Header with name and date */
+.rating-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; 
+    margin-bottom: 5px;
+}
+
+/* Name styling */
+.rating-name {
+    font-size: 50px;
+    color: white;
+    font-weight: bold;
+}
+
+/* Submitted date styling */
+.submitted-date {
+    font-size: 16px;
+    color: #000000;
+}
+
+/* Comments section styling */
+.rating-comments {
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    color: black;
+    font-size: 16px;
+    line-height: 1.5;
+    height: 200px;
+}
+
+/* Icons for edit and delete */
+.rating-actions {
+    position: absolute;
+    top: 70px;
+    right: -50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.action-icon {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}

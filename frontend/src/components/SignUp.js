@@ -1,17 +1,19 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import './SignUp.css';
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MenuAlt from '../Assets/menu-alt.svg';
-import NoAccountSideMenu from './NoAccountSideMenu';
+import SideMenu from './SideMenu';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios'
 
 function SignUp() {
-    const navigate = useNavigate();
+
+
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -25,40 +27,42 @@ function SignUp() {
 
     const handleSignUp = async (e) => {
         e.preventDefault();
-        setError('');
-        
-        if (password !== confirmPassword) {
-            setError("Passwords do not match");
-            return;
-        }
 
-        if (!validateEmail(email)) {
-            setError("Please enter a valid email address");
-            return;
+        if (password != confirmPassword) {
+            setError("Passwords do not match");
+            return; //Prevents form submission
+
+           
         }
+        if (!validateEmail(email)) {
+            setError('Please enter a valid email address.');
+            return; //Prevents form submission
+
+ 
+         }
 
         try {
-            // Make a POST request to the signup API
             const response = await axios.post('http://localhost:5000/SignUp', {
-                email: email,
-                password: password,
+                email,
+                password
             });
+            //clears any previous errors on success:
+            setError('');
 
-            // Handle successful sign up
-            const { access_token } = response.data;
-            localStorage.setItem('token', access_token);
-
-            navigate('/homepage');
-
-        }   catch (err) {
-            console.error(err);
-            setError(err.response?.data?.error || 'An error occurred.');
+            alert(response.data.message);
+        } catch (error) {
+            if (error.response && error.response.data.error) {
+                setError(error.response.data.error);
+            } else {
+                setError("Something went wrong. Please try again.");
+            }
         }
     };
+    
 
     return (
         <div className="sign-up-main-container">
-            <NoAccountSideMenu />
+            <SideMenu />
             <header>
             <div className="sign-up-logo-container">
                 <a href="/">
@@ -77,7 +81,7 @@ function SignUp() {
                 className="sign-up-background-image"
             />
 
-             {/* Left Image: Submit Landlord Rate */}
+            {/* Left Image: Submit Landlord Rate */}
             <img
                 src={SubmitLandlordRate}
                 alt="Submit Landlord Rate"
@@ -139,8 +143,8 @@ function SignUp() {
 
                         {/* Submit button */}
                         <button input type="submit" className="sign-up-submit-button">Sign Up</button>
-
-                        {error && <p className="signup-error">{error}</p>}
+                        {/* Move the error message here to position it below the button */}
+                        {error && <p className="error">{error}</p>}{/*Display error in red*/}
 
                         {/* Sign In */}
                         <div className="sign-in">

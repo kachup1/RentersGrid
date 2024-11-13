@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-
+*.pyc
 # testing
 /coverage
 
@@ -23,3 +23,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
