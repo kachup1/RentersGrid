@@ -31,9 +31,10 @@ function LandlordProfile() {
     const { landlordId } = useParams();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [bookmarked, setBookmarked] = useState({});
-    const [landlordData, setLandlordData] = useState({});
+    const [landlordData, setLandlordData] = useState({properties:[],reviews:[]});
     const [isThumbsUpSelected, setIsThumbsUpSelected] = useState(false);
     const [isThumbsDownSelected, setIsThumbsDownSelected] = useState(false);
+    const [selectedPropertyId,setSelectedPropertyId] = useState('all');
     const navigate = useNavigate();
 
     // Check if properties data is available before attempting to access it
@@ -45,9 +46,33 @@ function LandlordProfile() {
     useEffect(() => {
         fetch(`/api/landlord/${landlordId}`)
             .then(response => response.json())
-            .then(data => setLandlordData(data))
+            .then(data => {setLandlordData(data);
+                    setSelectedPropertyId("all");
+                    
+                    
+                
+            })
             .catch(error => console.error(error));
     }, [landlordId]);
+
+    const handlePropertyChange = (event) => {
+        const value = event.target.value;
+       setSelectedPropertyId(value === "all"?"all":parseInt(value,10));
+    };
+
+    let filteredReviews;
+    if(selectedPropertyId === "all"){
+        filteredReviews=landlordData.reviews;
+    }
+    else{
+        filteredReviews = landlordData.reviews.filter(
+            review => review.propertyId === parseInt(selectedPropertyId,10)
+
+        );
+    }
+
+    console.log("Selected Property ID:", selectedPropertyId); // Debugging line
+    console.log("Filtered Reviews:", filteredReviews); // Debugging line
 
     useEffect(() => {
         if (isTokenValid()) {
@@ -204,15 +229,14 @@ function LandlordProfile() {
             <div className="dropdown-container">
                 <div className="dropdown">
                     <label htmlFor="propertySelect">Select Property:</label>
-                    <select id="propertySelect" name="propertySelect">
-                    {landlordData.properties && landlordData.properties.length > 0 ? (
+                    <select id="propertySelect" name="propertySelect" onChange={handlePropertyChange}>
+                        <option value="all">All Properties</option>
+                    {
                     landlordData.properties.map((property) => (
                         <option key={property.propertyId} value={property.propertyId}>
                             {property.propertyname}
                         </option>
-                            ))
-                        ) : (
-                            <option>No properties available</option>
+                            )
                         )}
                         {/* Add more options as needed */}
                     </select>
@@ -230,13 +254,13 @@ function LandlordProfile() {
             </div>
             <div className="reviews-and-icons">
                 {/* Reviews Section */}
-                <div className="reviews-section">
+                <div className="landlord-reviews-section">
                     <div className="reviews-header-and-card">
 
                         {/* Total Reviews Text */}
                         
-                            <h2>Total Reviews: {landlordData.reviewCount || 0}</h2>
-                            {landlordData.reviews?.map(review=>(
+                            <h2>Total Reviews: {filteredReviews.length}</h2>
+                            {filteredReviews.map(review=>(
 
                             
 
