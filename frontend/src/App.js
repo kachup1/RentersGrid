@@ -44,7 +44,7 @@ function App() {
                 <Route path="/myratings" element={<MyRatings />} />
                 <Route path="/ReportProblem/:landlordId" element={<ReportProblem />} />
                 <Route path="/ReportProblemConfirmation" element={<ReportProblemConfirmation />} />
-                <Route path="/ReportReview/:landlordId" element={<ReportReview />} />
+                <Route path="/ReportReview/:landlordId/:ratingId" element={<ReportReview />} />
                 <Route path="/ReportReviewConfirmation" element={<ReportReviewConfirmation />} />
 
 

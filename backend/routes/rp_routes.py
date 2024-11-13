@@ -38,7 +38,18 @@ def send_password_reset_email(to_email, reset_link):
     }
     response = requests.post(url, json=payload, headers=headers)
     return response.status_code == 201
-
+@rp_routes.route('/VerifyEmail', methods=['POST'])
+def verify_email():
+    data = request.json
+    email = data.get('email')
+    
+    # Check if user with provided email exists
+    user = users_collection.find_one({"email": email})
+    if user:
+        return jsonify({"message": "User exists"}), 200
+    else:
+        return jsonify({"error": "User not found"}), 404
+    
 # Route to request password reset and send email
 @rp_routes.route('/api/password-reset', methods=['POST'])
 def password_reset():

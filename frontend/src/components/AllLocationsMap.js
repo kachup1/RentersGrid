@@ -94,24 +94,29 @@ function AllLocationsMap() {
 
   // Function to fetch and show the user's current location
   const showCurrentLocation = useCallback(() => {
+    if (!map) return; // Ensure map is initialized
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
           console.log("User's current location:", latitude, longitude);
-
+  
           const currentIcon = L.icon({
             iconUrl: currentLocationIcon,
             iconSize: [30, 30],
           });
-
-          // Add a marker for the user's current location and center the map
-          L.marker([latitude, longitude], { icon: currentIcon })
+  
+          // Add a marker for the user's current location
+          const currentMarker = L.marker([latitude, longitude], { icon: currentIcon })
             .addTo(map)
             .bindPopup("You are here.")
             .openPopup();
-
-          map.setView([latitude, longitude], 14); // Center the map on the user's location
+  
+          // Center the map on the user's location after a short delay
+          setTimeout(() => {
+            map.setView([latitude, longitude], 14);
+          }, 500);
         },
         (error) => {
           console.error("Error getting user's location:", error);
@@ -122,13 +127,14 @@ function AllLocationsMap() {
       alert("Geolocation is not supported by your browser.");
     }
   }, [map]);
+  
 
   // Request location once when the map is mounted
   useEffect(() => {
     if (map) {
       showCurrentLocation();
     }
-  }, [map, showCurrentLocation]);
+  }, [map]);
 
   return (
     <div>

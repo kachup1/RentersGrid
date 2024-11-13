@@ -1,4 +1,3 @@
-
 ﻿/*Define the font*/
 @font-face {
     font-family: 'Helvetica';
@@ -143,6 +142,7 @@ body, .side-menu {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    z-index: 1;
 }
 
 .map-container {
@@ -172,4 +172,3 @@ body, .side-menu {
             width: 250px;
         }
 }
-

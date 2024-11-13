@@ -10,8 +10,12 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 function ResetPasswordConfirmation() {
     const navigate = useNavigate();
     const location = useLocation();
-    const [email, setEmail] = useState('');
-    const emailFromReset = location.state?.email;
+    const emailFromReset = location.state?.email || ""; // Access the email from state, with a fallback
+
+    // Event handler for "Go to main page" button
+    const handleGoToMainPage = () => {
+        navigate('/');  // Redirects to main page or adjust path if needed
+    };
 
     return (
         <div className="reset-password-confirmation-main-container">
@@ -19,7 +23,7 @@ function ResetPasswordConfirmation() {
             <header>
                 <div className="reset-password-confirmation-logo-container">
                     <a href="/">
-                        <img src={OfficialLogo} alt="OfficialLogo" className="reset-password-confirmation-center-logo"/>
+                        <img src={OfficialLogo} alt="OfficialLogo" className="reset-password-confirmation-center-logo" />
                     </a>
                 </div>
 
@@ -30,7 +34,7 @@ function ResetPasswordConfirmation() {
                 <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="reset-password-confirmation-left-icon" />
 
                 {/* Right Image: Account Button */}
-                <a href="signin">
+                <a href="/signin">
                     <img src={AccountButton} alt="Account Button" className="reset-password-confirmation-right" />
                 </a>
             </header>
@@ -38,21 +42,18 @@ function ResetPasswordConfirmation() {
             <div className="reset-password-confirmation-wrapper">
                 <div className="reset-password-confirmation-form-box-login">
                     <h1 className="reset-password-confirmation-text">Reset Password</h1>
-                    <label className="reset-password-confirmation-message-1">We've sent a password reset link to</label>
-                    <label className="reset-password-confirmation-email" value={emailFromReset} />
-                    <input 
-                        type="email"
-                        className="reset-password-confirmation-email-box"
-                        value={emailFromReset}
-                        readOnly
-                    />
-                    <label className="reset-password-confirmation-message-2">Please follow the instruction in the email to reset your password.</label>
+                    <p className="reset-password-confirmation-message-1">We've sent a password reset link to</p>
+                    <p className="reset-password-confirmation-email">{emailFromReset}</p>
+                    <p className="reset-password-confirmation-message-2">Please follow the instructions in the email to reset your password.</p>
 
-                    {/* Submit Button */}
-                    <button type="submit" className="reset-password-confirmation-continue-button">Go to main page</button>
+                    {/* Button to navigate to main page */}
+                    <button type="button" className="reset-password-confirmation-continue-button" onClick={handleGoToMainPage}>
+                        Go to main page
+                    </button>
                 </div>
             </div>
-            {/* Sign In */}
+
+            {/* Sign In link */}
             <div className="reset-password-confirmation-sign-in">
                 <h3 className="small-reset-password-confirm-sign-in-text-remember">Remembered your password?</h3>
                 <Link to="/SignIn" className="reset-password-confirm-link-remember">Sign In</Link>
@@ -60,4 +61,5 @@ function ResetPasswordConfirmation() {
         </div>
     );
 }
+
 export default ResetPasswordConfirmation;

@@ -3,6 +3,7 @@ import './AddAReview.css'; // import the CSS file
 import OfficialLogo from '../Assets/official logo.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import SideMenu from './SideMenu';
+import NoAccountSideMenu from './NoAccountSideMenu';
 import AccountButton from '../Assets/Account button.svg';
 import AddRatingTitle from '../Assets/add-rating-title.svg';
 import DownArrow from '../Assets/downward.svg'; // Use the downward arrow SVG
@@ -23,55 +24,168 @@ import Recommend from '../Assets/reco.svg';
 import ThumbsUp from '../Assets/up-green.svg';
 import ThumbsDown from '../Assets/down-red.svg';
 import SubmitReview from '../Assets/submit-review_1.svg';
-//this is needed to get landlordID:
-import { useParams } from 'react-router-dom';
-
-
-
+import axios from 'axios';
+import { getUserIdFromToken, isTokenValid } from './authentication';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';//this is needed to get landlordID:
 
 const AddAReview = () => {
+    //state hooks
     const [currentStep, setCurrentStep] = useState(1);
     const [selectedRating, setSelectedRating] = useState(0);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [selectedProperty, setSelectedProperty] = useState("Fairview Apartment");
+    const [selectedProperty, setSelectedProperty] = useState("");
     const [reviewText, setReviewText] = useState(""); // For the review text
     const [isChecked, setIsChecked] = useState(false); // For the checkbox in Frame 4
-    //needed to get landlordID:
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [landlordName, setLandlordName] = useState(""); // For the landlord's name
+    const [propertyOptions, setPropertyOptions] = useState([]); // For the landlord's properties
+    const [propertyError, setPropertyError] = useState(false);
+    const [ratingError, setRatingError] = useState(false);
+    const [checkboxError, setCheckboxError] = useState(false);//tracks checkbox error message
+    const navigate = useNavigate();
     const{landlordId} = useParams();//this gets the landlordId from the URL
+    const [wordCount, setWordCount] = useState(0); // For counting words
+    const selectedPropertyName = propertyOptions.find(option => option.propertyId === selectedProperty)?.propertyname;
 
-    useEffect(()=>{
-        console.log("Landlord Id for review:",landlordId);
-    },[landlordId]);
 
+    // 1st useEffect: Check if the user is logged in when the component mounts
+    useEffect(() => {
+        setIsLoggedIn(isTokenValid());
+        console.log("User ID:", getUserIdFromToken());
+
+    }, []);
+
+    useEffect(() => {
+        console.log("User ID:", getUserIdFromToken());
+    }, []); // This will run once when the component mounts
+
+    // 2nd useEffect: Fetch landlord details based on the landlordId
+    useEffect(() => {
+        const fetchLandlordDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/landlord/details/${landlordId}`);
+                
+                // Assuming the API returns `name` and `properties` fields
+                setLandlordName(response.data.name);
+                setPropertyOptions(response.data.properties); // Assuming properties is an array of property names
+            } catch (error) {
+                console.error("Error fetching landlord details:", error);
+            }
+        };
+
+        if (landlordId) {
+            fetchLandlordDetails();
+        }
+    }, [landlordId]);
+
+    useEffect(() => {
+        const fetchProperties = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/landlord/details/${landlordId}`);
+                setPropertyOptions(response.data.properties);  // Ensure properties are set correctly
+            } catch (error) {
+                console.error("Error fetching properties:", error);
+            }
+        };
+    
+        fetchProperties();
+    }, [landlordId]);
+    
+
+    //navigate based on account status
+    const handleAccountClick = () => {
+        if (isLoggedIn) {
+            // If logged in, navigate to the user account page
+            navigate('/account');
+        } else {
+            // If not logged in, navigate to the sign-in page
+            navigate('/signin');
+        }
+    };
+    
+    //toggle dropdown visibility
     const handleDropdownToggle = () => {
         setDropdownOpen(!dropdownOpen);
     };
-
-    const handleOptionSelect = (value) => {
-        setSelectedProperty(value);
-        setDropdownOpen(false);
+    
+    //select dropdown property
+    const handleOptionSelect = (option) => {
+        setSelectedProperty(option.propertyId);  // Store propertyId for submission
+        setDropdownOpen(false); // Close the dropdown after selection
     };
-
-    const propertyOptions = [
-        "Fairview Apartment",
-        "Greenwood Residence",
-        "Maple Street Complex"
-    ];
-
-    const handleSubmit = () => {
-        if (isChecked) {
-            console.log('Review submitted');
-            // Add your submit logic here
-        } else {
-            alert("Please confirm your review is truthful.");
+    
+    //handle review text change
+    const handleReviewChange = (e) => {
+        const originalText = e.target.value;
+        const words = originalText.trim().split(/\s+/); // Split text into words
+        const count = words.filter(word => word !== "").length;
+    
+        if (count <= 300) { // Allow typing only if under the limit
+            const censoredText = censorText(originalText); // Apply censoring
+            setReviewText(censoredText);  // Update state with censored text
+            setWordCount(count); // Update word count
         }
     };
+
+    //to submit review
+    const handleSubmit = async () => {
+        if (!isChecked) {
+            setCheckboxError(true); // Display error if checkbox is not checked
+            return;
+        }
+    
+        setCheckboxError(false); // Clear error if checkbox is checked
+        const userId = getUserIdFromToken();
+        console.log("User ID:", userId);
+        const timestamp = new Date().toISOString(); // Generate the current timestamp in ISO format
+
+        console.log("Submitting review with propertyId:", selectedProperty); // Log selectedProperty
+
+    
+        try {
+            await axios.post('http://localhost:5000/api/landlord/addareview', {
+                landlordId: landlordId,
+                ratingId: Math.floor(Math.random() * 1000),
+                score: selectedRating,
+                comment: reviewText,
+                maintenance: ratings.maintenance,
+                pets: ratings.pets,
+                safety: ratings.safety,
+                raisemoney: ratings.raisemoney,
+                reachable: ratings.reachable,
+                clearcontract: ratings.clearcontract,
+                recommend: ratings.recommend,
+                userId: userId,
+                timestamp: timestamp,  // Add timestamp to data
+                propertyId: selectedProperty // Send propertyId to backend
+            });
+            alert('Review submitted successfully');
+            navigate(`/LandlordProfile/${landlordId}`);
+        } catch (error) {
+            console.error("Error submitting review:", error.response?.data || error.message);
+            alert('Failed to submit review');
+        }
+    };
+    
+    
+    //validate and move to next step
+    const handleNextClick = () => {
+        if (!selectedProperty) setPropertyError(true); // Show error if no property selected
+        if (selectedRating === 0) setRatingError(true); // Show error if no rating selected
+    
+        if (selectedProperty && selectedRating !== 0) {
+            setCurrentStep(currentStep + 1); // Move to the next frame only if both fields are valid
+        }
+    };
+    
 
     // Handle rating selection for each criterion with toggle functionality
     const handleRatingSelect = (key, value) => {
         setRatings(prevRatings => ({
             ...prevRatings,
-            [key]: prevRatings[key] === value ? null : value
+            [key]: prevRatings[key] === value ? "No Response" : value
         }));
     };
 
@@ -81,22 +195,23 @@ const AddAReview = () => {
     
 
     const [ratings, setRatings] = useState({
-        maintenance: null,
-        pets: null,
-        safe: null,
-        rent: null,
-        reachable: null,
-        contract: null,
-        recommend: null
+        maintenance: "No Response",
+        pets: "No Response",
+        safety: "No Response",
+        raisemoney: "No Response",
+        reachable: "No Response",
+        clearcontract: "No Response",
+        recommend: "No Response"
     });
+    
 
     const Criterion = ({ name, icon, ratingKey, ratings, handleRatingSelect }) => (
         <div className="criteria">
             <img src={icon} alt={name} className="criterion-icon" />
             <p className="criterion-text">{name}</p>
             <div className="thumbs">
-                <img src={ThumbsUp} alt="Thumbs Up" className={`thumb ${ratings[ratingKey] === 'up' ? 'selected' : ''}`} onClick={() => handleRatingSelect(ratingKey, 'up')} />
-                <img src={ThumbsDown} alt="Thumbs Down" className={`thumb ${ratings[ratingKey] === 'down' ? 'selected' : ''}`} onClick={() => handleRatingSelect(ratingKey, 'down')} />
+                <img src={ThumbsUp} alt="Thumbs Up" className={`thumb ${ratings[ratingKey] === 'Yes' ? 'selected' : ''}`} onClick={() => handleRatingSelect(ratingKey, 'Yes')} />
+                <img src={ThumbsDown} alt="Thumbs Down" className={`thumb ${ratings[ratingKey] === 'No' ? 'selected' : ''}`} onClick={() => handleRatingSelect(ratingKey, 'No')} />
             </div>
         </div>
     );
@@ -106,9 +221,9 @@ const AddAReview = () => {
             <img src={icon} alt={name} className="criterion-icon" />
             <p className="criterion-text">{name}</p>
             <div className="thumbs">
-                {rating === 'up' ? (
+                {rating === 'Yes' ? (
                     <img src={ThumbsUp} alt="Thumbs Up" className="thumb selected" />
-                ) : rating === 'down' ? (
+                ) : rating === 'No' ? (
                     <img src={ThumbsDown} alt="Thumbs Down" className="thumb selected" />
                 ) : (
                     <p>Not rated</p>
@@ -121,35 +236,66 @@ const AddAReview = () => {
         setIsChecked(!isChecked);
     };
 
+    useEffect(() => {
+        setIsLoggedIn(isTokenValid());
+    }, []);
+
+    const profaneWords = [
+        "fucker", "fuck", "shit", "damn", "asshole", "bitch", "bastard", "dick", "piss", "crap", 
+        "cunt", "prick", "slut", "whore", "cock", "douche", "motherfucker", "nigger", "kike", 
+        "chink", "spic", "beaner","wop", "dyke", "fag", "faggot", "wanker", "twat", "retard", "idiot", 
+        "moron", "scumbag", "shithead", "tits", "boobs", "balls", "dickhead", "ass", "arse","bugger", 
+        "bollocks", "tosser", "shag", "slag", "skank", "jackass", "suck", "arsehole", "bloody", 
+        "bollock", "bollocks", "bollocking", "git", "pussy", "minge", "nonce", "pikey", "sod", 
+        "sodding", "wank", "bellend", "shite", "spaz", "twit", "choad", "knob", "wazzock", 
+        "minger", "numpty", "pillock", "knobhead", "knob-end", "plonker", "queer", "wop", "boobies", 
+        "gash", "smeg", "prat", "nonce", "chuffer"
+    ];    
+
+    const censorText = (text) => {
+        const regex = new RegExp(`\\b(${profaneWords.join('|')})\\b`, 'gi');
+        return text.replace(regex, (match) => '*'.repeat(match.length));
+    };
+    
+
+
     return (
         <div className="main-container-add-a-rating">
+        {isLoggedIn ? (
             <SideMenu />
+        ) : (
+            <NoAccountSideMenu />
+        )}
 
             {/* Header section */}
-            <header className="headerhp">
-                <div className="logohp-container">
-                    <img
-                        src={OfficialLogo}
-                        alt="Official Logo"
-                        className="center-logo"
+            <header className="headerhp-add-a-rating">
+                <Link to="/" className="logohp-container-add-a-rating">
+                    <img 
+                        src={OfficialLogo} 
+                        alt="Official Logo" 
+                        className="center-logo-add-a-rating" 
                     />
-                </div>
-
-                <div className="buttons-container">
-                    <img
-                        src={SubmitLandlordRate}
-                        alt="Submit Landlord Rate"
-                        className="left-icon"
-                    />
-                    <a href="/account">
+                </Link>
+                
+                <div className="buttons-container-add-a-rating">
+                    <Link to="/addalandlord">
                         <img
-                            src={AccountButton}
-                            alt="Account Button"
-                            className="account-right"
+                            src={SubmitLandlordRate}
+                            alt="Submit Landlord Rate"
+                            className="left-icon"
                         />
-                    </a>
+                    </Link>
+                    
+                    <img
+                        src={AccountButton}
+                        alt="Account Button"
+                        className="account-right"
+                        onClick={handleAccountClick} // Use the click handler here
+                        style={{ cursor: 'pointer' }} // change cursor to pointer
+                    />
                 </div>
             </header>
+
 {/**Frame 1 ----------------------------------------------- */}
             {currentStep === 1 && (
                 <div className="form-container-add-a-rating">
@@ -167,15 +313,22 @@ const AddAReview = () => {
                     </div>
 
                     <div className="you-are-rating-landlord-name">
-                        <h3>Francisco Diaz</h3>
+                        <h3>{landlordName}</h3>
                     </div>
 
                     <div className="write-a-review-string">
                         <h3>Write a Review:</h3>
                     </div>
                     <div className="review-box">
-                        <textarea placeholder="What do you want other tenants to know about this landlord?" />
-                    </div>
+                    <textarea
+                        placeholder="What do you want other tenants to know about this landlord?"
+                        value={reviewText}  // Bind to reviewText state
+                        onChange={handleReviewChange}  // Update state on change
+                    />
+                    <p className="word-counter">{wordCount}/300</p> {/* Word counter display */}
+
+                </div>
+
 
                     <div className="guidelines">
                         <div className="guidelines-string">
@@ -191,39 +344,40 @@ const AddAReview = () => {
                         </div>
                     </div>
 
-                    {/* Select Property Section */}
-                    <div className="select-property">
-                        <div className="label-container">
-                            <label>* Select Property:</label>
-                        </div>
-                            <div className="dropdown-container">
-                                <div className="dropdown-selected" onClick={handleDropdownToggle}>
-                                    <span>{selectedProperty}</span>
-                                    <img
-                                        src={DownArrow}
-                                        alt="Down Arrow"
-                                        className={`down-arrow ${dropdownOpen ? 'open' : ''}`} // Rotate arrow when open
-                                        style={{
-                                            transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                                            transition: 'transform 0.3s ease'
-                                        }}
-                                    />
-                                </div>
 
-                                {dropdownOpen && (
-                                    <ul className="dropdown-options">
-                                        {propertyOptions.map((option) => (
-                                            <li
-                                                key={option}
-                                                onClick={() => handleOptionSelect(option)}
-                                                className={`dropdown-item ${selectedProperty === option ? 'selected' : ''}`}
-                                            >
-                                                {option}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </div>
+
+                    {/* Select Property Section */}
+                    <div className="select-property-add-a-review"> 
+                            <h4>* Select Property:</h4>
+
+                    </div>
+                    <div> 
+                    <div className={`dropdown-container-add-a-review`}>
+                    <div className="dropdown-selected-add-a-review" onClick={() => setDropdownOpen(!dropdownOpen)}>
+                    <span>{selectedProperty 
+                        ? propertyOptions.find(opt => opt.propertyId === selectedProperty)?.propertyname 
+                        : "Select a Property"}</span>
+                    <img
+                                src={DownArrow}
+                                alt="Down Arrow"
+                                className={`down-arrow ${dropdownOpen ? 'open' : ''}`}
+                            />
+                        </div>
+
+                        {dropdownOpen && (
+                            <ul className="dropdown-options-add-a-review">
+                                {propertyOptions.map((option, index) => (
+                                    <li
+                                        key={index}
+                                        onClick={() => handleOptionSelect(option)}
+                                        className="dropdown-item-add-a-review"
+                                    >
+                                        {option.propertyname}  {/* Display property name */}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
                         
                     </div>
 
@@ -242,6 +396,18 @@ const AddAReview = () => {
                             />
                         ))}
                     </div>
+
+
+                    {/* Moved Error Messages */}
+                    <div className="error-container-1">
+                        {propertyError && <p className="error-message-1">* Please select a property</p>}
+                    </div>
+
+                    <div className="error-containe-2">
+                        {ratingError && <p className="error-message-2">* Please rate your landlord</p>}
+                    </div>
+
+
                 </div>
             )}
 
@@ -256,14 +422,14 @@ const AddAReview = () => {
                 <img
                     src={ThumbsUp}
                     alt="Thumbs Up"
-                    className={`thumb ${ratings.maintenance === 'up' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('maintenance', 'up')}
+                    className={`thumb ${ratings.maintenance === 'Yes' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('maintenance', 'Yes')}
                 />
                 <img
                     src={ThumbsDown}
                     alt="Thumbs Down"
-                    className={`thumb ${ratings.maintenance === 'down' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('maintenance', 'down')}
+                    className={`thumb ${ratings.maintenance === 'No' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('maintenance', 'No')}
                 />
             </div>
         </div>
@@ -276,14 +442,14 @@ const AddAReview = () => {
                 <img
                     src={ThumbsUp}
                     alt="Thumbs Up"
-                    className={`thumb ${ratings.pets === 'up' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('pets', 'up')}
+                    className={`thumb ${ratings.pets === 'Yes' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('pets', 'Yes')}
                 />
                 <img
                     src={ThumbsDown}
                     alt="Thumbs Down"
-                    className={`thumb ${ratings.pets === 'down' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('pets', 'down')}
+                    className={`thumb ${ratings.pets === 'No' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('pets', 'No')}
                 />
             </div>
         </div>
@@ -296,14 +462,14 @@ const AddAReview = () => {
                 <img
                     src={ThumbsUp}
                     alt="Thumbs Up"
-                    className={`thumb ${ratings.safe === 'up' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('safe', 'up')}
+                    className={`thumb ${ratings.safety === 'Yes' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('safety', 'Yes')}
                 />
                 <img
                     src={ThumbsDown}
                     alt="Thumbs Down"
-                    className={`thumb ${ratings.safe === 'down' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('safe', 'down')}
+                    className={`thumb ${ratings.safety === 'No' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('safety', 'No')}
                 />
             </div>
         </div>
@@ -316,14 +482,14 @@ const AddAReview = () => {
                 <img
                     src={ThumbsUp}
                     alt="Thumbs Up"
-                    className={`thumb ${ratings.rent === 'up' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('rent', 'up')}
+                    className={`thumb ${ratings.raisemoney === 'Yes' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('raisemoney', 'Yes')}
                 />
                 <img
                     src={ThumbsDown}
                     alt="Thumbs Down"
-                    className={`thumb ${ratings.rent === 'down' ? 'selected' : ''}`}
-                    onClick={() => handleRatingSelect('rent', 'down')}
+                    className={`thumb ${ratings.raisemoney === 'No' ? 'selected' : ''}`}
+                    onClick={() => handleRatingSelect('raisemoney', 'No')}
                 />
             </div>
         </div>
@@ -340,14 +506,14 @@ const AddAReview = () => {
                             <img
                                 src={ThumbsUp}
                                 alt="Thumbs Up"
-                                className={`thumb ${ratings.reachable === 'up' ? 'selected' : ''}`}
-                                onClick={() => handleRatingSelect('reachable', 'up')}
+                                className={`thumb ${ratings.reachable === 'Yes' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('reachable', 'Yes')}
                             />
                             <img
                                 src={ThumbsDown}
                                 alt="Thumbs Down"
-                                className={`thumb ${ratings.reachable === 'down' ? 'selected' : ''}`}
-                                onClick={() => handleRatingSelect('reachable', 'down')}
+                                className={`thumb ${ratings.reachable === 'No' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('reachable', 'No')}
                             />
                         </div>
                     </div>
@@ -360,14 +526,14 @@ const AddAReview = () => {
                             <img
                                 src={ThumbsUp}
                                 alt="Thumbs Up"
-                                className={`thumb ${ratings.contract === 'up' ? 'selected' : ''}`}
-                                onClick={() => handleRatingSelect('contract', 'up')}
+                                className={`thumb ${ratings.clearcontract === 'Yes' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('clearcontract', 'Yes')}
                             />
                             <img
                                 src={ThumbsDown}
                                 alt="Thumbs Down"
-                                className={`thumb ${ratings.contract === 'down' ? 'selected' : ''}`}
-                                onClick={() => handleRatingSelect('contract', 'down')}
+                                className={`thumb ${ratings.clearcontract === 'No' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('clearcontract', 'No')}
                             />
                         </div>
                     </div>
@@ -380,14 +546,14 @@ const AddAReview = () => {
                             <img
                                 src={ThumbsUp}
                                 alt="Thumbs Up"
-                                className={`thumb ${ratings.recommend === 'up' ? 'selected' : ''}`}
-                                onClick={() => handleRatingSelect('recommend', 'up')}
+                                className={`thumb ${ratings.recommend === 'Yes' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('recommend', 'Yes')}
                             />
                             <img
                                 src={ThumbsDown}
                                 alt="Thumbs Down"
-                                className={`thumb ${ratings.recommend === 'down' ? 'selected' : ''}`}
-                                onClick={() => handleRatingSelect('recommend', 'down')}
+                                className={`thumb ${ratings.recommend === 'No' ? 'selected' : ''}`}
+                                onClick={() => handleRatingSelect('recommend', 'No')}
                             />
                            
                         </div>
@@ -396,6 +562,7 @@ const AddAReview = () => {
             )}
 {/* Frame 4 Content -------------------------------------------- */}
 {currentStep === 4 && (
+    <div class="frame4-background-container">
     <div className="frame4-container">
         {/* Header and Landlord Info */}
         <div className="frame-4-add-rating-image">
@@ -413,7 +580,7 @@ const AddAReview = () => {
         </div>
 
         <div className="frame-4-you-are-rating-landlord-name">
-            <h3>Francisco Diaz</h3>
+            <h3>{landlordName}</h3>
         </div>
 
         {/* Review Text Display */}
@@ -425,14 +592,18 @@ const AddAReview = () => {
         </div>
 
         {/* Property Display */}
-        <div className="select-property frame4-position">
-            <div className="label-container">
+        {/* Property Display in Frame 4 */}
+        <div className="frame4-select-property">
+            <div className="frame4-label-container">
                 <label>Property:</label>
             </div>
-            <div className="dropdown-container">
-                <span className="dropdown-selected">{selectedProperty}</span>
+            <div className="frame4-dropdown-container">
+                <span className="frame4-dropdown-selected">
+                <div>{selectedPropertyName || "No property selected"}</div>
+                </span>
             </div>
         </div>
+
 
         {/* Overall Rating Icons */}
         <div className="frame-4-rate-your-landlord-string">
@@ -453,12 +624,12 @@ const AddAReview = () => {
         <div className="frame4-criterion-container-4">
             <CriterionReview name="Timely Maintenance" rating={ratings.maintenance} icon={Maintenance} />
             <CriterionReview name="Allows Pets" rating={ratings.pets} icon={Pets} />
-            <CriterionReview name="Safe Area" rating={ratings.safe} icon={Safe} />
-            <CriterionReview name="Raises Rent Yearly" rating={ratings.rent} icon={Money} />
+            <CriterionReview name="Safe Area" rating={ratings.safety} icon={Safe} />
+            <CriterionReview name="Raises Rent Yearly" rating={ratings.raisemoney} icon={Money} />
         </div>
         <div className="frame4-criterion-container-3">
             <CriterionReview name="Reachable & Responsive" rating={ratings.reachable} icon={Reachable} />
-            <CriterionReview name="Clear & Fair Contract" rating={ratings.contract} icon={Contract} />
+            <CriterionReview name="Clear & Fair Contract" rating={ratings.clearcontract} icon={Contract} />
             <CriterionReview name="Would you recommend?" rating={ratings.recommend} icon={Recommend} />
         </div>
 
@@ -472,6 +643,7 @@ const AddAReview = () => {
                             />
                             I confirm that my review is truthful and based on my personal experience.
                         </label>
+                        <p className="error-message-checkbox">* Please check this box to submit your review</p>
                     </div>
 
                     {/* Buttons for Frame 4 */}
@@ -497,14 +669,16 @@ const AddAReview = () => {
                     </div>
 
     </div>
+    </div>
 )}
 
 {/* Button for frame 1 (Next Button) */}
 {currentStep === 1 && (
-    <button
-        className="next-btn-frame1"
-        onClick={() => setCurrentStep(currentStep + 1)}
-    ></button>
+    <button className="next-btn-frame1" 
+    onClick={handleNextClick}>
+    <img src={NextButton} alt="Next" />
+</button>
+
 )}
 
 {/* Button Row for frames 2 and 3 */}
