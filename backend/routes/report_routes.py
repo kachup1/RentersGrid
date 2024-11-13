@@ -14,7 +14,7 @@ FROM_EMAIL = os.getenv("FROM_EMAIL", "support@rentergrid.com")
 serializer = URLSafeTimedSerializer("your_secret_key")  # Replace with a strong secret key
 
 # Send report submission email function
-def send_report_submission_email(to_email, landlordId, comment, categories, report_type):
+def send_report_submission_email(landlordId, ratingId, comment, categories, report_type):
     url = "https://api.brevo.com/v3/smtp/email"
     headers = {
         "api-key": BREVO_API_KEY,
@@ -28,6 +28,7 @@ def send_report_submission_email(to_email, landlordId, comment, categories, repo
             <div style="font-family: Arial, sans-serif; color: #333;">
                 <p>There was a report submitted for RentersGrid.</p>
                 <p><strong>Landlord ID:</strong> {landlordId}</p>
+                <p><strong>Review ID:</strong> {ratingId}</p>
                 <p><strong>Type:</strong> {report_type}</p>
                 <p><strong>Categories:</strong> {', '.join(categories)}</p>
                 <p><strong>Comment:</strong> {comment}</p>
@@ -48,6 +49,7 @@ def submit_report():
     print("Received data:", data)  # Log the incoming data
 
     landlordId = data.get('landlordId')
+    ratingId= data.get('ratingId')
     comment = data.get('comment')
     category = data.get('category')
     report_type = data.get('type')
@@ -64,8 +66,8 @@ def submit_report():
 
     # Process and send the email notification
     email_sent = send_report_submission_email(
-        to_email="your_email@example.com",
         landlordId=landlordId,
+        ratingId=ratingId,
         comment=comment,
         categories=[category],
         report_type=report_type
