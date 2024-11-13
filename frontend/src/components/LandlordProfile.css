@@ -23,7 +23,9 @@
     color: white;
     box-sizing: border-box;
     overflow: auto;
+    height: 300px;
 }
+
 
 /* Header */
 .landlord-header {
