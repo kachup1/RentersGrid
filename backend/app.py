@@ -51,8 +51,5 @@ def add_cors_headers(response):
     response.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS,PUT,DELETE"
     return response
 
-
-app.register_blueprint(add_property_blueprint)
-
 if __name__ == "__main__":
     app.run(debug=True)
