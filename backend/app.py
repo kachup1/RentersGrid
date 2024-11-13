@@ -19,6 +19,9 @@ from routes.editmyaccount import edit_account_bp
 from routes.report_routes import report_routes
 from routes.add_property_route import add_property_blueprint
 
+from routes.vote_routes import vote_blueprint
+
+
 # Load environment variables
 load_dotenv()
 
@@ -45,6 +48,8 @@ app.register_blueprint(add_a_review_blueprint)
 app.register_blueprint(edit_account_bp)
 app.register_blueprint(report_routes)
 app.register_blueprint(landlord_blueprint)
+app.register_blueprint(vote_blueprint)
+
 # Add global CORS headers for all responses
 @app.after_request
 def add_cors_headers(response):
