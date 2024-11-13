@@ -27,7 +27,7 @@ function ResetPasswordUpdate() {
                     setEmail(data.email);  // Set the decoded email from token
                 } else {
                     setErrorMessage(data.error || "Invalid token. Please try resetting your password again.");
-                    navigate('/resetpasssword');
+                    navigate('/resetpassword');
                 }
             } catch (error) {
                 setErrorMessage("An error occurred. Please try again.");
@@ -83,7 +83,6 @@ function ResetPasswordUpdate() {
                 </div>
 
                 <img src={MenuAlt} alt="background" className="reset-password-update-background-image" />
-
                 <img 
                     src={SubmitLandlordRate} 
                     alt="Submit Landlord Rate" 
@@ -95,10 +94,7 @@ function ResetPasswordUpdate() {
                     alt="Account Button" 
                     className="reset-password-update-account-right" 
                     onClick={() => navigate('/myaccount')} 
-                />          
-                <a href="signin">
-                    <img src={AccountButton} alt="Account Button" className="reset-password-update-account-right" />
-                </a>
+                />
             </header>
 
             <div className="reset-password-update-wrapper">
