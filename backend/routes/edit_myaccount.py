@@ -1,25 +1,10 @@
 from flask import Blueprint, request, jsonify
-from pymongo import MongoClient
 from flask_bcrypt import Bcrypt
-from dotenv import load_dotenv
-import os
-
-# Load environment variables
-load_dotenv()
-
-# Fetch the MongoDB URI from .env
-mongo_uri = os.getenv("MONGO_URI")
-if not mongo_uri:
-    raise ValueError("MongoDB URI is not set. Check your .env file.")
+from models.database import users_collection  # Import the collection from database.py
 
 # Create Blueprint and initialize Bcrypt
 edit_account_bp = Blueprint('edit_account', __name__)
 bcrypt = Bcrypt()
-
-# MongoDB connection
-client = MongoClient(mongo_uri)
-db = client.RentersDB
-users_collection = db.users
 
 @edit_account_bp.route('/api/edit_user', methods=['POST'])
 def edit_user():
@@ -39,13 +24,14 @@ def edit_user():
     if hashed_password:
         update_data['password'] = hashed_password
 
-    # Update user info in MongoDB
+    # Update user info in MongoDB using the imported collection
     result = users_collection.update_one({'userId': int(user_id)}, {'$set': update_data})
 
     if result.modified_count == 0:
         return jsonify({'error': 'User not found or no changes made'}), 404
 
     return jsonify({'message': 'User updated successfully'}), 200
+
 
 @edit_account_bp.route('/api/get_user', methods=['GET'])
 def get_user():

@@ -52,6 +52,11 @@
     fill: white;
 }
 
+.this {
+    width: 13px;
+    height: 13px;
+    padding-left: 10px;
+}
 
 .logo img {
     width: 300px; /* Adjust width as needed */
@@ -59,14 +64,9 @@
     margin-bottom: 30px; 
 }
 
-.this {
-    width: 13px;
-    height: 13px;
-    padding-left: 10px;
-}
 .main-content {
     padding-top: 100px;
-    padding-left: 240px;
+    padding-left: 100px;
     flex-grow: 1;
     background-color: #4D55A5;
     min-height: 100vh; /* to fill all with color*/
@@ -192,5 +192,11 @@
 .account-icon {
     width: auto;
     height: 65px;
+    cursor: pointer;
+}
+
+.showicon {
+    width: 37px;
+    height: autopx;
     cursor: pointer;
 }

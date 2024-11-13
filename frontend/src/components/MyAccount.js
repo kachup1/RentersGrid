@@ -22,6 +22,9 @@ import Triangle from '../Assets/triangle.svg'
 import EditSelected from '../Assets/edit-green.svg';
 import SaveSelected from '../Assets/save-green.svg';
 
+import Show from '../Assets/show-on.svg';
+import ShowOff from '../Assets/show-off.svg';
+
 const MyAccount = () => {
     // State variables for email, password, and edit mode
     const [email, setEmail] = useState(''); // Example initial value
@@ -29,6 +32,11 @@ const MyAccount = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isEditing, setIsEditing] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
+
 
 
     // Assume userId = 1 for unit testing
@@ -56,15 +64,19 @@ const MyAccount = () => {
 
     // Function to handle saving changes
     const handleSave = async () => {
+
+        setSuccessMessage('');
+        setErrorMessage('');
+
         // Ensure both password fields match before sending
         if (password !== confirmPassword) {
-            alert("Passwords do not match!");
+            setErrorMessage("Passwords do not match! Please try agian.");
             return;
         }
     
         // Ensure email and password fields are not empty
         if (!email || !password) {
-            alert("Email and password cannot be empty!");
+            setErrorMessage("Email and password cannot be empty! Please try agian.");
             return;
         }
     
@@ -76,16 +88,19 @@ const MyAccount = () => {
             });
     
             if (response.status === 200) {
-                alert("User info updated successfully!");
+                setSuccessMessage("Great! User info updated successfully!");
                 setIsEditing(false);
                 setIsSaved(true);
                 setTimeout(() => {
                     setIsSaved(false);
-                }, 1000); // Reset after 1 second
+                    setSuccessMessage('');
+
+
+                }, 5000); // Reset after 1 second
             }
         } catch (error) {
             console.error("Error updating user:", error);
-            alert("Failed to update user info.");
+            setErrorMessage("Failed to update user info.");
         }
     };
     
@@ -187,30 +202,49 @@ const MyAccount = () => {
                         <div className={styles["input-with-icons"]}>
                             {/* Password input field */}
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"} // Toggle between 'text' and 'password'
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 readOnly={!isEditing}
                                 placeholder="Password"
                             />
-                            
+                            {/* Toggle button to show/hide password */}
+                            <img
+                                src={showPassword ? Show : ShowOff } // Change the icon if you have one, else use text
+                                alt={showPassword ? "Hide" : "Show"}
+                                className={styles.showicon}
+                                onClick={() => setShowPassword(!showPassword)} // Toggle visibility
+                            />
                         </div>
                     </div>
 
                     {/* Confirm Password Input */}
                     <div className={`${styles["input-group"]} ${styles["confirm-group"]}`}>
                         <div className={styles["input-with-icons"]}>
-                            {/* Confirm Password input field */}
                             <input
-                                type="password"
+                                type={showConfirmPassword ? "text" : "password"} // Toggle for confirm password
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 readOnly={!isEditing}
                                 placeholder="Confirm Password"
                             />
+                            {/* Toggle button for confirm password */}
+                            <img
+                                src={showConfirmPassword ? Show : ShowOff }
+                                alt={showConfirmPassword ? "Hide" : "Show"}
+                                className={styles.showicon}
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            />
                         </div>
                     </div>
 
+                    {/* Display Success and Error Messages */}
+                {successMessage && (
+                    <div className={styles.successMessage}>{successMessage}</div>
+                )}
+                {errorMessage && (
+                    <div className={styles.errorMessage}>{errorMessage}</div>
+                )}
                 </div>
 
             </main>
