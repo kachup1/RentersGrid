@@ -174,24 +174,7 @@ function LandlordProfile() {
      // Log the ratingDistribution to verify values
     console.log("Rating Distribution:", ratingDistribution);
 
-//SORTING --------------------------------------------------------------------
-    const handleSortChange = (e) => {
-        setSortOrder(e.target.value);
-        console.log("Selected Sort Order:", e.target.value);
 
-    };
-    
-    const sortedReviews = landlordData.reviews
-    ? [...landlordData.reviews].sort((a, b) => {
-        if (sortOrder === "highestRating") {
-            return b.score - a.score; // Sort by highest score first
-        } else if (sortOrder === "lowestRating") {
-            return a.score - b.score; // Sort by lowest score first
-        } else {
-            return new Date(b.date) - new Date(a.date); // Default to most recent first
-        }
-    })
-    : [];
 
 //VOTING helpfull thumbs up or down------------------------------------------------
 const [reviewVotes, setReviewVotes] = useState({});
@@ -258,7 +241,7 @@ const handleVote = (reviewId, type) => {
 };
 
 
-    console.log(sortedReviews)
+  
 
     return (
         <div className="landlord-profile-container">
