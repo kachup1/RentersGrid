@@ -59,6 +59,11 @@
     margin-bottom: 30px; 
 }
 
+.this {
+    width: 13px;
+    height: 13px;
+    padding-left: 10px;
+}
 .main-content {
     padding-top: 100px;
     padding-left: 240px;

@@ -1,86 +1,84 @@
 /* Container for the search page */
-.search-page-container {
+.searchresults-page-container {
   background-color: #4D55A5;
-  flex-direction: row; /* Side-by-side layout */
-
-  min-height: 100vh;
-  padding: 20px;
-  margin: 0 auto;
+  display: flex;
+  height: 100vh; /* Full viewport height */
+  padding: 10px;
   width: 100%;
   box-sizing: border-box;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  align-items: flex-start;
+  flex-wrap: wrap; /* Allow items to wrap if necessary */
 }
 
-/* Heading inside search page */
-.search-page-container h1 {
-  font-size: 1.5rem; /* Adjust font size */
-  margin: 0; /* Remove excessive margins */
-  padding-bottom: 10px; /* Add spacing below heading */
-  text-align: center; /* Center the heading */
+/* Main Content Wrapper */
+.searchresults-main-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: wrap; /* Ensure content wraps when needed */
 }
 
-.header {
+/* Header styling */
+.searchresults-header {
   width: 100%; /* Full width for the header */
   display: flex;
   justify-content: center; /* Center the content horizontally */
-  margin-top: 20px; /* Adjust top spacing if needed */
+  margin-top: 10px; /* Adjust top spacing if needed */
 }
 
-.logo-container img {
+.searchresults-logo-container img {
   display: flex;
   justify-content: center; /* Center the logo */
   align-items: center;
   width: 450px; /* Full width */
 }
 
-.buttons-container {
+.searchresults-buttons-container {
   display: flex;
   align-items: center;
   position: absolute;
   right: 50px; /* Keep buttons aligned to the right */
-  top: 20px;   /* Adjust top spacing as needed */
 }
 
-.left-icon {
-  width: 80px; /* Adjust size as needed */
+.searchresults-left-icon, .searchresults-account-right {
+  width: 80px;  /* Scale with viewport */
+  max-width: auto;
   height: auto;
-  cursor: pointer;
+  margin-top: 10px;
   margin-right: 30px; /* Space between left and right icons */
-}
-
-.account-right {
-  width: 70px; /* Adjust size as needed */
-  height: auto;
   cursor: pointer;
-
 }
 
 /* Main Container for Search and Sort */
-.searchby-and-sort-wrapper {
-  position: absolute;       /* Absolute position for precise control */
-  right: 50px;              /* Move the entire container to the right */
-  top: 200px;               /* Adjust the vertical position */
+.searchresults-searchby-and-sort-wrapper {
+  gap: 10px; /* Space between search bar and sort dropdown */
+  width: 100%; /* Take full width */
   display: flex;
-  flex-direction: column;   /* Stack the search and sort vertically */
-  align-items: flex-end;    /* Align items to the right */
+  flex-direction: column;
+  align-items: flex-end; /* Align to the right */
+  margin-right: 200px;
 }
 
-.searchby-dropdown {
+.searchresults-dropdown {
   padding: 9.5px;
   font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 30px 0 0 30px; /* Rounded left corners */
+  border-radius: 30px 0 0 30px;
 }
 
-.searchby-input {
+.searchresults-input {
   padding: 10px;
   font-size: 16px;
   width: 300px;
   border: 1px solid #ccc;
   border-left: none;
-  border-radius:0 30px 30px 0; /* Rounded left corners */
+  border-radius: 0 30px 30px 0;
 }
-.clear-icon {
+
+.searchresults-clear-icon {
   margin-left: 10px;
   width: 20px;
   height: 20px;
@@ -88,7 +86,8 @@
   background-size: contain;
   background-repeat: no-repeat;
 }
-.searchby-button {
+
+.searchresults-button {
   padding: 11px 20px;
   font-size: 16px;
   background-color: #8EC860;
@@ -98,23 +97,20 @@
   border-radius: 0 30px 30px 0;
 }
 
-
-
-/* Sort Container Below the Search Bar */
-/* Sort dropdown */
-.sort-container {
-  
-  padding:10px;
-  margin-bottom: 20px;   /* Add space between Sort By and search results */
+/* Sort Container */
+.searchresults-sort-container {
+  padding: 10px;
+  margin-bottom: 0;
+  margin-right: 200px;
 }
 
-.sort-label {
+.searchresults-sort-label {
   margin-bottom: 5px;
   color: #fff;
   font-size: 16px;
 }
 
-.sort-button {
+.searchresults-sort-button {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -122,76 +118,62 @@
   cursor: pointer;
 }
 
-/* Container for search results */
-
-
 /* Adjusted Container for search results */
-.search-results-container {
-  flex: 1; /* Map container takes up available space */
-  position: relative;
-min-width: 50%;
-  padding: 10px; /* Reduce padding inside the container */
+.searchresults-container {
+  flex: 1;
+  max-width: 700px; /* Split space equally */
+  overflow-x: hidden;
+  padding: 1px;
   background-color: #f0f0f0;
-  display: flex;
-  flex-direction: column; /* Stack cards vertically */
-  align-items: flex-start; /* Align items to the left inside the container */
-  width: auto; /* Take up full width of the right section */
-  max-width: auto; /* Set a maximum width */
-  margin: 0; /* Reset margin */
+  border-radius: 30px;
+  overflow-y: auto;
+  height: 580px;
   box-sizing: border-box;
-  border-radius:15px 15px 15px 15px ; /* Rounded left corners */
+}
 
+.searchresults-container h1 {
+  font-size: 1.5rem; /* Adjust font size for headers */
+  color: #000000; /* Example color */
+  margin: 10px 0 20px 0;
 }
 
 /* Results List */
-.results-list {
-  flex: 1; /* Map container takes up available space */
-position: relative;
+.searchresults-list {
+  flex: 1;
   list-style-type: none;
   padding: 10px;
   margin: 0;
-  max-height: 500px; /* Set a fixed height to show two cards at a time */
-  overflow-y: auto;  /* Enable vertical scrolling */
-  max-width: auto;    /* Make sure the list takes the full width */
-  min-width: 650px;
+  max-height: 280px;
+  min-width: 578px;
 }
 
 /* Result Card Styling */
-/* Result Card Styling */
-.result-card {
-  cursor: pointer;  /* Show hand cursor */
+.searchresults-card {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  background-color: #b0aeae !important;  /* Original background color */
+  background-color: #b0aeae !important;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 15px;
-  width: auto;
-  max-width: auto;
-  transition: box-shadow 0.3s ease, background-color 0.3s ease; /* Add transition for background-color */
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
   position: relative;
-  
+  top: -20px;
 }
 
-/* Hover Effect */
-.result-card:hover {
-  background-color: #9c9e9c !important;  /* Change background color on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Make the shadow stronger on hover */
+.searchresults-card:hover {
+  background-color: #9c9e9c !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-
-/* Header section of the card containing the rating, name, and bookmark */
-.result-card-header {
+.searchresults-card-header {
   display: flex;
-  
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 10px;
 }
 
-/* Rating Box */
-.rating-box {
+.searchresults-rating-box {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -203,56 +185,79 @@ position: relative;
   margin-right: 20px;
 }
 
-.rating-box h3 {
-  font-size: 2rem;
+.searchresults-rating-box h3 {
+  font-size: 1.4rem;
   margin: 0;
 }
 
-.rating-box span {
-  font-size: 0.9rem;
+.searchresults-rating-box span {
+  font-size: 0.8rem;
 }
 
-/* Landlord Information */
-.landlord-info {
-  flex-grow: 1; /* Take up available space */
+.searchresults-landlord-info {
+  flex-grow: 1;
 }
 
-.landlord-info h2 {
-  font-size: 1.5rem;
+.searchresults-landlord-info h2 {
+  font-size: 1.4rem;
   margin: 0;
 }
 
-.landlord-info p {
+.searchresults-landlord-info p {
   font-size: 1rem;
   margin: 5px 0 0;
   color: #666;
 }
 
-.bookmark-icon {
+.searchresults-bookmark-icon {
   position: absolute;
   top: 10px;
   right: 10px;
-
 }
 
-.bookmark-icon-img {
+.searchresults-bookmark-icon-img {
   width: 40px;
   height: 40px;
   cursor: pointer;
-  
 }
 
-.result-card-header {
-  position: relative;
-  padding-right: 40px; /* To make room for the bookmark icon */
+/* Map Container */
+.searchresults-map-container {
+  flex: 1;
+  min-width: 500px;
+  height: 700px;
+  overflow: hidden;
+  z-index: 10;
+  margin-top: -120px; /* Adjust top margin to bring it closer to the main content */
 }
 
-.result-map-container {
-  z-index: 12;
-  margin-top: 50px;
-  display: flex;
-  width: auto;
-  max-width: 60%;      /* Prevent it from exceeding the container's width */
-  height: 600px;        /* Fixed height for the map */
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .searchresults-main-content {
+    flex-direction: column;
+  }
 
+  .searchresults-map-container,
+  .searchresults-container {
+    max-width: 100%;
+    margin-top: 0; /* Remove extra margin on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .searchresults-map-container {
+    height: 400px;
+    margin-top: 10px; /* Adjust to keep it higher on smaller screens */
+  }
+
+  .searchresults-container {
+    max-height: 60vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchresults-map-container {
+    height: 300px;
+    margin-top: 10px;
+  }
 }

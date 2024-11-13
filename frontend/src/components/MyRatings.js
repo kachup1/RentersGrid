@@ -16,6 +16,7 @@ import TopRightAddIcon from '../Assets/topright-add.svg'
 
 import EditIcon from '../Assets/edit.svg';
 import DeleteIcon from '../Assets/delete.svg';
+import Triangle from '../Assets/triangle.svg'
 
 
 const MyRatings = () => {
@@ -77,7 +78,7 @@ const MyRatings = () => {
                         </li>
                         <li>
                             <img src={RatingsIcon} alt="Ratings" className={styles.icon} />
-                            My Ratings
+                            My Ratings <img src={Triangle} alt="Triangle" className={styles.this} />
                         </li>
                         <li>
                             <img src={BookmarksIcon} alt="Bookmarks" className={styles.icon} />

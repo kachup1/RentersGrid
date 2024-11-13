@@ -96,7 +96,7 @@ function NoAccountHomePage() {
                         src={SubmitLandlordRate}
                         alt="Submit Landlord Rate"
                         className="noc-left-icon"
-                        onClick={() => navigate('/AddLandlord')}
+                        onClick={() => navigate('/addalandlord')}
                     />
 
                     {/* Right Image: Account Button */}
