@@ -46,7 +46,7 @@ function SideMenu() {
                     </li>
                     <li>
                         {/* Add navigation using Link for Add a Landlord */}
-                        <Link to="/AddLandlord" onClick={toggleMenu}>
+                        <Link to="/AddALandlord" onClick={toggleMenu}>
                             <img src={addLandlordIcon} alt="Add a Landlord" className="menu-add" />
                             <span className="menu-text">Add a Landlord </span>
                         </Link>
