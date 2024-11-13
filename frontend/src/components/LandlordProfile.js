@@ -103,7 +103,39 @@ function LandlordProfile() {
             setIsLoggedIn(true);
         }
     }, []);
+    
+    useEffect(() => {
+        const scrollToReview = () => {
+            const hash = window.location.hash; // Get URL hash
+            if (hash) {
+                const reviewId = hash.replace("#review-", ""); // Extract the ratingId from hash
+                const reviewElement = document.getElementById(`review-${reviewId}`);
+                
+                if (reviewElement) {
+                    reviewElement.scrollIntoView({ behavior: "smooth", block: "center" }); // Smooth scroll
+                    reviewElement.classList.add("highlight"); // Add highlight class
+                    
+                    // Remove the highlight after a delay (e.g., 2 seconds)
+                    setTimeout(() => {
+                        reviewElement.classList.remove("highlight");
+                    }, 2000);
+                }
+            }
+        };
+    
+        // Only run scrollToReview if reviews have loaded
+        if (landlordData.reviews && landlordData.reviews.length > 0) {
+            scrollToReview();
+        }
+    
+        // Listen for hash changes (e.g., if user navigates to another review link on the same page)
+        window.addEventListener("hashchange", scrollToReview);
+    
+        // Clean up the event listener on component unmount
+        return () => window.removeEventListener("hashchange", scrollToReview);
+    }, [landlordData.reviews]); // Depend on reviews loading
 
+    
     const toggleBookmark = (landlordId) => {
         if (!isLoggedIn) {
             alert('Please log in to bookmark landlords.');
@@ -152,6 +184,25 @@ function LandlordProfile() {
         navigate(`/ReportProblem/${landlordId}`); // Navigate to the report page with landlord ID
     };
 
+    //for share button
+    const handleShareClick = (landlordId, ratingId) => {
+        const shareUrl = `${window.location.origin}/LandlordProfile/${landlordId}/#review-${ratingId}`; // URL with hash anchor to review
+    
+        if (navigator.share) {
+            navigator.share({
+                title: "Check out this review on RentersGrid!",
+                url: shareUrl,
+            })
+            .then(() => console.log("Successful share"))
+            .catch((error) => console.error("Error sharing", error));
+        } else {
+            // Fallback: copy link to clipboard if navigator.share is not supported
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                alert("Link copied to clipboard!");
+            });
+        }
+    };
+    
     const handleReportReviewClick = (ratingId) => {
         if (!ratingId) {
             console.error("ratingId is missing.");
@@ -363,7 +414,10 @@ const handleVote = (reviewId, type) => {
                         
 
                         
-                        <div key ={review.ratingId} className="review-card">
+                        <div 
+                                id={`review-${review.ratingId}`}  //for share function
+                                key ={review.ratingId} 
+                                className="review-card">
                             {/* Left Column containing the score and review details */}
                             <div className="left-column">
                                 <div className="review-rating">
@@ -436,7 +490,7 @@ const handleVote = (reviewId, type) => {
                                 <span className="review-date">{new Date(review.timestamp).toLocaleDateString()}</span>
                                 {/* Icons Container for Share and Report */}
                                 <div className="icons-container">
-                                    <img src={Share} alt="Share" className="icon share-icon" />
+                                    <img src={Share} alt="Share" className="icon share-icon" onClick={() => handleShareClick(landlordId, review.ratingId)}/>
                                     <img src={Report} alt="Report" className="icon report-icon" onClick={() => handleReportReviewClick(review.ratingId)}/>
                                     
                                 </div>
