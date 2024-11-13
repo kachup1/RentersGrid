@@ -23,8 +23,8 @@
   
   /* Styling for the side menu */
 .side-menu {
-    height: 100%;
-    width: 0;
+    height: 80%;
+    width: 250px;
     position: fixed;
     top: 0;
     left: 0;
@@ -33,7 +33,6 @@
     transform:scale(0);
     transition:  0.3s ease;
     padding-top: 60px;
-    z-index: 1;
 }
     /*Sidebar:
     .side-menu li {
@@ -49,8 +48,9 @@
     border-radius: 30px;
     transform:scale(1);
     transition: width 0.3s ease;
-    height: 60vh;
-    
+    height: 50vh;
+    z-index: 20;
+
   }
   
   /* Close button styling */
@@ -124,4 +124,39 @@
     }
 
 
+}
+.map-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.map-container {
+  width: 90%;
+  height: 60vh;
+}
+
+@media only screen and (max-width: 768px) {
+  .search-bar-container {
+      flex-direction: column;
+      width: 100%;
+      margin-bottom: 20px;
+  }
+
+  .map-container {
+      width: 95%;
+      height: 100vh;
+  }
+}
+/*Resizing the menu popup when the screen gets smaller*/
+@media(min-width:180px)and (max-width:1024px) {
+  .side-menu {
+      padding:30px;
+  }
+
+      .side-menu.open {
+          width: 250px;
+      }
 }

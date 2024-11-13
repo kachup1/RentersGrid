@@ -3,8 +3,10 @@ import { Link,useNavigate  } from 'react-router-dom';
 import home from '../Assets/home.svg'; // Example icons
 import searchIcon from '../Assets/menu-1.svg';
 import addLandlordIcon from '../Assets/menu-2.svg';
-import signOutIcon from '../Assets/menu-3.svg';
+import signOutIcon from '../Assets/signout.svg';
 import accountIcon from '../Assets/Account button.svg';
+import myrating from '../Assets/my-rating.svg';
+import myBookmark from '../Assets/my bookmark.svg'; // Empty bookmark icon
 //import ratingsIcon from '../Assets/ratings-icon.svg';
 //import bookmarksIcon from '../Assets/bookmarks-icon.svg';
 import './SideMenu.css'; // Include CSS styles for the side menu
@@ -52,13 +54,13 @@ function SideMenu({ onSignOut }) {
           </li>
           <li>
             {/* Add navigation using Link for Add a Landlord */}
-            <Link to="/AddALandlord" onClick={toggleMenu}>
+            <Link to="/add-landlord" onClick={toggleMenu}>
               <img src={addLandlordIcon} alt="Add a Landlord" className="menu-icon" />
               Add a Landlord
             </Link>
           </li>
           <li>
-            <a href="#" onClick={(handleSignOut)} >
+            <a href="/" onClick={(handleSignOut)} >
               <img src={signOutIcon} alt="Sign Out" className="menu-icon" />
               Sign Out
             </a>
@@ -74,12 +76,16 @@ function SideMenu({ onSignOut }) {
           <li>
             {/* Add navigation using Link for My Ratings */}
             <Link to="/ratings" onClick={toggleMenu}>
+            <img src={myrating} alt="My Account" className="menu-icon" />
+
               My Ratings
             </Link>
           </li>
           <li>
             {/* Add navigation using Link for My Bookmarks */}
             <Link to="/bookmarks" onClick={toggleMenu}>
+            <img src={myBookmark} alt="My Bookmark" className="menu-icon" />
+
               My Bookmarks
             </Link>
           </li>
