@@ -352,3 +352,54 @@ html, body {
     border-radius: 20px;
     font-weight: bold;
 }
+.address-suggestions {
+    position: absolute;
+    right: -250px;
+    top: 500px;
+    width: 500px; /* Match the width of the input box */
+    max-height: 150px; /* Optional: limit height to avoid large dropdown */
+    overflow-y: auto; /* Allow scrolling if too many items */
+    background-color: #fff; /* Dropdown background color */
+    border: 1px solid #ccc; /* Border around the dropdown */
+    border-radius: 4px; /* Rounded corners */
+    padding: 0;
+    margin: 0;
+    z-index: 1000; /* Ensure it appears above other elements */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.address-suggestions li {
+    padding: 8px 12px;
+    cursor: pointer;
+    list-style: none; /* Remove bullet points */
+    font-size: 14px; /* Adjust font size if necessary */
+}
+
+.address-suggestions li:hover {
+    background-color: #f0f0f0; /* Change color on hover for better UX */
+}
+.additional-address-suggestions {
+    position: absolute; /* Position it absolutely within the container */
+    width: 500px; /* Match the width of the input field */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 150px; /* Limit height and add scrolling if needed */
+    overflow-y: auto;
+    z-index: 1000; /* Ensure it overlays other elements */
+    margin-top: 5px; /* Space it slightly below the input */
+    top: 60px;
+
+
+}
+
+.additional-address-suggestions li {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px; /* Adjust font size if necessary */
+
+}
+
+.additional-address-suggestions li:hover {
+    background-color: #f0f0f0;
+}

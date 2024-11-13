@@ -96,7 +96,7 @@ function LandlordProfile() {
 
     //navigation to review
     const handleAddReviewClick =()=>{
-        navigate(`/addareview/${landlordId}`);  //this navigates to addareview with the landlordID
+        navigate(`/AddAReview/${landlordId}`);  //this navigates to addareview with the landlordID
     };
     //This navigates to report page
     const handleReportClick = () => {
