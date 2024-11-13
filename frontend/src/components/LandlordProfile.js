@@ -21,7 +21,7 @@ import GreyThumbsUp from '../Assets/up-grey.svg';
 import GreyThumbsDown from '../Assets/down-grey.svg';
 import GreenThumbsUp from '../Assets/up-selected.svg';
 import RedThumbsDown from '../Assets/down-selected.svg';
-
+import axios from 'axios';
 import NoAccountSideMenu from './NoAccountSideMenu';
 import SideMenu from './SideMenu';
 import './LandlordProfile.css';
@@ -127,7 +127,7 @@ function LandlordProfile() {
      // Log the ratingDistribution to verify values
     console.log("Rating Distribution:", ratingDistribution);
 
-    //SORTING 
+//SORTING --------------------------------------------------------------------
     const handleSortChange = (e) => {
         setSortOrder(e.target.value);
         console.log("Selected Sort Order:", e.target.value);
@@ -146,6 +146,69 @@ function LandlordProfile() {
     })
     : [];
 
+//VOTING helpfull thumbs up or down------------------------------------------------
+const [reviewVotes, setReviewVotes] = useState({});
+const [userVotes, setUserVotes] = useState({});
+
+
+useEffect(() => {
+    fetch(`/api/landlord/${landlordId}`)
+        .then(response => response.json())
+        .then(data => {
+            setLandlordData(data);
+
+            // Set initial votes based on data from the database
+            const initialVotes = data.reviews.reduce((acc, review) => {
+                acc[review.ratingId] = {
+                    helpful: review.helpful, // set to the actual helpful count
+                    notHelpful: review.notHelpful // set to the actual notHelpful count
+                };
+                return acc;
+            }, {});
+            setReviewVotes(initialVotes);  // Set initial vote counts
+        })
+        .catch(error => console.error(error));
+}, [landlordId]);
+
+
+// Function to handle voting, allowing only one vote per session, with the ability to undo
+const handleVote = (reviewId, type) => {
+    const currentVote = userVotes[reviewId];  // Retrieve current vote state for this review
+
+    // Determine if the user is removing their vote or changing it
+    const isRemovingVote = currentVote === type;
+    const action = isRemovingVote ? 'remove' : 'add';
+
+    // If they're trying to vote on the other option, ignore the request
+    if (currentVote && !isRemovingVote) return;
+
+    axios.post(`http://localhost:5000/api/review/${reviewId}/vote`, {
+        type,  // "helpful" or "notHelpful"
+        action // "add" or "remove"
+    })
+    .then(response => {
+        const data = response.data;
+        if (data.success) {
+            // Update vote counts based on response
+            setReviewVotes(prevVotes => ({
+                ...prevVotes,
+                [reviewId]: {
+                    helpful: data.new_helpful_count,
+                    notHelpful: data.new_notHelpful_count
+                }
+            }));
+
+            // Update the user's vote status for this review in the session
+            setUserVotes(prevVotes => ({
+                ...prevVotes,
+                [reviewId]: isRemovingVote ? null : type  // Remove vote if undoing, otherwise set the vote type
+            }));
+        } else {
+            console.error("Error:", data.error);
+        }
+    })
+    .catch(error => console.error("Error in voting:", error));
+};
 
 
     console.log(sortedReviews)
@@ -268,7 +331,6 @@ function LandlordProfile() {
                             <h2>Total Reviews: {landlordData.reviewCount || 0}</h2>
                             {sortedReviews.map(review => (
                             
-
                         
                         <div key ={review.ratingId} className="review-card">
                             {/* Left Column containing the score and review details */}
@@ -296,17 +358,21 @@ function LandlordProfile() {
                                     <div className="helpful-container">
                                         <span>Helpful:</span>
                                         <img
-                                            src={isThumbsUpSelected ? GreenThumbsUp : GreyThumbsUp}
+                                            src={reviewVotes[review.ratingId]?.helpful ? GreenThumbsUp : GreyThumbsUp}
                                             alt="Thumbs Up"
                                             className="thumb-icon"
-                                            onClick={handleThumbsUpClick}
-                                        />
+                                            onClick={() => handleVote(Number(review.ratingId), 'helpful', 'add')}
+                                            />
+                                            <span>{reviewVotes[review.ratingId]?.helpful || 0}</span>
+
                                         <img
-                                            src={isThumbsDownSelected ? RedThumbsDown : GreyThumbsDown}
+                                            src={reviewVotes[review.ratingId]?.notHelpful ? RedThumbsDown : GreyThumbsDown}
                                             alt="Thumbs Down"
                                             className="thumb-icon"
-                                            onClick={handleThumbsDownClick}
-                                        />
+                                            onClick={() => handleVote(Number(review.ratingId), 'notHelpful', 'add')}
+                                            />
+                                            <span>{reviewVotes[review.ratingId]?.notHelpful || 0}</span>
+
                                     </div>
                                 </div>
 

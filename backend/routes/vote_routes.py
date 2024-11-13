@@ -1,38 +1,44 @@
 from flask import Blueprint, request, jsonify
-from pymongo import MongoClient
-from bson import ObjectId
-import os
+from models.database import ratings_collection, landlords_collection, properties_collection
 
-# Set up MongoDB connection
-client = MongoClient(os.getenv("MONGODB_URI"))  # Replace with your MongoDB connection URI if needed
-db = client["RentersDB"]  # Replace with your database name
-ratings_collection = db["ratings"]
-
-# Create a blueprint
 vote_blueprint = Blueprint('vote', __name__)
 
-@vote_blueprint.route("/api/review/<review_id>/vote", methods=["POST"])
-def vote_review(review_id):
+@vote_blueprint.route("/api/review/<int:ratingId>/vote", methods=["POST"])
+def vote_review(ratingId):
+    print(f"Received ratingId: {ratingId}")  # Debugging print to confirm ID received
     data = request.json
-    vote_type = data.get("type")  # "helpful" or "notHelpful"
-    increment = 1 if data.get("action") == "add" else -1  # "add" or "remove"
+    vote_type = data.get("type")
+    increment = 1 if data.get("action") == "add" else -1
 
-    if vote_type not in ["helpful", "notHelpful"]:
-        return jsonify({"error": "Invalid vote type"}), 400
-
+    # Select field to update
     update_field = "helpful" if vote_type == "helpful" else "notHelpful"
 
-    result = ratings_collection.update_one(
-        {"_id": ObjectId(review_id)},
-        {"$inc": {update_field: increment}}
-    )
+    # Debug query attempt to ensure MongoDB document exists
+    document = ratings_collection.find_one({"ratingId": ratingId})
+    print("Document found in MongoDB:", document)  # Should print the document if found
 
-    if result.modified_count == 1:
-        updated_review = ratings_collection.find_one({"_id": ObjectId(review_id)})
-        return jsonify({
-            "success": True,
-            "new_helpful_count": updated_review["helpful"],
-            "new_notHelpful_count": updated_review["notHelpful"]
-        })
-    else:
-        return jsonify({"error": "Review not found"}), 404
+    if document:
+        # Perform the update operation if document exists
+        result = ratings_collection.update_one(
+            {"ratingId": ratingId},
+            {"$inc": {update_field: increment}}
+        )
+        print("Update result:", result.modified_count)
+
+        # Return updated counts if update is successful
+        if result.modified_count == 1:
+            updated_review = ratings_collection.find_one({"ratingId": ratingId})
+            return jsonify({
+                "success": True,
+                "new_helpful_count": updated_review.get("helpful", 0),
+                "new_notHelpful_count": updated_review.get("notHelpful", 0)
+            })
+    print("Review not found")  # Debugging if the document is not found
+    return jsonify({"error": "Review not found"}), 404
+
+@vote_blueprint.route("/api/review/<int:ratingId>/test", methods=["GET"])
+def test_find_review(ratingId):
+    document = ratings_collection.find_one({"ratingId": ratingId})
+    if document:
+        return jsonify(document), 200
+    return jsonify({"error": "Review not found"}), 404
