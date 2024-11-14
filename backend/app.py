@@ -16,6 +16,7 @@ from routes.get_ratings import ratings_blueprint
 from routes.delete_ratings import delete_ratings_blueprint
 from routes.edit_myaccount import edit_account_bp
 from routes.vote_routes import vote_blueprint  
+from routes.add_landlord_routes import landlord_blueprint
 
 
 
@@ -45,6 +46,7 @@ app.register_blueprint(edit_account_bp)
 app.register_blueprint(ratings_blueprint)
 app.register_blueprint(delete_ratings_blueprint)
 app.register_blueprint(vote_blueprint)
+app.register_blueprint(landlord_blueprint)
 
 
 # Add global CORS headers for all responses

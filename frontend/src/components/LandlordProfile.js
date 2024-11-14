@@ -47,12 +47,7 @@ function LandlordProfile() {
     useEffect(() => {
         fetch(`/api/landlord/${landlordId}`)
             .then(response => response.json())
-            .then(data => setLandlordData(data))
-                    /*setSelectedPropertyId("all");*/
-                    
-                    
-                
-            
+            .then(data => setLandlordData(data))    
             .catch(error => console.error(error));
     }, [landlordId]);
 
@@ -83,16 +78,7 @@ function LandlordProfile() {
     })
     :[];
 
-    /*let filteredReviews;
-    if(selectedPropertyId === "all"){
-        filteredReviews=landlordData.reviews;
-    }
-    else{
-        filteredReviews = landlordData.reviews.filter(
-            review => review.propertyId === parseInt(selectedPropertyId,10)
-
-        );
-    }*/
+  
 
     console.log("Selected Property ID:", selectedPropertyId); // Debugging line
     console.log("Filtered and Sorted Reviews:", filteredAndSortedReviews);
