@@ -67,3 +67,29 @@ def get_landlord_details(landlord_id):
     }
     
     return jsonify(landlord_data), 200
+
+@add_a_review_blueprint.route('/api/review/<rating_id>/update', methods=['PUT'])
+def update_review(rating_id):
+    try:
+        data = request.get_json()
+        update_data = {
+            "score": data.get("score", 0),
+            "comment": data.get("comment", ""),
+            "maintenance": data.get("maintenance", "N/A"),
+            "pets": data.get("pets", "N/A"),
+            "safety": data.get("safety", "N/A"),
+            "raisemoney": data.get("raisemoney", "N/A"),
+            "reachable": data.get("reachable", "N/A"),
+            "clearcontract": data.get("clearcontract", "N/A"),
+            "recommend": data.get("recommend", "N/A"),
+            "propertyId": data.get("propertyId"),
+        }
+        result = ratings_collection.update_one({"ratingId": int(rating_id)}, {"$set": update_data})
+        
+        if result.modified_count == 1:
+            return jsonify({"message": "Review updated successfully"}), 200
+        else:
+            return jsonify({"error": "Review not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+

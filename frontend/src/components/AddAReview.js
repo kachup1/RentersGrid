@@ -45,10 +45,10 @@ const AddAReview = () => {
     const [ratingError, setRatingError] = useState(false);
     const [checkboxError, setCheckboxError] = useState(false);//tracks checkbox error message
     const navigate = useNavigate();
-    const{landlordId} = useParams();//this gets the landlordId from the URL
+    const { landlordId, ratingId } = useParams();//this gets the landlordId from the URL,rating id
     const [wordCount, setWordCount] = useState(0); // For counting words
     const selectedPropertyName = propertyOptions.find(option => option.propertyId === selectedProperty)?.propertyname;
-
+    const [existingReview, setExistingReview] = useState(null);
 
     // 1st useEffect: Check if the user is logged in when the component mounts
     useEffect(() => {
@@ -92,6 +92,29 @@ const AddAReview = () => {
     
         fetchProperties();
     }, [landlordId]);
+
+    useEffect(() => {
+        if (ratingId) {
+            axios.get(`http://localhost:5000/api/review/${ratingId}`)
+                .then(response => {
+                    const reviewData = response.data;
+                    setExistingReview(reviewData);
+                    setSelectedRating(reviewData.score);
+                    setReviewText(reviewData.comment);
+                    setSelectedProperty(reviewData.propertyId);
+                    setRatings({
+                        maintenance: reviewData.maintenance,
+                        pets: reviewData.pets,
+                        safety: reviewData.safety,
+                        raisemoney: reviewData.raisemoney,
+                        reachable: reviewData.reachable,
+                        clearcontract: reviewData.clearcontract,
+                        recommend: reviewData.recommend
+                    });
+                })
+                .catch(error => console.error("Error fetching review:", error));
+        }
+    }, [ratingId]);
     
 
     //navigate based on account status
@@ -129,45 +152,52 @@ const AddAReview = () => {
         }
     };
 
-    //to submit review
-    const handleSubmit = async () => {
-        if (!isChecked) {
-            setCheckboxError(true); // Display error if checkbox is not checked
-            return;
-        }
-    
-        setCheckboxError(false); // Clear error if checkbox is checked
-        const userId = getUserIdFromToken();
-        console.log("User ID:", userId);
-        const timestamp = new Date().toISOString(); // Generate the current timestamp in ISO format
+// to submit review 
+const handleSubmit = async () => {
+    if (!isChecked) {
+        setCheckboxError(true); // Display error if checkbox is not checked
+        return;
+    }
 
-        console.log("Submitting review with propertyId:", selectedProperty); // Log selectedProperty
+    setCheckboxError(false); // Clear error if checkbox is checked
+    const userId = getUserIdFromToken();
+    const timestamp = new Date().toISOString(); // Generate the current timestamp in ISO format
 
-    
-        try {
-            await axios.post('http://localhost:5000/api/landlord/addareview', {
-                landlordId: landlordId,
-                ratingId: Math.floor(Math.random() * 1000),
-                score: selectedRating,
-                comment: reviewText,
-                maintenance: ratings.maintenance,
-                pets: ratings.pets,
-                safety: ratings.safety,
-                raisemoney: ratings.raisemoney,
-                reachable: ratings.reachable,
-                clearcontract: ratings.clearcontract,
-                recommend: ratings.recommend,
-                userId: userId,
-                timestamp: timestamp,  // Add timestamp to data
-                propertyId: selectedProperty // Send propertyId to backend
-            });
-            alert('Review submitted successfully');
-            navigate(`/LandlordProfile/${landlordId}`);
-        } catch (error) {
-            console.error("Error submitting review:", error.response?.data || error.message);
-            alert('Failed to submit review');
-        }
+    console.log("Submitting review with propertyId:", selectedProperty); // Log selectedProperty
+
+    const reviewData = {
+        landlordId,
+        ratingId: ratingId || Math.floor(Math.random() * 1000), // use existing ratingId if editing
+        score: selectedRating,
+        comment: reviewText,
+        maintenance: ratings.maintenance,
+        pets: ratings.pets,
+        safety: ratings.safety,
+        raisemoney: ratings.raisemoney,
+        reachable: ratings.reachable,
+        clearcontract: ratings.clearcontract,
+        recommend: ratings.recommend,
+        userId,
+        timestamp,  // Add timestamp to data
+        propertyId: selectedProperty, // Send propertyId to backend
     };
+
+    try {
+        const url = ratingId 
+            ? `http://localhost:5000/api/review/${ratingId}/update`
+            : 'http://localhost:5000/api/landlord/addareview';
+        
+        const method = ratingId ? 'put' : 'post';
+
+        await axios[method](url, reviewData);
+        alert('Review saved successfully');
+        navigate(`/LandlordProfile/${landlordId}`);
+    } catch (error) {
+        console.error("Error saving review:", error.response?.data || error.message);
+        alert('Failed to save review');
+    }
+};
+
     
     
     //validate and move to next step
