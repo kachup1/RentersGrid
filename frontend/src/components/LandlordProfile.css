@@ -382,6 +382,9 @@
     
     font-size: 0.9rem;
 }
+.address-container h2{
+    color: #000;
+}
 
 .address-container {
     font-size: 1rem;
@@ -431,7 +434,8 @@
 }
 
 .green,
-.red
+.red,
+.gray
  {
     display: flex;
     align-items: center;
@@ -448,6 +452,9 @@
 .green {
     background-color: #92C740;
     border-radius: 5px;
+}
+.gray{
+    background-color: #CACACA;
 }
 
 
