@@ -6,7 +6,7 @@ import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import LandlordIcon from '../Assets/landlord-title-logo.svg';
-import Bookmark from '../Assets/mybookmark-title.svg';
+import Bookmark from '../Assets/fav-unselect.svg';
 import SelectedBookmark from '../Assets/saved-bookmark.svg';
 import GreenButton from '../Assets/green.svg';
 import RedButton from '../Assets/red.svg';
@@ -87,7 +87,11 @@ function LandlordProfile() {
     useEffect(() => {
         if (isTokenValid()) {
             setIsLoggedIn(true);
-        }
+            const token = localStorage.getItem('token');
+            fetchBookmarks(token);
+        }else {
+            setIsLoggedIn(false);
+          }
     }, []);
     
     useEffect(() => {
@@ -121,6 +125,25 @@ function LandlordProfile() {
         return () => window.removeEventListener("hashchange", scrollToReview);
     }, [landlordData.reviews]); // Depend on reviews loading
 
+     // Function to fetch bookmarks when the user logs in
+  const fetchBookmarks = (token) => {
+    fetch('http://localhost:5000/api/bookmarks', {
+      headers: {
+        'Authorization': `Bearer ${token}`  // Sends JWT token for authentication
+      }
+    })
+      .then(response => response.json())
+      .then(bookmarkedLandlords => {
+        const updatedBookmarked = {};
+        bookmarkedLandlords.forEach(landlordId => {
+          updatedBookmarked[landlordId] = true;
+        });
+        setBookmarked(updatedBookmarked);
+      })
+      .catch(error => {
+        console.error('Error fetching bookmarks:', error);
+      });
+  };
     
     const toggleBookmark = (landlordId) => {
         if (!isLoggedIn) {
@@ -130,8 +153,38 @@ function LandlordProfile() {
         }
 
         const isBookmarked = bookmarked[landlordId];
-        setBookmarked(prev => ({ ...prev, [landlordId]: !isBookmarked }));
+        setBookmarked((prevBookmarked) => ({
+            ...prevBookmarked,
+            [landlordId]: !prevBookmarked[landlordId],
+          }));
+
+          const token = localStorage.getItem('token');
+          const method = isBookmarked ? 'DELETE' : 'POST';
+
+    fetch('http://localhost:5000/api/bookmark', {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ landlordId }),
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data.message) {
+            console.log(data.message);
+          }
+        })
+        .catch(error => {
+          console.error(`Error ${isBookmarked ? 'removing' : 'adding'} bookmark:`, error);
+        });
     };
+        
 
     // Handler for thumbs up
     const handleThumbsUpClick = () => {
@@ -312,9 +365,9 @@ const handleVote = (reviewId, type) => {
                         </div>
                         <div className="landlord-bookmark-icon" onClick={(e) => {
                             e.stopPropagation();
-                            toggleBookmark(landlordId);
+                            toggleBookmark(landlordData.landlordId);
                         }}>
-                            <img src={bookmarked[landlordId] ? SelectedBookmark : Bookmark} alt="Bookmark Icon" className="bookmark-icon-img" />
+                            <img src={bookmarked[landlordData.landlordId] ? SelectedBookmark : Bookmark} alt="Bookmark Icon" className="bookmark-icon-img" />
                         </div>
                         <div className='landlord-report-icon'>
                             <img
