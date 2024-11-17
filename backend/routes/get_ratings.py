@@ -12,30 +12,37 @@ def get_user_ratings():
     Get ratings associated with the logged-in user.
     """
     try:
+        # Extract userId from the JWT token
         current_user = get_jwt_identity()
-        print(f"Decoded user from token: {current_user}")
-
         if not current_user or 'userId' not in current_user:
             return jsonify({"error": "User not authenticated"}), 401
-
+        
         user_id = current_user['userId']
-        print(f"Fetching ratings for user_id: {user_id}")
 
-        ratings = ratings_collection.find({"userId": int(user_id)})
+        # Fetch all ratings for the given userId
+        ratings_cursor = ratings_collection.find({"userId": int(user_id)})
         ratings_list = []
 
-        for rating in ratings:
-            landlord = landlords_collection.find_one({"landlordId": rating["landlordId"]})
+        # Loop through each rating and fetch landlord details
+        for rating in ratings_cursor:
+            print("Fetched rating:", rating)  # Debug: Print fetched rating
+            
+            landlord = landlords_collection.find_one({"landlordId": rating.get("landlordId")})
+            print("Fetched landlord:", landlord)  # Debug: Print fetched landlord
+
+            # Append each rating to the list
             ratings_list.append({
-                "object_id": str(rating["_id"]),
+                "object_id": str(rating.get("_id")),
                 "rating_id": rating.get("ratingId"),
                 "user_id": rating.get("userId"),
+                "landlord_id": rating.get("landlordId"),
                 "landlord_name": landlord["name"] if landlord else "Unknown",
                 "comment": rating.get("comment", ""),
                 "timestamp": rating.get("timestamp", ""),
                 "score": rating.get("score", 0)
             })
 
+        # Ensure we return the full list of ratings
         return jsonify(ratings_list), 200
 
     except Exception as e:

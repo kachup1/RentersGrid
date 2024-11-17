@@ -80,7 +80,7 @@
     background-color: #ccc;
     padding: 30px;
     border-radius: 2px;
-    width: 740px;
+    width: 800px;
     height: 290px;
     display: flex;
     flex-direction: column;
@@ -186,4 +186,24 @@
     text-align: left;
     margin-top: 20px;
     font-weight: noraml;
+}
+
+.score-box.score-1 {
+    background-color: #F05555; /* Red */
+}
+
+.score-box.score-2 {
+    background-color: #FAA627; /* Orange */
+}
+
+.score-box.score-3 {
+    background-color: #FCEF57; /* Yellow */
+}
+
+.score-box.score-4 {
+    background-color: #93C740; /* Light Green */
+}
+
+.score-box.score-5 {
+    background-color: #2AB999; /* Darker Green */
 }

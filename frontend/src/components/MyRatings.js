@@ -52,10 +52,10 @@ const MyRatings = () => {
     }, []);
     
 
-    const handleEditClick = (userId, ratingId) => {
-        if (userId && ratingId) {
-            console.log(`Navigating to: /AddAReview/${userId}/${ratingId}`);
-            navigate(`/AddAReview/${userId}/${ratingId}`);
+    const handleEditClick = (landlordId, ratingId) => {
+        if (landlordId && ratingId) {
+            console.log(`Navigating to: /AddAReview/${landlordId}/${ratingId}`);
+            navigate(`/AddAReview/${landlordId}/${ratingId}`);
         } else {
             console.error("userId or ratingId is missing");
         }
@@ -123,10 +123,12 @@ const MyRatings = () => {
                             <div key={index} className={styles["rating-container"]}>
                                 <div className={styles["rating-header"]}>
                                     <div className={styles["rating-name"]}>{rating.landlord_name}</div>
-                                    <div className={styles["score-box"]}>
+                                    {/* Rating Box with coloring based on score */}
+                                    <div className={`${styles["score-box"]} ${styles[`score-${rating.score}`]}`}>
                                         <span className={styles["rating-number"]}>{rating.score}</span>
                                         <span className={styles["rating-total"]}>/ 5</span>
                                     </div>
+
                                 </div>
                                 <span className={styles["submitted-date"]}>
                                     {new Date(rating.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -137,7 +139,7 @@ const MyRatings = () => {
                                         src={EditIcon}
                                         alt="Edit"
                                         className={styles["action-icon"]}
-                                        onClick={() => handleEditClick(rating.user_id, rating.rating_id)}
+                                        onClick={() => handleEditClick(rating.landlord_id, rating.rating_id)}
                                     />
                                     <img
                                         src={DeleteIcon}
