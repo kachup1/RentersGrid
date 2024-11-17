@@ -2,6 +2,10 @@ import uuid
 from flask import Blueprint, request, jsonify
 from models.database import ratings_collection, landlords_collection, properties_collection
 from datetime import datetime
+from bson import ObjectId
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
+
 
 add_a_review_blueprint = Blueprint('add_a_review', __name__)
 
@@ -92,4 +96,21 @@ def update_review(rating_id):
             return jsonify({"error": "Review not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+
+@add_a_review_blueprint.route('/api/review/<rating_id>', methods=['GET'])
+@jwt_required()  #user must be logged in. Security feature 
+def get_review(rating_id):
+    try:
+        review = ratings_collection.find_one({"ratingId": int(rating_id)})
+        if not review:
+            return jsonify({"error": "Review not found"}), 404
+        
+        # Convert ObjectId to string
+        review["_id"] = str(review["_id"])
+        
+        return jsonify(review), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
