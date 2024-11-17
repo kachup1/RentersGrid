@@ -23,6 +23,13 @@ const MyRatings = () => {
     // Initialize navigate
     const navigate = useNavigate();
 
+
+    // IF NOT SIGNED IN IT WILL REDIRECT TO HOMEPAGE
+    if (!token) {
+        window.location.href = '/';
+        return;
+    }
+
     useEffect(() => {
         const fetchRatings = async () => {
             const token = localStorage.getItem('token');
