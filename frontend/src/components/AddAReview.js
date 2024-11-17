@@ -12,6 +12,11 @@ import Face2 from '../Assets/face-2.svg';
 import Face3 from '../Assets/face-3.svg';
 import Face4 from '../Assets/face-4.svg';
 import Face5 from '../Assets/face-5.svg';
+import GrayFace1 from '../Assets/s-1.svg';
+import GrayFace2 from '../Assets/s-2.svg';
+import GrayFace3 from '../Assets/s-3.svg';
+import GrayFace4 from '../Assets/s-4.svg';
+import GrayFace5 from '../Assets/s-5.svg';
 import NextButton from '../Assets/next-green.svg';
 import BackButton from '../Assets/back-green.svg';
 import Maintenance from '../Assets/mente.svg';
@@ -419,9 +424,9 @@ const handleSubmit = async () => {
                         {[Face1, Face2, Face3, Face4, Face5].map((face, index) => (
                             <img
                                 key={index}
-                                src={face}
+                                src={selectedRating >= index + 1 ? face : [GrayFace1, GrayFace2, GrayFace3, GrayFace4, GrayFace5][index]}
                                 alt={`Rating ${index + 1}`}
-                                className={`rating-icon ${selectedRating === 0 || index + 1 <= selectedRating ? 'colored' : 'inactive'}`}
+                                className="rating-icon"
                                 onClick={() => handleSmileyClick(index + 1)}
                             />
                         ))}
