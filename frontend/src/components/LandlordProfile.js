@@ -47,12 +47,7 @@ function LandlordProfile() {
     useEffect(() => {
         fetch(`/api/landlord/${landlordId}`)
             .then(response => response.json())
-            .then(data => setLandlordData(data))
-                    /*setSelectedPropertyId("all");*/
-                    
-                    
-                
-            
+            .then(data => setLandlordData(data))    
             .catch(error => console.error(error));
     }, [landlordId]);
 
@@ -83,16 +78,7 @@ function LandlordProfile() {
     })
     :[];
 
-    /*let filteredReviews;
-    if(selectedPropertyId === "all"){
-        filteredReviews=landlordData.reviews;
-    }
-    else{
-        filteredReviews = landlordData.reviews.filter(
-            review => review.propertyId === parseInt(selectedPropertyId,10)
-
-        );
-    }*/
+  
 
     console.log("Selected Property ID:", selectedPropertyId); // Debugging line
     console.log("Filtered and Sorted Reviews:", filteredAndSortedReviews);
@@ -424,12 +410,12 @@ const handleVote = (reviewId, type) => {
                                     <p className="score-text">{review.score}/5</p>
                                 </div>
                                 <div className="review-details">
-                                    <div className={review.maintenance === "Yes"?"green":"red"}>Timely Maintenance</div>
-                                    <div className={review.pets === "Yes"?"green":"red"}>Allow Pets</div>
-                                    <div className={review.safety==="Yes"?"green":"red"}>Safe Area</div>
-                                    <div className={review.raisemoney === "Yes"?"green":"red"}>Raise Rent Yearly</div>
-                                    <div className={review.reachable === "Yes"? "green":"red"}>Reachable</div>
-                                    <div className={review.clearcontract === "Yes"?"green":"red"}>Clear & Fair Contract</div>
+                                    <div className={review.maintenance === "Yes"?"green":review.maintenance==="No"?"red":"gray"}>Timely Maintenance</div>
+                                    <div className={review.pets === "Yes"?"green":review.maintenance==="No"?"red":"gray"}>Allow Pets</div>
+                                    <div className={review.safety==="Yes"?"green":review.maintenance ==="No"?"red":"gray"}>Safe Area</div>
+                                    <div className={review.raisemoney === "Yes"?"green":review.maintenance==="No"?"red":"gray"}>Raise Rent Yearly</div>
+                                    <div className={review.reachable === "Yes"? "green":review.maintenance==="No"?"red":"gray"}>Reachable</div>
+                                    <div className={review.clearcontract === "Yes"?"green":review.maintenance==="No"?"red":"gray"}>Clear & Fair Contract</div>
                                 </div>
                             </div>
                             {/* Right Column containing the comment section */}

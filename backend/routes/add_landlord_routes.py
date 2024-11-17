@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify, current_app, request
 from models.database import landlords_collection, properties_collection
 from pymongo import DESCENDING
 
-landlord_blueprint = Blueprint('landlord', __name__)
+add_landlord_blueprint = Blueprint('landlord', __name__)
 
 # Geocode function that returns latitude and longitude directly
 def geocode_address(address):
@@ -44,7 +44,7 @@ def get_next_property_id():
     else:
         return 1  # Start from 1 if no propertyId exists
 
-@landlord_blueprint.route('/add_landlord', methods=['POST'])
+@add_landlord_blueprint.route('/add_landlord', methods=['POST'])
 def add_landlord():
     try:
         data = request.get_json()
