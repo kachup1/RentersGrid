@@ -226,7 +226,7 @@ const MyAccount = () => {
                                 type={showCurrentPassword ? "text" : "password"}
                                 value={currentPassword}
                                 onChange={(e) => setCurrentPassword(e.target.value)}
-                                placeholder="Enter Current Password"
+                                placeholder="Current Password"
                             />
                             {/* Toggle button to show/hide current password */}
                             <img

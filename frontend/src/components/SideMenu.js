@@ -83,7 +83,7 @@ function SideMenu({ onSignOut }) {
           </li>
           <li>
             {/* Add navigation using Link for My Bookmarks */}
-            <Link to="/mybookmarks" onClick={toggleMenu}>
+            <Link to="/bookmarks" onClick={toggleMenu}>
             <img src={myBookmark} alt="My Bookmark" className="menu-icon" />
 
               My Bookmarks

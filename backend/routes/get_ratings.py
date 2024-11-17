@@ -6,29 +6,31 @@ import traceback
 ratings_blueprint = Blueprint('ratings', __name__)
 
 @ratings_blueprint.route('/api/get_ratings', methods=['GET'])
-@jwt_required()  # Ensures the endpoint is protected and requires a valid token
+@jwt_required()
 def get_user_ratings():
     """
     Get ratings associated with the logged-in user.
     """
     try:
-        # Extract userId from the JWT token
         current_user = get_jwt_identity()
+        print(f"Decoded user from token: {current_user}")
+
         if not current_user or 'userId' not in current_user:
             return jsonify({"error": "User not authenticated"}), 401
-        
-        user_id = current_user['userId']
 
-        # Fetch ratings for the given userId
+        user_id = current_user['userId']
+        print(f"Fetching ratings for user_id: {user_id}")
+
         ratings = ratings_collection.find({"userId": int(user_id)})
         ratings_list = []
 
-        # Loop through each rating and fetch landlord details
         for rating in ratings:
             landlord = landlords_collection.find_one({"landlordId": rating["landlordId"]})
             ratings_list.append({
-                "_id": str(rating["_id"]),
-                "name": landlord["name"] if landlord else "Unknown",
+                "object_id": str(rating["_id"]),
+                "rating_id": rating.get("ratingId"),
+                "user_id": rating.get("userId"),
+                "landlord_name": landlord["name"] if landlord else "Unknown",
                 "comment": rating.get("comment", ""),
                 "timestamp": rating.get("timestamp", ""),
                 "score": rating.get("score", 0)

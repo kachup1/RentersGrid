@@ -48,10 +48,10 @@ function App() {
                 <Route path="/ReportProblemConfirmation" element={<ReportProblemConfirmation />} />
                 <Route path="/ReportReview/:landlordId/:ratingId" element={<ReportReview />} />
                 <Route path="/ReportReviewConfirmation" element={<ReportReviewConfirmation />} />
-
-
-
+                <Route path="/AddAReview/:userId/:ratingId" element={<AddAReview />} /> {/* For Editing Ratings when clicked edit */}
+        
                 {/* Other Routes */}
+        
             </Routes>
         </Router>
     );
