@@ -40,7 +40,7 @@ function App() {
                 <Route path="/reset-password/:token" element={<ResetPasswordUpdate />} />
                 <Route path="/ResetPasswordConfirmation" element={<ResetPasswordConfirmation />} />
                 <Route path="/addproperty/:landlordId" element={<AddProperty />} />
-                <Route path="/AddAReview/:landlordId" element={<AddAReview />} />
+                <Route path="/AddAReview/:landlordId/:ratingId?" element={<AddAReview />} />
                 <Route path="/AddALandlord" element={<AddALandlord />} />
                 <Route path="/myaccount" element={<MyAccount />} />
                 <Route path="/myratings" element={<MyRatings />} />

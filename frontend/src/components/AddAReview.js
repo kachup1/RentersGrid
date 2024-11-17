@@ -55,54 +55,29 @@ const AddAReview = () => {
     const selectedPropertyName = propertyOptions.find(option => option.propertyId === selectedProperty)?.propertyname;
     const [existingReview, setExistingReview] = useState(null);
 
-    // 1st useEffect: Check if the user is logged in when the component mounts
     useEffect(() => {
-        setIsLoggedIn(isTokenValid());
-        console.log("User ID:", getUserIdFromToken());
-
-    }, []);
-
-    useEffect(() => {
-        console.log("User ID:", getUserIdFromToken());
-    }, []); // This will run once when the component mounts
-
-    // 2nd useEffect: Fetch landlord details based on the landlordId
-    useEffect(() => {
-        const fetchLandlordDetails = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/landlord/details/${landlordId}`);
-                
-                // Assuming the API returns `name` and `properties` fields
-                setLandlordName(response.data.name);
-                setPropertyOptions(response.data.properties); // Assuming properties is an array of property names
-            } catch (error) {
-                console.error("Error fetching landlord details:", error);
-            }
-        };
-
-        if (landlordId) {
-            fetchLandlordDetails();
-        }
-    }, [landlordId]);
-
-    useEffect(() => {
-        const fetchProperties = async () => {
-            try {
-                const response = await axios.get(`http://localhost:5000/api/landlord/details/${landlordId}`);
-                setPropertyOptions(response.data.properties);  // Ensure properties are set correctly
-            } catch (error) {
-                console.error("Error fetching properties:", error);
-            }
-        };
+                if (!isTokenValid()) {
+                    console.log("User is not logged in. Redirecting...");
+                    navigate('/signin');
+                    return;
+                }
     
-        fetchProperties();
-    }, [landlordId]);
-
-    useEffect(() => {
-        if (ratingId) {
-            axios.get(`http://localhost:5000/api/review/${ratingId}`)
-                .then(response => {
-                    const reviewData = response.data;
+                // Fetch landlord details
+                if (landlordId) {
+                    const landlordResponse = await axios.get(`http://localhost:5000/api/landlord/details/${landlordId}`);
+                    setLandlordName(landlordResponse.data.name);
+                    setPropertyOptions(landlordResponse.data.properties);
+                }
+    
+                // Fetch review details if editing
+                if (ratingId) {
+                    console.log("Fetching review for ratingId:", ratingId);
+                    const reviewResponse = await axios.get(`http://localhost:5000/api/review/${ratingId}`, {
+                        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+                    });
+                    const reviewData = reviewResponse.data;
                     setExistingReview(reviewData);
                     setSelectedRating(reviewData.score);
                     setReviewText(reviewData.comment);
@@ -114,12 +89,36 @@ const AddAReview = () => {
                         raisemoney: reviewData.raisemoney,
                         reachable: reviewData.reachable,
                         clearcontract: reviewData.clearcontract,
-                        recommend: reviewData.recommend
+                        recommend: reviewData.recommend,
                     });
-                })
-                .catch(error => console.error("Error fetching review:", error));
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                if (error.response?.status === 401) {
+                    alert("Session expired. Please log in again.");
+                    navigate('/signin');
+                } else {
+                    alert("An error occurred while loading the page.");
+                }
+            }
+        };
+    
+        fetchData();
+    }, [isLoggedIn, landlordId, ratingId, navigate]);
+
+    const isTokenValid = () => {
+        const token = localStorage.getItem('token');
+        if (!token) return false;
+    
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1])); // Decode JWT payload
+            const currentTime = Date.now() / 1000;
+            return payload.exp > currentTime; // Check expiration
+        } catch (e) {
+            return false;
         }
-    }, [ratingId]);
+    };
+    
     
 
     //navigate based on account status
@@ -203,6 +202,39 @@ const handleSubmit = async () => {
     }
 };
 
+const MyRatings = () => {
+    const navigate = useNavigate();
+
+    const handleEditClick = (landlordId, ratingId) => {
+        navigate(`/AddAReview/${landlordId}/${ratingId}`);
+    };
+
+    return (
+        <div>
+            {/* Example Edit Button */}
+            <button onClick={() => handleEditClick('landlord123', 'rating456')}>
+                Edit Review
+            </button>
+        </div>
+    );
+};
+
+const LandlordProfile = ({ landlordId }) => {
+    const navigate = useNavigate();
+
+    const handleAddReviewClick = () => {
+        navigate(`/AddAReview/${landlordId}`);
+    };
+
+    return (
+        <div>
+            {/* Example Add Review Button */}
+            <button onClick={handleAddReviewClick}>
+                Add a Review
+            </button>
+        </div>
+    );
+};
     
     
     //validate and move to next step
