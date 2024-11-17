@@ -6,10 +6,13 @@ import OfficialLogo from '../Assets/official logo.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import AccountButton from '../Assets/Account button.svg';
 import { useNavigate } from 'react-router-dom';
+import { isTokenValid } from './authentication';
+
+
 
 const Header = ({ isMenuOpen, toggleMenu }) => {
     const navigate = useNavigate();
-
+    const isSignedIn = isTokenValid();
     return (
         <>
             {/* Dimmed Background Overlay When Side Menu is Open */}
@@ -48,7 +51,13 @@ const Header = ({ isMenuOpen, toggleMenu }) => {
                         src={AccountButton}
                         alt="Account Button"
                         className={styles.rightIcon}
-                        onClick={() => navigate('/signin')}
+                        onClick={() => {
+                            if (isSignedIn) {
+                                navigate('/myaccount'); // Redirect to "My Account" if logged in
+                            } else {
+                                navigate('/signin'); // Redirect to "Sign In" if not logged in
+                            }
+                        }}
                     />
                 </div>
             </header>

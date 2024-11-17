@@ -24,6 +24,7 @@ function NoAccountHomePage() {
         // You can add additional logic for handling the search
     };
 
+  
     return (
         <div className="main-container">
             {/* Header Section */}
