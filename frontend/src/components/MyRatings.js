@@ -15,26 +15,19 @@ import InsideAccountSideMenu from '../components/InsideAccountSideMenu';
 import MyRatingsConfirmationModal from './MyRatingsConfirmationModal';
 
 const MyRatings = () => {
-    const token = localStorage.getItem('token');
     const [ratings, setRatings] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [ratingToDelete, setRatingToDelete] = useState(null);
 
     // Initialize navigate
     const navigate = useNavigate();
-
-
-    // IF NOT SIGNED IN IT WILL REDIRECT TO HOMEPAGE
-    if (!token) {
-        window.location.href = '/';
-        return;
-    }
-
+    
     useEffect(() => {
         const fetchRatings = async () => {
             const token = localStorage.getItem('token');
             if (!token) {
                 console.error("Token not found");
+                window.location.href = '/';
                 return;
             }
     
