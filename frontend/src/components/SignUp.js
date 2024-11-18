@@ -18,12 +18,15 @@ function SignUp() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     //Email Validation function using regex:
     const validateEmail = (email) => {
         const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         return re.test(email);
     }
+    
+
 
     const handleSignUp = async (e) => {
         e.preventDefault();
@@ -50,6 +53,9 @@ function SignUp() {
             setError('');
 
             alert(response.data.message);
+            //redirection to homepage
+            navigate('/');
+
         } catch (error) {
             if (error.response && error.response.data.error) {
                 setError(error.response.data.error);
@@ -143,6 +149,7 @@ function SignUp() {
 
                         {/* Submit button */}
                         <button input type="submit" className="sign-up-submit-button">Sign Up</button>
+                        
                         {/* Move the error message here to position it below the button */}
                         {error && <p className="error">{error}</p>}{/*Display error in red*/}
 
