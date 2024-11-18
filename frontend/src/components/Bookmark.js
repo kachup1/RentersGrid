@@ -113,6 +113,10 @@ function Bookmark() {
     }
     return 0; // No sorting if no option selected
   });
+  const refresh = () => {
+    navigate('/bookmarks');
+    window.location.reload();
+  };
 
   return (
     <div className="mybookmark-page">
@@ -186,11 +190,12 @@ function Bookmark() {
               </Link>
             </li>
             <li>
-              <Link to="/bookmarks">
+              <a href="/bookmarks" onClick={refresh}>
                 <img src={myBookmark} alt="Bookmark Icon" className="my-bookmark-icon" />
                 <span className="my-bookmark-text">My Bookmarks</span>
                 <img src={triangle} alt="Triangle Icon" className="triangle-icon" />
-              </Link>
+                </a>
+
             </li>
           </ul>
         </div>
