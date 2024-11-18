@@ -261,7 +261,7 @@ function SearchResultsPage() {
       <p>No results found.</p>
     ) : (
       // Case 1: Navigated without input
-      <p>No search input provided.</p>
+      <p></p>
     )
   ) : (
     // Case 3: Results found
