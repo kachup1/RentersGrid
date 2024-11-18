@@ -435,6 +435,11 @@ function AddALandlord() {
                                 required
                             />
                         </div>
+
+			            {/* Additional text for submit */}
+                        <div>
+                        	<h3 className="add-a-landlord-additional-submit-text">Click Submit Landlord When Done</h3>
+                        </div>
                     </div>
                 )}
             </div>
