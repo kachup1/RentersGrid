@@ -166,3 +166,25 @@ html, body {
 .report-review-support-link:hover {
     text-decoration: underline;
 }
+
+.report-review-invalid-field {
+    border: 2px solid red;
+}
+
+.rp-review-error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
+
+.report-landlord-left-icon,
+.report-landlord-account-right {
+    width: 84px;
+    height: auto;
+    position: absolute;
+    top: 30px;
+    right: 130px;
+    cursor: pointer;
+}
+

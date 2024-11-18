@@ -166,3 +166,14 @@ html, body {
 .report-problem-support-link:hover {
     text-decoration: underline;
 }
+
+.report-invalid-field {
+    border: 2px solid red;
+}
+
+.report-error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}

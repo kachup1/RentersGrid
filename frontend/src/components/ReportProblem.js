@@ -5,6 +5,7 @@ import AccountButton from '../Assets/Account button.svg';
 import ReportButton from '../Assets/report-title.svg';
 import MenuAlt from '../Assets/main-logo.svg';
 import NoAccountSideMenu from './NoAccountSideMenu';
+import SubmitLandlordRate from '../Assets/submit landlord rate.svg'
 import SideMenu from './SideMenu';  // Import the logged-in side menu
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { isTokenValid } from './authentication';
@@ -31,31 +32,39 @@ function ReportProblem() {  // landlordId is received as a prop
         setComments(e.target.value);
         setCharCount(e.target.value.length);
     };
+
+    const [isReportValid, setIsReportValid] = useState(true);
+
     useEffect(() => {
         console.log("Received landlordId in ReportProblem:", landlordId); // Debugging
     }, [landlordId]);
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Prepare the report data to send to the backend
+    
+        if (!selectedProblem) {
+            setIsReportValid(false); // Highlight the dropdown as invalid
+            return;
+        }
+        setIsReportValid(true); // Reset validation state
+    
+        // Prepare the report data
         const reportData = {
             landlordId,
             comment: comments,
             category: selectedProblem,
-            type: 'Problem', 
+            type: 'Problem',
         };
-
+    
         try {
-            // Send POST request to the backend
-            const response = await fetch('http://localhost:5000/api/report', { 
+            const response = await fetch('http://localhost:5000/api/report', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(reportData),
             });
-
+    
             if (response.ok) {
-                navigate('/ReportProblemConfirmation');  // Navigate to confirmation page on success
+                navigate('/ReportProblemConfirmation'); // Navigate to confirmation page on success
             } else {
                 console.error('Failed to submit report');
             }
@@ -63,6 +72,7 @@ function ReportProblem() {  // landlordId is received as a prop
             console.error('Error submitting report:', error);
         }
     };
+    
 
     return (
         <div className="report-problem-main-container">
@@ -76,7 +86,7 @@ function ReportProblem() {  // landlordId is received as a prop
 
                 {/* Background Image */}
                 <img src={MenuAlt} alt="Menu" className="report-problem-background-image" />
-
+                <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="report-landlord-left-icon" onClick={()=>navigate('/AddALandlord')}/>
                 {/* Right Image: Account Button */}
                 <img
                         src={AccountButton}
@@ -103,15 +113,16 @@ function ReportProblem() {  // landlordId is received as a prop
                         id="problem-select"
                         value={selectedProblem}
                         onChange={handleProblemChange}
-                        className="report-problem-select"
+                        className={`report-problem-select ${!isReportValid ? 'report-invalid-field' : ''}`} // Apply "invalid-field" if invalid
                         required
                     >
                         <option value="">Select Problem</option>
                         <option value="Wrong Landlord Name">Wrong Landlord Name</option>
                         <option value="Wrong Review under Landlord">Wrong Review under Landlord</option>
                         <option value="Other">Other</option>
-                        {/* Add more options as needed */}
                     </select>
+                    {!isReportValid && <span className="report-error-message">This field is required.</span>}
+
                     <label htmlFor="comments" className="report-problem-comments-label">Additional comments:</label>
                     <div className="char-count">{charCount} / 500</div>
                     <textarea

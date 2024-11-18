@@ -4,6 +4,7 @@ import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import ReportButton from '../Assets/report-title.svg';
 import MenuAlt from '../Assets/main-logo.svg';
+import SubmitLandlordRate from '../Assets/submit landlord rate.svg'
 import SideMenu from './SideMenu';  // Import the logged-in side menu
 import NoAccountSideMenu from './NoAccountSideMenu'; 
 import { Link, useParams, useNavigate } from 'react-router-dom';
@@ -29,6 +30,9 @@ function ReportReview() {
         setComments(e.target.value);
         setCharCount(e.target.value.length);
     };
+
+    const [isReviewValid, setIsReviewValid] = useState(true);
+
     useEffect(() => {
         console.log("Received landlordId in ReportReview:", landlordId); // Debugging
         console.log("Received ratingId in ReportReview:", ratingId); // Debugging
@@ -38,25 +42,32 @@ function ReportReview() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Prepare the report data to send to the backend
+    
+        if (!selectedreview) {
+            setIsReviewValid(false);
+            return;
+        } else {
+            setIsReviewValid(true);
+        }
+    
+        // Proceed with the form submission
         const reportData = {
             landlordId,
             ratingId,
             comment: comments,
             category: selectedreview,
-            type: 'Review', 
+            type: 'Review',
         };
-
+    
         try {
-            // Send POST request to the backend
-            const response = await fetch('http://localhost:5000/api/report', { 
+            const response = await fetch('http://localhost:5000/api/report', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(reportData),
             });
-
+    
             if (response.ok) {
-                navigate('/ReportReviewConfirmation');  // Navigate to confirmation page on success
+                navigate('/ReportReviewConfirmation');
             } else {
                 console.error('Failed to submit report');
             }
@@ -64,6 +75,7 @@ function ReportReview() {
             console.error('Error submitting report:', error);
         }
     };
+    
     return (
         <div className="report-review-main-container">
             {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
@@ -76,7 +88,7 @@ function ReportReview() {
 
                 {/* Background Image */}
                 <img src={MenuAlt} alt="Menu" className="report-review-background-image" />
-
+                <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="report-landlord-left-icon" onClick={()=>navigate('/AddALandlord')}/>
                 {/* Right Image: Account Button */}
                 <img
                         src={AccountButton}
@@ -103,7 +115,7 @@ function ReportReview() {
                         id="review-select"
                         value={selectedreview}
                         onChange={handlereviewChange}
-                        className="report-review-select"
+                        className={`report-review-select ${!isReviewValid ? 'report-review-invalid-field' : ''}`}
                         required
                     >
                         <option value="">Select problem</option>
@@ -113,8 +125,9 @@ function ReportReview() {
                         <option value="spam">Spam</option>
                         <option value="false-information">False Information</option>
                         <option value="safety">Other</option>
-                        {/* Add more options as needed */}
                     </select>
+                    {!isReviewValid && <span className="rp-review-error-message">This field is required.</span>}
+
                     <label htmlFor="comments" className="report-review-comments-label">Additional comments:</label>
                     <div className="char-count">{charCount} / 500</div>
                     <textarea

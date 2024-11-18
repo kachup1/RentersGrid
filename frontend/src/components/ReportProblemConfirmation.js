@@ -2,6 +2,7 @@ import React from 'react';
 import './ReportProblemConfirmation.css';
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
+import SubmitLandlordRate from '../Assets/submit landlord rate.svg'
 import MenuAlt from '../Assets/main-logo.svg';
 import { useNavigate } from 'react-router-dom';
 
@@ -23,7 +24,7 @@ function ReportProblemConfirmation() {
 
                 {/* Background Image */}
                 <img src={MenuAlt} alt="Menu" className="report-problem-confirmation-background-image" />
-
+                <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="report-landlord-left-icon" onClick={()=>navigate('/AddALandlord')}/>
                 {/* Right Image: Account Button */}
                 <a href="signin">
                     <img src={AccountButton} alt="Account Button" className="report-problem-confirmation-right-icon" />
