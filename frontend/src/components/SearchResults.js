@@ -21,6 +21,8 @@ function SearchResultsPage() {
   const [searchresults, setSearchResults] = useState([]);
   const searchresultsRefs = useRef([]);
   const [bookmarked, setBookmarked] = useState({});
+  const [isSearchTriggered, setIsSearchTriggered] = useState(false);
+  const [lastSearchedQuery, setLastSearchedQuery] = useState(''); // New state for last searched query
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -59,9 +61,30 @@ function SearchResultsPage() {
     setSearchQuery('');  // Clears the search query
     setSortBy('Landlord name');       // Clears the sort option
   };
+  const handleSearch = () => {
+    if (!searchQuery.trim()) {
+      alert('Please enter a search query.');
+      return;
+    }
+    setLastSearchedQuery(searchQuery); // Store the current query as the last searched query
+    setIsSearchTriggered(true); // Mark the search as triggered
+    setLoading(true);
+  
+    fetch(`/api/search?searchBy=${searchType}&query=${encodeURIComponent(searchQuery)}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSearchResults(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching search results:', error);
+        setLoading(false);
+      });
+  };
+  
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      handleSearch();
+      handleSearch(); // Trigger the search on Enter
     }
   };
   const handleSearchChange = (e) => {
@@ -140,24 +163,7 @@ function SearchResultsPage() {
     return lastName ? `${lastName}, ${firstName}` : name;
   };
 
-  const handleSearch = () => {
-    if (!searchQuery.trim()) {
-      alert('Please enter a search query.');
-      return;
-    }
-
-    setLoading(true);
-    fetch(`/api/search?searchBy=${searchType}&query=${encodeURIComponent(searchQuery)}`)
-      .then(response => response.json())
-      .then(data => {
-        setSearchResults(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching search results:', error);
-        setLoading(false);
-      });
-  };
+  
 
   useEffect(() => {
     if (fetchedResults) {
@@ -255,10 +261,10 @@ function SearchResultsPage() {
         <div className="searchresults-container">
           <h1>Search Results</h1>
           <div className="searchresults-list">
-  {!Array.isArray(searchresults) || searchresults.length === 0 ? (
-    fetchedResults ? (
-      // Case 2: No results in the database
-      <p>No results found.</p>
+          {!Array.isArray(searchresults) || searchresults.length === 0 ? (
+    isSearchTriggered ? (
+      // Case 2: No results found (only after Enter is pressed)
+      <p>No results found for "{lastSearchedQuery}".</p>
     ) : (
       // Case 1: Navigated without input
       <p></p>
