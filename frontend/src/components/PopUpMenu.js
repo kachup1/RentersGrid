@@ -46,52 +46,106 @@ const PopUpMenu = ({ isOpen, onClose }) => {
 
             {/* Menu Section */}
             <div className={styles.menuContainer}>
-                <ul className={styles.menuList}>
-                    {/* Common Menu Items */}
-                    <li className={`${styles.menuItem} ${styles.homepageItem}`}>
-                        <img src={HomepageIcon} alt="Homepage" className={`${styles.icon} ${styles.homepageIcon}`} />
-                        <span>Homepage</span>
+            <ul className={styles.menuList}>
+            {/* Homepage */}
+            <li className={`${styles.menuItem} ${styles.homepageItem}`} onClick={() => {
+                if (window.location.pathname === '/') {
+                    window.location.reload();
+                } else {
+                    navigate('/');
+                }
+            }}>
+                <img src={HomepageIcon} alt="Homepage" className={`${styles.icon} ${styles.homepageIcon}`} />
+                <span>Homepage</span>
+            </li>
+
+            {/* Search */}
+            <li className={styles.menuItem} onClick={() => {
+                if (window.location.pathname === '/searchresults') {
+                    window.location.reload();
+                } else {
+                    navigate('/searchresults');
+                }
+            }}>
+                <img src={SearchIcon} alt="Search" className={styles.icon} />
+                <span>Search</span>
+            </li>
+
+            {/* Add a Landlord */}
+            <li className={styles.menuItem} onClick={() => {
+                if (window.location.pathname === '/addalandlord') {
+                    window.location.reload();
+                } else {
+                    navigate('/addalandlord');
+                }
+            }}>
+                <img src={AddLandlordIcon} alt="Add a Landlord" className={styles.icon} />
+                <span>Add a Landlord</span>
+            </li>
+            
+
+                    
+            {isSignedIn && (
+                <>
+                    {/* Sign Out */}
+                    <li className={styles.menuItem} onClick={handleSignOut}>
+                        <img src={SignOutIcon} alt="Sign Out" className={styles.icon} />
+                        <span>Sign Out</span>
                     </li>
-                    <li className={styles.menuItem} onClick={() => navigate('/searchresults')}>
-                        <img src={SearchIcon} alt="Search" className={styles.icon} />
-                        <span>Search</span>
-                    </li>
-                    <li className={styles.menuItem} onClick={() => navigate('/addalandlord')}>
-                        <img src={AddLandlordIcon} alt="Add a Landlord" className={styles.icon} />
-                        <span>Add a Landlord</span>
+                    {/* My Account (Signed In) */}
+                    <li className={`${styles.menuItem} ${styles.myAccount}`} onClick={() => {
+                        if (window.location.pathname === '/myaccount') {
+                            window.location.reload();
+                        } else {
+                            navigate('/myaccount');
+                        }
+                    }}>
+                        <img src={MyAccountIcon} alt="My Account" className={styles.icon} />
+                        <span>My Account</span>
                     </li>
 
-                    {/* Signed-in User Menu Items */}
-                    {isSignedIn ? (
-                        <>
-                        <li className={styles.menuItem} onClick={handleSignOut}>
-                                <img src={SignOutIcon} alt="Sign Out" className={styles.icon} />
-                                <span>Sign Out</span>
-                        </li>
-                        <li className={`${styles.menuItem} ${styles.myAccount}`} onClick={() => navigate('/myaccount')}>
-                            <img src={MyAccountIcon} alt="My Account" className={styles.icon} />
-                            <span>My Account</span>
-                        </li>
+                    {/* My Ratings */}
+                    <li className={styles.menuItem} onClick={() => {
+                        if (window.location.pathname === '/myratings') {
+                            window.location.reload();
+                        } else {
+                            navigate('/myratings');
+                        }
+                    }}>
+                        <img src={MyRatingsIcon} alt="My Ratings" className={styles.icon} />
+                        <span>My Ratings</span>
+                    </li>
 
-                        <li className={styles.menuItem} onClick={() => navigate('/myratings')}>
-                            <img src={MyRatingsIcon} alt="My Ratings" className={styles.icon} />
-                            <span>My Ratings</span>
-                        </li>
-                        <li className={styles.menuItem} onClick={() => navigate('/bookmarks')}>
-                            <img src={MyBookmarksIcon} alt="My Bookmarks" className={styles.icon} />
-                            <span>My Bookmarks</span>
-                        </li>
-                        
-                        </>
-                    ) : (
+                    {/* My Bookmarks */}
+                    <li className={styles.menuItem} onClick={() => {
+                        if (window.location.pathname === '/bookmarks') {
+                            window.location.reload();
+                        } else {
+                            navigate('/bookmarks');
+                        }
+                    }}>
+                        <img src={MyBookmarksIcon} alt="My Bookmarks" className={styles.icon} />
+                        <span>My Bookmarks</span>
+                    </li>
+                </>
+            )}
 
-                        // if not signed in:
-                        <li className={styles.menuItem} onClick={() => navigate('/signin')}>
-                            <img src={SignInIcon} alt="Sign In / Sign Up" className={styles.icon} />
-                            <span>Sign In / Sign Up</span>
-                        </li>
-                    )}
-                </ul>
+            {/* Sign In / Sign Up (Not Signed In) */}
+            {!isSignedIn && (
+                <li className={styles.menuItem} onClick={() => {
+                    if (window.location.pathname === '/signin') {
+                        window.location.reload();
+                    } else {
+                        navigate('/signin');
+                    }
+                }}>
+                    <img src={SignInIcon} alt="Sign In / Sign Up" className={styles.icon} />
+                    <span>Sign In / Sign Up</span>
+                </li>
+            )}
+        </ul>
+
+                    
             </div>
         </div>
     );
