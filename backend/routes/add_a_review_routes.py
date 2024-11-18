@@ -73,44 +73,72 @@ def get_landlord_details(landlord_id):
     return jsonify(landlord_data), 200
 
 @add_a_review_blueprint.route('/api/review/<rating_id>/update', methods=['PUT'])
+@jwt_required()
 def update_review(rating_id):
     try:
-        data = request.get_json()
-        update_data = {
-            "score": data.get("score", 0),
-            "comment": data.get("comment", ""),
-            "maintenance": data.get("maintenance", "N/A"),
-            "pets": data.get("pets", "N/A"),
-            "safety": data.get("safety", "N/A"),
-            "raisemoney": data.get("raisemoney", "N/A"),
-            "reachable": data.get("reachable", "N/A"),
-            "clearcontract": data.get("clearcontract", "N/A"),
-            "recommend": data.get("recommend", "N/A"),
-            "propertyId": data.get("propertyId"),
-        }
-        result = ratings_collection.update_one({"ratingId": int(rating_id)}, {"$set": update_data})
-        
-        if result.modified_count == 1:
-            return jsonify({"message": "Review updated successfully"}), 200
-        else:
+        # Extract userId from JWT
+        current_user_data = get_jwt_identity()
+        current_user_id = current_user_data.get("userId")  # Get userId from the JWT
+        print("Current user ID from JWT:", current_user_id)  # Debugging
+
+        # Fetch the review
+        review = ratings_collection.find_one({"ratingId": int(rating_id)})
+        if not review:
+            print("Review not found for ratingId:", rating_id)  # Debugging
             return jsonify({"error": "Review not found"}), 404
+
+        print("Review user ID from database:", review.get("userId"))  # Debugging
+
+        # Verify ownership
+        if review["userId"] != current_user_id:
+            print("Unauthorized access: User does not own this review")  # Debugging
+            return jsonify({"error": "Unauthorized access"}), 403
+
+        # Process update
+        update_data = request.get_json()
+        print("Update data received:", update_data)  # Debugging
+
+        ratings_collection.update_one({"ratingId": int(rating_id)}, {"$set": update_data})
+        print("Review successfully updated")  # Debugging
+        return jsonify({"message": "Review updated successfully"}), 200
     except Exception as e:
+        print("Error updating review:", e)  # Debugging
         return jsonify({"error": str(e)}), 500
+
+
     
 
 @add_a_review_blueprint.route('/api/review/<rating_id>', methods=['GET'])
-@jwt_required()  #user must be logged in. Security feature 
+@jwt_required()
 def get_review(rating_id):
     try:
+        # Extract userId from JWT
+        current_user_data = get_jwt_identity()
+        current_user_id = current_user_data.get("userId")  # Extract userId
+        print("Current user ID from JWT:", current_user_id)  # Debugging
+
+        # Fetch the review
         review = ratings_collection.find_one({"ratingId": int(rating_id)})
         if not review:
+            print("Review not found for ratingId:", rating_id)
             return jsonify({"error": "Review not found"}), 404
-        
+
+        print("Review user ID:", review.get("userId"))  # Debugging
+
+        # Check if the current user owns the review
+        if review["userId"] != current_user_id:
+            print("Unauthorized access: Current user does not own this review")
+            return jsonify({"error": "Unauthorized access"}), 403
+
         # Convert ObjectId to string
         review["_id"] = str(review["_id"])
-        
         return jsonify(review), 200
     except Exception as e:
+        print("Error in get_review:", e)
         return jsonify({"error": str(e)}), 500
+
+
+
+
 
 

@@ -58,25 +58,18 @@ const AddAReview = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if (!isTokenValid()) {
-                    console.log("User is not logged in. Redirecting...");
-                    navigate('/signin');
-                    return;
-                }
-    
-                // Fetch landlord details
-                if (landlordId) {
-                    const landlordResponse = await axios.get(`http://localhost:5000/api/landlord/details/${landlordId}`);
-                    setLandlordName(landlordResponse.data.name);
-                    setPropertyOptions(landlordResponse.data.properties);
-                }
-    
-                // Fetch review details if editing
                 if (ratingId) {
-                    console.log("Fetching review for ratingId:", ratingId);
+                    // If editing, ensure the user is signed in
+                    if (!isTokenValid()) {
+                        console.log("User is not logged in. Redirecting...");
+                        navigate('/signin');
+                        return;
+                    }
+    
                     const reviewResponse = await axios.get(`http://localhost:5000/api/review/${ratingId}`, {
                         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                     });
+    
                     const reviewData = reviewResponse.data;
                     setExistingReview(reviewData);
                     setSelectedRating(reviewData.score);
@@ -92,19 +85,33 @@ const AddAReview = () => {
                         recommend: reviewData.recommend,
                     });
                 }
+    
+                if (landlordId) {
+                    const landlordResponse = await axios.get(`http://localhost:5000/api/landlord/details/${landlordId}`);
+                    setLandlordName(landlordResponse.data.name);
+                    setPropertyOptions(landlordResponse.data.properties);
+                }
             } catch (error) {
                 console.error("Error fetching data:", error);
-                if (error.response?.status === 401) {
+    
+                if (error.response?.status === 403) {
+                    alert("You are not authorized to edit this review.");
+                    navigate('/'); // Redirect unauthorized users to the homepage
+                } else if (error.response?.status === 401) {
                     alert("Session expired. Please log in again.");
                     navigate('/signin');
                 } else {
                     alert("An error occurred while loading the page.");
+                    navigate('/'); // Redirect unauthorized users to the homepage
+
                 }
             }
         };
     
         fetchData();
-    }, [isLoggedIn, landlordId, ratingId, navigate]);
+    }, [ratingId, landlordId, navigate]);
+    
+    
 
     const isTokenValid = () => {
         const token = localStorage.getItem('token');
@@ -156,51 +163,56 @@ const AddAReview = () => {
         }
     };
 
-// to submit review 
-const handleSubmit = async () => {
-    if (!isChecked) {
-        setCheckboxError(true); // Display error if checkbox is not checked
-        return;
-    }
-
-    setCheckboxError(false); // Clear error if checkbox is checked
-    const userId = getUserIdFromToken();
-    const timestamp = new Date().toISOString(); // Generate the current timestamp in ISO format
-
-    console.log("Submitting review with propertyId:", selectedProperty); // Log selectedProperty
-
-    const reviewData = {
-        landlordId,
-        ratingId: ratingId || Math.floor(Math.random() * 1000), // use existing ratingId if editing
-        score: selectedRating,
-        comment: reviewText,
-        maintenance: ratings.maintenance,
-        pets: ratings.pets,
-        safety: ratings.safety,
-        raisemoney: ratings.raisemoney,
-        reachable: ratings.reachable,
-        clearcontract: ratings.clearcontract,
-        recommend: ratings.recommend,
-        userId,
-        timestamp,  // Add timestamp to data
-        propertyId: selectedProperty, // Send propertyId to backend
+    const handleSubmit = async () => {
+        if (!isChecked) {
+            setCheckboxError(true); // Display error if checkbox is not checked
+            return;
+        }
+    
+        setCheckboxError(false); // Clear error if checkbox is checked
+        const userId = isLoggedIn ? getUserIdFromToken() : null; // Only include userId if logged in
+        const timestamp = new Date().toISOString(); // Generate the current timestamp in ISO format
+    
+        console.log("Submitting review with propertyId:", selectedProperty); // Log selectedProperty
+    
+        const reviewData = {
+            landlordId,
+            ratingId: ratingId || Math.floor(Math.random() * 1000), // use existing ratingId if editing
+            score: selectedRating,
+            comment: reviewText,
+            maintenance: ratings.maintenance,
+            pets: ratings.pets,
+            safety: ratings.safety,
+            raisemoney: ratings.raisemoney,
+            reachable: ratings.reachable,
+            clearcontract: ratings.clearcontract,
+            recommend: ratings.recommend,
+            userId,
+            timestamp,  // Add timestamp to data
+            propertyId: selectedProperty, // Send propertyId to backend
+        };
+    
+        try {
+            const url = ratingId 
+                ? `http://localhost:5000/api/review/${ratingId}/update`
+                : 'http://localhost:5000/api/landlord/addareview';
+            
+            const method = ratingId ? 'put' : 'post';
+    
+            // Add the Authorization header to the request
+            const headers = isLoggedIn
+                ? { Authorization: `Bearer ${localStorage.getItem('token')}` }
+                : {};
+    
+            await axios[method](url, reviewData, { headers });
+            alert('Review saved successfully');
+            navigate(`/LandlordProfile/${landlordId}`);
+        } catch (error) {
+            console.error("Error saving review:", error.response?.data || error.message);
+            alert('Failed to save review');
+        }
     };
-
-    try {
-        const url = ratingId 
-            ? `http://localhost:5000/api/review/${ratingId}/update`
-            : 'http://localhost:5000/api/landlord/addareview';
-        
-        const method = ratingId ? 'put' : 'post';
-
-        await axios[method](url, reviewData);
-        alert('Review saved successfully');
-        navigate(`/LandlordProfile/${landlordId}`);
-    } catch (error) {
-        console.error("Error saving review:", error.response?.data || error.message);
-        alert('Failed to save review');
-    }
-};
+    
 
 const MyRatings = () => {
     const navigate = useNavigate();
@@ -362,6 +374,16 @@ const LandlordProfile = ({ landlordId }) => {
                     />
                 </div>
             </header>
+        {/* Prompt for Editing Access */}
+        {ratingId && !isLoggedIn && (
+            <p className="signin-prompt">
+                You must be signed in to edit your review. <Link to="/signin">Sign in</Link>
+            </p>
+        )}
+
+
+
+
 
 {/**Frame 1 ----------------------------------------------- */}
             {currentStep === 1 && (
