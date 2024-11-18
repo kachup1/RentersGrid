@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-from flask_mail import Message
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token
 from models.database import users_collection
@@ -9,6 +8,11 @@ import re
 auth_blueprint = Blueprint('auth', __name__)
 bcrypt = Bcrypt()
 
+def validate_password(password):
+    if len(password) < 6 or not re.search(r'\d', password):
+        return False
+    return True
+
 @auth_blueprint.route('/SignUp', methods=['POST'])
 def signup():
     data = request.json
@@ -17,6 +21,10 @@ def signup():
 
     if not email or not password:
         return jsonify({"error": "Email and Password are required"}), 400
+    
+    # Validate password using the helper function
+    if not validate_password(password):
+        return jsonify({"error": "Password must be 6+ characters and include a number."}), 400
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
@@ -75,7 +83,7 @@ def change_password():
 
     if not email or not new_password:
         return jsonify({"error": "Missing required fields"}), 422
-    if len(new_password) < 6 or not re.search(r'\d', new_password):
+    if not validate_password(new_password):
         return jsonify({"error": "Password must be 6+ characters and include a number."}), 400
 
     user = users_collection.find_one({"email": email})
