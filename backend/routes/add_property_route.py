@@ -23,9 +23,9 @@ def add_property(landlord_id):
         return jsonify({'error': 'A property with this address already exists.'}),409
 
     
-    
+    new_property_id = get_next_property_id()
     property_data = {
-        'propertyId':get_next_property_id(),
+        'propertyId':new_property_id,
         'propertyname': data.get('name'),
         'address': data.get('address'),
         'city': data.get('city'),
@@ -37,6 +37,11 @@ def add_property(landlord_id):
     }
 
     properties_collection.insert_one(property_data)
+    landlords_collection.update_one(
+        {'landlordId':int(landlord_id)},
+        {'$addToSet':{'propertyId':new_property_id}}
+    )
+
     return jsonify({'message': 'Property added successfully'}),201
 
 def get_lat_long(address):
