@@ -6,18 +6,20 @@ import { useNavigate } from 'react-router-dom';
 
 
 function SearchButton({ onSearch }) {
-    const [selectedOption, setSelectedOption] = useState(null); // Initial state is null for placeholder
+    const [selectedOption, setSelectedOption] = useState('all'); // Set default to "All"
     const [searchQuery, setSearchQuery] = useState('');
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const navigate = useNavigate();
 
     const options = [
+        { value: 'all', label: 'All' }, // Add this line
         { value: 'landlord', label: 'Landlord Name' },
         { value: 'property', label: 'Property Name' },
         { value: 'address', label: 'Address' },
         { value: 'city', label: 'City' },
         { value: 'zipcode', label: 'Zip Code' },
     ];
+    
 
     const handleOptionSelect = (value) => {
         setSelectedOption(value);
@@ -34,9 +36,13 @@ function SearchButton({ onSearch }) {
     const handleSearch = () => {
         console.log('Search button clicked!');
     
-        if (searchQuery.trim()) { // Use searchQuery here
+        if (searchQuery.trim()) {
             console.log('Fetching data from API...');
-            fetch(`http://localhost:5000/api/search?searchBy=${selectedOption}&query=${encodeURIComponent(searchQuery)}`)
+    
+            // If selectedOption is null, set it to 'all'
+            const searchBy = selectedOption || 'all';
+    
+            fetch(`http://localhost:5000/api/search?searchBy=${searchBy}&query=${encodeURIComponent(searchQuery)}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log('Received search results:', data);
@@ -49,6 +55,7 @@ function SearchButton({ onSearch }) {
             alert("Please enter a search query.");
         }
     };
+    
 
     
     return (
@@ -86,11 +93,13 @@ function SearchButton({ onSearch }) {
             <input
                 type="text"
                 className={styles.searchInput}
-                placeholder={selectedOption ? `Search by ${options.find(option => option.value === selectedOption)?.label}` : 'Search Renters Grid'}
+                placeholder={selectedOption && selectedOption !== 'all' ? 
+                    `Search by ${options.find(option => option.value === selectedOption)?.label}` : 'Search Renters Grid'}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={handleKeyDown} // Update this line
+                onKeyDown={handleKeyDown}
             />
+
 
         </div>
     );

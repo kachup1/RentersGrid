@@ -20,8 +20,8 @@ def search():
     search_letter = query.strip().lower()
     search_criteria = {}
 
+    # Define search criteria based on the selected option
     if search_by == 'landlord':
-        # Match only if the first or last name starts with the search query
         search_criteria = {
             '$or': [
                 {'name': {'$regex': f'^{search_letter}', '$options': 'i'}},  # Matches first name starting with query
@@ -36,6 +36,17 @@ def search():
         search_criteria = {'properties.city': {'$regex': query, '$options': 'i'}}
     elif search_by == 'zipcode':
         search_criteria = {'properties.zipcode': query}
+    elif search_by == 'all':
+        # Handle the 'All' option to search across multiple fields
+        search_criteria = {
+            '$or': [
+                {'name': {'$regex': query, '$options': 'i'}},
+                {'properties.propertyname': {'$regex': query, '$options': 'i'}},
+                {'properties.address': {'$regex': query, '$options': 'i'}},
+                {'properties.city': {'$regex': query, '$options': 'i'}},
+                {'properties.zipcode': {'$regex': query, '$options': 'i'}}
+            ]
+        }
 
     # Sort criteria based on selected sort option
     sort_criteria = {}
