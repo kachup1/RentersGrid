@@ -1,124 +1,123 @@
 ﻿@font-face {
-    font-family: 'Helvetica';
-    src: url('../fonts/helvetica.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'Helvetica';
-    src: url('../fonts/helvetica-bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-  }
-
-  /* Adjust menu height and scrolling based on user status */
-.menu {
-  position: fixed;
-  top: 150px;
-  left: -450px;
-  width: 390px;
-  background-color: #8B8B8B;
-  transition: left 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-  border-radius: 20px;
-  z-index: 10000;
-  overflow-y: auto; /* Allow scrolling if content overflows */
-  overflow-x: hidden;
   font-family: 'Helvetica';
+  src: url('../fonts/helvetica.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('../fonts/helvetica-bold.woff') format('woff');
   font-weight: bold;
+  font-style: normal;
+}
+
+/* Adjust menu height and scrolling based on user status */
+.menu {
+position: fixed;
+top: 150px;
+left: -450px;
+width: 390px;
+background-color: #8B8B8B;
+transition: left 0.2s ease;
+display: flex;
+flex-direction: column;
+padding: 30px;
+border-radius: 20px;
+z-index: 10000;
+overflow-y: auto; /* Allow scrolling if content overflows */
+overflow-x: hidden;
+font-family: 'Helvetica';
+font-weight: bold;
 }
 
 /* Signed-in user menu height */
 .menu.signedIn {
-  height: 500px; /* Adjust height for signed-in users */
+height: 500px; /* Adjust height for signed-in users */
 }
 
 /* Signed-out user menu height */
 .menu.signedOut {
-  height: 400px; /* Adjust height for signed-out users */
+height: 400px; /* Adjust height for signed-out users */
 }
 
 /* Open state for menu */
 .menu.open {
-  top: 150px;
-  left: 100px; /* Slide into view */
+top: 150px;
+left: 100px; /* Slide into view */
 }
 
 
-  /* Close Button Container */
-  .closeContainer {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .closeButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-  }
-  
-  .closeIcon {
-    width: 35px;
-    height: 35px;
-  }
-  
-  /* Logo Container */
-  .logoContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 23px;
-  }
-  
-  .logo {
-    width: 225px;
-    height: auto;
-  }
-  
-  /* Menu Container */
-  .menuContainer {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .menuList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .menuItem {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    padding: 12px 30px;
-    color: white;
-    font-size: 23px;
-    cursor: pointer;
-  }
+/* Close Button Container */
+.closeContainer {
+  display: flex;
+  justify-content: flex-end;
+}
 
-  /* Add space before "My Account" */
-  .menuItem.myAccount {
-    margin-top: 50px; /* Adjust this value as needed */
-  }
-  
-  .menuItem:hover {
-    background-color: #4D55A5;
-    border-radius: 10px;
-  }
-  .icon {
-    width: 30px;
-    height: 30px;
-  }
-  
-  .homepageIcon {
-    width: 37px; 
-    height: auto; 
-    margin-right: -7px;
-  }
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
 
+.closeIcon {
+  width: 35px;
+  height: 35px;
+}
+
+/* Logo Container */
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 23px;
+}
+
+.logo {
+  width: 225px;
+  height: auto;
+}
+
+/* Menu Container */
+.menuContainer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.menuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 12px 30px;
+  color: white;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+/* Add space before "My Account" */
+.menuItem.myAccount {
+  margin-top: 50px; /* Adjust this value as needed */
+}
+
+.menuItem:hover {
+  background-color: #4D55A5;
+  border-radius: 10px;
+}
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.homepageIcon {
+  width: 37px; 
+  height: auto; 
+  margin-right: -7px;
+}

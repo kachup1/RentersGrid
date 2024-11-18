@@ -19,6 +19,8 @@ from routes.vote_routes import vote_blueprint
 from routes.add_landlord_routes import add_landlord_blueprint
 from routes.report_routes import report_routes
 
+from routes.add_property_route import add_property_blueprint
+
 # Load environment variables
 load_dotenv()
 
@@ -49,6 +51,8 @@ app.register_blueprint(delete_ratings_blueprint)
 app.register_blueprint(vote_blueprint)
 app.register_blueprint(add_landlord_blueprint)
 app.register_blueprint(report_routes)
+
+app.register_blueprint(add_property_blueprint)
 
 
 # Add global CORS headers for all responses
