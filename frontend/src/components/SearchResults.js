@@ -55,6 +55,62 @@ function SearchResultsPage() {
       setIsLoggedIn(false);
     }
   }, []);
+  const handleClear = () => {
+    setSearchQuery('');  // Clears the search query
+    setSortBy('Landlord name');       // Clears the sort option
+  };
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const toggleBookmark = (landlordId) => {
+    // Redirects to sign-in page if user is not logged in
+    if (!isLoggedIn) {
+      alert('Please log in to bookmark landlords.');
+      navigate('/SignIn');  
+      return;
+    }
+
+    // Toggle bookmark state locally
+    const isBookmarked = bookmarked[landlordId];  // Check if it's currently bookmarked
+
+    setBookmarked((prevBookmarked) => ({
+      ...prevBookmarked,
+      [landlordId]: !prevBookmarked[landlordId],  // Toggle the bookmark state
+    }));
+    const token = localStorage.getItem('token');  // JWT token stored in localStorage
+
+    // Determine the request method (POST for add, DELETE for remove)
+    const method = isBookmarked ? 'DELETE' : 'POST';
+
+    fetch('http://localhost:5000/api/bookmark', {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,  // Send the JWT token for authentication
+      },
+      body: JSON.stringify({ landlordId }),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.message) {
+          console.log(data.message);  // Handles the success message
+        }
+      })
+      .catch(error => {
+        console.error(`Error ${isBookmarked ? 'removing' : 'adding'} bookmark:`, error);
+      });
+  };
 
   const handleSortChange = (e) => {
     const selectedSort = e.target.value;
@@ -133,35 +189,63 @@ function SearchResultsPage() {
       </header>
 
       <div className="searchresults-searchby-and-sort-wrapper">
-        <div className="searchresults-bar-container">
-          <select className="searchresults-dropdown" value={searchType} onChange={(e) => setSearchType(e.target.value)}>
-            <option value="landlord">Landlord Name</option>
-            <option value="property">Property Name</option>
-            <option value="address">Address</option>
-            <option value="city">City</option>
-            <option value="zipcode">Zip Code</option>
-          </select>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={`Search by ${searchType === 'landlord' ? 'Landlord Name' : searchType}`}
-            className="searchresults-input"
-            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-          />
-        </div>
+  <div className="searchresults-bar-container" style={{ position: 'relative', display: 'inline-block' }}>
+    <select
+      className="searchresults-dropdown"
+      value={searchType}
+      onChange={(e) => setSearchType(e.target.value)}
+    >
+      <option value="landlord">Landlord Name</option>
+      <option value="property">Property Name</option>
+      <option value="address">Address</option>
+      <option value="city">City</option>
+      <option value="zipcode">Zip Code</option>
+    </select>
+    <input
+      type="text"
+      value={searchQuery}
+      onChange={handleSearchChange}
+      placeholder={`Search by ${searchType === 'landlord' ? 'Landlord Name' : searchType}`}
+      className="searchresults-input"
+      onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+      style={{ paddingRight: '30px' }}
+    />
+    {searchQuery.trim() || sortBy ? (
+      <div
+        className="clear-icon"
+        style={{
+          position: 'absolute',
+          right: '10px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          cursor: 'pointer',
+          width: '20px',
+          height: '20px',
+          backgroundImage: `url(${ClearSelectionIcon})`,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+        }}
+        onClick={handleClear}
+      />
+    ) : null}
+  </div>
+  <div className="searchresults-sort-container">
+    <label htmlFor="sort">Sort By: </label>
+    <select
+      id="sort"
+      className="searchresults-sort-button"
+      value={sortBy}
+      onChange={handleSortChange}
+    >
+      <option value="highest rating">Highest Rating</option>
+      <option value="Landlord name">Landlord Name</option>
+      <option value="lowest rating">Lowest Rating</option>
+      <option value="property name">Property Name</option>
+      <option value="reviews">Most Reviews</option>
+    </select>
+  </div>
+</div>
 
-        <div className="searchresults-sort-container">
-          <label htmlFor="sort">Sort By: </label>
-          <select id="sort" className="searchresults-sort-button" value={sortBy} onChange={handleSortChange}>
-            <option value="highest rating">Highest Rating</option>
-            <option value="Landlord name">Landlord Name</option>
-            <option value="lowest rating">Lowest Rating</option>
-            <option value="property name">Property Name</option>
-            <option value="reviews">Most Reviews</option>
-          </select>
-        </div>
-      </div>
 
       <div className="searchresults-main-content">
         <div className="searchresults-map-container">
@@ -186,8 +270,21 @@ function SearchResultsPage() {
                         <p key={idx}>{property.address}, {property.city}, {property.zipcode}</p>
                       ))}
                     </div>
+                    <div
+                      className="bookmark-icon"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleBookmark(result.landlordId);
+                      }}
+                    >
+                      <img
+                        src={bookmarked[result.landlordId] ? SelectedBookmark : MyBookmark}
+                        alt="Bookmark"
+                        className="bookmark-icon-img"
+                      />
+                    </div>
+                  </div>                
                   </div>
-                </div>
               ))
             ) : (
               <p>No results found.</p>
