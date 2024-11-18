@@ -58,12 +58,11 @@ const AddAReview = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if (!isTokenValid()) {
+                /*if (!isTokenValid()) {
                     console.log("User is not logged in. Redirecting...");
                     navigate('/signin');
                     return;
-                }
-    
+    */
                 // Fetch landlord details
                 if (landlordId) {
                     const landlordResponse = await axios.get(`http://localhost:5000/api/landlord/details/${landlordId}`);

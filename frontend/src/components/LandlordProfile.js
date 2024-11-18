@@ -359,7 +359,7 @@ const handleVote = (reviewId, type) => {
                     <img src={OfficialLogo} alt="Official Logo" className="landlord-center-logo" onClick={() => navigate('/')} />
                 </div>
                 <div className="landlord-buttons-container">
-                    <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="landlord-left-icon" />
+                    <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="landlord-left-icon" onClick={()=>navigate('/AddALandlord')}/>
                     <img src={AccountButton} alt="Account Button" className="landlord-account-right" onClick={() => {
                         isTokenValid() ? navigate('/myaccount') : navigate('/signin');
                     }} />
