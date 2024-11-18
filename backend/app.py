@@ -15,17 +15,17 @@ from routes.add_a_review_routes import add_a_review_blueprint
 from routes.get_ratings import ratings_blueprint
 from routes.delete_ratings import delete_ratings_blueprint
 from routes.edit_myaccount import edit_account_bp
-from routes.vote_routes import vote_blueprint  
+from routes.vote_routes import vote_blueprint
 from routes.add_landlord_routes import add_landlord_blueprint
-
-
 
 # Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
-CORS(app)
+
+# CORS Configuration
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
+
 bcrypt = Bcrypt(app)
 
 # Load configurations
@@ -55,6 +55,7 @@ def add_cors_headers(response):
     response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
     response.headers["Access-Control-Allow-Headers"] = "Content-Type,Authorization"
     response.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS,PUT,DELETE"
+    response.headers["Access-Control-Allow-Credentials"] = "true"
     return response
 
 if __name__ == "__main__":

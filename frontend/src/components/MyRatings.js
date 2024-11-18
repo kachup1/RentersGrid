@@ -1,40 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './MyRatings.module.css';
-
-import Logo from '../Assets/logo.svg';
-import HomeIcon from '../Assets/home.svg';
-import SearchIcon from '../Assets/search.svg';
-import AddLandlordIcon from '../Assets/add-a-landlord.svg';
-import SignOutIcon from '../Assets/signout.svg';
-import AccountIcon from '../Assets/my-account.svg';
-import RatingsIcon from '../Assets/my-rate.svg';
-import BookmarksIcon from '../Assets/my-book.svg';
+import { useNavigate } from 'react-router-dom';
 
 import BackgroundLogo from '../Assets/rate-bg.svg';
 import TopRightAddIcon from '../Assets/topright-add.svg';
 import EditIcon from '../Assets/edit.svg';
 import DeleteIcon from '../Assets/delete.svg';
-import Triangle from '../Assets/triangle.svg';
 
+import AccountIcon from '../Assets/my-account.svg';
+import RatingsIcon from '../Assets/my-rate.svg';
+
+import InsideAccountSideMenu from '../components/InsideAccountSideMenu';
 import MyRatingsConfirmationModal from './MyRatingsConfirmationModal';
-
 
 const MyRatings = () => {
     const [ratings, setRatings] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [ratingToDelete, setRatingToDelete] = useState(null);
-    const userId = 1; // Example user ID, replace with actual user ID when logged in
 
+    // Initialize navigate
+    const navigate = useNavigate();
+    
     useEffect(() => {
         const fetchRatings = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error("Token not found");
+                window.location.href = '/';
+                return;
+            }
+    
             try {
                 const response = await axios.get('http://localhost:5000/api/get_ratings', {
-                    params: { userId }
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    withCredentials: true // Allow sending cookies with the request
                 });
-    
+                
                 if (response.status === 200) {
-                    console.log("Fetched Ratings:", response.data); // Add this line
                     setRatings(response.data);
                 }
             } catch (error) {
@@ -43,7 +49,17 @@ const MyRatings = () => {
         };
     
         fetchRatings();
-    }, [userId]);
+    }, []);
+    
+
+    const handleEditClick = (landlordId, ratingId) => {
+        if (landlordId && ratingId) {
+            console.log(`Navigating to: /AddAReview/${landlordId}/${ratingId}`);
+            navigate(`/AddAReview/${landlordId}/${ratingId}`);
+        } else {
+            console.error("userId or ratingId is missing");
+        }
+    };
     
     // Handle delete button click
     const handleDeleteClick = (ratingId) => {
@@ -62,13 +78,9 @@ const MyRatings = () => {
 
             if (response.status === 200) {
                 setRatings((prevRatings) => prevRatings.filter((rating) => rating._id !== ratingToDelete));
-                //alert('Rating deleted successfully!');
-            } else {
-                //alert('Failed to delete rating.');
             }
         } catch (error) {
             console.error("Error deleting rating:", error);
-            //alert('Failed to delete rating.');
         }
         setShowModal(false);
         setRatingToDelete(null);
@@ -80,29 +92,10 @@ const MyRatings = () => {
         setRatingToDelete(null);
     };
 
-
     return (
         <div className={styles["my-account-container"]}>
             {/* Side Menu */}
-            <aside className={styles["side-menu"]}>
-                <div className={styles.logo}>
-                    <img src={Logo} alt="Logo" />
-                </div>
-                <nav>
-                    <ul>
-                        <li><img src={HomeIcon} alt="Home" className={styles.icon} />Homepage</li>
-                        <li><img src={SearchIcon} alt="Search" className={styles.icon} />Search</li>
-                        <li><img src={AddLandlordIcon} alt="Add Landlord" className={styles.icon} />Add a Landlord</li>
-                        <li><img src={SignOutIcon} alt="Sign Out" className={styles.icon} />Sign Out</li>
-                    </ul>
-                    <div style={{ margin: '50px 0' }}></div>
-                    <ul>
-                        <li><img src={AccountIcon} alt="Account" className={styles.icon} />My Account</li>
-                        <li><img src={RatingsIcon} alt="Ratings" className={styles.icon} />My Ratings <img src={Triangle} alt="Triangle" className={styles.this} /></li>
-                        <li><img src={BookmarksIcon} alt="Bookmarks" className={styles.icon} />My Bookmarks</li>
-                    </ul>
-                </nav>
-            </aside>
+            <InsideAccountSideMenu />
 
             {/* Main Content */}
             <main className={styles["main-content"]}>
@@ -121,34 +114,45 @@ const MyRatings = () => {
                     <h2>My Ratings</h2>
                 </div>
 
-                {/* Scrollable Ratings Section */}
+                {/* Scorrolable Part */}
                 <div className={styles["ratings-scrollable"]}>
-                    {ratings.map((rating, index) => (
-                        <div key={index} className={styles["rating-container"]}>
-                            <div className={styles["rating-header"]}>
-                                <div className={styles["rating-name"]}>{rating.name}</div>
-                                <div className={styles["score-box"]}>
-                                    <span className={styles["rating-number"]}>{rating.score}</span>
-                                    <span className={styles["rating-total"]}>/ 5</span>
+                    {ratings.length === 0 ? (
+                        <div className={styles["no-ratings-message"]}>You Haven't Rated Anyone Yet</div>
+                    ) : (
+                        ratings.map((rating, index) => (
+                            <div key={index} className={styles["rating-container"]}>
+                                <div className={styles["rating-header"]}>
+                                    <div className={styles["rating-name"]}>{rating.landlord_name}</div>
+                                    {/* Rating Box with coloring based on score */}
+                                    <div className={`${styles["score-box"]} ${styles[`score-${rating.score}`]}`}>
+                                        <span className={styles["rating-number"]}>{rating.score}</span>
+                                        <span className={styles["rating-total"]}>/ 5</span>
+                                    </div>
+
+                                </div>
+                                <span className={styles["submitted-date"]}>
+                                    {new Date(rating.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                </span>
+                                <div className={styles["rating-comments"]}>{rating.comment}</div>
+                                <div className={styles["rating-actions"]}>
+                                    <img
+                                        src={EditIcon}
+                                        alt="Edit"
+                                        className={styles["action-icon"]}
+                                        onClick={() => handleEditClick(rating.landlord_id, rating.rating_id)}
+                                    />
+                                    <img
+                                        src={DeleteIcon}
+                                        alt="Delete"
+                                        className={styles["action-icon"]}
+                                        onClick={() => handleDeleteClick(rating.rating_id)}
+                                    />
                                 </div>
                             </div>
-                            <span className={styles["submitted-date"]}>
-                                {new Date(rating.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                            </span>
-
-                            <div className={styles["rating-comments"]}>{rating.comment}</div>
-                            <div className={styles["rating-actions"]}>
-                                <img src={EditIcon} alt="Edit" className={styles["action-icon"]} />
-                                <img
-                                src={DeleteIcon}
-                                alt="Delete"
-                                className={styles["action-icon"]}
-                                onClick={() => handleDeleteClick(rating._id)}
-                                />
-                            </div>
-                        </div>
-                    ))}
+                        ))
+                    )}
                 </div>
+
 
                 {/* Confirmation Modal */}
                 {showModal && (

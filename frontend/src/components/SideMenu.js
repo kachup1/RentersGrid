@@ -68,14 +68,14 @@ function SideMenu({ onSignOut }) {
     
           <li>
             {/* Add navigation using Link for My Account */}
-            <Link to="/account" onClick={toggleMenu}>
+            <Link to="/myaccount" onClick={toggleMenu}>
               <img src={accountIcon} alt="My Account" className="menu-icon" />
               My Account
             </Link>
           </li>
           <li>
             {/* Add navigation using Link for My Ratings */}
-            <Link to="/ratings" onClick={toggleMenu}>
+            <Link to="/myratings" onClick={toggleMenu}>
             <img src={myrating} alt="My Account" className="menu-icon" />
 
               My Ratings

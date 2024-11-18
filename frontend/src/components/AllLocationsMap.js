@@ -5,7 +5,12 @@ import pinIcon from '../Assets/pin.svg';
 import currentLocationIcon from '../Assets/current-location.svg';
 import { useNavigate } from 'react-router-dom';
 
-const mapContainerStyle = { width: "100%", height: "700px" };
+const mapContainerStyle = {
+  width: "100%",
+  height: "700px",
+  borderRadius: "10px", // Curved edges
+  overflow: "hidden"    // Ensure content stays within curved edges
+};
 const defaultCenter = [33.7701, -118.1937]; // You can update this to a more neutral point if needed
 const darkTileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
 
@@ -57,6 +62,8 @@ function AllLocationsMap() {
         console.error('Error fetching search results:', error);
       });
   }, [navigate]);
+
+  
 
   // Add markers to the map
   useEffect(() => {

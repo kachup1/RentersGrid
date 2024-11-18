@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Helvetica-Bold';
+    src: url('../fonts/helvetica-bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+  }
+
+.searchContainer {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    padding: 9px 10px;
+    width: 800px;
+    font-family: 'Helvetica';
+    scale: 90%;
+    z-index: 500;
+}
+
+/* left box */
+.selectedOption {
+    font-size: 20px;
+    color: #000000;
+    padding-left: 10px;
+    width: 180px; /* Set a fixed width to prevent arrow movement */
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Show ellipsis if text is too long */
+    margin-right: 10px;
+}
+
+/* right box */
+.dropdownContainer {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    margin-right: 10px;
+    
+}
+
+/* arrow icon */
+.downArrow {
+    position: absolute;
+    right: 0;
+    width: 25px;
+    height: auto;
+    transition: transform 0.3s ease;
+    pointer-events: none; /* Prevent clicking on the arrow */
+}
+
+/* Rotate arrow when dropdown is open */
+.rotateArrow {
+    transform: rotate(180deg);
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background-color: white;
+    border-radius: 10px;
+    list-style: none;
+    padding: 10px;
+    width: 180px;
+    display: flex; /* Add this */
+    flex-direction: column; /* Ensure items are in a column */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+}
+
+.dropdownItem {
+    cursor: pointer;
+    font-size: 20px;
+    color: #000000;
+    transition: background-color 0.3s ease-in-out;
+    width: 100%; /* Make the item take full width */
+    text-align: center; /* Center text inside the item */
+    padding: 10px 0; /* Add padding for better spacing */
+}
+
+
+/* hovercolor on selection*/
+.dropdownItem:hover {
+    background-color: #aebaef;
+}
+
+/* inputbox */
+.searchInput {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    padding-left: 10px;
+    color: #000000;
+    background-color: transparent;
+    font-family: 'Helvetica';
+}
+
+
+.searchInput::placeholder {
+    color: #b8b8b8; /* Change this to your desired placeholder color */
+    opacity: 1;
+}
