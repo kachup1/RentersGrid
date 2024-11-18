@@ -48,8 +48,7 @@ function App() {
                 <Route path="/ReportReview/:landlordId/:ratingId" element={<ReportReview />} />
                 <Route path="/ReportReviewConfirmation" element={<ReportReviewConfirmation />} />
                 <Route path="/AddAReview/:landlordId/:ratingId?" element={<AddAReview />} />
-        
-                {/* Other Routes */}
+                
         
             </Routes>
         </Router>

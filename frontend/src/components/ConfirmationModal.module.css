@@ -16,8 +16,13 @@
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    max-width: 300px;
+    max-width: 400px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal h3 {
+    line-height: 1.5; /* Set line spacing to 1.5 */
+    margin-bottom: 20px; /* Optional spacing */
 }
 
 .buttons {
@@ -25,6 +30,7 @@
     display: flex;
     justify-content: space-around;
 }
+
 
 .confirmButton {
     background-color: #ff4c4c;

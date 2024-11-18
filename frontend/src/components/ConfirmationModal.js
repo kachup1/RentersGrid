@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './MyRatingsConfirmationModal.module.css';
+import styles from './ConfirmationModal.module.css';
 
-const MyRatingsConfirmationModal = ({ message, onConfirm, onCancel }) => {
+const ConfirmationModal = ({ message, onConfirm, onCancel }) => {
     return (
         <div className={styles.overlay}>
             <div className={styles.modal}>
@@ -15,4 +15,4 @@ const MyRatingsConfirmationModal = ({ message, onConfirm, onCancel }) => {
     );
 };
 
-export default MyRatingsConfirmationModal;
+export default ConfirmationModal;

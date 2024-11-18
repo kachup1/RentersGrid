@@ -12,7 +12,7 @@ import AccountIcon from '../Assets/my-account.svg';
 import RatingsIcon from '../Assets/my-rate.svg';
 
 import InsideAccountSideMenu from '../components/InsideAccountSideMenu';
-import MyRatingsConfirmationModal from './MyRatingsConfirmationModal';
+import ConfirmationModal from './ConfirmationModal';
 
 const MyRatings = () => {
     const [ratings, setRatings] = useState([]);
@@ -62,30 +62,37 @@ const MyRatings = () => {
     };
     
     // Handle delete button click
-    const handleDeleteClick = (ratingId) => {
-        setRatingToDelete(ratingId);
+    const handleDeleteClick = (objectId) => {
+        setRatingToDelete(objectId);
         setShowModal(true);
     };
+    
 
     // Confirm deletion
     const confirmDelete = async () => {
         if (!ratingToDelete) return;
-
+    
         try {
             const response = await axios.delete('http://localhost:5000/api/delete_rating', {
-                params: { ratingId: ratingToDelete }
+                params: { object_id: ratingToDelete }
             });
-
+    
             if (response.status === 200) {
-                setRatings((prevRatings) => prevRatings.filter((rating) => rating._id !== ratingToDelete));
+                setRatings((prevRatings) => prevRatings.filter((rating) => rating.object_id !== ratingToDelete));
+                
+                // Refresh the page after successful deletion
+                window.location.reload();
             }
         } catch (error) {
             console.error("Error deleting rating:", error);
         }
+    
         setShowModal(false);
         setRatingToDelete(null);
     };
+    
 
+    
     // Cancel deletion
     const cancelDelete = () => {
         setShowModal(false);
@@ -145,7 +152,7 @@ const MyRatings = () => {
                                         src={DeleteIcon}
                                         alt="Delete"
                                         className={styles["action-icon"]}
-                                        onClick={() => handleDeleteClick(rating.rating_id)}
+                                        onClick={() => handleDeleteClick(rating.object_id)}
                                     />
                                 </div>
                             </div>
@@ -156,8 +163,8 @@ const MyRatings = () => {
 
                 {/* Confirmation Modal */}
                 {showModal && (
-                    <MyRatingsConfirmationModal
-                        message="Are you sure you want to delete this rating?"
+                    <ConfirmationModal
+                        message="Are you sure you want to delete this rating? This action cannot be undone."
                         onConfirm={confirmDelete}
                         onCancel={cancelDelete}
                     />

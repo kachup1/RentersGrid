@@ -194,7 +194,16 @@ const MyAccount = () => {
                             <input
                                 type="text"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e) => {
+                                    if (isEditing) {
+                                        setEmail(e.target.value);
+                                    }
+                                }}
+                                onFocus={() => {
+                                    if (!isEditing) {
+                                        setErrorMessage("Please click the edit button to make any changes.");
+                                    }
+                                }}
                                 readOnly={!isEditing}
                             />
                             <img
@@ -203,7 +212,6 @@ const MyAccount = () => {
                                 className={styles.mainicon}
                                 onClick={() => setIsEditing(!isEditing)}
                             />
-
                             <img
                                 src={isSaved ? SaveSelected : SaveIcon}
                                 alt="Save"
@@ -214,19 +222,28 @@ const MyAccount = () => {
                                     opacity: isEditing ? 1 : 0.2
                                 }}
                             />
-
                         </div>
                     </div>
 
-                    {/* Current Password Input */}
+                   {/* Current Password Input */}
                     <div className={styles["input-group"]}>
                         <label>Current Password:</label>
                         <div className={styles["input-with-icons"]}>
                             <input
                                 type={showCurrentPassword ? "text" : "password"}
                                 value={currentPassword}
-                                onChange={(e) => setCurrentPassword(e.target.value)}
+                                onChange={(e) => {
+                                    if (isEditing) {
+                                        setCurrentPassword(e.target.value);
+                                    }
+                                }}
+                                onFocus={() => {
+                                    if (!isEditing) {
+                                        setErrorMessage("Please click the edit button to make any changes.");
+                                    }
+                                }}
                                 placeholder="Current Password"
+                                readOnly={!isEditing}
                             />
                             {/* Toggle button to show/hide current password */}
                             <img
@@ -238,24 +255,32 @@ const MyAccount = () => {
                         </div>
                     </div>
 
+
                     {/* Password Input */}
                     <div className={styles["input-group"]}>
                         <label>New Password:</label>
                         <div className={styles["input-with-icons"]}>
-                            {/* Password input field */}
                             <input
-                                type={showPassword ? "text" : "password"} // Toggle between 'text' and 'password'
+                                type={showPassword ? "text" : "password"}
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => {
+                                    if (isEditing) {
+                                        setPassword(e.target.value);
+                                    }
+                                }}
+                                onFocus={() => {
+                                    if (!isEditing) {
+                                        setErrorMessage("Please click the edit button to make any changes.");
+                                    }
+                                }}
                                 readOnly={!isEditing}
-                                placeholder="Password"
+                                placeholder="New Password"
                             />
-                            {/* Toggle button to show/hide password */}
                             <img
-                                src={showPassword ? Show : ShowOff } // Change the icon if you have one, else use text
+                                src={showPassword ? Show : ShowOff}
                                 alt={showPassword ? "Hide" : "Show"}
                                 className={styles.showicon}
-                                onClick={() => setShowPassword(!showPassword)} // Toggle visibility
+                                onClick={() => setShowPassword(!showPassword)}
                             />
                         </div>
                     </div>
