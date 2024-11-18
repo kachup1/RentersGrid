@@ -20,7 +20,7 @@ def add_review():
         if landlord_id is None:
             return jsonify({"error": "landlordId is required"}), 400
         
-      # Generate a unique ratingId if not provided
+        # Generate a unique ratingId if not provided
         rating_id = int(str(uuid.uuid4().int)[:12])  # Generate unique 12-digit ID
 
         new_review = {
