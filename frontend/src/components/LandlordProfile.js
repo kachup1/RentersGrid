@@ -476,7 +476,7 @@ const handleVote = (reviewId, type) => {
                             {/* Left Column containing the score and review details */}
                             <div className="left-column">
                                 <div className="review-rating">
-                                    <p className="score-text">{review.score}/5</p>
+                                <p className={`score-text score-${review.score}`}>{review.score}/5</p>
                                 </div>
                                 <div className="review-details">
                                     <div className={review.maintenance === "Yes"?"green":review.maintenance==="No"?"red":"gray"}>Timely Maintenance</div>
