@@ -20,11 +20,13 @@ def add_review():
         if landlord_id is None:
             return jsonify({"error": "landlordId is required"}), 400
         
-        # Generate a unique ratingId and limit its size by taking a portion
-        ratingId = int(str(uuid.uuid4().int)[:12])  # Limit to the first 12 digits
+      # Generate a unique ratingId if not provided
+        rating_id = data.get("ratingId")
+        if rating_id is None:
+            rating_id = int(str(uuid.uuid4().int)[:12])  # Generate unique 12-digit ID
 
         new_review = {
-            "ratingId": ratingId,  # Use the generated ratingId here
+            "ratingId": rating_id,  # Use the generated ratingId here
             "landlordId": int(landlord_id),  # Convert only if it's not None
             "score": data.get("score", 0),
             "comment": data.get("comment", ""),
@@ -35,7 +37,7 @@ def add_review():
             "reachable": data.get("reachable", "N/A"),
             "clearcontract": data.get("clearcontract", "N/A"),
             "recommend": data.get("recommend", "N/A"),
-            "userId": int(data.get("userId")),  # Ensure userId is an integer
+            "userId": data.get("userId"),  # Ensure userId is an integer
             "timestamp": datetime.utcnow(),  # Add timestamp for review submission
             "propertyId": data.get("propertyId"),
             "helpful": 0,
