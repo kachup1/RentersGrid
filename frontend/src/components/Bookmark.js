@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Bookmark.css';
 import OfficialLogo from '../Assets/official logo.svg';
 import SavedBookmark from '../Assets/saved-bookmark.svg'; // Saved bookmark icon
@@ -113,7 +113,7 @@ function Bookmark() {
     }
     return 0; // No sorting if no option selected
   });
-  
+
   return (
     <div className="mybookmark-page">
       {/* Header with icon and text */}
@@ -125,77 +125,76 @@ function Bookmark() {
       </div>
 
       <div className="mybookmark-search-container">
-      <select
+        <select
           className="mybookmark-search-dropdown"
           onChange={handleSortChange}
         >
-      <option value="">Search By</option>
-      <option value="rating">Highest Rating</option>
-      <option value="Landlord name">Landlord Name</option>
-      <option value="lowest rating">Lowest Rating</option>
-      <option value="property name">Property Name</option>
-      <option value="reviews">Most Reviews</option>
+          <option value="">Search By</option>
+          <option value="rating">Highest Rating</option>
+          <option value="Landlord name">Landlord Name</option>
+          <option value="lowest rating">Lowest Rating</option>
+          <option value="property name">Property Name</option>
+          <option value="reviews">Most Reviews</option>
         </select>
       </div>
       <div className="mybookmark-left-menu-container">
-  {/* Permanent side menu */}
-  <div className="mybookmark-left-side-menu">
-    <img src={require('../Assets/official logo.svg').default} alt="Logo" className="mybookmark-left-menu-logo" />
+        {/* Permanent side menu */}
+        <div className="mybookmark-left-side-menu">
+          <img src={require('../Assets/official logo.svg').default} alt="Logo" className="mybookmark-left-menu-logo" />
 
-    <ul>
-      <li>
-        {/* Homepage link */}
-        <Link to="/">
-          <img src={home} alt="Home" className="mybookmark-left-menu-icon" />
-          Homepage
-        </Link>
-      </li>
-      <li>
-        {/* Search link */}
-        <Link to="/SearchResults">
-          <img src={searchIcon} alt="Search" className="mybookmark-left-menu-icon" />
-          Search
-        </Link>
-      </li>
-      <li>
-        {/* Add Landlord link */}
-        <Link to="/add-landlord">
-          <img src={addLandlordIcon} alt="Add a Landlord" className="mybookmark-left-menu-icon" />
-          Add a Landlord
-        </Link>
-      </li>
-      <li>
-        {/* Sign Out link */}
-        <a href="#" onClick={handleSignOut}>
-          <img src={signOutIcon} alt="Sign Out" className="mybookmark-left-menu-icon" />
-          Sign Out
-        </a>
-      </li>
-      <li>
-        {/* My Account link */}
-        <Link to="/account">
-          <img src={accountIcon} alt="My Account" className="mybookmark-left-menu-icon" />
-          My Account
-        </Link>
-      </li>
-      <li>
-        {/* My Ratings link */}
-        <Link to="/ratings">
-        <img src={myrating} alt="Add a Landlord" className="mybookmark-left-menu-icon" />
-          My Ratings
-        </Link>
-      </li>
-      <li>
-        {/* My Bookmarks link */}
-        <Link to="/bookmarks">
-        <img src={myBookmark} alt="Add a Landlord" className="mybookmark-leftmenu-icon my-bookmark-icon" />
-          My Bookmarks
-          <img src={require('../Assets/triangle.svg').default} alt="Triangle Icon" className="triangle-icon" />
-        </Link>
-      </li>
-    </ul>
-  </div>
-</div>
+          <ul>
+            <li>
+              {/* Homepage link */}
+              <Link to="/">
+                <img src={home} alt="Home" className="mybookmark-left-menu-icon" />
+                Homepage
+              </Link>
+            </li>
+            <li>
+              {/* Search link */}
+              <Link to="/SearchResults">
+                <img src={searchIcon} alt="Search" className="mybookmark-left-menu-icon" />
+                Search
+              </Link>
+            </li>
+            <li>
+              {/* Add Landlord link */}
+              <Link to="/addalandlord">
+                <img src={addLandlordIcon} alt="Add a Landlord" className="mybookmark-left-menu-icon" />
+                Add a Landlord
+              </Link>
+            </li>
+            <li>
+              {/* Sign Out link */}
+              <a href="/" onClick={handleSignOut}>
+                <img src={signOutIcon} alt="Sign Out" className="mybookmark-left-menu-icon" />
+                Sign Out
+              </a>
+            </li>
+            <li>
+              {/* My Account link */}
+              <Link to="/myaccount">
+                <img src={accountIcon} alt="My Account" className="mybookmark-left-menu-icon" />
+                My Account
+              </Link>
+            </li>
+            <li>
+              {/* My Ratings link */}
+              <Link to="/myratings">
+                <img src={myrating} alt="Add a Landlord" className="mybookmark-left-menu-icon" />
+                My Ratings
+              </Link>
+            </li>
+            <li>
+              <Link to="/bookmarks">
+                <img src={myBookmark} alt="Bookmark Icon" className="my-bookmark-icon" />
+                <span className="my-bookmark-text">My Bookmarks</span>
+                <img src={triangle} alt="Triangle Icon" className="triangle-icon" />
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
 
 
       <div className="mylandlord-list">
@@ -212,16 +211,16 @@ function Bookmark() {
                 <p>{landlord.reviewCount} Reviews</p>
               </div>
               <div className="mylandlord-info">
-              <h2>{landlord.name}</h2>
-{landlord.properties && landlord.properties.length > 0 ? (
-  landlord.properties.map((property, index) => (
-    <p key={index}>
-      {property.propertyname ? `${property.propertyname},` : 'No Property Name,'} {property.address}, {property.city}, {property.zipcode}
-    </p>
-  ))
-) : (
-  <p>No properties available</p>
-)}
+                <h2>{landlord.name}</h2>
+                {landlord.properties && landlord.properties.length > 0 ? (
+                  landlord.properties.map((property, index) => (
+                    <p key={index}>
+                      {property.propertyname ? `${property.propertyname},` : 'No Property Name,'} {property.address}, {property.city}, {property.zipcode}
+                    </p>
+                  ))
+                ) : (
+                  <p>No properties available</p>
+                )}
 
 
               </div>

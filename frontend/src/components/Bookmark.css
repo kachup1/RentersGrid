@@ -190,14 +190,32 @@ li a:hover {
   height: 50px;       /* Adjust height */
   cursor: pointer;    /* Make it clickable */
 }
+/* Adjusts the bookmark icon */
 .my-bookmark-icon {
-  width: auto; /* Adjust to desired size */
-  height: 45px;
-  max-width: 100%;
-  margin-right: 10px;
-
-  max-height: 100%;
+  display: inline-block;
+  vertical-align: middle; /* Aligns the icon with the text */
+  width: 30px; /* Adjust size if necessary */
+  height: auto;
+  margin-right: 10px; /* Space between the icon and text */
 }
+
+/* Styles the text for "My Bookmarks" */
+.my-bookmark-text {
+  display: inline-block;
+  vertical-align: middle; /* Aligns the text with the icons */
+  font-size: 1.1rem;
+  color: white; /* Match the color of the other menu items */
+}
+
+/* Styles the triangle icon */
+.triangle-icon {
+  display: inline-block;
+  vertical-align: middle; /* Aligns the triangle with the text */
+  margin-left: 5px; /* Adds space between the text and triangle */
+  width: 10px; /* Reduces size of the triangle */
+  height: auto; /* Maintains aspect ratio */
+}
+
 .mybookmark-icon img {
   width: 100%;
   height: 100%;
