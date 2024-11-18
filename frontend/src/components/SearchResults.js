@@ -255,44 +255,60 @@ function SearchResultsPage() {
         <div className="searchresults-container">
           <h1>Search Results</h1>
           <div className="searchresults-list">
-            {searchresults.length > 0 ? (
-              searchresults.map((result, index) => (
-                <div className="searchresults-card" key={result.landlordId} onClick={() => handleLandlordClick(result.landlordId)}>
-                  <div className="searchresults-card-header">
-                    <div className="searchresults-rating-box">
-                      <span>Avg Rating</span>
-                      <h3>{result.averageRating ? result.averageRating.toFixed(1) : 'No Rating'}</h3>
-                      <p>{result.reviewCount} Reviews</p>
-                    </div>
-                    <div className="searchresults-landlord-info">
-                      <h2>{formatName(result.name)}</h2>
-                      {result.properties?.map((property, idx) => (
-                        <p key={idx}>{property.address}, {property.city}, {property.zipcode}</p>
-                      ))}
-                    </div>
-                    <div
-                      className="bookmark-icon"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleBookmark(result.landlordId);
-                      }}
-                    >
-                      <img
-                        src={bookmarked[result.landlordId] ? SelectedBookmark : MyBookmark}
-                        alt="Bookmark"
-                        className="bookmark-icon-img"
-                      />
-                    </div>
-                  </div>                
-                  </div>
-              ))
-            ) : (
-              <p>No results found.</p>
-            )}
+  {!Array.isArray(searchresults) || searchresults.length === 0 ? (
+    fetchedResults ? (
+      // Case 2: No results in the database
+      <p>No results found.</p>
+    ) : (
+      // Case 1: Navigated without input
+      <p>No search input provided.</p>
+    )
+  ) : (
+    // Case 3: Results found
+    searchresults.map((result, index) => (
+      <div
+        className="searchresults-card"
+        key={result.landlordId}
+            ref={(el) => (searchresultsRefs.current[index] = el)} // Assign ref
+
+        onClick={() => handleLandlordClick(result.landlordId)}
+      >
+        <div className="searchresults-card-header">
+          <div className="searchresults-rating-box">
+            <span>Avg Rating</span>
+            <h3>{result.averageRating ? result.averageRating.toFixed(1) : 'No Rating'}</h3>
+            <p>{result.reviewCount} Reviews</p>
+          </div>
+          <div className="searchresults-landlord-info">
+            <h2>{formatName(result.name)}</h2>
+            {result.properties?.map((property, idx) => (
+              <p key={idx}>
+                {property.address}, {property.city}, {property.zipcode}
+              </p>
+            ))}
+          </div>
+          <div
+            className="bookmark-icon"
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleBookmark(result.landlordId);
+            }}
+          >
+            <img
+              src={bookmarked[result.landlordId] ? SelectedBookmark : MyBookmark}
+              alt="Bookmark"
+              className="bookmark-icon-img"
+            />
           </div>
         </div>
       </div>
-    </div>
+    ))
+  )}
+</div>
+
+          </div>
+        </div>
+      </div>
   );
 }
 
