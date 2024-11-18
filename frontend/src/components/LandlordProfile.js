@@ -60,23 +60,39 @@ function LandlordProfile() {
         setSortOrder(event.target.value);
     }
 
-    /*Applying both sort property and options to reviews */
-    const filteredAndSortedReviews= landlordData.reviews
-    ?landlordData.reviews
-    .filter(review => selectedPropertyId ==="all"||review.propertyId===selectedPropertyId)
-    .sort((a,b)=>{
-        if(sortOrder === "highestRating"){
-            return b.score - a.score;
-        }
-        else if(sortOrder === "lowestRating"){
-            return a.score - b.score;
-        }
-        else{
-            return new Date(b.timestamp) - new Date(a.timestamp);
-        }
+    /* Applying both sort property and options to reviews */
+const filteredAndSortedReviews = landlordData.reviews
+? landlordData.reviews
+    .filter(review => selectedPropertyId === "all" || review.propertyId === selectedPropertyId)
+    .map(review => {
+      // Find the corresponding property for the current review
+      const reviewProperty = landlordData.properties.find(
+        property => property.propertyId === review.propertyId
+      );
 
+      // Attach the property details to the review
+      return {
+        ...review,
+        propertyDetails: reviewProperty || {
+          propertyname: "Unknown Property",
+          address: "Address not available",
+          city: "",
+          state: "",
+          zipcode: "",
+        },
+      };
     })
-    :[];
+    .sort((a, b) => {
+      if (sortOrder === "highestRating") {
+        return b.score - a.score;
+      } else if (sortOrder === "lowestRating") {
+        return a.score - b.score;
+      } else {
+        return new Date(b.timestamp) - new Date(a.timestamp);
+      }
+    })
+: [];
+
 
   
 
@@ -475,8 +491,9 @@ const handleVote = (reviewId, type) => {
                             <div className="comment-container">
                                 <div className="comment-header">
                                     <div className="address-container">
-                                        <h2>{property.propertyname}</h2>
-                                        <p>{property.address}, {property.city}, {property.state} {property.zipcode}</p>
+                                        <h2>{review.propertyDetails.propertyname}</h2>
+                                        <p>{review.propertyDetails.address}, {review.propertyDetails.city}, {review.propertyDetails.state} {review.propertyDetails.zipcode}
+                                        </p>
                                     </div>
 
                                     <div className="helpful-container">
