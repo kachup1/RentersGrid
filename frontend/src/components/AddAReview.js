@@ -176,8 +176,8 @@ const AddAReview = () => {
         console.log("Submitting review with propertyId:", selectedProperty); // Log selectedProperty
     
         const reviewData = {
-            landlordId,
-            ratingId: ratingId || Math.floor(Math.random() * 1000), // use existing ratingId if editing
+            landlordId: parseInt(landlordId, 10), // Convert landlordId to integer
+            ratingId: ratingId ? parseInt(ratingId, 10) : Math.floor(Math.random() * 1000), // Ensure ratingId is an integer
             score: selectedRating,
             comment: reviewText,
             maintenance: ratings.maintenance,
@@ -189,7 +189,7 @@ const AddAReview = () => {
             recommend: ratings.recommend,
             userId,
             timestamp,  // Add timestamp to data
-            propertyId: selectedProperty, // Send propertyId to backend
+            propertyId: parseInt(selectedProperty, 10), // Convert propertyId to integer
         };
     
         try {

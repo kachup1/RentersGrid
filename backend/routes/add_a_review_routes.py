@@ -16,7 +16,7 @@ def add_review():
         print("Received request:", data)  # Log the received data
 
         # Check if landlordId and other required fields are present and valid
-        landlord_id = data.get("landlordId")
+        landlord_id = int(data.get("landlordId"))
         if landlord_id is None:
             return jsonify({"error": "landlordId is required"}), 400
         
@@ -35,7 +35,7 @@ def add_review():
             "reachable": data.get("reachable", "N/A"),
             "clearcontract": data.get("clearcontract", "N/A"),
             "recommend": data.get("recommend", "N/A"),
-            "userId": data.get("userId"),
+            "userId": int(data.get("userId")),  # Ensure userId is an integer
             "timestamp": datetime.utcnow(),  # Add timestamp for review submission
             "propertyId": data.get("propertyId"),
             "helpful": 0,
@@ -98,6 +98,10 @@ def update_review(rating_id):
         update_data = request.get_json()
         print("Update data received:", update_data)  # Debugging
 
+        # Ensure all numeric fields are converted to integers
+        update_data["score"] = int(update_data.get("score", review["score"]))
+        update_data["propertyId"] = int(update_data.get("propertyId", review["propertyId"]))
+
         ratings_collection.update_one({"ratingId": int(rating_id)}, {"$set": update_data})
         print("Review successfully updated")  # Debugging
         return jsonify({"message": "Review updated successfully"}), 200
@@ -129,6 +133,11 @@ def get_review(rating_id):
         if review["userId"] != current_user_id:
             print("Unauthorized access: Current user does not own this review")
             return jsonify({"error": "Unauthorized access"}), 403
+        
+        # Convert numeric fields back to integers
+        review["ratingId"] = int(review["ratingId"])
+        review["landlordId"] = int(review["landlordId"])
+        review["propertyId"] = int(review["propertyId"])
 
         # Convert ObjectId to string
         review["_id"] = str(review["_id"])
