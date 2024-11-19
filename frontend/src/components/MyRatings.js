@@ -124,7 +124,7 @@ const MyRatings = () => {
                 {/* Scorrolable Part */}
                 <div className={styles["ratings-scrollable"]}>
                     {ratings.length === 0 ? (
-                        <div className={styles["no-ratings-message"]}>You Haven't Rated Anyone Yet</div>
+                        <div className={styles["no-ratings-message"]}>You haven't added any ratings yet. Share your thoughts on your landlords!</div>
                     ) : (
                         ratings.map((rating, index) => (
                             <div key={index} className={styles["rating-container"]}>
