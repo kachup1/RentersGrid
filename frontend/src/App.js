@@ -19,7 +19,7 @@ import ReportReviewConfirmation from './components/ReportReviewConfirmation'
 import MyAccount from './components/MyAccount';
 import MyRatings from './components/MyRatings';
 
-// import Test from './components/Test';
+import Test from './components/Test';
 
 import { useState } from 'react';
 import axios from 'axios';
@@ -50,7 +50,8 @@ function App() {
                 <Route path="/ReportReviewConfirmation" element={<ReportReviewConfirmation />} />
                 <Route path="/AddAReview/:landlordId/:ratingId?" element={<AddAReview />} />
                 
-        
+                <Route path="/Test" element={<Test />} />
+
             </Routes>
         </Router>
     );

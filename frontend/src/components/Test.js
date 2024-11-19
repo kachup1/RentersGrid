@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
-import styles from './Test.module.css';
-import Header from './Header';
 
+import InsideAccountSideMenu from '../components/InsideAccountSideMenu';
 
 const Test = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    // Toggle the menu open/close
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
 
     return (
-        <div className={styles.testContainer}>
-            {/* Header component */}
-            <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+
+        <div className="Container">
+           <InsideAccountSideMenu />
         </div>
     );
 };
 
+
 export default Test;
+

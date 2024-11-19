@@ -6,15 +6,20 @@
 }
 .side-menu {
     width: 350px;
-    background-color: #4D55A5;
+    background-color: transparent;
     color: white;
     display: flex;
     flex-direction: column;
-    padding-left: 50px;
-    padding-top: 300px;
+    padding-left: 70px;
+    padding-top: 235px;
     font-family: 'Helvetica', sans-serif;
     font-weight: bold;
     font-size: 19px;
+    height: 100%;
+
+    
+    min-height: 100vh;
+    overflow-y: auto;
 }
 
 .side-menu nav ul {
@@ -25,7 +30,7 @@
 .side-menu nav ul li {
     display: flex;
     align-items: center;
-    margin: 15px 0;
+    margin: 5px 0;
     cursor: pointer;
 }
 
