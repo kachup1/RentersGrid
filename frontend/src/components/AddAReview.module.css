@@ -1,4 +1,26 @@
 
+/*-----------------resizing---------------------------------------------------------------------*/
+
+/* Mobile (default) */
+.main-container-add-a-rating {
+    padding: 16px;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+    .main-container-add-a-rating {
+        padding: 32px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .main-container-add-a-rating {
+        padding: 48px;
+    }
+}
+
+
 /*====================================Main frame (offical logo, menu, ect=========================*/
 /* Define the font */
 @font-face {
@@ -31,44 +53,6 @@ body {
     margin-top: 20px; /* Adjust top spacing if needed */
 }
 
-/* Company logo container */
-.logohp-container-add-a-rating img {
-    display: flex;
-    justify-content: center; /* Center the logo */
-    align-items: center;
-    width: 450px; /* Full width */
-}
-
-/* Company logo */
-.center-logo-add-a-rating {
-    width: 400px; /* Adjust size as needed */
-    height: auto;
-    margin-top: 30px; /* Top margin to fine-tune the position */
-    cursor: pointer; /* Makes the company logo clickable */
-}
-
-/* Account button styles */
-.buttons-container-add-a-rating {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    right: 50px; /* Adjust this to move the buttons more to the right */
-    top: 20px; /* Adjust top spacing as needed */
-}
-
-/* Left icon (Submit Landlord Rate) */
-.left-icon-add-a-rating {
-    width: 80px; /* Adjust size as needed */
-    height: auto;
-    margin-right: 30px; /* Space between left and right icons */
-}
-
-/* Styling for the right icon (Account button) */
-.account-right-add-a-rating {
-    width: 70px; /* Adjust size as needed */
-    height: auto;
-}
-
 /* =========================================================== Frame 1 (Review Section) =================================== */
 
 /* Main container for the form, the gray box */
@@ -77,15 +61,28 @@ body {
     padding: 30px;  /* Padding inside the box */
     border-radius: 10px;  /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    width: 995px; 
+    width: 85%; 
     height: 380px; 
-    margin: 150px auto;  /* Center the box horizontally  */
+    margin: 10px auto;  /* Center the box horizontally  */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: relative;
 
+}
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+    .form-container-add-a-rating {
+        margin: 50px auto; /* Reduce the top margin for mobile */
+    }
+}
+
+/* Adjust for larger screens */
+@media (min-width: 1024px) {
+    .form-container-add-a-rating {
+        margin: 10px auto; /* Extra space for larger screens */
+    }
 }
 
 .add-rating-image {
