@@ -259,12 +259,12 @@ function SearchResultsPage() {
         </div>
 
         <div className="searchresults-container">
-          <h1>Search Results</h1>
+          <h1>Search Results for "{lastSearchedQuery}"</h1>
           <div className="searchresults-list">
           {!Array.isArray(searchresults) || searchresults.length === 0 ? (
     isSearchTriggered ? (
       // Case 2: No results found (only after Enter is pressed)
-      <p>No results found for "{lastSearchedQuery}".</p>
+      <p>No results found.</p>
     ) : (
       // Case 1: Navigated without input
       <p></p>
