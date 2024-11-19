@@ -362,6 +362,7 @@ html, body {
     font-size: large;
     border-radius: 20px;
     font-weight: bold;
+    cursor: pointer;
 }
 .address-suggestions {
     position: absolute;
