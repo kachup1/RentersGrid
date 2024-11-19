@@ -18,8 +18,8 @@ from routes.edit_myaccount import edit_account_bp
 from routes.vote_routes import vote_blueprint
 from routes.add_landlord_routes import add_landlord_blueprint
 from routes.report_routes import report_routes
-from routes.add_property_routes import add_property_blueprint
-from routes.delete_account import delete_account_blueprint
+from routes.add_property_route import add_property_blueprint
+#from routes.delete_account_route import delete_account_blueprint
 
 
 
@@ -55,7 +55,7 @@ app.register_blueprint(add_landlord_blueprint)
 app.register_blueprint(report_routes)
 
 app.register_blueprint(add_property_blueprint)
-app.register_blueprint(delete_account_blueprint)
+#app.register_blueprint(delete_account_blueprint)
 
 
 
