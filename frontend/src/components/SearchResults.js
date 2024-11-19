@@ -27,6 +27,7 @@ function SearchResultsPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { results: fetchedResults } = location.state || {};
+  const { results = [], searchQuery: initialQuery = '', searchBy = 'all' } = location.state || {};
 
   const refreshAndNavigate = () => {
     navigate('/');
@@ -163,7 +164,13 @@ function SearchResultsPage() {
     return lastName ? `${lastName}, ${firstName}` : name;
   };
 
-  
+  useEffect(() => {
+  if (searchQuery === '' && initialQuery) {
+    setSearchQuery(initialQuery); // Only set the query if it's empty initially
+    setLastSearchedQuery(initialQuery);
+  }
+}, [initialQuery]);
+
 
   useEffect(() => {
     if (fetchedResults) {
@@ -259,7 +266,7 @@ function SearchResultsPage() {
         </div>
 
         <div className="searchresults-container">
-          <h1>Search Results for "{lastSearchedQuery}"</h1>
+          <h1>Search Results for "{lastSearchedQuery|| ''}"</h1>
           <div className="searchresults-list">
           {!Array.isArray(searchresults) || searchresults.length === 0 ? (
     isSearchTriggered ? (
