@@ -16,7 +16,7 @@
 /* Desktop */
 @media (min-width: 1024px) {
     .main-container-add-a-rating {
-        padding: 48px;
+        padding: 90px;
     }
 }
 
@@ -43,15 +43,13 @@ body {
     flex-direction: column;
     align-items: center;
     font-family: 'Helvetica';
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+    transform: scale(1); /* Default scale */
+    transform-origin: center center; /* Scale from the center */
+    
 }
 
-/* Header styles */
-.headerhp-add-a-rating {
-    width: 100%; /* Full width for the header */
-    display: flex;
-    justify-content: center; /* Center the content horizontally */
-    margin-top: 20px; /* Adjust top spacing if needed */
-}
 
 /* =========================================================== Frame 1 (Review Section) =================================== */
 
@@ -61,28 +59,15 @@ body {
     padding: 30px;  /* Padding inside the box */
     border-radius: 10px;  /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    width: 85%; 
+    width: 995px; 
     height: 380px; 
-    margin: 10px auto;  /* Center the box horizontally  */
+    margin: 150px auto;  /* Center the box horizontally  */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
+    position: absolute;
 
-}
-/* Adjust for smaller screens */
-@media (max-width: 768px) {
-    .form-container-add-a-rating {
-        margin: 50px auto; /* Reduce the top margin for mobile */
-    }
-}
-
-/* Adjust for larger screens */
-@media (min-width: 1024px) {
-    .form-container-add-a-rating {
-        margin: 10px auto; /* Extra space for larger screens */
-    }
 }
 
 .add-rating-image {
@@ -570,7 +555,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    overflow: hidden;
+    overflow-y: auto; /* Enable scrolling */
+
 }
 /* Frame 4 Specific Styles */
 .frame4-container {
@@ -582,12 +568,46 @@ body{
     border-radius: 60px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 80%;
-    height: 950px; 
+    height: 60%; /* Let the container grow with its content */
     margin: 100px auto; /* Center align */
     margin-top: 10px; 
-    position: absolute;
+    position: absolute; /* Keep relative for child positioning */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; 
+    scroll-behavior: smooth; /* Smooth scrolling effect */
+    padding-bottom: 100px; /* Add extra space at the bottom */
 
 }
+
+
+
+/* Custom scrollbar for frame4-container */
+.frame4-container::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+    border-radius: 10px; /* Rounded edges for the scrollbar */
+}
+
+/* Track of the scrollbar */
+.frame4-container::-webkit-scrollbar-track {
+    background: #4D55A5; /* Background color of the track */
+    border-radius: 10px; /* Match the rounded edges */
+}
+
+/* Thumb (the draggable part) */
+.frame4-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #4D55A5, #7f9cf5); /* Gradient for the thumb */
+    border-radius: 10px; /* Rounded edges */
+}
+
+/* Hover effect on the thumb */
+.frame4-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #7f9cf5, #a0aec0); /* Lighter gradient on hover */
+}
+
+
+
+
+
 
 .frame-4-add-rating-image {
     width: 137px;  /* Set the width*/
@@ -700,11 +720,10 @@ body{
 
 /* smiley row*/
 .frame4-rating-icons {
-    display: flex;
     justify-content: center;
-    margin-top: 280px;
-    left: 650px;
-    position: absolute;
+    margin-top: 70px;
+    left: 290px;
+    position: relative;
     
 }
 .frame4-criterion-container-4 {
@@ -732,7 +751,7 @@ body{
 
 /* Container for both buttons in Frame 4 */
 .frame4-buttons-container {
-    position: relative;
+    position: absolute;
     width: 100%; /* Full width to position buttons independently */
     display: flex;
     justify-content: space-between; /* Optional: spreads buttons to opposite ends */
@@ -753,7 +772,7 @@ body{
 .frame4-submit-container {
     position: absolute;
     right: 320px; /* Position from the right side */
-    bottom: -1200px; /* Position from the bottom */
+    bottom: -1400px; /* Position from the bottom */
     width: 200px; 
     height: 300px; 
 }
@@ -798,7 +817,8 @@ body{
 }
 
 .checkbox-container input[type="checkbox"]:checked {
-    background-color: #db0b0b; /* Color when checked */
+    background-image: url("../Assets/checkbox-selected.svg");
+    background-color: red; 
 }
 
 .error-message-checkbox {

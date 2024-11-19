@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './AddAReview.module.css'; // import the CSS file
+
 import OfficialLogo from '../Assets/official logo.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 //import SideMenu from './SideMenu';
@@ -30,6 +30,7 @@ import Recommend from '../Assets/reco.svg';
 import ThumbsUp from '../Assets/up-green.svg';
 import ThumbsDown from '../Assets/down-red.svg';
 import SubmitReview from '../Assets/submit-review_1.svg';
+import CheckIcon from '../Assets/checkbox-selected.svg';
 import axios from 'axios';
 import { getUserIdFromToken, isTokenValid } from './authentication';
 import { Link } from 'react-router-dom';
@@ -60,7 +61,32 @@ const AddAReview = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-    
+
+    const [scale, setScale] = useState(1); // Track the current scale
+
+    // Function to calculate the scale dynamically
+    const handleResize = () => {
+        const container = document.querySelector(`.${styles['main-container-add-a-rating']}`);
+        const availableWidth = window.innerWidth;
+        const availableHeight = window.innerHeight;
+
+        const contentWidth = 995; // Your base design width
+        const contentHeight = 380; // Your base design height
+
+        // Calculate the scale factor, but limit it to a maximum of 1
+        const newScale = Math.min(
+            availableWidth / contentWidth,
+            availableHeight / contentHeight,
+            1 // Ensure it doesn't zoom in beyond the original size
+        );
+        setScale(newScale);
+        };
+
+    useEffect(() => {
+        handleResize(); // Initial calculation
+        window.addEventListener('resize', handleResize); // Recalculate on resize
+        return () => window.removeEventListener('resize', handleResize); // Cleanup
+    }, []);
     
     useEffect(() => {
         const fetchData = async () => {
@@ -354,16 +380,17 @@ const LandlordProfile = ({ landlordId }) => {
         return text.replace(regex, (match) => '*'.repeat(match.length));
     };
     
-    return (
-   
-        <div className={styles["main-container-add-a-rating"]}>
 
-                {/* Header section */}
-                <header className={styles["headerhp-add-a-rating"]}>
-                <div className="Header">
-                    <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-                </div>
-                </header>
+
+    return (
+        
+        <div className={styles["main-container-add-a-rating"]}
+        style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}
+
+        >
+            {/* Prompt for Editing Access */}
+            <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+
 
                 {/* Prompt for Editing Access */}
                 {ratingId && !isLoggedIn && (
