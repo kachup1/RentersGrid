@@ -136,35 +136,35 @@ function AddProperty() {
                     <img src={HomePageIcon} alt="Homepage Icon" />
                     <span>Homepage</span>
                 </div>
-                <div className="menu-item">
+                <div className="menu-item" onClick={()=>navigate('/SearchResults')}>
                     <img src={SearchIcon} alt="Search Icon" />
                     <span>Search</span>
                 </div>
-                <div className="menu-item">
+                <div className="menu-item"onClick={()=>navigate('/AddALandlord')}>
                     <img src={Landlord} alt="Add a Landlord Icon" />
                     <span>Add a Landlord</span>
-                </div>
-                <div className="menu-item">
+                </div>{/*Need to fix: */}
+                <div className="menu-item"onClick={()=>navigate('/')}>
                     <img src={SignOut} alt="Sign Out Icon" />
                     <span>Sign Out</span>
                 </div>
-                <div className="menu-item">
+                <div className="menu-item"onClick={()=>navigate('/myaccount')}>
                     <img src={AccountButton} alt="Account Icon" />
                     <span>My Account</span>
                 </div>
-                <div className="menu-item">
+                <div className="menu-item" onClick={()=>navigate('/myratings')}>
                     <img src={Ratings} alt="Ratings Icon" />
                     <span>My Ratings</span>
                 </div>
-                <div className="menu-item">
+                <div className="menu-item" onClick={()=>navigate('/bookmarks')}>
                     <img src={Bookmark} alt="Bookmarks Icon" />
                     <span>My Bookmarks</span>
                 </div>
             </div>
             {/*This is the Top right icons*/ }
             <div className="top-right-icons">
-                <img src={AddLandlord} alt="Add Landlord Icon" />
-                <img src={AccountButton} alt ="Account Icon"/>
+                <img src={AddLandlord} alt="Add Landlord Icon" onClick={()=>navigate('/AddALandlord')} />
+                <img src={AccountButton} alt ="Account Icon"onClick={()=>navigate('/myaccount')}/>
             </div>
             {/*This is the title of the page*/ }
             <div className="title-section">
