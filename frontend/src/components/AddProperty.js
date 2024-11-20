@@ -12,6 +12,7 @@ import Landlord from '../Assets/menu-2.svg';
 import SignOut from '../Assets/menu-4.svg';
 import Bookmark from '../Assets/my bookmark.svg';
 import Ratings from '../Assets/my-rating.svg';
+import axios from 'axios';
 
 
 import './AddProperty.css';
@@ -24,8 +25,20 @@ function AddProperty() {
     const [city, setCity] = useState('Long Beach');
     const [state, setState] = useState('California');
     const [propertyZipcode, setZipcode] = useState('');
+    const [suggestions,setSuggestions]=useState([]);
     const{landlordId} = useParams()
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Log the API key temporarily
+        console.log("Google API Key:", process.env.REACT_APP_GOOGLE_API_KEY);
+        console.log("Current Address State:", propertyAddress);
+    }, [propertyAddress]);
+
+    useEffect(() => {
+        console.log("Current Suggestions State:", suggestions); // Log the state
+    }, [suggestions]);
+    
 
     const handleSelectChange = (event) => {
         setIsDisabled(event.target.value === "No");
@@ -38,7 +51,7 @@ function AddProperty() {
             address: propertyAddress,
             city,
             state,
-            zipcode:propertyZipcode
+            zipcode:propertyZipcode,
         };
         try{
             const response = await fetch(`http://localhost:5000/api/addproperty/${landlordId}`,
@@ -61,6 +74,66 @@ function AddProperty() {
             console.error('Error adding property', error);
         }
     };
+
+
+    const fetchSuggestions = async (query) => {
+        console.log("Query sent to Google API:", query);
+        if (query.length > 2) {
+            try {
+                const response = await axios.get(
+                    `https://maps.googleapis.com/maps/api/place/autocomplete/json`,
+                    {
+                        params: {
+                            input: query,
+                            key: process.env.frontend.REACT_APP_GOOGLE_API_KEY,
+                            types: "address", // Restrict results to addresses
+                           
+                        },
+                    }
+                );
+                console.log("API Response:", response.data); // Log the entire API response
+                setSuggestions(response.data.predictions || []);
+                console.log("Updated Suggestions State:", response.data.predictions || []);
+            } catch (error) {
+                console.error("Error fetching address suggestions:", error);
+            }
+        } else {
+            setSuggestions([]); // Clear suggestions for short input
+        }
+    };
+    
+
+    const handleSuggestionClick = async (suggestion) => {
+        try {
+            const response = await axios.get(
+                `https://maps.googleapis.com/maps/api/place/details/json`,
+                {
+                    params: {
+                        place_id: suggestion.place_id,
+                        key: process.env.REACT_APP_GOOGLE_API_KEY,
+                    },
+                }
+            );
+            const details = response.data.result;
+    
+            const addressComponents = details.address_components;
+    
+            const cityComponent = addressComponents.find((c) => c.types.includes("locality"));
+            const stateComponent = addressComponents.find((c) =>
+                c.types.includes("administrative_area_level_1")
+            );
+            const zipComponent = addressComponents.find((c) => c.types.includes("postal_code"));
+    
+            setPropertyAddress(details.formatted_address || "");
+            setCity(cityComponent?.long_name || "");
+            setState(stateComponent?.long_name || "");
+            setZipcode(zipComponent?.long_name || "");
+            setSuggestions([]); // Clear suggestions after selection
+        } catch (error) {
+            console.error("Error fetching place details:", error);
+        }
+    };
+    
 
 
     return (
@@ -116,23 +189,39 @@ function AddProperty() {
                     <option value="No">No</option>
                 </select>
 
-                <label className="form-label required">Property 2 Name:</label>
+                <label className="form-label required">Property  Name:</label>
                 <input type="text" className="form-input" placeholder="Property Name" disabled={isDisabled} onChange={(e)=> setPropertyName(e.target.value)}/>
 
-                <label className="form-label required">Property 2 Address:</label>
-                <input type="text" className="form-input" placeholder="Street Address" disabled={isDisabled} onChange={(e)=> setPropertyAddress(e.target.value)} />
+                <label className="form-label required">Property  Address:</label>
+                <input type="text" className="form-input" placeholder="Street Address" value = {propertyAddress} onChange={(e)=>{
+                    const value = e.target.value;
+                    console.log("User Input: ",value);
+                    setPropertyAddress(e.target.value);
+                    fetchSuggestions(value);
+                    }} disabled={isDisabled} />
+                    <ul className="suggestions-list">
+                        { console.log("Suggestions to render:", suggestions)} {/* Log suggestions */}
+                        {suggestions.map((s,index)=>
+                        (
+                            <li key={index} onClick={()=> handleSuggestionClick(s)}>
+                                {s.description}
+
+                            </li>
+                            
+                        ))}
+                    </ul>
 
                 <label className="form-label">City:</label>
-                <input type="text" className="form-input" placeholder="City" defaultValue="Long Beach" disabled={isDisabled} />
+                <input type="text" className="form-input" value={city} /*placeholder="City"defaultValue="Long Beach"*/ disabled={isDisabled} />
 
                 <label className="form-label">State:</label>
                 <select className="form-select" disabled={isDisabled}>
-                    <option>California</option>
+                    <option>{state}</option>
                     {/* Add other states as options if needed */}
                 </select>
 
                 <label className="form-label">Zipcode:</label>
-                <input type="text" className="form-input" placeholder="Zipcode" disabled={isDisabled} onChange={(e)=> setZipcode(e.target.value)}/>
+                <input type="text" className="form-input" /*placeholder="Zipcode"*/ value={propertyZipcode} disabled={isDisabled} onChange={(e)=> setZipcode(e.target.value)}/>
 
                 <button className="submit-button" onClick={handleSubmit} disabled ={isDisabled}> Submit Property</button>
             </div>
