@@ -42,6 +42,7 @@ function AddProperty() {
                             access_token: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN_MONTSE,
                             types: 'address',
                             autocomplete: true,
+                            country:'us'
                         },
                     }
                 );
@@ -132,7 +133,7 @@ function AddProperty() {
             {/* Sidebar menu */}
             <div className="sidebar">
                 <img src={OfficialLogo} alt="Renters Grid Logo" className="sidebar-logo" onClick={() => navigate('/')} />
-                <div className="menu-item">
+                <div className="menu-item"onClick={() => navigate('/')}>
                     <img src={HomePageIcon} alt="Homepage Icon" />
                     <span>Homepage</span>
                 </div>
