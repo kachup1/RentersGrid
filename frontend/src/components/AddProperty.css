@@ -159,35 +159,19 @@
 /*Suggestions*/
 /* The container for the suggestions dropdown */
 .suggestions-list {
-    position: absolute; /* Ensures dropdown appears below the input */
-    z-index: 1000;/* Keeps the dropdown above other elements */
-    list-style: none;
-    margin: 0;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 5px;
     padding: 0;
-    border: 1px solid #ccc; /* Light border for clarity */
-    background-color: #fff; /* White background for visibility */
-    max-height: 200px; /* Limit the height of the dropdown */
-    overflow-y: auto; /* Scroll if suggestions exceed max height */
-    
-    width: 200px; /* Matches the width of the input field */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for dropdown */
+    list-style: none;
 }
 
-/* Each suggestion item */
 .suggestions-list li {
-    padding: 10px; /* Add some padding for readability */
-    cursor: pointer; /* Change cursor to pointer */
-    transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
-}
-
-/* Highlight item on hover */
-.suggestions-list li:hover {
-    background-color: #f0f0f0; /* Light gray background on hover */
-}
-
-/* No suggestions available message */
-.suggestions-list li.no-suggestions {
     padding: 10px;
-    color: #999;
-    cursor: default;
+    cursor: pointer;
+}
+
+.suggestions-list li:hover {
+    background-color: #f0f0f0;
 }
