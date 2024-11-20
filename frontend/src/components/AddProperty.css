@@ -159,12 +159,14 @@
 /*Suggestions*/
 /* The container for the suggestions dropdown */
 .suggestions-list {
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     max-height: 150px;
     overflow-y: auto;
     margin-top: 5px;
     padding: 0;
     list-style: none;
+    background-color: white;
+    color: black;
 }
 
 .suggestions-list li {
@@ -173,5 +175,5 @@
 }
 
 .suggestions-list li:hover {
-    background-color: black;
+    background-color: #f0f0f0;
 }
