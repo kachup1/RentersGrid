@@ -78,7 +78,9 @@ function AddALandlord() {
                     params: {
                         access_token: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
                         types: 'address',
-                        autocomplete: true
+                        autocomplete: true,
+			country: 'us'           // Restrict search to the USA
+
                     }
                 });
 
