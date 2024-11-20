@@ -5,7 +5,7 @@ import BarMenuIcon from '../Assets/menu-bar.svg';
 import OfficialLogo from '../Assets/official logo.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import AccountButton from '../Assets/Account button.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { isTokenValid } from './authentication';
 
 
@@ -13,6 +13,17 @@ import { isTokenValid } from './authentication';
 const Header = ({ isMenuOpen, toggleMenu }) => {
     const navigate = useNavigate();
     const isSignedIn = isTokenValid();
+
+    const location = useLocation();
+
+    const handleLogoClick = () => {
+        if (location.pathname === '/') {
+            window.location.reload(); // Reload the page if in Homepage
+        } else {
+            navigate('/'); // Navigate to "/" if on another page
+        }
+    };
+
     return (
         <>
             {/* Dimmed Background Overlay When Side Menu is Open */}
@@ -35,7 +46,7 @@ const Header = ({ isMenuOpen, toggleMenu }) => {
                     <img
                         src={OfficialLogo}
                         alt="Official Logo"
-                        onClick={() => window.location.reload()}
+                        onClick={handleLogoClick}
                     />
                 </div>
 
