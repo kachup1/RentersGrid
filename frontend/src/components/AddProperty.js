@@ -100,12 +100,15 @@ function AddProperty() {
     
 
     const handleSuggestionClick = (suggestion) => {
-        setPropertyAddress(suggestion.place_name);
+        const fullAddress = suggestion.place_name;
+        const streetAddress = fullAddress.split(',')[0]; // Extract only the street address
+        setPropertyAddress(streetAddress);
+    
         const context = suggestion.context || [];
         const cityContext = context.find((c) => c.id.includes('place'));
         const stateContext = context.find((c) => c.id.includes('region'));
         const zipContext = context.find((c) => c.id.includes('postcode'));
-
+    
         setCity(cityContext?.text || '');
         setState(stateContext?.text || '');
         setZipcode(zipContext?.text || '');
@@ -113,6 +116,7 @@ function AddProperty() {
         setLongitude(suggestion.center[0]);
         setSuggestions([]);
     };
+    
 
     const handleAddressChange = (e) => {
         const query = e.target.value;
