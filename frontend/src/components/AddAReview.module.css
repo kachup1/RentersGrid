@@ -19,7 +19,12 @@
         padding: 90px;
     }
 }
-
+/* Desktop */
+@media (min-width: 1024px) {
+    .checkbox-container {
+        padding: 90px;
+    }
+}
 
 /*====================================Main frame (offical logo, menu, ect=========================*/
 /* Define the font */
@@ -95,10 +100,12 @@ body {
     font-size: 40px;
     margin-bottom: 10px;
     margin-top: -289px; /* Adjust the value as needed */
-    margin-left: 60px; /* Adjust as needed */
+    margin-left: 20%; /* Adjust as needed */
     font-weight: 100;
     color: #4D55A5;
     position: absolute;
+    text-overflow: ellipsis; /* Add ellipsis for long names */
+
 }
 
 
@@ -515,10 +522,10 @@ body {
 .button-row {
     display: flex;
     justify-content: space-between;
-    gap: 950px;
+    gap: 500px;
     width: auto;
     position: absolute;
-    bottom: 100px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     box-sizing: border-box;
@@ -632,7 +639,7 @@ body{
     font-size: 40px;
     margin-bottom: 10px;
     margin-top: -20px; /* Adjust the value to move it higher */
-    margin-left: 80px; 
+    margin-left: 20%; /* Adjust as needed */
     font-weight: 100; /* Makes the font lighter */
     color: #4D55A5; 
     position: absolute;
@@ -762,8 +769,8 @@ body{
 /* Frame 4 Back Button Container */
 .frame4-back-container {
     position: absolute;
-    left: 200px; /* Position from the left side */
-    bottom: -950px; /* Position from the bottom */
+    left: 400px; /* Position from the left side */
+    bottom: -1150px; /* Position from the bottom */
     width: 130px; /* Adjust as needed */
     height: 50px; /* Adjust as needed */
 }
@@ -771,9 +778,9 @@ body{
 /* Frame 4 Submit Button Container */
 .frame4-submit-container {
     position: absolute;
-    right: 320px; /* Position from the right side */
+    right: 35%; /* Position from the right side */
     bottom: -1400px; /* Position from the bottom */
-    width: 200px; 
+    width: 220px; 
     height: 300px; 
 }
 
@@ -798,27 +805,44 @@ body{
 
 .checkbox-container {
     display: flex;
+    flex-direction: column; /* Stack checkbox and text vertically */
     align-items: center;
-    margin-top: 1000px;
-    position: absolute;
-    left: 650px;
-    font-size: 18px;
-    color: #ffffff; /* Text color */
+    justify-content: center;
+    margin-top: 950px; /* Reduce the top margin */
+    margin-left: 20px; /* Reduce the top margin */
+    position: absolute; /* Fixed position relative to the viewport */
+    left: 20%; /* Keep it aligned horizontally as needed */
+    font-size: 14px; /* Reduce font size for smaller text */
+    color: #4D55A5; /* Text color */
+    font-weight: bold; /* Makes the text bold */
+    text-align: center;
+    background-color: #E6E6E6; /* Optional: Add background for the box */
+    padding: 10px; /* Add padding to make it compact */
+    border-radius: 50px; /* Rounded edges for the box */
+    width: 620px; /* Set a fixed width for the box */
+    height: auto; /* Allow height to adjust based on content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+    border: 1px solid #ffffff; /* Optional: Add a border for better visibility */
 }
 
+
 .checkbox-container input[type="checkbox"] {
-    width: 25px; /* Adjust size */
-    height: 25px;
+    width: 20px; /* Adjust size */
+    height: 20px;
+    margin-top: 0px; /* Move the checkbox lower */
     margin-right: 10px; /* Space between checkbox and text */
-    border: 2px solid #ff0000; /* Red border for checkbox */
+    border: 1px solid #ff0000; /* Red border for checkbox */
     appearance: none;
     background-color: white;
     cursor: pointer;
+    position: relative; /* Allows for offset adjustments */
+
 }
 
 .checkbox-container input[type="checkbox"]:checked {
     background-image: url("../Assets/checkbox-selected.svg");
     background-color: red; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Add a shadow for depth */
 }
 
 .error-message-checkbox {
