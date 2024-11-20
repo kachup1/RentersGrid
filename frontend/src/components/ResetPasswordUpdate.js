@@ -9,13 +9,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 function ResetPasswordUpdate() {
     const navigate = useNavigate();
-    const { token } = useParams();  // Get the token from the URL
+    const { token } = useParams(); // Get the token from the URL
 
     const [email, setEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false); // To prevent multiple submissions
 
     // Fetch the email associated with the token by decoding it (on the server side)
     useEffect(() => {
@@ -23,15 +24,16 @@ function ResetPasswordUpdate() {
             try {
                 const response = await fetch(`http://localhost:5000/api/verify-token/${token}`);
                 const data = await response.json();
+
                 if (response.ok) {
-                    setEmail(data.email);  // Set the decoded email from token
+                    setEmail(data.email); // Set the decoded email from the token
                 } else {
-                    setErrorMessage(data.error || "Invalid token. Please try resetting your password again.");
-                    navigate('/resetpassword');
+                    setErrorMessage(data.error || "Invalid or expired token. Please request a new reset link.");
+                    setTimeout(() => navigate('/resetpassword'), 3000); // Redirect after 3 seconds
                 }
             } catch (error) {
                 setErrorMessage("An error occurred. Please try again.");
-                navigate('/resetpassword');
+                setTimeout(() => navigate('/resetpassword'), 3000); // Redirect after 3 seconds
             }
         };
 
@@ -46,6 +48,14 @@ function ResetPasswordUpdate() {
             setSuccessMessage('');
             return;
         }
+
+        // Add password strength validation
+        if (newPassword.length < 6 || !/\d/.test(newPassword)) {
+            setErrorMessage("Password must be at least 6 characters and include at least one number.");
+            return;
+        }
+
+        setIsSubmitting(true); // Disable the button
 
         try {
             const response = await fetch(`http://localhost:5000/api/reset-password/${token}`, {
@@ -63,12 +73,14 @@ function ResetPasswordUpdate() {
                 setErrorMessage('');
                 setTimeout(() => navigate('/signin'), 2000);
             } else {
-                setErrorMessage(data.error || "Password update failed.");
+                setErrorMessage(data.error || "Password update failed. The token may have already been used.");
                 setSuccessMessage('');
             }
         } catch (error) {
             setErrorMessage("An error occurred. Please try again.");
             setSuccessMessage('');
+        } finally {
+            setIsSubmitting(false); // Re-enable the button
         }
     };
 
@@ -99,7 +111,7 @@ function ResetPasswordUpdate() {
 
             <div className="reset-password-update-wrapper">
                 <div className="reset-password-update-form-box-login">
-                    <h1 className='reset-password-update-text'>Reset Password</h1>
+                    <h1 className="reset-password-update-text">Reset Password</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="reset-password-update-input-box">
                             <span className="icon">
@@ -143,7 +155,13 @@ function ResetPasswordUpdate() {
                         {errorMessage && <div className="reset-password-update-error">{errorMessage}</div>}
                         {successMessage && <div className="reset-password-update-success">{successMessage}</div>}
 
-                        <button type="submit" className="reset-password-update-continue-button">Update Password</button>
+                        <button 
+                            type="submit" 
+                            className="reset-password-update-continue-button"
+                            disabled={isSubmitting} // Disable the button while submitting
+                        >
+                            {isSubmitting ? "Updating..." : "Update Password"}
+                        </button>
                     </form>
                 </div>
             </div>

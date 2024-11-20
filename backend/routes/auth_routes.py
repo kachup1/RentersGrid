@@ -37,7 +37,10 @@ def signup():
         users_collection.insert_one({
             'email': email,
             'password': hashed_password,
-            'userId': user_id
+            'userId': user_id,
+            "reset_token": None,  # Reset token is initially None
+            "reset_token_expiry": None,  # Expiry is initially None
+            "reset_token_used": False,  # Token is initially unused
         })
         return jsonify({"message": "User created successfully!"}), 201
     except Exception as e:
