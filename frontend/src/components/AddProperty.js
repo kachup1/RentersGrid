@@ -12,10 +12,11 @@ import Landlord from '../Assets/menu-2.svg';
 import SignOut from '../Assets/menu-4.svg';
 import Bookmark from '../Assets/my bookmark.svg';
 import Ratings from '../Assets/my-rating.svg';
+import InsideAccountSideMenu from '../components/InsideAccountSideMenu';
 import axios from 'axios';
 
 
-import './AddProperty.css';
+import styles from './AddProperty.module.css';
 
 function AddProperty() {
 
@@ -131,46 +132,18 @@ function AddProperty() {
         <div className="add-property-container">
 
             {/* Sidebar menu */}
-            <div className="sidebar">
-                <img src={OfficialLogo} alt="Renters Grid Logo" className="sidebar-logo" onClick={() => navigate('/')} />
-                <div className="menu-item"onClick={() => navigate('/')}>
-                    <img src={HomePageIcon} alt="Homepage Icon" />
-                    <span>Homepage</span>
-                </div>
-                <div className="menu-item" onClick={()=>navigate('/SearchResults')}>
-                    <img src={SearchIcon} alt="Search Icon" />
-                    <span>Search</span>
-                </div>
-                <div className="menu-item"onClick={()=>navigate('/AddALandlord')}>
-                    <img src={Landlord} alt="Add a Landlord Icon" />
-                    <span>Add a Landlord</span>
-                </div>{/*Need to fix: */}
-                <div className="menu-item"onClick={()=>navigate('/')}>
-                    <img src={SignOut} alt="Sign Out Icon" />
-                    <span>Sign Out</span>
-                </div>
-                <div className="menu-item"onClick={()=>navigate('/myaccount')}>
-                    <img src={AccountButton} alt="Account Icon" />
-                    <span>My Account</span>
-                </div>
-                <div className="menu-item" onClick={()=>navigate('/myratings')}>
-                    <img src={Ratings} alt="Ratings Icon" />
-                    <span>My Ratings</span>
-                </div>
-                <div className="menu-item" onClick={()=>navigate('/bookmarks')}>
-                    <img src={Bookmark} alt="Bookmarks Icon" />
-                    <span>My Bookmarks</span>
-                </div>
+            <div className= {styles["add-property-side-menu"]}>
+                <InsideAccountSideMenu/>
             </div>
             {/*This is the Top right icons*/ }
-            <div className="top-right-icons">
+            <div className={styles["top-right-icons"]}>
                 <img src={AddLandlord} alt="Add Landlord Icon" onClick={()=>navigate('/AddALandlord')} />
                 <img src={AccountButton} alt ="Account Icon"onClick={()=>navigate('/myaccount')}/>
             </div>
             {/*This is the title of the page*/ }
-            <div className="title-section">
-                <img src={Person} alt="Person Icon" className="person-icon" />
-                <h1 className="title-text">Add a Property</h1>
+            <div className={styles["title-section"]}>
+                <img src={Person} alt="Person Icon" className={styles["person-icon"]} />
+                <h1 className={["title-text"]}>Add a Property</h1>
             </div>
             {/*This is the form*/ }
             <div className="form-section">

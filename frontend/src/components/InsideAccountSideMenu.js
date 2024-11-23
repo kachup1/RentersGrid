@@ -14,6 +14,8 @@ import Triangle from '../Assets/triangle.svg';
 
 const InsideAccountSideMenu = () => {
     const location = useLocation();
+    /*Checking if the user is signed in */
+    const isSignedIn = !!localStorage.getItem('token');
 
     const handleSignOut = () => {
         localStorage.removeItem('token');
@@ -56,15 +58,20 @@ const InsideAccountSideMenu = () => {
                             {isActive('/AddALandlord') && <img src={Triangle} alt="Triangle" className={styles.this} />}
                         </Link>
                     </li>
+                    {/*This will display certain options if you are signed in or not */}
+
+                    {isSignedIn ?(
+                        <>
+                    
                     <li onClick={handleSignOut}>
                         <a href="/">
                             <img src={SignOutIcon} alt="Sign Out" className={styles.icon} />
                             Sign Out
                         </a>
                     </li>
-                </ul>
-                <div style={{ margin: '50px 0' }}></div>
-                <ul>
+                    
+                        <div style={{ margin: '50px 0' }}></div> {/* Space between sections */}
+                    
                     <li>
                         <a href="/myaccount" onClick={() => handleRefresh('/myaccount')}>
                             <img src={AccountIcon} alt="Account" className={styles.icon} />
@@ -86,7 +93,22 @@ const InsideAccountSideMenu = () => {
                             {isActive('/bookmarks') && <img src={Triangle} alt="Triangle" className={styles.this} />}
                         </Link>
                     </li>
+                    </>
+                    ):(
+                        <>
+                        <li>
+                            <Link to="/signin">
+                                <img src={AccountIcon} alt="Sign In" className={styles.icon} />
+                                Sign In / Sign Up
+                            </Link>
+                        </li>
+                        
+                         </>
+                    )}
+
                 </ul>
+
+                    
             </nav>
         </aside>
     );
