@@ -1,8 +1,10 @@
 #Add a property to a landlord 
 from flask import Blueprint, request, jsonify
-from models.database import landlords_collection, ratings_collection,properties_collection,counters_collection
+from models.database import landlords_collection, ratings_collection,properties_collection
 from bson import ObjectId  # Import ObjectId for type checking
 from geopy.geocoders import Nominatim
+from pymongo import DESCENDING
+
 
 add_property_blueprint = Blueprint('add_property',__name__)
 
@@ -52,15 +54,9 @@ def get_lat_long(address):
     return None, None
 
 def get_next_property_id():
-    result = counters_collection.find_one_and_update(
-        {
-            '_id': 'propertyId'
-        },
-        {'$inc':{
-            'sequence_value':1
-        }},
-        return_document=True,
-        upsert=True #Creates the document if it doesn't exist
-    )
-    return result['sequence_value']
+    last_property = properties_collection.find_one(sort=[("propertyId", DESCENDING)])
+    if last_property:
+        return last_property["propertyId"] + 1
+    else:
+        return 1  # Start from 1 if no propertyId exists
 
