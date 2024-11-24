@@ -551,7 +551,7 @@ const LandlordProfile = ({ landlordId }) => {
         {/* Pets Criterion */}
         <div className={styles.criteria}>
             <img src={Pets} alt="Allows Pets" className={styles["criterion-icon"]} />
-            <p className={styles["criterion-text"]}>Allow Pets</p>
+            <p className={styles["criterion-text"]}>Allows Pets</p>
             <div className={styles.thumbs}>
                 <img
                     src={ThumbsUp}
