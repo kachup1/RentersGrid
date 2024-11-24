@@ -34,20 +34,17 @@ function SearchButton({ onSearch }) {
     
 
     const handleSearch = () => {
-        console.log('Search button clicked!');
         if (searchQuery.trim()) {
  
         const query = searchQuery.trim() || ' '; // Use a space to fetch all results if query is empty
         const searchBy = selectedOption || 'all';
 
-            console.log('Fetching data from API...');
     
             // If selectedOption is null, set it to 'all'
     
             fetch(`http://localhost:5000/api/search?searchBy=${searchBy}&query=${encodeURIComponent(searchQuery)}`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Received search results:', data);
                     navigate('/SearchResults', { state: { results: data, searchQuery: query, searchBy  } });
                 })
                 .catch(error => {
