@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ResetPasswordUpdate.css';
+import styles from './ResetPasswordUpdate.module.css';
 import OfficialLogo from '../Assets/official logo.svg';
 import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
@@ -107,79 +107,88 @@ function ResetPasswordUpdate() {
     };
 
     return (
-        <div className="reset-password-update-main-container">
+        <div className={styles['reset-password-update-main-container']}>
             <SideMenu />
             <header>
-                <div className="reset-password-update-logo-container">
+                <div className={styles['reset-password-update-logo-container']}>
                     <a href="/">
-                        <img src={OfficialLogo} alt="OfficialLogo" className="reset-password-update-center-logo" />
+                        <img 
+                            src={OfficialLogo} 
+                            alt="OfficialLogo" 
+                            className={styles['reset-password-update-center-logo']} 
+                        />
                     </a>
                 </div>
 
-                <img src={MenuAlt} alt="background" className="reset-password-update-background-image" />
-                <img
-                    src={SubmitLandlordRate}
-                    alt="Submit Landlord Rate"
-                    className="reset-password-update-left-icon"
-                    onClick={() => navigate('/addalandlord')}
+                <img 
+                    src={MenuAlt} 
+                    alt="background" 
+                    className={styles['reset-password-update-background-image']} 
                 />
-                <img
-                    src={AccountButton}
-                    alt="Account Button"
-                    className="reset-password-update-account-right"
-                    onClick={() => navigate('/myaccount')}
+                <img 
+                    src={SubmitLandlordRate} 
+                    alt="Submit Landlord Rate" 
+                    className={styles['reset-password-update-left-icon']} 
+                    onClick={() => navigate('/addalandlord')} 
+                />
+                <img 
+                    src={AccountButton} 
+                    alt="Account Button" 
+                    className={styles['reset-password-update-account-right']} 
+                    onClick={() => navigate('/myaccount')} 
                 />
             </header>
 
-            <div className="reset-password-update-wrapper">
-                <div className="reset-password-update-form-box-login">
-                    <h1 className="reset-password-update-text">Reset Password</h1>
+            <div className={styles['reset-password-update-wrapper']}>
+                <div className={styles['reset-password-update-form-box-login']}>
+                    <h1 className={styles['reset-password-update-text']}>Reset Password</h1>
                     <form onSubmit={handleSubmit}>
-                        <div className="reset-password-update-input-box">
-                            <span className="icon">
+                        <div className={styles['reset-password-update-input-box']}>
+                            <span className={styles['icon']}>
                                 <input
                                     type="email"
-                                    className="reset-password-update-email-box"
+                                    className={styles['reset-password-update-email-box']}
                                     value={email}
                                     readOnly
                                 />
-                                <label className="reset-password-update-email-text">Email:</label>
+                                <label className={styles['reset-password-update-email-text']}>Email:</label>
                             </span>
                         </div>
 
-                        <div className="reset-password-update-input-box">
-                            <span className="icon">
+                        <div className={styles['reset-password-update-input-box']}>
+                            <span className={styles['icon']}>
                                 <input
                                     type="password"
-                                    className="reset-password-update-password-box"
+                                    className={styles['reset-password-update-password-box']}
                                     value={newPassword}
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     required
                                     placeholder="At least 6 characters with 1 number"
                                 />
-                                <label className="reset-password-update-password-text">New Password:</label>
+                                <label className={styles['reset-password-update-password-text']}>New Password:</label>
                             </span>
                         </div>
 
-                        <div className="reset-password-update-input-type">
-                            <span className="icon">
+                        <div className={styles['reset-password-update-input-type']}>
+                            <span className={styles['icon']}>
                                 <input
                                     type="password"
-                                    className="reset-password-update-confirm-box"
+                                    className={styles['reset-password-update-confirm-box']}
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     required
                                 />
-                                <label className="reset-password-update-confirm-text">Re-enter Password:</label>
+                                <label className={styles['reset-password-update-confirm-text']}>Re-enter Password:</label>
                             </span>
                         </div>
 
-                        {errorMessage && <div className="reset-password-update-error">{errorMessage}</div>}
-                        {successMessage && <div className="reset-password-update-success">{successMessage}</div>}
+                        {errorMessage && <div className={styles['reset-password-update-error']}>{errorMessage}</div>}
+                        {successMessage && <div className={styles['reset-password-update-success']}>{successMessage}</div>}
 
+                        
                         <button
                             type="submit"
-                            className="reset-password-update-continue-button"
+                            className={styles['reset-password-update-continue-button']}
                             disabled={isSubmitting} // Disable the button while submitting
                         >
                             {isSubmitting ? "Updating..." : "Update Password"}
