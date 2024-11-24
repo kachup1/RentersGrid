@@ -95,7 +95,7 @@ function SearchButton({ onSearch }) {
                 type="text"
                 className={styles.searchInput}
                 placeholder={selectedOption && selectedOption !== 'all' ? 
-                    `Search by ${options.find(option => option.value === selectedOption)?.label}` : 'Search Renters Grid'}
+                    `Search by ${options.find(option => option.value === selectedOption)?.label}` : 'Search All Categories'}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={handleKeyDown}

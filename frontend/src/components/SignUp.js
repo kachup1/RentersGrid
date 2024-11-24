@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 function SignUp() {
 
 
-    
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -25,24 +25,46 @@ function SignUp() {
         const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         return re.test(email);
     }
-    
+
+
+    const validatePassword = (password) => {
+        const hasNumber = /\d/.test(password);
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+        if (password.length < 6) {
+            return "Password must be at least 6 characters long.";
+        }
+        if (!hasNumber && !hasSpecialChar) {
+            return "Password must include at least one number and one special character.";
+        }
+        if (!hasNumber) {
+            return "Password must include at least one number.";
+        }
+        if (!hasSpecialChar) {
+            return "Password must include at least one special character.";
+        }
+        return ""; // No errors
+    };
 
 
     const handleSignUp = async (e) => {
         e.preventDefault();
+        const passwordError = validatePassword(password);
+        if (passwordError) {
+            setError(passwordError); // Set specific password error
+            return; // Prevent form submission
+        }
 
-        if (password != confirmPassword) {
-            setError("Passwords do not match");
-            return; //Prevents form submission
-
-           
+        if (password !== confirmPassword) {
+            setError("Passwords do not match.");
+            return; // Prevent form submission
         }
         if (!validateEmail(email)) {
             setError('Please enter a valid email address.');
             return; //Prevents form submission
 
- 
-         }
+
+        }
 
         try {
             const response = await axios.post('http://localhost:5000/SignUp', {
@@ -64,50 +86,50 @@ function SignUp() {
             }
         }
     };
-    
+
 
     return (
         <div className="sign-up-main-container">
             <SideMenu />
             <header>
-            <div className="sign-up-logo-container">
-                <a href="/">
+                <div className="sign-up-logo-container">
+                    <a href="/">
+                        <img
+                            src={OfficialLogo}
+                            alt="Official Logo"
+                            className="sign-up-center-logo"
+                        />
+                    </a>
+                </div>
+
+                {/* Background Image */}
                 <img
-                    src={OfficialLogo}
-                    alt="Official Logo"
-                    className="sign-up-center-logo"
+                    src={MenuAlt}
+                    alt="background"
+                    className="sign-up-background-image"
                 />
+
+                {/* Left Image: Submit Landlord Rate */}
+                <img
+                    src={SubmitLandlordRate}
+                    alt="Submit Landlord Rate"
+                    className="sign-up-left-icon"
+                />
+
+                {/* Right Image: Account Button */}
+                <a href="signin">
+                    <img
+                        src={AccountButton}
+                        alt="Account Button"
+                        className="sign-up-account-right"
+                    />
                 </a>
-            </div>
-
-            {/* Background Image */}
-            <img
-                src={MenuAlt}
-                alt="background"
-                className="sign-up-background-image"
-            />
-
-            {/* Left Image: Submit Landlord Rate */}
-            <img
-                src={SubmitLandlordRate}
-                alt="Submit Landlord Rate"
-                className="sign-up-left-icon"
-            />
-
-            {/* Right Image: Account Button */}
-            <a href="signin">
-                <img
-                    src={AccountButton}
-                    alt="Account Button"
-                    className="sign-up-account-right"
-                />
-            </a>
             </header>
 
             <div className="sign-up-wrapper">
                 <div className="sign-up-form-box-login">
                     <h1 className="sign-up-text">Sign Up</h1>
-                    <form onSubmit={handleSignUp}>{/*Form Submission triggers handleSignUp*/ }
+                    <form onSubmit={handleSignUp}>{/*Form Submission triggers handleSignUp*/}
                         {/* Email */}
                         <div className="sign-up-input-box">
                             <span className="icon">
@@ -129,7 +151,8 @@ function SignUp() {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)} //Bind to password state
-                                    placeholder="At least 6 characters with 1 number" />
+                                    placeholder=" At least 6 characters, 1 number, and 1 special character." />
+
                                 <label className="sign-up-password-text">Password:</label>
                             </span>
                         </div>
@@ -149,7 +172,7 @@ function SignUp() {
 
                         {/* Submit button */}
                         <button input type="submit" className="sign-up-submit-button">Sign Up</button>
-                        
+
                         {/* Move the error message here to position it below the button */}
                         {error && <p className="error">{error}</p>}{/*Display error in red*/}
 

@@ -53,13 +53,13 @@ const MyAccount = () => {
                 console.error("No token found");
                 return;
             }
-    
+
             try {
                 // Make a GET request to fetch the user data using the token
                 const response = await axios.get('http://localhost:5000/api/get_user', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
-    
+
                 if (response.status === 200) {
                     setEmail(response.data.email);
                     setPassword(response.data.password);
@@ -71,88 +71,114 @@ const MyAccount = () => {
                 alert("Failed to fetch user data.");
             }
         };
-    
+
         fetchUserData();
     }, []);
-    
+    const validatePassword = (password) => {
+        if (password.length < 6) {
+            return "Password must be at least 6 characters long.";
+        }
+        if (!/\d/.test(password) && !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            return "Password must include at least one number and one special character.";
+        }
+        if (!/\d/.test(password)) {
+            return "Password must include at least one number.";
+        }
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            return "Password must include at least one special character.";
+        }
+        return ""; // No errors
+    };
+
     // Function to handle saving changes
     const handleSave = async () => {
-    setSuccessMessage('');
-    setErrorMessage('');
+        setSuccessMessage('');
+        setErrorMessage('');
 
-    // Check if the user is in edit mode
-    if (!isEditing) {
-        setErrorMessage("Please click the edit button to make any changes.");
-        return;
-    }
-
-    // Check if the current password is provided
-    if (!currentPassword) {
-        setErrorMessage("Current password is required to make any changes!");
-        return;
-    }
-
-    const token = localStorage.getItem('token');
-    if (!token) {
-        setErrorMessage("User not authenticated. Please sign in.");
-        return;
-    }
-
-    // Step 1: Verify the current password
-    try {
-        const verifyResponse = await axios.post('http://localhost:5000/api/verify_password', {
-            currentPassword
-        }, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
-
-        if (verifyResponse.status !== 200) {
-            setErrorMessage("Incorrect current password. Please try again.");
+        // Check if the user is in edit mode
+        if (!isEditing) {
+            setErrorMessage("Please click the edit button to make any changes.");
             return;
         }
-    } catch (error) {
-        setErrorMessage("Error verifying password. Please try again.");
-        return;
-    }
 
-    let emailUpdated = email !== initialEmail;
-    let passwordUpdated = password && confirmPassword && password !== initialPassword;
-
-    // If neither email nor password was updated, show an error message
-    if (!emailUpdated && !passwordUpdated) {
-        setSuccessMessage("No changes made.");
-        return;
-    }
-
-    // Step 2: Proceed with updating email or password
-    try {
-        const response = await axios.post('http://localhost:5000/api/edit_user', {
-            email,
-            currentPassword,
-            newPassword: password
-        }, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
-
-        if (response.status === 200) {
-            // Check for "No changes made" message from the server
-            if (response.data.message === 'No changes made') {
-                setErrorMessage("No changes made. Please update your information.");
-            } else {
-                setSuccessMessage("User updated successfully!");
-                setInitialEmail(email);
-                setInitialPassword(password);
-                setIsSaved(true);
-            }
-        } else {
-            setErrorMessage(response.data.error || "Failed to update user.");
+        // Check if the current password is provided
+        if (!currentPassword) {
+            setErrorMessage("Current password is required to make any changes!");
+            return;
         }
-    } catch (error) {
-        setErrorMessage("Failed to update user. Please try again.");
-    }
-};
 
-    
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setErrorMessage("User not authenticated. Please sign in.");
+            return;
+        }
+
+        // Step 1: Verify the current password
+        try {
+            const verifyResponse = await axios.post('http://localhost:5000/api/verify_password', {
+                currentPassword
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (verifyResponse.status !== 200) {
+                setErrorMessage("Incorrect current password. Please try again.");
+                return;
+            }
+        } catch (error) {
+            setErrorMessage("Error verifying password. Please try again.");
+            return;
+        }
+
+        let emailUpdated = email !== initialEmail;
+        let passwordUpdated = password && confirmPassword && password !== initialPassword;
+        // Step 2: Validate the new password if it's being updated
+        if (passwordUpdated) {
+            const passwordError = validatePassword(password);
+            if (passwordError) {
+                setErrorMessage(passwordError);
+                return;
+            }
+            if (password !== confirmPassword) {
+                setErrorMessage("Passwords do not match.");
+                return;
+            }
+        }
+        // If neither email nor password was updated, show an error message
+        if (!emailUpdated && !passwordUpdated) {
+            setSuccessMessage("No changes made.");
+            return;
+        }
+
+        // Step 2: Proceed with updating email or password
+        try {
+            const response = await axios.post('http://localhost:5000/api/edit_user', {
+                email,
+                currentPassword,
+                newPassword: password
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (response.status === 200) {
+                // Check for "No changes made" message from the server
+                if (response.data.message === 'No changes made') {
+                    setErrorMessage("No changes made. Please update your information.");
+                } else {
+                    setSuccessMessage("User updated successfully!");
+                    setInitialEmail(email);
+                    setInitialPassword(password);
+                    setIsSaved(true);
+                }
+            } else {
+                setErrorMessage(response.data.error || "Failed to update user.");
+            }
+        } catch (error) {
+            setErrorMessage("Failed to update user. Please try again.");
+        }
+    };
+
+
     return (
         <div className={styles["my-account-container"]}>
             <InsideAccountSideMenu />
@@ -179,7 +205,7 @@ const MyAccount = () => {
                     </a>
 
                 </div>
-                
+
                 <div className={styles["title-container"]}>
                     <img src={AccountIcon} alt="Account" className={styles.titleicon} />
                     <h2>Hello!</h2>
@@ -225,7 +251,7 @@ const MyAccount = () => {
                         </div>
                     </div>
 
-                   {/* Current Password Input */}
+                    {/* Current Password Input */}
                     <div className={styles["input-group"]}>
                         <label>Current Password:</label>
                         <div className={styles["input-with-icons"]}>
@@ -297,7 +323,7 @@ const MyAccount = () => {
                             />
                             {/* Toggle button for confirm password */}
                             <img
-                                src={showConfirmPassword ? Show : ShowOff }
+                                src={showConfirmPassword ? Show : ShowOff}
                                 alt={showConfirmPassword ? "Hide" : "Show"}
                                 className={styles.showicon}
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -306,12 +332,12 @@ const MyAccount = () => {
                     </div>
 
                     {/* Display Success and Error Messages */}
-                {successMessage && (
-                    <div className={styles.successMessage}>{successMessage}</div>
-                )}
-                {errorMessage && (
-                    <div className={styles.errorMessage}>{errorMessage}</div>
-                )}
+                    {successMessage && (
+                        <div className={styles.successMessage}>{successMessage}</div>
+                    )}
+                    {errorMessage && (
+                        <div className={styles.errorMessage}>{errorMessage}</div>
+                    )}
                 </div>
 
             </main>

@@ -3,7 +3,11 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import pinIcon from '../Assets/pin.svg';
 
-const mapContainerStyle = { width: "100%", height: "700px" };
+const mapContainerStyle = { width: "100%", 
+  height: "800px",
+  borderRadius: "30px", // Curved edges
+  overflow: "hidden"    // Ensure content stays within curved edges 
+  };
 const defaultCenter = [33.7701, -118.1937];
 const darkTileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
 

@@ -40,20 +40,23 @@
 .title-section {
     display: flex;
     align-items: center;
-    margin-top: -35%;
-    margin-left: 0%;
+    margin-top: -60%;
+    margin-left: 35%;
     position:absolute;
 }
 
 .person-icon {
-    width: 60px; /* Adjust as needed */
-    height: 60px; /* Adjust as needed */
-    margin-right: 10px;
+    width: 80px; /* Adjust as needed */
+    height: 80px; /* Adjust as needed */
+    margin-right: 15px;
+    margin-bottom: 30px;
 }
 
-.title-text {
-    font-family: 'Helvetica-Bold';
+
+.title-section h1{
     font-size: 60px;
+    color: white;
+    font-family: 'Helvetica-Bold';
     color: white;
 }
 

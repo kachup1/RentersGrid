@@ -17,7 +17,22 @@ function ResetPasswordUpdate() {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false); // To prevent multiple submissions
-
+    // Password validation function
+    const validatePassword = (password) => {
+        if (password.length < 6) {
+            return "Password must be at least 6 characters long.";
+        }
+        if (!/\d/.test(password) && !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            return "Password must include at least one number and one special character.";
+        }
+        if (!/\d/.test(password)) {
+            return "Password must include at least one number.";
+        }
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            return "Password must include at least one special character.";
+        }
+        return "";
+    };
     // Fetch the email associated with the token by decoding it (on the server side)
     useEffect(() => {
         const fetchEmailFromToken = async () => {
@@ -45,6 +60,13 @@ function ResetPasswordUpdate() {
 
         if (newPassword !== confirmPassword) {
             setErrorMessage("Passwords do not match.");
+            setSuccessMessage('');
+            return;
+        }
+        // Validate password
+        const passwordError = validatePassword(newPassword);
+        if (passwordError) {
+            setErrorMessage(passwordError);
             setSuccessMessage('');
             return;
         }
@@ -95,17 +117,17 @@ function ResetPasswordUpdate() {
                 </div>
 
                 <img src={MenuAlt} alt="background" className="reset-password-update-background-image" />
-                <img 
-                    src={SubmitLandlordRate} 
-                    alt="Submit Landlord Rate" 
-                    className="reset-password-update-left-icon" 
-                    onClick={() => navigate('/addalandlord')} 
+                <img
+                    src={SubmitLandlordRate}
+                    alt="Submit Landlord Rate"
+                    className="reset-password-update-left-icon"
+                    onClick={() => navigate('/addalandlord')}
                 />
-                <img 
-                    src={AccountButton} 
-                    alt="Account Button" 
-                    className="reset-password-update-account-right" 
-                    onClick={() => navigate('/myaccount')} 
+                <img
+                    src={AccountButton}
+                    alt="Account Button"
+                    className="reset-password-update-account-right"
+                    onClick={() => navigate('/myaccount')}
                 />
             </header>
 
@@ -155,8 +177,8 @@ function ResetPasswordUpdate() {
                         {errorMessage && <div className="reset-password-update-error">{errorMessage}</div>}
                         {successMessage && <div className="reset-password-update-success">{successMessage}</div>}
 
-                        <button 
-                            type="submit" 
+                        <button
+                            type="submit"
                             className="reset-password-update-continue-button"
                             disabled={isSubmitting} // Disable the button while submitting
                         >
