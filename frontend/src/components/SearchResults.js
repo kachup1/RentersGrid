@@ -7,6 +7,7 @@ import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MyBookmark from '../Assets/fav-unselect.svg';
 import SelectedBookmark from '../Assets/saved-bookmark.svg';
+import Header from './Header';
 import NoAccountSideMenu from './NoAccountSideMenu';
 import SideMenu from './SideMenu';
 import './SearchResults.css';
@@ -23,16 +24,17 @@ function SearchResultsPage() {
   const [bookmarked, setBookmarked] = useState({});
   const [isSearchTriggered, setIsSearchTriggered] = useState(false);
   const [lastSearchedQuery, setLastSearchedQuery] = useState(''); // New state for last searched query
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Function to toggle the menu
+  const toggleMenu = () => {
+      setIsMenuOpen(!isMenuOpen);
+  };
   const navigate = useNavigate();
   const location = useLocation();
   const { results: fetchedResults } = location.state || {};
   const { results = [], searchQuery: initialQuery = '', searchBy = 'all' } = location.state || {};
 
-  const refreshAndNavigate = () => {
-    navigate('/');
-    window.location.reload();
-  };
 
   const fetchBookmarks = (token) => {
     fetch('http://localhost:5000/api/bookmarks', {
@@ -184,23 +186,7 @@ function SearchResultsPage() {
 
   return (
     <div className="searchresults-page-container">
-      {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
-
-      <header className="searchresults-header">
-        <div className="searchresults-logo-container">
-          <img src={OfficialLogo} alt="Official Logo" className="searchresults-center-logo" onClick={refreshAndNavigate} />
-        </div>
-        <div className="searchresults-buttons-container">
-          <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="searchresults-left-icon" />
-          <img
-            src={AccountButton}
-            alt="Account Button"
-            className="searchresults-account-right"
-            onClick={() => navigate(isTokenValid() ? '/myaccount' : '/signin')}
-          />
-        </div>
-      </header>
-
+      <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <div className="searchresults-searchby-and-sort-wrapper">
         <div className="searchresults-bar-container" style={{ position: 'relative', display: 'inline-block' }}>
           <select
