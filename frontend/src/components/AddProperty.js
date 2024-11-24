@@ -2,16 +2,10 @@
 import React, {useEffect, useState}from 'react';
 import {useNavigate}from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import OfficialLogo from '../Assets/official logo.svg';
+import BackgroundImage from '../Assets/submit landlord rate.svg';
 import AccountButton from '../Assets/Account button.svg';
 import AddLandlord from '../Assets/submit landlord rate.svg';
-import HomePageIcon from '../Assets/home.svg';
-import SearchIcon from '../Assets/menu-1.svg';
 import Person from '../Assets/landlord person.svg';
-import Landlord from '../Assets/menu-2.svg';
-import SignOut from '../Assets/menu-4.svg';
-import Bookmark from '../Assets/my bookmark.svg';
-import Ratings from '../Assets/my-rating.svg';
 import InsideAccountSideMenu from '../components/InsideAccountSideMenu';
 import axios from 'axios';
 
@@ -129,7 +123,7 @@ function AddProperty() {
 
 
     return (
-        <div className="add-property-container">
+        <div className={styles["add-property-container"]}>
 
             {/* Sidebar menu */}
             <div className= {styles["add-property-side-menu"]}>
@@ -145,22 +139,26 @@ function AddProperty() {
                 <img src={Person} alt="Person Icon" className={styles["person-icon"]} />
                 <h1 className={["title-text"]}>Add a Property</h1>
             </div>
+            <div className={styles["property-background-image"]}>
+            <img src={BackgroundImage} alt="background-image" className="add-property-background-image" />
+
+            </div>
             {/*This is the form*/ }
-            <div className="form-section">
-                <label className="form-label">Add another property?</label>
-                <select className="form-select" onChange={handleSelectChange}>
+            <div className={styles["form-section"]}>
+                <label className={styles["form-label"]}>Add another property?</label>
+                <select className={styles["form-select"]} onChange={handleSelectChange}>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                 </select>
 
-                <label className="form-label required">Property  Name:</label>
-                <input type="text" className="form-input" value={propertyName} disabled={isDisabled} onChange={(e)=> setPropertyName(e.target.value)}/>
+                <label className={styles["form-label required"]}>Property  Name:</label>
+                <input type="text" className={styles["form-input"]} value={propertyName} disabled={isDisabled} onChange={(e)=> setPropertyName(e.target.value)}/>
 
-                <label className="form-label required">Property  Address:</label>
-                <input type="text" className="form-input" value = {propertyAddress} onChange={handleAddressChange} placeholder='Enter an Address'
+                <label className={styles["form-label required"]}>Property  Address:</label>
+                <input type="text" className={styles["form-input"]} value = {propertyAddress} onChange={handleAddressChange} placeholder='Enter an Address'
 
                    />
-                    <ul className="suggestions-list">
+                    <ul className={styles["suggestions-list"]}>
     {console.log("Suggestions to map:", suggestions)} {/* Log suggestions */}
     {suggestions.map((s, index) => (
         <li key={index} onClick={() => handleSuggestionClick(s)}>
@@ -170,19 +168,19 @@ function AddProperty() {
 </ul>
 
 
-                <label className="form-label">City:</label>
-                <input type="text" className="form-input" value={city} /*placeholder="City"defaultValue="Long Beach"*/ disabled={isDisabled} />
+                <label className={styles["form-label-city"]}>City:</label>
+                <input type="text" className={styles["form-input-city"]} value={city} /*placeholder="City"defaultValue="Long Beach"*/ disabled={isDisabled} />
 
-                <label className="form-label">State:</label>
-                <select className="form-select" disabled={isDisabled}>
+                <label className={styles["form-label"]}>State:</label>
+                <select className={styles["form-select"]} disabled={isDisabled}>
                     <option>{state}</option>
                     {/* Add other states as options if needed */}
                 </select>
 
-                <label className="form-label">Zipcode:</label>
-                <input type="text" className="form-input" /*placeholder="Zipcode"*/ value={propertyZipcode} disabled={isDisabled} onChange={(e)=> setZipcode(e.target.value)}/>
+                <label className={styles["form-label"]}>Zipcode:</label>
+                <input type="text" className={styles["form-input-zipcode"]} /*placeholder="Zipcode"*/ value={propertyZipcode} disabled={isDisabled} onChange={(e)=> setZipcode(e.target.value)}/>
 
-                <button className="submit-button" onClick={handleSubmit} disabled ={isDisabled}> Submit Property</button>
+                <button className={styles["submit-button"]} onClick={handleSubmit} disabled ={isDisabled}> Submit Property</button>
             </div>
 
 

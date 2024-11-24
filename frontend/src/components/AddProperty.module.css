@@ -24,24 +24,25 @@
 
 .top-right-icons {
     position: absolute;
-    top: 40px;
+    top: 105px;
     right: 40px;
     display: flex;
     gap: 60px;
 }
 
+
 .top-right-icons img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     cursor: pointer;
 }
 
-/*This is the title:*/
+/*This is the title: Add a Property*/
 .title-section {
     display: flex;
     align-items: center;
-    margin-top: -60%;
-    margin-left: 35%;
+    margin-top: -45%;
+    margin-left: 5%;
     position:absolute;
 }
 
@@ -60,65 +61,70 @@
     color: white;
 }
 
-/*Sidemenu:*/
-/* Sidebar styles */
-.sidebar {
-    width: 200px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.property-background-image{
+    right: 30px;
     position: absolute;
-    top: 200px;
-    left: 50px;
-    color: white;
-    gap: 5px;
+    bottom: 40%;
+    width: 600px;
+    height: 80px;
+    opacity: 0.5;
 }
 
-.sidebar-logo {
-    width: 170px; /* Adjust as needed */
-    margin-bottom: 20px;
-    cursor: pointer;
-}
-.menu-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    cursor: pointer;
-    gap:20px;
+/*This is to move the side menu*/
+.add-property-side-menu{
+    margin-left: -75.2%;
+    position: absolute;
+    margin-top: 14%;
 }
 
-.menu-item img {
-    width: 34px; /* Adjust as needed */
-    height: 34px;
-    margin-right: 10px;
-   
-    
-}
-
-.menu-item span {
-    font-family: 'Helvetica';
-    font-size: 20px;
-}
 
 /*FORM SECTION:*/
 /* Form section */
 .form-section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 350px; /* Adjust as needed */
-    gap: 10px;
+    
+    display: grid;
+    flex-direction:column;
+    align-items: center;
+    width: 65%; /* Adjust as needed */
+    gap: 15px;
     color: white;
-    margin-top:200px;
-    margin-bottom:20px;
+    
+    margin: 0 auto;
+    margin-right: -2.6%;
+    
+    
+   /* margin-right: 50%;
+    margin-bottom:20px;*/
+    
+    
+}
+/*
+.form-section {
+    display: grid;  Use grid for layout 
+    grid-template-columns: 1fr 1fr;  Two equal-width columns 
+    column-gap: 20px;  Space between columns 
+    row-gap: 15px; Space between rows 
+    width: 65%;  Keep the same width 
+    color: white;
+    margin: 0 auto; Center the form horizontally 
 }
 
+Ensure the submit button spans the full width 
+.form-section button {
+    grid-column: span 2; Makes the button span across both columns 
+    align-self: center; Center the button vertically 
+    justify-self: center;  Center the button horizontally 
+}
+
+*/
+
 /* Labels */
+/*This is for the state*/
 .form-label {
     font-family: 'Helvetica';
     font-size: 16px;
     color: white;
+  
 }
 
     .form-label.required::before {
@@ -126,18 +132,42 @@
         color: red;
     }
 
+    .form-label-city{
+        margin-top: -1.5%;
+    }
 /* Input fields */
 .form-input {
-    width: 300px;
+    width: 500px;
     padding: 8px;
-    font-size: 16px;
+    font-size: 18px;
     border: none;
     background-color: #cfcfcf;
     border-radius: 5px;
+    height: 55%;
 }
+.form-input-city{
+    width: 500px;
+    padding: 8px;
+    font-size: 18px;
+    border: none;
+    background-color: #cfcfcf;
+    border-radius: 5px;
+    margin-top:1px;
+    height: 55%;
+}
+.form-input-zipcode{
+    width: 80px;
+    padding: 8px;
+    font-size: 18px;
+    border: none;
+    background-color: #cfcfcf;
+    border-radius: 5px;
+    height: 55%;
 
+}
+/*This is for the state selection*/
 .form-select {
-    width: 100px;
+    width: 120px;
     padding: 8px;
     font-size: 16px;
     border: none;
@@ -162,14 +192,16 @@
 /*Suggestions*/
 /* The container for the suggestions dropdown */
 .suggestions-list {
-    border: 1px solid #ddd;
-    max-height: 150px;
+    
+    max-height: 80px; /*This changes the height of the suggestion list*/
     overflow-y: auto;
     margin-top: 5px;
     padding: 0;
     list-style: none;
     background-color: white;
     color: black;
+    border-radius: 10px;
+    width: 600px;
 }
 
 .suggestions-list li {
