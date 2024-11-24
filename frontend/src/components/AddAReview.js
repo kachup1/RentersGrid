@@ -591,7 +591,7 @@ const LandlordProfile = ({ landlordId }) => {
         {/* Raise Rent Criterion */}
         <div className={styles.criteria}>
             <img src={Money} alt="Raise Rent Yearly" className={styles["criterion-icon"]} />
-            <p className={styles["criterion-text"]}>Raise Rent Yearly</p>
+            <p className={styles["criterion-text"]}>Fair Rent Increases</p>
             <div className={styles.thumbs}>
                 <img
                     src={ThumbsUp}
@@ -739,7 +739,7 @@ const LandlordProfile = ({ landlordId }) => {
                 <CriterionReview name="Timely Maintenance" rating={ratings.maintenance} icon={Maintenance} />
                 <CriterionReview name="Allows Pets" rating={ratings.pets} icon={Pets} />
                 <CriterionReview name="Safe Area" rating={ratings.safety} icon={Safe} />
-                <CriterionReview name="Raises Rent Yearly" rating={ratings.raisemoney} icon={Money} />
+                <CriterionReview name="Fair Rent Increases" rating={ratings.raisemoney} icon={Money} />
             </div>
             <div className={styles["frame4-criterion-container-3"]}>
                 <CriterionReview name="Reachable & Responsive" rating={ratings.reachable} icon={Reachable} />
