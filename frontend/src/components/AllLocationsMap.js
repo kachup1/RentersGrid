@@ -6,8 +6,9 @@ import currentLocationIcon from '../Assets/current-location.svg';
 import { useNavigate } from 'react-router-dom';
 
 const mapContainerStyle = {
+  
   width: "100%",
-  height: "700px",
+  height: "800px",
   borderRadius: "10px", // Curved edges
   overflow: "hidden"    // Ensure content stays within curved edges
 };

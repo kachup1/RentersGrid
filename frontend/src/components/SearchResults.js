@@ -2,15 +2,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import SearchResultsMap from './SearchResultsMap';
 import ClearSelectionIcon from '../Assets/clear-selection.svg';
-import OfficialLogo from '../Assets/official logo.svg';
-import AccountButton from '../Assets/Account button.svg';
-import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MyBookmark from '../Assets/fav-unselect.svg';
 import SelectedBookmark from '../Assets/saved-bookmark.svg';
 import Header from './Header';
-import NoAccountSideMenu from './NoAccountSideMenu';
-import SideMenu from './SideMenu';
-import './SearchResults.css';
+import styles from './SearchResults.module.css';
 import { isTokenValid } from './authentication';
 
 function SearchResultsPage() {
@@ -28,7 +23,7 @@ function SearchResultsPage() {
 
   // Function to toggle the menu
   const toggleMenu = () => {
-      setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen(!isMenuOpen);
   };
   const navigate = useNavigate();
   const location = useLocation();
@@ -185,139 +180,157 @@ function SearchResultsPage() {
   };
 
   return (
-    <div className="searchresults-page-container">
-      <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-      <div className="searchresults-searchby-and-sort-wrapper">
-        <div className="searchresults-bar-container" style={{ position: 'relative', display: 'inline-block' }}>
-          <select
-            className="searchresults-dropdown"
-            value={searchType}
-            onChange={(e) => setSearchType(e.target.value)}
-          >
-            <option value="landlord">Landlord Name</option>
-            <option value="property">Property Name</option>
-            <option value="address">Address</option>
-            <option value="city">City</option>
-            <option value="zipcode">Zip Code</option>
-          </select>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            placeholder={`Search by ${searchType === 'landlord' ? 'Landlord Name' : searchType}`}
-            className="searchresults-input"
-            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-            style={{ paddingRight: '30px' }}
-          />
-          {searchQuery.trim() || sortBy ? (
+    <div className={styles['searchresults-page-container']}>
+  <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+  <div className={styles['searchresults-searchby-and-sort-wrapper']}>
+    {/* Search Bar Container */}
+    <div className={styles['searchresults-bar-container']} style={{ position: 'relative', display: 'inline-block' }}>
+      <select
+        className={styles['searchresults-dropdown']}
+        value={searchType}
+        onChange={(e) => setSearchType(e.target.value)}
+      >
+        <option value="landlord">Landlord Name</option>
+        <option value="property">Property Name</option>
+        <option value="address">Address</option>
+        <option value="city">City</option>
+        <option value="zipcode">Zip Code</option>
+      </select>
+      <input
+        type="text"
+        value={searchQuery}
+        onChange={handleSearchChange}
+        placeholder={`Search by ${searchType === 'landlord' ? 'Landlord Name' : searchType}`}
+        className={styles['searchresults-input']}
+        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+      />
+      {(searchQuery.trim() || sortBy) && (
+        <div
+          className={styles['searchresults-clear-icon']}
+          style={{
+            position: 'absolute',
+            right: '10px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            cursor: 'pointer',
+            width: '20px',
+            height: '20px',
+            backgroundImage: `url(${ClearSelectionIcon})`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+          }}
+          onClick={handleClear}
+        />
+      )}
+    </div>
+
+    {/* Sort Container */}
+    <div className={styles['searchresults-sort-container']}>
+      <label htmlFor="sort" className={styles['searchresults-sort-label']}>Sort By: </label>
+      <select
+        id="sort"
+        className={styles['searchresults-sort-button']}
+        value={sortBy}
+        onChange={handleSortChange}
+      >
+        <option value="highest rating">Highest Rating</option>
+        <option value="Landlord name">Landlord Name</option>
+        <option value="lowest rating">Lowest Rating</option>
+        <option value="property name">Property Name</option>
+        <option value="reviews">Most Reviews</option>
+      </select>
+    </div>
+  </div>
+
+  {/* Results Container */}
+  <div className={styles['searchresults-main-content']}>
+    {/* Map Container */}
+    <div className={styles['searchresults-map-container']}>
+      <SearchResultsMap
+        filteredResults={searchresults}
+        onMarkerClick={(index) => searchresultsRefs.current[index]?.scrollIntoView({ behavior: 'smooth' })}
+      />
+    </div>
+
+    {/* Results List */}
+    <div className={styles['searchresults-container']}>
+      <h1>Search Results for "{lastSearchedQuery || ''}"</h1>
+      <div className={styles['searchresults-list']}>
+        {!Array.isArray(searchresults) || searchresults.length === 0 ? (
+          isSearchTriggered ? (
+            <p>No results found.</p>
+          ) : (
+            <p></p>
+          )
+        ) : (
+          searchresults.map((result, index) => (
             <div
-              className="clear-icon"
-              style={{
-                position: 'absolute',
-                right: '10px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                cursor: 'pointer',
-                width: '20px',
-                height: '20px',
-                backgroundImage: `url(${ClearSelectionIcon})`,
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-              }}
-              onClick={handleClear}
-            />
-          ) : null}
-        </div>
-        <div className="searchresults-sort-container">
-          <label htmlFor="sort">Sort By: </label>
-          <select
-            id="sort"
-            className="searchresults-sort-button"
-            value={sortBy}
-            onChange={handleSortChange}
-          >
-            <option value="highest rating">Highest Rating</option>
-            <option value="Landlord name">Landlord Name</option>
-            <option value="lowest rating">Lowest Rating</option>
-            <option value="property name">Property Name</option>
-            <option value="reviews">Most Reviews</option>
-          </select>
-        </div>
-      </div>
-
-
-      <div className="searchresults-main-content">
-        <div className="searchresults-map-container">
-          <SearchResultsMap filteredResults={searchresults} onMarkerClick={(index) => searchresultsRefs.current[index]?.scrollIntoView({ behavior: 'smooth' })} />
-        </div>
-
-        <div className="searchresults-container">
-          <h1>Search Results for "{lastSearchedQuery || ''}"</h1>
-          <div className="searchresults-list">
-            {!Array.isArray(searchresults) || searchresults.length === 0 ? (
-              isSearchTriggered ? (
-                // Case 2: No results found (only after Enter is pressed)
-                <p>No results found.</p>
-              ) : (
-                // Case 1: Navigated without input
-                <p></p>
-              )
-            ) : (
-              // Case 3: Results found
-              searchresults.map((result, index) => (
-                <div
-                  className="searchresults-card"
-                  key={result.landlordId}
-                  ref={(el) => (searchresultsRefs.current[index] = el)} // Assign ref
-
-                  onClick={() => handleLandlordClick(result.landlordId)}
-                >
-                  <div className="searchresults-card-header">
-                    <div className="searchresults-rating-box">
-                      <span>Avg Rating</span>
-                      <h3>{result.averageRating ? result.averageRating.toFixed(1) : 'No Rating'}</h3>
-                      <p>{result.reviewCount} Reviews</p>
-                    </div>
-                    <div className="searchresults-landlord-info">
-                      <h2>{formatName(result.name)}</h2>
-                      {result.properties && result.properties.length > 0 && (
-                        <>
-                          {/* Display the first property */}
-                          <p>
-                            {result.properties[0].address}, {result.properties[0].city}, {result.properties[0].zipcode}
-                          </p>
-                          {/* Display the "+n" if there are more properties */}
-                          {result.properties.length > 1 && (
-                            <p className="additional-properties">
-                              +{result.properties.length - 1} more properties
-                            </p>
-                          )}
-                        </>
-                      )}
-                    </div>
-
-                    <div
-                      className="bookmark-icon"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleBookmark(result.landlordId);
-                      }}
+              className={styles['searchresults-card']}
+              key={result.landlordId}
+              ref={(el) => (searchresultsRefs.current[index] = el)}
+              onClick={() => handleLandlordClick(result.landlordId)}
+            >
+              <div className={styles['searchresults-card-header']}>
+                {/* Rating Box */}
+                <div className={styles['rating-container']}>
+                  <span className={styles['rating-label']}>Avg Rating</span>
+                  <div className={styles['searchresults-rating-box']}>
+                    <h2
+                      className={
+                        result.averageRating
+                          ? styles['rating-score']
+                          : styles['no-rating']
+                      }
                     >
-                      <img
-                        src={bookmarked[result.landlordId] ? SelectedBookmark : MyBookmark}
-                        alt="Bookmark"
-                        className="bookmark-icon-img"
-                      />
-                    </div>
+                      {result.averageRating
+                        ? result.averageRating.toFixed(1)
+                        : 'No Rating'}
+                    </h2>
                   </div>
+                  <p className={styles['rating-reviews']}>
+                    {result.reviewCount} {result.reviewCount === 1 ? 'Review' : 'Reviews'}
+                  </p>
                 </div>
-              ))
-            )}
-          </div>
 
-        </div>
+                {/* Landlord Info */}
+                <div className={styles['searchresults-landlord-info']}>
+                  <h2>{formatName(result.name)}</h2>
+                  {result.properties && result.properties.length > 0 && (
+                    <>
+                      <p>
+                        {result.properties[0].address}, {result.properties[0].city}, {result.properties[0].zipcode}
+                      </p>
+                      {result.properties.length > 1 && (
+                        <p className={styles['additional-properties']}>
+                          +{result.properties.length - 1} more properties
+                        </p>
+                      )}
+                    </>
+                  )}
+                </div>
+
+                {/* Bookmark Icon */}
+                <div
+                  className={styles['searchresults-bookmark-icon']}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleBookmark(result.landlordId);
+                  }}
+                >
+                  <img
+                    src={bookmarked[result.landlordId] ? SelectedBookmark : MyBookmark}
+                    alt="Bookmark"
+                    className={styles['searchresults-bookmark-icon-img']}
+                  />
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
+  </div>
+</div>
   );
 }
 
