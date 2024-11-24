@@ -9,9 +9,16 @@ auth_blueprint = Blueprint('auth', __name__)
 bcrypt = Bcrypt()
 
 def validate_password(password):
-    if len(password) < 6 or not re.search(r'\d', password):
-        return False
-    return True
+    if len(password) < 6:
+        return "Password must be at least 6 characters long."
+    if not re.search(r'\d', password) and not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+        return "Password must include at least one number and one special character."
+    if not re.search(r'\d', password):
+        return "Password must include at least one number."
+    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+        return "Password must include at least one special character."
+    return None  # No errors
+
 
 @auth_blueprint.route('/SignUp', methods=['POST'])
 def signup():
@@ -22,9 +29,10 @@ def signup():
     if not email or not password:
         return jsonify({"error": "Email and Password are required"}), 400
     
-    # Validate password using the helper function
-    if not validate_password(password):
-        return jsonify({"error": "Password must be 6+ characters and include a number."}), 400
+    # Validate password and get specific error message
+    password_error = validate_password(password)
+    if password_error:
+        return jsonify({"error": password_error}), 400
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
@@ -45,6 +53,7 @@ def signup():
         return jsonify({"message": "User created successfully!"}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 @auth_blueprint.route('/Login', methods=['POST'])
 def login():
@@ -86,8 +95,11 @@ def change_password():
 
     if not email or not new_password:
         return jsonify({"error": "Missing required fields"}), 422
-    if not validate_password(new_password):
-        return jsonify({"error": "Password must be 6+ characters and include a number."}), 400
+
+    # Validate new password
+    password_error = validate_password(new_password)
+    if password_error:
+        return jsonify({"error": password_error}), 400
 
     user = users_collection.find_one({"email": email})
 
@@ -105,4 +117,3 @@ def change_password():
         return jsonify({"error": "Failed to update the password"}), 500
 
     return jsonify({"message": "Password changed successfully"}), 200
-
