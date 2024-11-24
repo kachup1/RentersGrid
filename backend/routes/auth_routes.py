@@ -52,7 +52,7 @@ def login():
     email = data.get('email')
     password = data.get('password')
 
-    user = users_collection.find_one({"email": email})
+    user = users_collection.find_one({"email": {"$regex": f"^{email}$", "$options": "i"}})
 
     if user and bcrypt.check_password_hash(user['password'], password):
         access_token = create_access_token(identity={
