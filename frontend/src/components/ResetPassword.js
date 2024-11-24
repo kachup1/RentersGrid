@@ -6,12 +6,16 @@ import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MenuAlt from '../Assets/menu-alt.svg';
 import NoAccountSideMenu from './NoAccountSideMenu';
 import { Link, useNavigate } from 'react-router-dom';
+import Header from './Header';
 
 function ResetPassword() {
     const [email, setEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -62,30 +66,8 @@ function ResetPassword() {
 
     return (
         <div className={styles['reset-password-main-container']}>
-            <NoAccountSideMenu />
-            <header>
-            <div className={styles['reset-password-main-container']}>
-            <a href="/">
-                        <img
-                            src={OfficialLogo}
-                            alt="OfficialLogo"
-                            className={styles['sign-in-left-icon']}
-                            />
-                    </a>
-                </div>
-
+            <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
                 <img src={MenuAlt} alt="background" className={styles['reset-password-background-image']} />
-                <a href="addalandlord">
-                    <img
-                        src={SubmitLandlordRate}
-                        alt="Submit Landlord Rate"
-                        className={styles['sign-in-left-icon']}
-                    />
-                </a>
-                <a href="signin">
-                <img src={AccountButton} alt="Account Button" className={styles['reset-password-account-right']} />
-                </a>
-            </header>
 
             <div className={styles['reset-password-wrapper']}>
                 <div className={styles['reset-password-form-box-login']}>
