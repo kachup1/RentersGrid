@@ -480,9 +480,9 @@ const handleVote = (reviewId, type) => {
                                 </div>
                                 <div className="review-details">
                                     <div className={review.maintenance === "Yes"?"green":review.maintenance==="No"?"red":"gray"}>Timely Maintenance</div>
-                                    <div className={review.pets === "Yes"?"green":review.pets==="No"?"red":"gray"}>Allow Pets</div>
+                                    <div className={review.pets === "Yes"?"green":review.pets==="No"?"red":"gray"}>Allows Pets</div>
                                     <div className={review.safety==="Yes"?"green":review.safety ==="No"?"red":"gray"}>Safe Area</div>
-                                    <div className={review.raisemoney === "Yes"?"green":review.raisemoney==="No"?"red":"gray"}>Raise Rent Yearly</div>
+                                    <div className={review.raisemoney === "Yes"?"green":review.raisemoney==="No"?"red":"gray"}>Fair Rent increases</div>
                                     <div className={review.reachable === "Yes"? "green":review.reachable==="No"?"red":"gray"}>Reachable</div>
                                     <div className={review.clearcontract === "Yes"?"green":review.clearcontract==="No"?"red":"gray"}>Clear & Fair Contract</div>
                                 </div>
