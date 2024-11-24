@@ -65,7 +65,7 @@ body {
 .sign-up-background-image {
   right: 30px;
   position: absolute;
-  bottom: 115px;
+  bottom: 55px;
   right: 20px;
   width: 600px;
   height: auto;
@@ -96,8 +96,10 @@ body {
   position: absolute;
   font-size: 55px !important;
   white-space: nowrap;
-  bottom: -150px;
+  bottom: -50px;
   font-family: 'Helvetica-Bold';
+  left: 99px;
+
 }
 
 .sign-up-input-box {

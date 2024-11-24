@@ -552,17 +552,19 @@ body {
 body{
     overflow: hidden;  
     background-color: #4D55A5; /* Set blue background */
+    overflow-y: auto;
+    scroll-behavior: smooth; /* Smooth scrolling effect */
+
 
 }
 
 /* Background container for full height scroll */
 .frame4-background-container {
     background-color: #4D55A5; /* Set blue background */
-    min-height: 100vh;
+    min-height: 200vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    overflow-y: auto; /* Enable scrolling */
 
 }
 /* Frame 4 Specific Styles */
@@ -579,37 +581,10 @@ body{
     margin: 100px auto; /* Center align */
     margin-top: 10px; 
     position: absolute; /* Keep relative for child positioning */
-    overflow-y: auto; /* Enable vertical scrolling */
-    overflow-x: hidden; 
-    scroll-behavior: smooth; /* Smooth scrolling effect */
     padding-bottom: 100px; /* Add extra space at the bottom */
 
 }
 
-
-
-/* Custom scrollbar for frame4-container */
-.frame4-container::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
-    border-radius: 10px; /* Rounded edges for the scrollbar */
-}
-
-/* Track of the scrollbar */
-.frame4-container::-webkit-scrollbar-track {
-    background: #4D55A5; /* Background color of the track */
-    border-radius: 10px; /* Match the rounded edges */
-}
-
-/* Thumb (the draggable part) */
-.frame4-container::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #4D55A5, #7f9cf5); /* Gradient for the thumb */
-    border-radius: 10px; /* Rounded edges */
-}
-
-/* Hover effect on the thumb */
-.frame4-container::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, #7f9cf5, #a0aec0); /* Lighter gradient on hover */
-}
 
 
 
@@ -808,7 +783,7 @@ body{
     flex-direction: column; /* Stack checkbox and text vertically */
     align-items: center;
     justify-content: center;
-    margin-top: 950px; /* Reduce the top margin */
+    margin-top: 970px; /* Reduce the top margin */
     margin-left: 20px; /* Reduce the top margin */
     position: absolute; /* Fixed position relative to the viewport */
     left: 20%; /* Keep it aligned horizontally as needed */
@@ -851,5 +826,52 @@ body{
     margin-top: 5px;
     text-align: left;
 }
+
+.transition-wrapper {
+    display: flex;
+    width: 400%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.frame {
+    flex: 1 0 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.step-1 {
+    transform: translateX(0%);
+}
+
+.step-2 {
+    transform: translateX(-25%);
+}
+
+.step-3 {
+    transform: translateX(-50%);
+}
+
+.step-4 {
+    transform: translateX(-75%);
+}
+
+.dropdown {
+    cursor: pointer;
+}
+
+.dropdown-options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+
+
+
 
 

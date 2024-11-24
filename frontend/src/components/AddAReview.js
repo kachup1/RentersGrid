@@ -383,7 +383,6 @@ const LandlordProfile = ({ landlordId }) => {
 
 
     return (
-        
         <div className={styles["main-container-add-a-rating"]}
         style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}
 
