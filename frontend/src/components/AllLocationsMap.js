@@ -25,7 +25,6 @@ function AllLocationsMap() {
     fetch("http://localhost:5000/api/map_markers")
       .then((response) => response.json())
       .then((properties) => {
-        console.log("Fetched markers:", properties);
         setMarkers(properties);
       })
       .catch((error) => {
@@ -37,7 +36,6 @@ function AllLocationsMap() {
   // Initialize the map
   useEffect(() => {
     if (!map) {
-      console.log("Initializing map...");
       const leafletMap = L.map('map').setView(defaultCenter, 13);
 
       L.tileLayer(darkTileUrl, {
@@ -51,11 +49,9 @@ function AllLocationsMap() {
 
   // Function to handle marker click and navigate to SearchResults
   const handleMarkerClick = useCallback((landlordName) => {
-    console.log("Handling marker click for landlord:", landlordName);
     fetch(`http://localhost:5000/api/search?searchBy=landlord&query=${encodeURIComponent(landlordName)}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Received search results:", data);
         navigate('/SearchResults', { state: { results: data } });
       })
       .catch((error) => {
@@ -68,7 +64,6 @@ function AllLocationsMap() {
   // Add markers to the map
   useEffect(() => {
     if (map && markers.length > 0) {
-      console.log("Adding markers to map:", markers);
 
       markers.forEach((markerData, index) => {
         const icon = L.icon({
@@ -107,7 +102,6 @@ function AllLocationsMap() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          console.log("User's current location:", latitude, longitude);
   
           const currentIcon = L.icon({
             iconUrl: currentLocationIcon,

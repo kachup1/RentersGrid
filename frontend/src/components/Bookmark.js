@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Bookmark.css';
+import styles from './Bookmark.module.css';
 import OfficialLogo from '../Assets/official logo.svg';
 import SavedBookmark from '../Assets/saved-bookmark.svg'; // Saved bookmark icon
 import EmptyBookmark from '../Assets/my bookmark.svg'; // Empty bookmark icon
-import home from '../Assets/home.svg'; // Example icons
-import searchIcon from '../Assets/menu-1.svg';
-import addLandlordIcon from '../Assets/menu-2.svg';
-import signOutIcon from '../Assets/signout.svg';
-import accountIcon from '../Assets/Account button.svg';
-import myrating from '../Assets/my-rating.svg';
-import myBookmark from '../Assets/my bookmark.svg'; // Empty bookmark icon
-import triangle from '../Assets/triangle.svg';
+import InsideAccountSideMenu from './InsideAccountSideMenu';
+import BackgroundLogo from '../Assets/3-ppl-icon.svg';
+
 function Bookmark() {
   const [bookmarkedLandlords, setBookmarkedLandlords] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
@@ -19,10 +14,12 @@ function Bookmark() {
   const [sortOption, setSortOption] = useState('');
 
   const navigate = useNavigate();
+
   const handleSignOut = () => {
-    localStorage.removeItem('token');  // Remove the token from localStorage
-    navigate('/');  // Redirect to the homepage after sign-out
+    localStorage.removeItem('token'); // Remove the token from localStorage
+    navigate('/'); // Redirect to the homepage after sign-out
   };
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -37,14 +34,14 @@ function Bookmark() {
     setLoading(true); // Show loading state
     fetch('/api/bookmarked-landlords', {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => response.json())
       .then((data) => {
         const updatedData = data.map((landlord) => ({
           ...landlord,
-          isBookmarked: true
+          isBookmarked: true,
         }));
         setBookmarkedLandlords(updatedData);
         setLoading(false); // Remove loading state
@@ -72,9 +69,9 @@ function Bookmark() {
       method,
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ landlordId })
+      body: JSON.stringify({ landlordId }),
     }).catch((error) => {
       setBookmarkedLandlords((prev) =>
         prev.map((landlord) =>
@@ -94,9 +91,11 @@ function Bookmark() {
   if (error) {
     return <div>{error}</div>; // Error message
   }
+
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
   };
+
   const sortedLandlords = [...bookmarkedLandlords].sort((a, b) => {
     if (sortOption === 'rating') {
       return b.averageRating - a.averageRating; // Highest rating first
@@ -105,148 +104,130 @@ function Bookmark() {
     } else if (sortOption === 'Landlord name') {
       return a.name.localeCompare(b.name); // Sort alphabetically by name
     } else if (sortOption === 'property name') {
-      const propertyA = a.properties[0]?.propertyname || ""; // Fallback to empty string if propertyname is undefined
-      const propertyB = b.properties[0]?.propertyname || "";
+      const propertyA = a.properties[0]?.propertyname || ''; // Fallback to empty string if propertyname is undefined
+      const propertyB = b.properties[0]?.propertyname || '';
       return propertyA.localeCompare(propertyB); // Sort alphabetically by property name
     } else if (sortOption === 'reviews') {
       return b.reviewCount - a.reviewCount; // Most reviews first
     }
     return 0; // No sorting if no option selected
   });
+
   const refresh = () => {
     navigate('/bookmarks');
     window.location.reload();
   };
 
   return (
-    <div className="mybookmark-page">
-      {/* Header with icon and text */}
-      <div className="mybookmark-header">
-        <img src={EmptyBookmark} alt="myBookmark Icon" className="myheader-bookmark-icon" />
-        <h1>
-          My <span className="myhighlight-bookmarks">Bookmarks</span>
-        </h1>
-      </div>
-
-      <div className="mybookmark-search-container">
-        <select
-          className="mybookmark-search-dropdown"
-          onChange={handleSortChange}
-        >
-          <option value="">Search By</option>
-          <option value="rating">Highest Rating</option>
-          <option value="Landlord name">Landlord Name</option>
-          <option value="lowest rating">Lowest Rating</option>
-          <option value="property name">Property Name</option>
-          <option value="reviews">Most Reviews</option>
-        </select>
-      </div>
-      <div className="mybookmark-left-menu-container">
-        {/* Permanent side menu */}
-        <div className="mybookmark-left-side-menu">
-          <img src={require('../Assets/official logo.svg').default} alt="Logo" className="mybookmark-left-menu-logo" />
-
-          <ul>
-            <li>
-              {/* Homepage link */}
-              <Link to="/">
-                <img src={home} alt="Home" className="mybookmark-left-menu-icon" />
-                Homepage
-              </Link>
-            </li>
-            <li>
-              {/* Search link */}
-              <Link to="/SearchResults">
-                <img src={searchIcon} alt="Search" className="mybookmark-left-menu-icon" />
-                Search
-              </Link>
-            </li>
-            <li>
-              {/* Add Landlord link */}
-              <Link to="/addalandlord">
-                <img src={addLandlordIcon} alt="Add a Landlord" className="mybookmark-left-menu-icon" />
-                Add a Landlord
-              </Link>
-            </li>
-            <li>
-              {/* Sign Out link */}
-              <a href="/" onClick={handleSignOut}>
-                <img src={signOutIcon} alt="Sign Out" className="mybookmark-left-menu-icon" />
-                Sign Out
-              </a>
-            </li>
-            <li>
-              {/* My Account link */}
-              <Link to="/myaccount">
-                <img src={accountIcon} alt="My Account" className="mybookmark-left-menu-icon" />
-                My Account
-              </Link>
-            </li>
-            <li>
-              {/* My Ratings link */}
-              <Link to="/myratings">
-                <img src={myrating} alt="Add a Landlord" className="mybookmark-left-menu-icon" />
-                My Ratings
-              </Link>
-            </li>
-            <li>
-              <a href="/bookmarks" onClick={refresh}>
-                <img src={myBookmark} alt="Bookmark Icon" className="my-bookmark-icon" />
-                <span className="my-bookmark-text">My Bookmarks</span>
-                <img src={triangle} alt="Triangle Icon" className="triangle-icon" />
-                </a>
-
-            </li>
-          </ul>
+    <div className={styles['my-account-container']}>
+      {/* Side Menu */}
+      <InsideAccountSideMenu />
+      <main className={styles["main-content"]}>
+        {/* Background logo */}
+        <img src={BackgroundLogo} alt="Background Logo" className={styles["background-logo"]} />
+        {/* Header with icon and text */}
+        <div className={styles['mybookmark-header']}>
+          <img
+            src={EmptyBookmark}
+            alt="myBookmark Icon"
+            className={styles['myheader-bookmark-icon']}
+          />
+          <h1>
+            My <span className={styles['myhighlight-bookmarks']}>Bookmarks</span>
+          </h1>
         </div>
-      </div>
 
+        <div className={styles['mybookmark-search-container']}>
+          <select
+            className={styles['mybookmark-search-dropdown']}
+            onChange={handleSortChange}
+          >
+            <option value="">Search By</option>
+            <option value="rating">Highest Rating</option>
+            <option value="Landlord name">Landlord Name</option>
+            <option value="lowest rating">Lowest Rating</option>
+            <option value="property name">Property Name</option>
+            <option value="reviews">Most Reviews</option>
+          </select>
+        </div>
 
-      <div className="mylandlord-list">
-        {sortedLandlords.length > 0 ? (
-          sortedLandlords.map((landlord) => (
-            <div
-              className="mylandlord-card"
-              key={landlord.landlordId}
-              onClick={() => navigate(`/LandlordProfile/${landlord.landlordId}`)}
-            >
-              <div className="myrating-box">
-                <h2>{landlord.averageRating ? landlord.averageRating.toFixed(1) : 'No Rating'}</h2>
-                <span>Rating</span>
-                <p>{landlord.reviewCount} Reviews</p>
-              </div>
-              <div className="mylandlord-info">
-                <h2>{landlord.name}</h2>
-                {landlord.properties && landlord.properties.length > 0 ? (
-                  landlord.properties.map((property, index) => (
-                    <p key={index}>
-                      {property.propertyname ? `${property.propertyname},` : 'No Property Name,'} {property.address}, {property.city}, {property.zipcode}
-                    </p>
-                  ))
-                ) : (
-                  <p>No properties available</p>
-                )}
-
-
-              </div>
+        <div className={styles['mylandlord-list']}>
+          {sortedLandlords.length > 0 ? (
+            sortedLandlords.map((landlord) => (
               <div
-                className="mybookmark-icon"
-                onClick={(e) => {
-                  e.stopPropagation(); // Prevent card click event
-                  toggleBookmark(landlord.landlordId, landlord.isBookmarked);
-                }}
+                className={styles['mylandlord-card']}
+                key={landlord.landlordId}
+                onClick={() => navigate(`/LandlordProfile/${landlord.landlordId}`)}
               >
-                <img
-                  src={landlord.isBookmarked ? SavedBookmark : EmptyBookmark}
-                  alt={landlord.isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
-                />
+               <div className={styles['rating-container']}>
+  <span className={styles['rating-label']}>Rating</span>
+  <div className={styles['rating-box']}>
+    <h2
+      className={
+        landlord.averageRating
+          ? styles['rating-score']
+          : styles['no-rating']
+      }
+    >
+      {landlord.averageRating
+        ? landlord.averageRating.toFixed(1)
+        : 'No Rating'}
+    </h2>
+  </div>
+  <p className={styles['rating-reviews']}>
+    {landlord.reviewCount} {landlord.reviewCount === 1 ? 'Review' : 'Reviews'}
+  </p>
+</div>
+
+
+                <div className={styles['mylandlord-info']}>
+                  <h2>{landlord.name}</h2>
+                  {landlord.properties && landlord.properties.length > 0 ? (
+                    <>
+                      {/* Display the first property or properties */}
+                      {landlord.properties.slice(0, 1).map((property, index) => (
+                        <p key={index}>
+                          {property.propertyname
+                            ? `${property.propertyname},`
+                            : 'No Property Name,'}{' '}
+                          {property.address}, {property.city}, {property.zipcode}
+                        </p>
+                      ))}
+
+                      {/* Display the "+n more properties" if there are more */}
+                      {landlord.properties.length > 1 && (
+                        <p className="additional-properties">
+                          +{landlord.properties.length - 1} more properties
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <p>No properties available</p>
+                  )}
+                </div>
+
+                <div
+                  className={styles['mybookmark-icon']}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent card click event
+                    toggleBookmark(landlord.landlordId, landlord.isBookmarked);
+                  }}
+                >
+                  <img
+                    src={landlord.isBookmarked ? SavedBookmark : EmptyBookmark}
+                    alt={
+                      landlord.isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'
+                    }
+                  />
+                </div>
               </div>
-            </div>
-          ))
-        ) : (
-          <p>No bookmarked landlords found.</p>
-        )}
-      </div>
+            ))
+          ) : (
+            <p>No bookmarked landlords found.</p>
+          )}
+        </div>
+      </main>
+
     </div>
   );
 }
