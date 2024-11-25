@@ -98,26 +98,6 @@
     
     
 }
-/*
-.form-section {
-    display: grid;  Use grid for layout 
-    grid-template-columns: 1fr 1fr;  Two equal-width columns 
-    column-gap: 20px;  Space between columns 
-    row-gap: 15px; Space between rows 
-    width: 65%;  Keep the same width 
-    color: white;
-    margin: 0 auto; Center the form horizontally 
-}
-
-Ensure the submit button spans the full width 
-.form-section button {
-    grid-column: span 2; Makes the button span across both columns 
-    align-self: center; Center the button vertically 
-    justify-self: center;  Center the button horizontally 
-}
-
-*/
-
 /* Labels */
 /*This is for the state*/
 .form-label {
@@ -127,14 +107,19 @@ Ensure the submit button spans the full width
   
 }
 
-    .form-label.required::before {
-        content: '* ';
-        color: red;
-    }
+.form-label.required::before {
+    content: '* ';
+    color: red;
+}
 
-    .form-label-city{
-        margin-top: -1.5%;
-    }
+.form-label-city{
+    margin-top: -1.5%;
+}
+
+.form-label-city.required::before {
+    content: '* ';
+    color: red;
+}
 /* Input fields */
 .form-input {
     width: 500px;
