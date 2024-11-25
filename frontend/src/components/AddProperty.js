@@ -58,8 +58,14 @@ function AddProperty() {
     };
 
     const handleSubmit = async () => {
+        if(!propertyAddress||!city||!state||!propertyZipcode){
+            alert("Please provide a complete address including city, state, and zipcode.");
+            return;
+        }
+
+
         const propertyData = {
-            name: propertyName,
+            name: propertyName||propertyAddress, //If propertyName isn't filled then address will be used
             address: propertyAddress,
             city,
             state,
@@ -151,10 +157,10 @@ function AddProperty() {
                     <option value="No">No</option>
                 </select>
 
-                <label className={styles["form-label required"]}>Property  Name:</label>
+                <label className={styles["form-label"]}>Property  Name:</label>
                 <input type="text" className={styles["form-input"]} value={propertyName} disabled={isDisabled} onChange={(e)=> setPropertyName(e.target.value)}/>
 
-                <label className={styles["form-label required"]}>Property  Address:</label>
+                <label className={`${styles["form-label"]} ${styles["required"]}`}>Property  Address:</label>
                 <input type="text" className={styles["form-input"]} value = {propertyAddress} onChange={handleAddressChange} placeholder='Enter an Address'
 
                    />
@@ -168,16 +174,16 @@ function AddProperty() {
 </ul>
 
 
-                <label className={styles["form-label-city"]}>City:</label>
+                <label className={`${styles["form-label-city"]} ${styles["required"]}`}>City:</label>
                 <input type="text" className={styles["form-input-city"]} value={city} /*placeholder="City"defaultValue="Long Beach"*/ disabled={isDisabled} />
 
-                <label className={styles["form-label"]}>State:</label>
+                <label className={`${styles["form-label"]} ${styles["required"]}`}>State:</label>
                 <select className={styles["form-select"]} disabled={isDisabled}>
                     <option>{state}</option>
                     {/* Add other states as options if needed */}
                 </select>
 
-                <label className={styles["form-label"]}>Zipcode:</label>
+                <label className={`${styles["form-label"]} ${styles["required"]}`}>Zipcode:</label>
                 <input type="text" className={styles["form-input-zipcode"]} /*placeholder="Zipcode"*/ value={propertyZipcode} disabled={isDisabled} onChange={(e)=> setZipcode(e.target.value)}/>
 
                 <button className={styles["submit-button"]} onClick={handleSubmit} disabled ={isDisabled}> Submit Property</button>

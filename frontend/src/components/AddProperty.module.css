@@ -127,14 +127,19 @@ Ensure the submit button spans the full width
   
 }
 
-    .form-label.required::before {
-        content: '* ';
-        color: red;
-    }
+.form-label.required::before {
+    content: '* ';
+    color: red;
+}
 
-    .form-label-city{
-        margin-top: -1.5%;
-    }
+.form-label-city{
+    margin-top: -1.5%;
+}
+
+.form-label-city.required::before {
+    content: '* ';
+    color: red;
+}
 /* Input fields */
 .form-input {
     width: 500px;

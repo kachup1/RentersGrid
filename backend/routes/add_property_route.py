@@ -13,10 +13,20 @@ def add_property(landlord_id):
     data = request.get_json()
     if not data:
         return jsonify({'error': 'No data provided'}),400
-    address = data.get('address')
 
-    if not address:
-        return jsonify({'error':'Address is required'}),400
+    address = data.get('address')
+    city = data.get('city')
+    state = data.get('state')
+    zipcode = data.get('zipcode')
+
+    #This checks all the address components are filled
+    if not all([address,city,state,zipcode]):
+        return jsonify({'error':'Address,city,state, and zipcode are required'}),400
+        
+    #If property name isn't given, then input address
+    property_name = data.get('name') or address
+
+
     latitude,longitude = get_lat_long(address)
     
     #Checking for duplicate addresses:
@@ -28,11 +38,11 @@ def add_property(landlord_id):
     new_property_id = get_next_property_id()
     property_data = {
         'propertyId':new_property_id,
-        'propertyname': data.get('name'),
-        'address': data.get('address'),
-        'city': data.get('city'),
-        'state': data.get('state'),
-        'zipcode': data.get('zipcode'),
+        'propertyname': property_name,
+        'address': address,
+        'city': city,
+        'state': state,
+        'zipcode': zipcode,
         'latitude': latitude,
         'longitude': longitude,
         'landlordId': int(landlord_id)
@@ -47,7 +57,7 @@ def add_property(landlord_id):
     return jsonify({'message': 'Property added successfully'}),201
 
 def get_lat_long(address):
-    geolocator = Nominatim(user_agent="RentersGrid")
+    geolocator = Nominatim(user_agent="RentersGrid",timeout=10)
     location = geolocator.geocode(address)
     if location:
         return location.latitude, location.longitude
