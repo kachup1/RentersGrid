@@ -24,7 +24,7 @@ import RedThumbsDown from '../Assets/down-selected.svg';
 import axios from 'axios';
 import NoAccountSideMenu from './NoAccountSideMenu';
 import SideMenu from './SideMenu';
-import './LandlordProfile.css';
+import styles from './LandlordProfile.module.css';
 import { isTokenValid } from './authentication';
 
 function LandlordProfile() {
@@ -350,67 +350,67 @@ const handleVote = (reviewId, type) => {
   
 
     return (
-        <div className="landlord-profile-container">
-            <header className="landlord-header">
+        <div className={styles["landlord-profile-container"]}>
+            <header className={styles["landlord-header"]}>
                 {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
 
                 {/* Header */}
-                <div className="landlord-logo-container">
-                    <img src={OfficialLogo} alt="Official Logo" className="landlord-center-logo" onClick={() => navigate('/')} />
+                <div className={styles["landlord-logo-container"]}>
+                    <img src={OfficialLogo} alt="Official Logo" className={styles["landlord-center-logo"]} onClick={() => navigate('/')} />
                 </div>
-                <div className="landlord-buttons-container">
-                    <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="landlord-left-icon" onClick={()=>navigate('/AddALandlord')}/>
-                    <img src={AccountButton} alt="Account Button" className="landlord-account-right" onClick={() => {
+                <div className={styles["landlord-buttons-container"]}>
+                    <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className={styles["landlord-left-icon"]} onClick={()=>navigate('/AddALandlord')}/>
+                    <img src={AccountButton} alt="Account Button" className={styles["landlord-account-right"]} onClick={() => {
                         isTokenValid() ? navigate('/myaccount') : navigate('/signin');
                     }} />
                 </div>
             </header>
 
             {/* Landlord Information Section */}
-            <div className="landlord-info">
-                <img src={LandlordIcon} alt="Landlord Icon" className="middle-icon" />
+            <div className={styles["landlord-info"]}>
+                <img src={LandlordIcon} alt="Landlord Icon" className={styles["middle-icon"]} />
 
-                <div className="landlord-information">
-                    <div className="landlord-details">
-                        <div className="rating-box">
-                            <p className="landlord-rates">{landlordData.averageRating ? landlordData.averageRating.toFixed(1):"No Ratings"}</p>
+                <div className={styles["landlord-information"]}>
+                    <div className={styles["landlord-details"]}>
+                        <div className={styles["rating-box"]}>
+                            <p className={styles["landlord-rates"]}>{landlordData.averageRating ? landlordData.averageRating.toFixed(1):"No Ratings"}</p>
                         </div>
                         <div>
-                            <h2 className="landlord-name">{landlordData.name}</h2>
-                            <p className="landlord-location">{propertyLocation}</p>
+                            <h2 className={styles["landlord-name"]}>{landlordData.name}</h2>
+                            <p className={styles["landlord-location"]}>{propertyLocation}</p>
                         </div>
-                        <div className="landlord-bookmark-icon" onClick={(e) => {
+                        <div className={styles["landlord-bookmark-icon"]} onClick={(e) => {
                             e.stopPropagation();
                             toggleBookmark(landlordData.landlordId);
                         }}>
-                            <img src={bookmarked[landlordData.landlordId] ? SelectedBookmark : Bookmark} alt="Bookmark Icon" className="bookmark-icon-img" />
+                            <img src={bookmarked[landlordData.landlordId] ? SelectedBookmark : Bookmark} alt="Bookmark Icon" className={styles["bookmark-icon-img"]} />
                         </div>
-                        <div className='landlord-report-icon'>
+                        <div className={styles['landlord-report-icon']}>
                             <img
                         src={Report}
                         alt="Report"
-                        className="report-icon-img"
+                        className={styles["report-icon-img"]}
                         onClick={handleReportClick} // Add click event to navigate
                             />
                         </div>
                         
                     </div>
 
-                    <div className="button-container">
-                        <button className="green-button" onClick={handleAddReviewClick}>
+                    <div className={styles["button-container"]}>
+                        <button className={styles["green-button"]} onClick={handleAddReviewClick}>
                             <img src={GreenButton} alt="Add Review" />
-                            <span className="green-text">Add a Review</span>
+                            <span className={styles["green-text"]}>Add a Review</span>
                         </button>
-                        <button className="red-button" onClick={handleAddPropertyClick}>
+                        <button className={styles["red-button"]} onClick={handleAddPropertyClick}>
                             <img src={RedButton} alt="Add a Property" />
-                            <span className="red-text">Add a Property</span>
+                            <span className={styles["red-text"]}>Add a Property</span>
                         </button>
                     </div>
 
                 </div>
 
                 {/* Rating Summary */}
-                <div className="rating-summary">
+                <div className={styles["rating-summary"]}>
                 {[
                     { label: "Excellent", icon: ExcellentFace, count: ratingDistribution.Excellent || 0, colorClass: "green-bar" },
                     { label: "Good", icon: GoodFace, count: ratingDistribution.Good || 0, colorClass: "green-bar" },
@@ -418,11 +418,11 @@ const handleVote = (reviewId, type) => {
                     { label: "Decent", icon: DecentFace, count: ratingDistribution.Decent || 0, colorClass: "orange-bar" },
                     { label: "Poor", icon: PoorFace, count: ratingDistribution.Poor || 0, colorClass: "red-bar" },
                 ].map((rating) => (
-                    <div className="rating-item" key={rating.label}>
-                        <img src={rating.icon} alt={rating.label} className="rating-face" />
-                        <span className="rating-label">{rating.label}</span>
-                        <div className="rating-bar grey-bar">
-                            <div className={`${rating.colorClass}`} style={{ width: `${getBarWidth(rating.count)}%` }}></div>
+                    <div className={styles["rating-item"]} key={rating.label}>
+                        <img src={rating.icon} alt={rating.label} className={styles["rating-face"]} />
+                        <span className={styles["rating-label"]}>{rating.label}</span>
+                        <div className={styles["rating-bar"]}>
+                            <div className={styles[rating.colorClass]} style={{ width: `${getBarWidth(rating.count)}%` }}></div>
                         </div>
                     </div>
                 ))}
@@ -430,8 +430,8 @@ const handleVote = (reviewId, type) => {
                 
             </div>
             {/* Dropdowns for Select Property and Sort By */}
-            <div className="dropdown-container">
-                <div className="dropdown">
+            <div className={styles["dropdown-container"]}>
+                <div className={styles["dropdown"]}>
                     <label htmlFor="propertySelect">Select Property:</label>
                     <select id="propertySelect" name="propertySelect" onChange={handlePropertyChange}>
                         <option value="all">All Properties</option>
@@ -446,7 +446,7 @@ const handleVote = (reviewId, type) => {
                     </select>
                 </div>
 
-                <div className="dropdown">
+                <div className={styles["dropdown"]}>
                     <label htmlFor="sortSelect">Sort By:</label>
                     <select id="sortSelect" name="sortSelect" onChange={handleSortChange}>
                         <option value="mostRecent">Most Recent</option>
@@ -456,10 +456,10 @@ const handleVote = (reviewId, type) => {
                     </select>
                 </div>
             </div>
-            <div className="reviews-and-icons">
+            <div className={styles["reviews-and-icons"]}>
                 {/* Reviews Section */}
-                <div className="landlord-reviews-section">
-                    <div className="reviews-header-and-card">
+                <div className={styles["landlord-reviews-section"]}>
+                    <div className={styles["reviews-header-and-card"]}>
 
                         {/* Total Reviews Text */}
                         
@@ -472,36 +472,36 @@ const handleVote = (reviewId, type) => {
                         <div 
                                 id={`review-${review.ratingId}`}  //for share function
                                 key ={review.ratingId} 
-                                className="review-card">
+                                className={styles["review-card"]}>
                             {/* Left Column containing the score and review details */}
-                            <div className="left-column">
-                                <div className="review-rating">
-                                <p className={`score-text score-${review.score}`}>{review.score}/5</p>
+                            <div className={styles["left-column"]}>
+                                <div className={styles["review-rating"]}>
+                                <p className={`${styles["score-text"]} ${styles[`score-${review.score}`]}`}>{review.score}/5</p>
                                 </div>
-                                <div className="review-details">
-                                    <div className={review.maintenance === "Yes"?"green":review.maintenance==="No"?"red":"gray"}>Timely Maintenance</div>
-                                    <div className={review.pets === "Yes"?"green":review.pets==="No"?"red":"gray"}>Allows Pets</div>
-                                    <div className={review.safety==="Yes"?"green":review.safety ==="No"?"red":"gray"}>Safe Area</div>
-                                    <div className={review.raisemoney === "Yes"?"green":review.raisemoney==="No"?"red":"gray"}>Fair Rent increases</div>
-                                    <div className={review.reachable === "Yes"? "green":review.reachable==="No"?"red":"gray"}>Reachable</div>
-                                    <div className={review.clearcontract === "Yes"?"green":review.clearcontract==="No"?"red":"gray"}>Clear & Fair Contract</div>
+                                <div className={styles["review-details"]}>
+                                    <div className={styles[review.maintenance === "Yes"?"green":review.maintenance==="No"?"red":"gray"]}>Timely Maintenance</div>
+                                    <div className={styles[review.pets === "Yes"?"green":review.pets==="No"?"red":"gray"]}>Allows Pets</div>
+                                    <div className={styles[review.safety==="Yes"?"green":review.safety ==="No"?"red":"gray"]}>Safe Area</div>
+                                    <div className={styles[review.raisemoney === "Yes"?"green":review.raisemoney==="No"?"red":"gray"]}>Fair Rent increases</div>
+                                    <div className={styles[review.reachable === "Yes"? "green":review.reachable==="No"?"red":"gray"]}>Reachable</div>
+                                    <div className={styles[review.clearcontract === "Yes"?"green":review.clearcontract==="No"?"red":"gray"]}>Clear & Fair Contract</div>
                                 </div>
                             </div>
                             {/* Right Column containing the comment section */}
-                            <div className="comment-container">
-                                <div className="comment-header">
-                                    <div className="address-container">
+                            <div className={styles["comment-container"]}>
+                                <div className={styles["comment-header"]}>
+                                    <div className={styles["address-container"]}>
                                         <h2>{review.propertyDetails.propertyname}</h2>
                                         <p>{review.propertyDetails.address}, {review.propertyDetails.city}, {review.propertyDetails.state} {review.propertyDetails.zipcode}
                                         </p>
                                     </div>
 
-                                    <div className="helpful-container">
+                                    <div className={styles["helpful-container"]}>
                                         <span>Helpful:</span>
                                         <img
                                             src={reviewVotes[review.ratingId]?.helpful ? GreenThumbsUp : GreyThumbsUp}
                                             alt="Thumbs Up"
-                                            className="thumb-icon"
+                                            className={styles["thumb-icon"]}
                                             onClick={() => handleVote(Number(review.ratingId), 'helpful', 'add')}
                                             />
                                             <span>{reviewVotes[review.ratingId]?.helpful || 0}</span>
@@ -509,7 +509,7 @@ const handleVote = (reviewId, type) => {
                                         <img
                                             src={reviewVotes[review.ratingId]?.notHelpful ? RedThumbsDown : GreyThumbsDown}
                                             alt="Thumbs Down"
-                                            className="thumb-icon"
+                                            className={styles["thumb-icon"]}
                                             onClick={() => handleVote(Number(review.ratingId), 'notHelpful', 'add')}
                                             />
                                             <span>{reviewVotes[review.ratingId]?.notHelpful || 0}</span>
@@ -517,14 +517,14 @@ const handleVote = (reviewId, type) => {
                                     </div>
                                 </div>
 
-                                <div className="review-text">
+                                <div className={styles["review-text"]}>
                                     <p>{review.comment}</p>
                                 </div>
 
-                                <div className="recommend-container">
+                                <div className={styles["recommend-container"]}>
                                     <p>Recommend:</p>
                                     {review.recommend === "No Response"?(
-                                        <span className="black">No Response</span>
+                                        <span className={styles["black"]}>No Response</span>
                                     ):(
                                         <>
                                             <button
@@ -543,11 +543,11 @@ const handleVote = (reviewId, type) => {
                                     
                                 </div>
 
-                                <span className="review-date">{new Date(review.timestamp).toLocaleDateString()}</span>
+                                <span className={styles["review-date"]}>{new Date(review.timestamp).toLocaleDateString()}</span>
                                 {/* Icons Container for Share and Report */}
-                                <div className="icons-container">
-                                    <img src={Share} alt="Share" className="icon share-icon" onClick={() => handleShareClick(landlordId, review.ratingId)}/>
-                                    <img src={Report} alt="Report" className="icon report-icon" onClick={() => handleReportReviewClick(review.ratingId)}/>
+                                <div className={styles["icons-container"]}>
+                                    <img src={Share} alt="Share" className={styles["icon share-icon"]} onClick={() => handleShareClick(landlordId, review.ratingId)}/>
+                                    <img src={Report} alt="Report" className={styles["icon report-icon"]} onClick={() => handleReportReviewClick(review.ratingId)}/>
                                     
                                 </div>
                      
