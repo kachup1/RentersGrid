@@ -9,7 +9,7 @@ const mapContainerStyle = { width: "100%",
   overflow: "hidden"    // Ensure content stays within curved edges 
   };
 const defaultCenter = [33.7701, -118.1937];
-const darkTileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+const darkTileUrl =  'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 
 export default function SearchResultsMap({ filteredResults, onMarkerClick }) {
   const [map, setMap] = useState(null);

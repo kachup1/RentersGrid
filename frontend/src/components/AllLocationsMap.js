@@ -13,7 +13,7 @@ const mapContainerStyle = {
   overflow: "hidden"    // Ensure content stays within curved edges
 };
 const defaultCenter = [33.7701, -118.1937]; // You can update this to a more neutral point if needed
-const darkTileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+const darkTileUrl =  'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 
 function AllLocationsMap() {
   const [map, setMap] = useState(null);
