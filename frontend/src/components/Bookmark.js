@@ -132,6 +132,7 @@ const capitalizeCase = (str) => {
 
         <div className={styles['main-contents']}>
           {/* Sorting Dropdown */}
+          {bookmarkedLandlords.length > 0 && (
           <div className={styles['sorting-wrapper']}>
             <span className={styles['sort-label']}>Sort By:</span>
             <div className={styles['sorting-container']}>
@@ -140,20 +141,23 @@ const capitalizeCase = (str) => {
               </div>
               {isDropdownOpen && (
                 <ul className={styles['sort-options']}>
-                  {['Landlord Name', 'Property Name', 'Highest Rating', 'Lowest Rating', 'Most Reviews'].map((option) => (
-                    <li
-                      key={option}
-                      className={styles['sort-option']}
-                      onClick={() => handleSortChange(option)}
-                    >
-                      {option}
-                    </li>
-                  ))}
+                  {['Landlord Name', 'Property Name', 'Highest Rating', 'Lowest Rating', 'Most Reviews'].map(
+                    (option) => (
+                      <li
+                        key={option}
+                        className={styles['sort-option']}
+                        onClick={() => handleSortChange(option)}
+                      >
+                        {option}
+                      </li>
+                    )
+                  )}
                 </ul>
               )}
             </div>
-          
           </div>
+        )}
+
           {/* Bookmarks */}
           {loading ? (
             <p className={styles.loadingText}>Loading Bookmarks...</p>
