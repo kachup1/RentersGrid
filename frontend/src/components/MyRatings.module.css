@@ -13,18 +13,16 @@
 }
 
 /* whole page container */
-.my-account-container {
+.my-container {
     display: flex;
     min-height: 100vh;
 }
-
 .main-content {
     padding-top: 100px;
-    padding-left: 100px;
+    padding-left: 80px;
     flex-grow: 1;
     background-color: #4D55A5;
-    min-height: 100vh; /* to fill all with color*/
-    overflow: hidden;
+    height: 100vh; /* Full height for viewport */
     font-family: 'Helvetica', sans-serif;
     font-weight: normal;
 }
@@ -32,7 +30,7 @@
 .background-logo {
     position: absolute;
     right: 100px;
-    margin-top: 270px;
+    margin-top: 200px;
     opacity: 0.3; /* 30% opacity */
     width: 580px; /* Adjust width as needed */
     height: auto;
@@ -45,7 +43,6 @@
     color: white;
     font-size: 35pt;
     font-weight: bold;
-    margin-bottom: 20px;
 }
 
 .titleicon {
@@ -54,26 +51,6 @@
     margin-right: 15px;
 }
 
-.top-right-icons {
-    position: absolute;
-    top: 80px;
-    right: 70px;
-    display: flex;
-    gap: 20px; /* Space between the icons */
-    
-}
-
-.add-icon {
-    width: 80px;
-    height: auto;
-    cursor: pointer;
-}
-
-.account-icon {
-    width: auto;
-    height: 65px;
-    cursor: pointer;
-}
 
 .rating-container {
     position: relative;
@@ -85,7 +62,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px; /* Space between elements */
-    margin-bottom: 80px;
+    margin-bottom: 30px;
 }
 
 /* Score box styling */
@@ -135,7 +112,7 @@
     bottom: 15px; /* Distance from the bottom of the container */
     right: 20px;  /* Distance from the right side */
     font-size: 16px;
-    color: #000000; /* Adjust color as needed */
+    color: #4D4D4D; /* Adjust color as needed */
     font-weight: normal;
     background-color: none;
     padding: 0px 10px; /* Optional: Add padding for better visibility */
@@ -147,7 +124,7 @@
     padding: 15px;
     background-color: #ffffff;
     border-radius: 2px;
-    color: black;
+    color: #4D4D4D;
     font-size: 16px;
     line-height: 1.5;
     height: 130px;
@@ -167,16 +144,6 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-}
-
-/* Scrollable Ratings Section */
-.ratings-scrollable {
-    max-height: 70vh; /* Adjust height as needed */
-    overflow-y: auto;
-    position: relative;
-    padding-right: 20px;
-    margin-right: -20px;
-    scroll-behavior: smooth;
 }
 
 

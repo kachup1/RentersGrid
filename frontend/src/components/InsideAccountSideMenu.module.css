@@ -30,7 +30,7 @@
 .side-menu nav ul li {
     display: flex;
     align-items: center;
-    margin: 5px 0;
+    margin: 20px 0;
     cursor: pointer;
 }
 

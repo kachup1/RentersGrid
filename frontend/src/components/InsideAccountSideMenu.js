@@ -11,6 +11,7 @@ import AccountIcon from '../Assets/my-account.svg';
 import RatingsIcon from '../Assets/my-rate.svg';
 import BookmarksIcon from '../Assets/my-book.svg';
 import Triangle from '../Assets/triangle.svg';
+import SignInIcon from '../Assets/signin signup.svg';
 
 const InsideAccountSideMenu = () => {
     const location = useLocation();
@@ -98,7 +99,7 @@ const InsideAccountSideMenu = () => {
                         <>
                         <li>
                             <Link to="/signin">
-                                <img src={AccountIcon} alt="Sign In" className={styles.icon} />
+                                <img src={SignInIcon} alt="Sign In" className={styles.icon} />
                                 Sign In / Sign Up
                             </Link>
                         </li>

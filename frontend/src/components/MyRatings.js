@@ -4,15 +4,15 @@ import styles from './MyRatings.module.css';
 import { useNavigate } from 'react-router-dom';
 
 import BackgroundLogo from '../Assets/rate-bg.svg';
-import TopRightAddIcon from '../Assets/topright-add.svg';
 import EditIcon from '../Assets/edit.svg';
 import DeleteIcon from '../Assets/delete.svg';
 
-import AccountIcon from '../Assets/my-account.svg';
 import RatingsIcon from '../Assets/my-rate.svg';
 
 import InsideAccountSideMenu from '../components/InsideAccountSideMenu';
 import ConfirmationModal from './ConfirmationModal';
+
+import RightButtons from './RightButtons';
 
 const MyRatings = () => {
     const [ratings, setRatings] = useState([]);
@@ -100,20 +100,13 @@ const MyRatings = () => {
     };
 
     return (
-        <div className={styles["my-account-container"]}>
+        <div className={styles["my-container"]}>
             {/* Side Menu */}
             <InsideAccountSideMenu />
-
             {/* Main Content */}
             <main className={styles["main-content"]}>
                 {/* Background logo */}
                 <img src={BackgroundLogo} alt="Background Logo" className={styles["background-logo"]} />
-
-                {/* Top-Right Icons */}
-                <div className={styles["top-right-icons"]}>
-                    <img src={TopRightAddIcon} alt="Add" className={`${styles["nav-icon"]} ${styles["add-icon"]}`} />
-                    <img src={AccountIcon} alt="Account" className={`${styles["nav-icon"]} ${styles["account-icon"]}`} />
-                </div>
 
                 {/* Page Title */}
                 <div className={styles["title-container"]}>
@@ -121,8 +114,7 @@ const MyRatings = () => {
                     <h2>My Ratings</h2>
                 </div>
 
-                {/* Scorrolable Part */}
-                <div className={styles["ratings-scrollable"]}>
+                <div className={styles["ratings-cards"]}>
                     {ratings.length === 0 ? (
                         <div className={styles["no-ratings-message"]}>You haven't added any ratings yet. Share your thoughts on your landlords!</div>
                     ) : (
@@ -170,6 +162,10 @@ const MyRatings = () => {
                     />
                 )}
             </main>
+             {/* Top-Right Icons */}
+             <div className={styles["right-buttons"]}>
+                    <RightButtons />
+                </div>
         </div>
     );
 };

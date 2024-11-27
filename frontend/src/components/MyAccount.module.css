@@ -27,7 +27,7 @@
 
 .main-content {
     padding-top: 100px;
-    padding-left: 100px;
+    padding-left: 80px;
     flex-grow: 1;
     background-color: #4D55A5;
     min-height: 100vh; /* to fill all with color*/
@@ -39,9 +39,9 @@
 .background-logo {
     position: absolute;
     right: 100px;
-    margin-top: 270px;
+    margin-top: 210px;
     opacity: 0.3; /* 30% opacity */
-    width: 580px; /* Adjust width as needed */
+    width: 530px; /* Adjust width as needed */
     height: auto;
     pointer-events: none; /* Prevents the background from interfering with other elements */
 }
@@ -134,27 +134,6 @@
     margin-top: -8px; /* space between password and confirm pw box */
 }
 
-
-.top-right-icons {
-    position: absolute;
-    top: 80px;
-    right: 70px;
-    display: flex;
-    gap: 20px; /* Space between the icons */
-    
-}
-
-.add-icon {
-    width: 80px;
-    height: auto;
-    cursor: pointer;
-}
-
-.account-icon {
-    width: auto;
-    height: 65px;
-    cursor: pointer;
-}
 
 .showicon {
     width: 37px;

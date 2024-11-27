@@ -8,7 +8,6 @@ import EditIcon from '../Assets/edit.svg';
 import SaveIcon from '../Assets/save.svg';
 
 import BackgroundLogo from '../Assets/myaccount-bg.svg';
-import TopRightAddIcon from '../Assets/topright-add.svg'
 
 import EditSelected from '../Assets/edit-green.svg';
 import SaveSelected from '../Assets/save-green.svg';
@@ -18,6 +17,7 @@ import ShowOff from '../Assets/show-off.svg';
 import AccountIcon from '../Assets/my-account.svg';
 
 
+import RightButtons from './RightButtons';
 import InsideAccountSideMenu from '../components/InsideAccountSideMenu';
 
 const MyAccount = () => {
@@ -181,34 +181,21 @@ const MyAccount = () => {
 
     return (
         <div className={styles["my-account-container"]}>
+            {/* Side Menu */}
             <InsideAccountSideMenu />
+            
             {/* main content*/}
             <main className={styles["main-content"]}>
+               
                 {/* Background logo */}
                 <img src={BackgroundLogo} alt="Background Logo" className={styles["background-logo"]} />
 
-                {/* Top-Right Icons */}
-                <div className={styles["top-right-icons"]}>
-                    <Link to="/addalandlord">
-                        <img
-                            src={TopRightAddIcon}
-                            alt="Add"
-                            className={`${styles["nav-icon"]} ${styles["add-icon"]}`}
-                        />
-                    </Link>
-                    <a href="/myaccount">
-                        <img
-                            src={AccountIcon}
-                            alt="Account"
-                            className={`${styles["nav-icon"]} ${styles["account-icon"]}`}
-                        />
-                    </a>
+                
 
-                </div>
 
                 <div className={styles["title-container"]}>
                     <img src={AccountIcon} alt="Account" className={styles.titleicon} />
-                    <h2>Hello!</h2>
+                    <h2>My Account</h2>
                 </div>
 
                 {/* User Info Form */}
@@ -341,6 +328,10 @@ const MyAccount = () => {
                 </div>
 
             </main>
+             {/* Top-Right Icons */}
+            <div className={styles["right-buttons"]}>
+                    <RightButtons />
+            </div>
         </div>
     );
 };

@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Bookmark.module.css';
-import OfficialLogo from '../Assets/official logo.svg';
-import SavedBookmark from '../Assets/saved-bookmark.svg'; // Saved bookmark icon
-import EmptyBookmark from '../Assets/my bookmark.svg'; // Empty bookmark icon
+import SavedBookmark from '../Assets/saved-bookmark.svg';
+import RemoveBookmark from '../Assets/fav-unselect.svg';
 import InsideAccountSideMenu from './InsideAccountSideMenu';
 import BackgroundLogo from '../Assets/3-ppl-icon.svg';
 
+import MyBookmark from '../Assets/fav-selected.svg';
+import RightButtons from './RightButtons';
+
 function Bookmark() {
   const [bookmarkedLandlords, setBookmarkedLandlords] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(''); // Error state
-  const [sortOption, setSortOption] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [sortOption, setSortOption] = useState('Most Reviews'); // Default displayed option
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Dropdown visibility
+
 
   const navigate = useNavigate();
-
-  const handleSignOut = () => {
-    localStorage.removeItem('token'); // Remove the token from localStorage
-    navigate('/'); // Redirect to the homepage after sign-out
-  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      setError('Please log in to view bookmarks.');
+      setError('Please sign in to view bookmarks.');
       setLoading(false);
       return;
     }
@@ -31,7 +30,7 @@ function Bookmark() {
   }, []);
 
   const fetchBookmarkedLandlords = (token) => {
-    setLoading(true); // Show loading state
+    setLoading(true);
     fetch('/api/bookmarked-landlords', {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,12 +43,12 @@ function Bookmark() {
           isBookmarked: true,
         }));
         setBookmarkedLandlords(updatedData);
-        setLoading(false); // Remove loading state
+        setLoading(false);
       })
       .catch((error) => {
-        setError('Error fetching bookmarked landlords.');
+        setError('Failed to fetch bookmarks. Please sign out then sign in again.');
         setLoading(false);
-        console.error('Error fetching bookmarked landlords:', error);
+        console.error('Error fetching bookmarks:', error);
       });
   };
 
@@ -73,161 +72,143 @@ function Bookmark() {
       },
       body: JSON.stringify({ landlordId }),
     }).catch((error) => {
+      console.error('Error toggling bookmark:', error);
       setBookmarkedLandlords((prev) =>
         prev.map((landlord) =>
           landlord.landlordId === landlordId
-            ? { ...landlord, isBookmarked } // Revert back to original state on error
+            ? { ...landlord, isBookmarked }
             : landlord
         )
       );
-      console.error('Error updating bookmark status:', error);
     });
   };
 
-  if (loading) {
-    return <div>Loading your bookmarked landlords...</div>; // Loading state
-  }
+  // sorting stuff
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev); // Toggle dropdown visibility
+  };
 
-  if (error) {
-    return <div>{error}</div>; // Error message
-  }
-
-  const handleSortChange = (e) => {
-    setSortOption(e.target.value);
+  const handleSortChange = (option) => {
+    setSortOption(option); // Update the sort option
+    setIsDropdownOpen(false); // Close the dropdown
   };
 
   const sortedLandlords = [...bookmarkedLandlords].sort((a, b) => {
-    if (sortOption === 'rating') {
-      return b.averageRating - a.averageRating; // Highest rating first
-    } else if (sortOption === 'lowest rating') {
-      return a.averageRating - b.averageRating; // Lowest rating first
-    } else if (sortOption === 'Landlord name') {
-      return a.name.localeCompare(b.name); // Sort alphabetically by name
-    } else if (sortOption === 'property name') {
-      const propertyA = a.properties[0]?.propertyname || ''; // Fallback to empty string if propertyname is undefined
+    if (sortOption === 'Highest Rating') {
+      return b.averageRating - a.averageRating;
+    } else if (sortOption === 'Lowest Rating') {
+      return a.averageRating - b.averageRating;
+    } else if (sortOption === 'Landlord Name') {
+      return a.name.localeCompare(b.name);
+    } else if (sortOption === 'Property Name') {
+      const propertyA = a.properties[0]?.propertyname || '';
       const propertyB = b.properties[0]?.propertyname || '';
-      return propertyA.localeCompare(propertyB); // Sort alphabetically by property name
-    } else if (sortOption === 'reviews') {
-      return b.reviewCount - a.reviewCount; // Most reviews first
+      return propertyA.localeCompare(propertyB);
+    } else if (sortOption === 'Most Reviews') {
+      return b.reviewCount - a.reviewCount;
     }
-    return 0; // No sorting if no option selected
+    return 0;
   });
 
-  const refresh = () => {
-    navigate('/bookmarks');
-    window.location.reload();
-  };
-
   return (
-    <div className={styles['my-account-container']}>
-      {/* Side Menu */}
+    <div className={styles['my-container']}>
       <InsideAccountSideMenu />
-      <main className={styles["main-content"]}>
-        {/* Background logo */}
-        <img src={BackgroundLogo} alt="Background Logo" className={styles["background-logo"]} />
-        {/* Header with icon and text */}
-        <div className={styles['mybookmark-header']}>
-          <img
-            src={EmptyBookmark}
-            alt="myBookmark Icon"
-            className={styles['myheader-bookmark-icon']}
-          />
-          <h1>
-            My <span className={styles['myhighlight-bookmarks']}>Bookmarks</span>
-          </h1>
+      <img src={BackgroundLogo} alt="Background Logo" className={styles['background-logo']} />
+      <main className={styles['main-content']}>
+        <div className={styles['title-container']}>
+          <img src={MyBookmark} alt="Account" className={styles.titleicon} />
+          <h2>My Bookmarks</h2>
         </div>
 
-        <div className={styles['mybookmark-search-container']}>
-          <select
-            className={styles['mybookmark-search-dropdown']}
-            onChange={handleSortChange}
-          >
-            <option value="">Search By</option>
-            <option value="rating">Highest Rating</option>
-            <option value="Landlord name">Landlord Name</option>
-            <option value="lowest rating">Lowest Rating</option>
-            <option value="property name">Property Name</option>
-            <option value="reviews">Most Reviews</option>
-          </select>
-        </div>
-
-        <div className={styles['mylandlord-list']}>
-          {sortedLandlords.length > 0 ? (
+        <div className={styles['main-contents']}>
+          {/* Sorting Dropdown */}
+          <div className={styles['sorting-wrapper']}>
+            <span className={styles['sort-label']}>Sort By:</span>
+            <div className={styles['sorting-container']}>
+              <div className={styles['sort-header']} onClick={toggleDropdown}>
+                {sortOption}
+              </div>
+              {isDropdownOpen && (
+                <ul className={styles['sort-options']}>
+                  {['Landlord Name', 'Property Name', 'Highest Rating', 'Lowest Rating', 'Most Reviews'].map((option) => (
+                    <li
+                      key={option}
+                      className={styles['sort-option']}
+                      onClick={() => handleSortChange(option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          
+          </div>
+          {/* Bookmarks */}
+          {loading ? (
+            <p className={styles.loadingText}>Loading Bookmarks...</p>
+          ) : error ? (
+            <p className={styles.error}>{error}</p>
+          ) : sortedLandlords.length > 0 ? (
             sortedLandlords.map((landlord) => (
               <div
-                className={styles['mylandlord-card']}
+                className={styles['landlord-card']}
                 key={landlord.landlordId}
                 onClick={() => navigate(`/LandlordProfile/${landlord.landlordId}`)}
               >
-               <div className={styles['rating-container']}>
-  <span className={styles['rating-label']}>Rating</span>
-  <div className={styles['rating-box']}>
-    <h2
-      className={
-        landlord.averageRating
-          ? styles['rating-score']
-          : styles['no-rating']
-      }
-    >
-      {landlord.averageRating
-        ? landlord.averageRating.toFixed(1)
-        : 'No Rating'}
-    </h2>
-  </div>
-  <p className={styles['rating-reviews']}>
-    {landlord.reviewCount} {landlord.reviewCount === 1 ? 'Review' : 'Reviews'}
-  </p>
-</div>
-
-
-                <div className={styles['mylandlord-info']}>
-                  <h2>{landlord.name}</h2>
+                <div className={styles['left-box']}>
+                  <div className={styles['rating-container']}>
+                    <span className={styles['rating-label']}>Avg Rating</span>
+                    <div className={styles['rating-box']}>
+                      <h2 className={styles['rating-score']}>
+                        {landlord.averageRating ? landlord.averageRating.toFixed(1) : 'N/A'}
+                      </h2>
+                    </div>
+                    <p className={styles['rating-reviews']}>
+                      {landlord.reviewCount} {landlord.reviewCount === 1 ? 'Review' : 'Reviews'}
+                    </p>
+                  </div>
+                </div>
+                <div className={styles['center-box']}>
+                  <h2 className={styles['landlord-name']}>{landlord.name}</h2>
                   {landlord.properties && landlord.properties.length > 0 ? (
-                    <>
-                      {/* Display the first property or properties */}
+                    <div className={styles['property-list']}>
                       {landlord.properties.slice(0, 1).map((property, index) => (
-                        <p key={index}>
-                          {property.propertyname
-                            ? `${property.propertyname},`
-                            : 'No Property Name,'}{' '}
-                          {property.address}, {property.city}, {property.zipcode}
+                        <p key={index} className={styles['property-item']}>
+                          {property.propertyname} – {property.address || 'Unknown Address'}
                         </p>
                       ))}
-
-                      {/* Display the "+n more properties" if there are more */}
-                      {landlord.properties.length > 1 && (
-                        <p className="additional-properties">
-                          +{landlord.properties.length - 1} more properties
-                        </p>
-                      )}
-                    </>
+                    </div>
                   ) : (
                     <p>No properties available</p>
                   )}
                 </div>
-
-                <div
-                  className={styles['mybookmark-icon']}
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent card click event
-                    toggleBookmark(landlord.landlordId, landlord.isBookmarked);
-                  }}
-                >
-                  <img
-                    src={landlord.isBookmarked ? SavedBookmark : EmptyBookmark}
-                    alt={
-                      landlord.isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'
-                    }
-                  />
+                <div className={styles['right-box']}>
+                  <div
+                    className={styles['bookmark-icon']}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleBookmark(landlord.landlordId, landlord.isBookmarked);
+                    }}
+                  >
+                    <img
+                      src={landlord.isBookmarked ? SavedBookmark : RemoveBookmark}
+                      alt="Bookmark Icon"
+                      className={styles['bookmark-image']}
+                    />
+                  </div>
                 </div>
               </div>
             ))
           ) : (
-            <p>No bookmarked landlords found.</p>
+            <p className={styles.noBookmarksText}>No bookmarks yet? Discover great landlords and save them here.</p>
           )}
         </div>
       </main>
-
+         {/* Top-Right Icons */}
+         <div className={styles["right-buttons"]}>
+                    <RightButtons />
+                </div>
     </div>
   );
 }

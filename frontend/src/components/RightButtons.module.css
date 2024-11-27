@@ -1,0 +1,28 @@
+.right-buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end; /* Aligns to the right */
+    position: relative; /* Allows parent context to control positioning */
+    padding-right: 70px;
+    margin-top: 60px;
+}
+
+.top-right-icons {
+    display: flex;
+    gap: 20px; /* Space between the icons */
+    justify-content: flex-end; /* Align icons to the right */
+}
+
+.nav-icon {
+    cursor: pointer;
+}
+
+.add-icon {
+    width: 80px;
+    height: auto;
+}
+
+.account-icon {
+    width: auto;
+    height: 65px;
+}
