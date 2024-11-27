@@ -110,6 +110,16 @@ function Bookmark() {
     return 0;
   });
 
+  // Show property names in capitalized case like "my name" to "My Name"
+const capitalizeCase = (str) => {
+  if (!str) return ''; // Handle null or undefined
+  return str
+      .toLowerCase() // Convert to lowercase
+      .split(' ') // Split into words
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter of each word
+      .join(' '); // Join the words back
+};
+
   return (
     <div className={styles['my-container']}>
       <InsideAccountSideMenu />
@@ -175,9 +185,15 @@ function Bookmark() {
                     <div className={styles['property-list']}>
                       {landlord.properties.slice(0, 1).map((property, index) => (
                         <p key={index} className={styles['property-item']}>
-                          {property.propertyname} – {property.address || 'Unknown Address'}
-                        </p>
+                        {capitalizeCase(property.propertyname) || 'Unnamed Property'} –{' '}
+                        {property.address || 'Unknown Address'}, {property.city || 'Unknown City'}
+                    </p>
                       ))}
+                         {landlord.properties.length > 1 && (
+                      <p className={styles['property-item']}>
+                          + {landlord.properties.length - 1} More Properties
+                      </p>
+                  )}
                     </div>
                   ) : (
                     <p>No properties available</p>
