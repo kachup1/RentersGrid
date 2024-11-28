@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import pinIcon from '../Assets/pin.svg';
@@ -6,24 +6,25 @@ import currentLocationIcon from '../Assets/current-location.svg';
 import { useNavigate } from 'react-router-dom';
 
 const mapContainerStyle = {
-  
   width: "100%",
-  height: "800px",
+  height: "720px",
   borderRadius: "10px", // Curved edges
   overflow: "hidden"    // Ensure content stays within curved edges
 };
-const defaultCenter = [33.7701, -118.1937]; // You can update this to a more neutral point if needed
-const darkTileUrl =  'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+
+const defaultCenter = [33.7701, -118.1937]; // Default center coordinates
+const darkTileUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 
 function AllLocationsMap() {
-  const [map, setMap] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [error, setError] = useState(null);
+  const mapRef = useRef(null); // Ref to hold the Leaflet map instance
+  const markerRefs = useRef([]); // Ref to store markers for cleanup if needed
   const navigate = useNavigate();
 
   // Fetch markers from your API
   useEffect(() => {
-    fetch("http://localhost:5000/api/map_markers")
+    fetch("/api/map_markers")
       .then((response) => response.json())
       .then((properties) => {
         setMarkers(properties);
@@ -36,7 +37,7 @@ function AllLocationsMap() {
 
   // Initialize the map
   useEffect(() => {
-    if (!map) {
+    if (!mapRef.current) {
       const leafletMap = L.map('map').setView(defaultCenter, 13);
 
       L.tileLayer(darkTileUrl, {
@@ -44,9 +45,9 @@ function AllLocationsMap() {
         maxZoom: 19,
       }).addTo(leafletMap);
 
-      setMap(leafletMap);
+      mapRef.current = leafletMap; // Store map instance in ref
     }
-  }, [map]);
+  }, []);
 
   // Function to handle marker click and navigate to SearchResults
   const handleMarkerClick = useCallback((landlordName) => {
@@ -60,20 +61,18 @@ function AllLocationsMap() {
       });
   }, [navigate]);
 
-  
-
   // Add markers to the map
   useEffect(() => {
-    if (map && markers.length > 0) {
-
-      markers.forEach((markerData, index) => {
+    if (mapRef.current && markers.length > 0) {
+      // Add new markers without reinitializing the map
+      const newMarkers = markers.map((markerData, index) => {
         const icon = L.icon({
           iconUrl: pinIcon,
           iconSize: [30, 30],
         });
 
         const marker = L.marker([markerData.latitude, markerData.longitude], { icon })
-          .addTo(map)
+          .addTo(mapRef.current)
           .bindPopup(
             `<div>
               <strong>${markerData.property_name}</strong><br>
@@ -91,34 +90,37 @@ function AllLocationsMap() {
             });
           }
         });
+
+        return marker;
       });
+
+      // Store markers for cleanup if needed
+      markerRefs.current = newMarkers;
     }
-  }, [map, markers, handleMarkerClick]);
+  }, [markers, handleMarkerClick]);
 
   // Function to fetch and show the user's current location
   const showCurrentLocation = useCallback(() => {
-    if (!map) return; // Ensure map is initialized
+    if (!mapRef.current) return; // Ensure map is initialized
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-  
+
           const currentIcon = L.icon({
             iconUrl: currentLocationIcon,
             iconSize: [30, 30],
           });
-  
+
           // Add a marker for the user's current location
-          const currentMarker = L.marker([latitude, longitude], { icon: currentIcon })
-            .addTo(map)
+          L.marker([latitude, longitude], { icon: currentIcon })
+            .addTo(mapRef.current)
             .bindPopup("You are here.")
             .openPopup();
-  
-          // Center the map on the user's location after a short delay
-          setTimeout(() => {
-            map.setView([latitude, longitude], 14);
-          }, 500);
+
+          // Center the map on the user's location
+          mapRef.current.setView([latitude, longitude], 14);
         },
         (error) => {
           console.error("Error getting user's location:", error);
@@ -128,15 +130,14 @@ function AllLocationsMap() {
     } else {
       alert("Geolocation is not supported by your browser.");
     }
-  }, [map]);
-  
+  }, []);
 
   // Request location once when the map is mounted
   useEffect(() => {
-    if (map) {
+    if (mapRef.current) {
       showCurrentLocation();
     }
-  }, [map]);
+  }, [showCurrentLocation]);
 
   return (
     <div>

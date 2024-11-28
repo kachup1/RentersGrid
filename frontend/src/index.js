@@ -1,10 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';  // This should match the App.js file path
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import { MapProvider } from './MapContext'; // Import the MapProvider
 
-ReactDOM.render(
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+
+root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <MapProvider>
+      <App />
+    </MapProvider>
+  </React.StrictMode>
 );

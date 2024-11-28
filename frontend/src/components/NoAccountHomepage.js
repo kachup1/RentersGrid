@@ -1,30 +1,24 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import AllLocationsMap from './AllLocationsMap';
 import Header from './Header';
-import SearchButton from './MainSearchButton';
+import MainSearchButton from './MainSearchButton';
 
 import styles from './NoAccountHomepage.module.css';
 
-
 function NoAccountHomePage() {
-
     // State for side menu if it's open
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    // Initialize navigate for redirection
+    const navigate = useNavigate();
 
     // Function to toggle the menu
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-
-    // Define the handleSearch function
-    const handleSearch = (query) => {
-        console.log(`Searching for: ${query}`);
-        // You can add additional logic for handling the search
-    };
-
-  
     return (
         <div className="main-container">
             {/* Header Section */}
@@ -32,7 +26,11 @@ function NoAccountHomePage() {
 
             {/* Search Button Section */}
             <div className={styles.searchContainer}>
-                <SearchButton onSearch={handleSearch} />
+                <MainSearchButton
+                    onSearch={(data, query, searchBy) => {
+                        navigate('/SearchResults', { state: { results: data, searchQuery: query, searchBy } });
+                    }}
+                />
             </div>
 
             <section className="map-section">
@@ -40,11 +38,8 @@ function NoAccountHomePage() {
                     <AllLocationsMap />
                 </div>
             </section>
-
         </div>
     );
 }
-
-
 
 export default NoAccountHomePage;

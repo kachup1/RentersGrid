@@ -190,9 +190,7 @@ const MyAccount = () => {
                 {/* Background logo */}
                 <img src={BackgroundLogo} alt="Background Logo" className={styles["background-logo"]} />
 
-                
-
-
+                {/*Title*/ }
                 <div className={styles["title-container"]}>
                     <img src={AccountIcon} alt="Account" className={styles.titleicon} />
                     <h2>My Account</h2>

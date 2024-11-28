@@ -19,11 +19,6 @@
 }
 
 
-.logo img {
-    width: 300px; /* Adjust width as needed */
-    height: auto;  /* Keeps aspect ratio */
-    margin-bottom: 30px; 
-}
 
 .main-content {
     padding-top: 100px;

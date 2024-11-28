@@ -8,6 +8,7 @@ import Header from './Header';
 import styles from './SearchResults.module.css';
 import { isTokenValid } from './authentication';
 
+import MainSearchButton from './MainSearchButton'; 
 function SearchResultsPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -85,9 +86,7 @@ function SearchResultsPage() {
       handleSearch(); // Trigger the search on Enter
     }
   };
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
+
 
   const toggleBookmark = (landlordId) => {
     // Redirects to sign-in page if user is not logged in
@@ -109,7 +108,7 @@ function SearchResultsPage() {
     // Determine the request method (POST for add, DELETE for remove)
     const method = isBookmarked ? 'DELETE' : 'POST';
 
-    fetch('http://localhost:5000/api/bookmark', {
+    fetch('/api/bookmark', {
       method,
       headers: {
         'Content-Type': 'application/json',
@@ -181,50 +180,21 @@ function SearchResultsPage() {
 
   return (
     <div className={styles['searchresults-page-container']}>
-  <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+      <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+  
+  
+      {/* main contents */}
   <div className={styles['searchresults-searchby-and-sort-wrapper']}>
-    {/* Search Bar Container */}
-    <div className={styles['searchresults-bar-container']} style={{ position: 'relative', display: 'inline-block' }}>
-      <select
-        className={styles['searchresults-dropdown']}
-        value={searchType}
-        onChange={(e) => setSearchType(e.target.value)}
-      >
-        <option value="landlord">Landlord Name</option>
-        <option value="property">Property Name</option>
-        <option value="address">Address</option>
-        <option value="city">City</option>
-        <option value="zipcode">Zip Code</option>
-      </select>
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={handleSearchChange}
-        placeholder={`Search by ${searchType === 'landlord' ? 'Landlord Name' : searchType}`}
-        className={styles['searchresults-input']}
-        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-      />
-      {(searchQuery.trim() || sortBy) && (
-        <div
-          className={styles['searchresults-clear-icon']}
-          style={{
-            position: 'absolute',
-            right: '10px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            cursor: 'pointer',
-            width: '20px',
-            height: '20px',
-            backgroundImage: `url(${ClearSelectionIcon})`,
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-          }}
-          onClick={handleClear}
-        />
-      )}
-    </div>
+    {/* Search Bar */}
+        <MainSearchButton
+      onSearch={(data, query, searchBy) => {
+        setSearchResults(data);
+        setSearchQuery(query);
+        setSearchType(searchBy);
+      }}
+    />
 
-    {/* Sort Container */}
+    {/* Sort Component */}
     <div className={styles['searchresults-sort-container']}>
       <label htmlFor="sort" className={styles['searchresults-sort-label']}>Sort By: </label>
       <select

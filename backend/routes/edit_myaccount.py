@@ -20,22 +20,34 @@ def get_user():
     Fetch user information for the logged-in user.
     """
     try:
+        # Debugging headers
+        print(f"Request Headers: {request.headers}")  # Step 1: Inspect headers
+
+        # Get JWT identity
         user_identity = get_jwt_identity()
+        print(f"JWT Identity: {user_identity}")
+
         user_id = user_identity.get('userId') if isinstance(user_identity, dict) else user_identity
+        print(f"Extracted User ID: {user_id}")
 
         if not user_id:
+            print("User ID not found in token")
             return jsonify({"error": "User ID not found in token"}), 400
 
-        # Fetch the user from the database (excluding password)
+        # Debugging database query
+        print(f"Querying MongoDB with userId: {user_id}")
         user = users_collection.find_one({'userId': int(user_id)}, {'_id': 0, 'email': 1})
+        print(f"Query Result: {user}")
+
         if not user:
+            print("User not found")
             return jsonify({"error": "User not found"}), 404
 
         return jsonify(user), 200
 
     except Exception as e:
-        print(f"Error fetching user data: {e}")
-        return jsonify({"error": "Failed to fetch user data"}), 500
+        print(f"Error fetching user data: {str(e)}")
+        return jsonify({"error": f"Failed to fetch user data: {str(e)}"}), 500
 
 @edit_account_bp.route('/api/edit_user', methods=['POST'])
 @jwt_required()
