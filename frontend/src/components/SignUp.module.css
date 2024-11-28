@@ -74,12 +74,12 @@ body {
 
 /* White box containing sign in */
 .sign-up-wrapper {
-  position: absolute;
+  position: relative;
   width: 500px;
   height: 600px;
   background-color: #fff;
   border-radius: 20px;
-  top: 200px;
+  top: 100px;
 }
 
 .sign-up-form-box-login {
@@ -203,7 +203,17 @@ body {
 
 /*Error message will be red*/
 .error {
-  color: red;
-  bottom: -300px;
-  
+  color: red; /* Error message text color */
+  position: absolute; /* Position relative to its container */
+  top: 380%; /* Center vertically */
+  left: 10%; /* Center horizontally */
+  transform: translate(0%, -50%); /* Adjust for the element's size */
+  font-size: 14px; /* Adjust font size for readability */
+  font-weight: bold;
+  white-space: nowrap; /* Prevent wrapping */
+  word-break: keep-all; /* Ensure text doesn't break unnecessarily */
+  text-align: center; /* Center the text */
 }
+
+
+

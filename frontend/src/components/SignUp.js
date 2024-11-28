@@ -34,8 +34,8 @@ function SignUp() {
         if (password.length < 6) {
             return "Password must be at least 6 characters long.";
         }
-        if (!hasNumber && !hasSpecialChar) {
-            return "Password must include at least one number and one special character.";
+        if (!hasNumber && !hasNumber) {
+            return "Password must be 6+ characters, 1 number, and 1 special character.";
         }
         if (!hasNumber) {
             return "Password must include at least one number.";
@@ -178,7 +178,13 @@ function SignUp() {
                         <button input type="submit" className={styles['sign-up-submit-button']}>Sign Up</button>
 
                         {/* Move the error message here to position it below the button */}
-                        {error && <p className={styles['error']}>{error}</p>}{/*Display error in red*/}
+                        {/* Error Message */}
+                        {error && (
+                            <div className={styles['error-container']}>
+                                <p className={styles['error']}>{error}</p>
+                            </div>
+                        )}
+
 
                         {/* Sign In */}
                         <div className={styles['sign-in']}>
