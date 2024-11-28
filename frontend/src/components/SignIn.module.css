@@ -213,8 +213,16 @@ body, .side-menu {
 .success-message {
     color: green; /* Green color for success messages */
 }
+.sign-in-error-message {
+    color: red; /* Error text color */
+    position: absolute; /* Allow precise positioning */
+    top: 320px; /* Adjust to position it vertically */
+    left: 130px; /* Move it horizontally to the left */
+    font-size: 14px; /* Adjust font size if needed */
+    font-weight: bold;
+    white-space: nowrap; /* Prevent the text from wrapping */
 
-
+}
 
 body {
     font-family: 'Helvetica';
