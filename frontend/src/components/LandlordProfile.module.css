@@ -259,12 +259,15 @@
     display: flex;
     align-items: center;
     padding: 5px 0;
+
 }
 
 .rating-face {
     width: 30px;
     height: 30px;
     margin-right: 15px;
+   
+
 }
 
 .rating-label {
@@ -273,19 +276,21 @@
     margin-right: 15px;
     color: #333;
     text-align: left;
+    
 }
 
 /* Rating Bars */
 .rating-bar {
     width: 100%;
     height:20px;
-    flex-grow: 1;
+    flex-grow:1;
     background-color: #d3d3d3; /* Grey background */
     height: 20px;
     border-radius: 5px;
     overflow: hidden;
     position: relative;
     border-radius: 5px;
+    
 }
 
 .green-bar {
