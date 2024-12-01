@@ -27,6 +27,8 @@ import SideMenu from './SideMenu';
 import styles from './LandlordProfile.module.css';
 import { isTokenValid } from './authentication';
 
+import Header from './Header';
+
 function LandlordProfile() {
     const { landlordId , ratingId} = useParams();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,6 +38,14 @@ function LandlordProfile() {
     const [isThumbsDownSelected, setIsThumbsDownSelected] = useState(false);
     const [selectedPropertyId,setSelectedPropertyId] = useState('all');
     const[sortOrder, setSortOrder] = useState("mostRecent");
+    /*For the new header: */
+     // State for side menu if it's open
+     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+     // Function to toggle the menu
+     const toggleMenu = () => {
+         setIsMenuOpen(!isMenuOpen);
+     };
     const navigate = useNavigate();
 
     // Check if properties data is available before attempting to access it
@@ -351,20 +361,7 @@ const handleVote = (reviewId, type) => {
 
     return (
         <div className={styles["landlord-profile-container"]}>
-            <header className={styles["landlord-header"]}>
-                {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
-
-                {/* Header */}
-                <div className={styles["landlord-logo-container"]}>
-                    <img src={OfficialLogo} alt="Official Logo" className={styles["landlord-center-logo"]} onClick={() => navigate('/')} />
-                </div>
-                <div className={styles["landlord-buttons-container"]}>
-                    <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className={styles["landlord-left-icon"]} onClick={()=>navigate('/AddALandlord')}/>
-                    <img src={AccountButton} alt="Account Button" className={styles["landlord-account-right"]} onClick={() => {
-                        isTokenValid() ? navigate('/myaccount') : navigate('/signin');
-                    }} />
-                </div>
-            </header>
+             <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
             {/* Landlord Information Section */}
             <div className={styles["landlord-info"]}>

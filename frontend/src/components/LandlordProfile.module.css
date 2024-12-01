@@ -24,133 +24,149 @@
     color: white;
     box-sizing: border-box;
     overflow-y: auto;
-    height: 500px;
-}
-
-
-/* Header */
-.landlord-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
-    background-color: #4D55A5; /* Ensure background color remains */
-    box-sizing: border-box;
-}
-
-.landlord-logo-container {
-    text-align: center;
-    flex: 1;
-}
-
-/* Logo */
-.landlord-center-logo {
-    width: 50vw;
-    max-width: 300px;
-    cursor: pointer;
-    margin-top: 20px;
-    z-index: 10;
-    transform: translateX(25%);
-}
-
-/* Header Buttons */
-.landlord-buttons-container {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.landlord-left-icon,
-.landlord-account-right {
-    width: 8vw;
-    max-width: 60px;
-    height: auto;
-    cursor: pointer;
-    margin-top: 2vw;
+    /*    height: 500px;
+*/
 }
 
 /* Landlord Information Section */
 .landlord-info {
     display: flex;
     align-items: flex-start;
+    justify-content: space-between; /* Ensures even spacing */
     gap: 20px;
-    margin-top: 5vw;
-    width: 100%;
-    max-width: 1200px;
-    justify-content: space-between;
+    margin: 0 auto; /* Centers the content */
+    max-width: 100%; /* Matches the full-width layout */
+    width: 100%; /* Ensures responsiveness */
     padding: 20px;
     box-sizing: border-box;
-    
 }
+
 
 /* Middle Icon */
 .middle-icon {
-    width: 200px;
-    height: 200px;
-    flex-shrink: 0;
+    width: 20%;
+    height: 20%;
+    /*flex-shrink: 0;*/
+    position: relative;
+    left:80px;
+    top: 15px;
 }
 
 /* Landlord Information */
 .landlord-information {
+    
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px; /* Ensures it aligns with rating-summary */
+    max-width: 600px;  /*Ensures it aligns with rating-summary */
     padding: 20px;
     color: #4D55A4;
     box-sizing: border-box;
+    height: 300px;
+    position: relative;
+    top:5px;
 }
 
 .landlord-details {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 20px;
     margin-bottom: 10px;
+    width: 190px;
+    
+   
 }
 
 .rating-box {
-    background-color: #d3d3d3;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #333;
-    border-radius: 5px;
+    background-color: #d3d3d3; /* Gray background */
+    display: flex; /* Flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    font-size: 3rem; /* Font size for number */
+    font-weight: bold; /* Bold text */
+    color: #333; /* Text color */
+    border-radius: 5px; /* Rounded corners */
+    margin: 0 auto; /* Center box in container */
+    position: relative;
+    top:-35px;
 }
 
+.landlord-rates {
+    font-size: inherit; /* Inherit font size from parent */
+    font-weight: inherit; /* Inherit font weight from parent */
+    text-align: center; /* Align text center */
+    margin: 0; /* Remove any default margins */
+    line-height: 3; /* Ensure single line spacing */
+    width: 140px; /* Explicit width */
+    height: 150px; /* Explicit height */
+  
+}
+
+
 .landlord-name {
-    font-size: 1.8rem;
+    font-size: 3.3rem;
     font-weight: bold;
     color: #4D55A4;
+    position: relative;
+    left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    top:-40px;
+
 }
 
 .landlord-location {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #666;
     margin-top: 5px;
+    position: relative;
+    top: -50px;
+    left:10px;
 }
 .landlord-report-icon{
     cursor: pointer;
     margin-left: auto;
     display: flex;
     align-items:center;
+    position: relative;
+    top:-75px;
+    left:15px;
 }
 
 .report-icon-img{
     width: 40px;
     height: 40px;
 }
+/*Hovering over the report problem:*/
+/* Tooltip Style */
+.landlord-report-icon::after {
+    content: "Report a problem"; /* Tooltip text */
+    position: absolute;
+    bottom: 50px; /* Position above the icon */
+    left: 50%; /* Center the text horizontally */
+    transform: translateX(-50%);
+    background-color: #93C83D; /* Tooltip background */
+    color: white; /* Text color */
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+    visibility: hidden; /* Hidden by default */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    white-space: nowrap;
+}
+
+/* Show tooltip on hover */
+.landlord-report-icon:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
 
 /* Bookmark Icon */
 .landlord-bookmark-icon {
@@ -158,6 +174,9 @@
     margin-left: auto;
     display: flex;
     align-items: center;
+    position: relative;
+    top:-75px;
+    left:10px;
 }
 
 .bookmark-icon-img {
@@ -172,7 +191,21 @@
     margin-top: 15px;
 }
 
-.green-button,
+/*This is Add A review*/
+.green-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    top:-30px;
+    left:20px;
+    
+}
+/*This is add a property*/
 .red-button {
     display: flex;
     align-items: center;
@@ -181,11 +214,16 @@
     cursor: pointer;
     background-color: transparent;
     border: none;
+    position: relative;
+    top:-30px;
+    left:100px;
+ 
+    
 }
 
 .green-button img,
 .red-button img {
-    width: 120px;
+    width: 200px;
     height: auto;
     display: block;
 }
@@ -202,6 +240,7 @@
 
 /* Rating Summary */
 .rating-summary {
+    flex:1;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -516,7 +555,7 @@
 }
 
 
-/* Responsive Media Queries */
+/* Responsive Media Queries 
 @media (max-width: 768px) {
     .landlord-info {
         flex-direction: column;
@@ -579,7 +618,7 @@
     .review-date {
         font-size: 0.9rem;
     }
-}
+}*/
 
 .highlight {
     background-color: yellow; /* Highlight color */
