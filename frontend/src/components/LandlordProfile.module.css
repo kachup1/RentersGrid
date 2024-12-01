@@ -48,7 +48,7 @@
     height: 20%;
     /*flex-shrink: 0;*/
     position: relative;
-    left:80px;
+    left:20px;
     top: 15px;
 }
 
@@ -244,12 +244,15 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-width: 600px;
+    height: 300px;
     background-color: #ffffff;
-    width: 100%;
-    max-width: 400px;
     padding: 20px;
     border-radius: 10px;
     box-sizing: border-box;
+    position: relative;
+    left: -10px;
+    top:5px;
 }
 
 .rating-item {
