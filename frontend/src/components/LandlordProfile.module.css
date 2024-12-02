@@ -470,6 +470,7 @@
 .recommend-button.selected{
     background-color: #a29f9f;
 }
+
 .recommend-button {
     background-color: #d3d3d3;
     border: none;
@@ -480,6 +481,7 @@
     height: 30px;
     width: 70px;
 }
+
 .address-container h2{
     color: #000;
     font-size: 2.5rem;
