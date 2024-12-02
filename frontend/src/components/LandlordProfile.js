@@ -44,10 +44,17 @@ function LandlordProfile() {
     const navigate = useNavigate();
 
     // Check if properties data is available before attempting to access it
-    const property = landlordData.properties && landlordData.properties.length > 0 ? landlordData.properties[0] : null;
-    const propertyLocation = property 
-        ? `${property.propertyname} at ${property.address}, ${property.city}, ${property.state}`
-        : "Location not available";
+    const property = landlordData.properties.find(
+        (prop) => prop.propertyId === selectedPropertyId
+    );
+    
+    const propertyLocation =
+        selectedPropertyId === "all"
+            ? "All Properties"
+            : property
+            ? `${property.propertyname} at ${property.address}, ${property.city}, ${property.state}`
+            : "Location not available";
+    
 
     useEffect(() => {
         fetch(`/api/landlord/${landlordId}`)
@@ -407,6 +414,7 @@ const handleVote = (reviewId, type) => {
 
                     </div>
 
+<<<<<<< HEAD
                     {/* Rating Summary */}
                     <div className={styles["rating-summary"]}>
                     {[
@@ -421,6 +429,57 @@ const handleVote = (reviewId, type) => {
                             <span className={styles["rating-label"]}>{rating.label}</span>
                             <div className={styles["rating-bar"]}>
                                 <div className={styles[rating.colorClass]} style={{ width: `${getBarWidth(rating.count)}%` }}></div>
+=======
+                <div className={styles["dropdown"]}>
+                    <label htmlFor="sortSelect">Sort By: </label>
+                    <select id="sortSelect" name="sortSelect" onChange={handleSortChange}>
+                        <option value="mostRecent">Most Recent</option>
+                        <option value="highestRating">Highest Rating</option>
+                        <option value="lowestRating">Lowest Rating</option>
+                        {/* Add more sorting options as needed */}
+                    </select>
+                </div>
+            </div>
+            <div className={styles["reviews-and-icons"]}>
+                {/* Reviews Section */}
+                <div className={styles["landlord-reviews-section"]}>
+                    <div className={styles["reviews-header-and-card"]}>
+
+                        {/* Total Reviews Text */}
+                        
+                            <h1>Total Reviews: {filteredAndSortedReviews.length}</h1>
+                            {filteredAndSortedReviews.length === 0 ? (
+            <div className={styles["no-reviews"]}>
+                <p>Be the first to rate!</p>
+                <button
+                    className={styles["add-review-button"]}
+                    onClick={handleAddReviewClick}
+                >
+                    Add a Review
+                </button>
+            </div>
+        ) : (filteredAndSortedReviews.map(review=>(
+
+                        
+                        <div 
+                                id={`review-${review.ratingId}`}  //for share function
+                                key ={review.ratingId} 
+                                className={styles["review-card"]}>
+                            {/* Left Column containing the score and review details */}
+                            <div className={styles["left-column"]}>
+                                <div className={styles["review-rating"]}>
+                                <p className={`${styles["score-text"]} ${styles[`score-${review.score}`]}`}>{review.score}</p>
+                                <p className={styles['landlord-five-score']}>/5</p>
+                                </div>
+                                <div className={styles["review-details"]}>
+                                    <div className={styles[review.maintenance === "Yes"?"green":review.maintenance==="No"?"red":"gray"]}>Timely Maintenance</div>
+                                    <div className={styles[review.pets === "Yes"?"green":review.pets==="No"?"red":"gray"]}>Allows Pets</div>
+                                    <div className={styles[review.safety==="Yes"?"green":review.safety ==="No"?"red":"gray"]}>Safe Area</div>
+                                    <div className={styles[review.raisemoney === "Yes"?"green":review.raisemoney==="No"?"red":"gray"]}>Fair Rent increases</div>
+                                    <div className={styles[review.reachable === "Yes"? "green":review.reachable==="No"?"red":"gray"]}>Reachable</div>
+                                    <div className={styles[review.clearcontract === "Yes"?"green":review.clearcontract==="No"?"red":"gray"]}>Clear & Fair Contract</div>
+                                </div>
+>>>>>>> 35c9da8aacb634b078b789b6b9a96d61f0903a65
                             </div>
                         </div>
                     ))}
@@ -503,6 +562,7 @@ const handleVote = (reviewId, type) => {
                                                 />
                                                 <span>{reviewVotes[review.ratingId]?.helpful || 0}</span>
 
+<<<<<<< HEAD
                                             <img
                                                 src={reviewVotes[review.ratingId]?.notHelpful ? RedThumbsDown : GreyThumbsDown}
                                                 alt="Thumbs Down"
@@ -537,6 +597,29 @@ const handleVote = (reviewId, type) => {
                                                     </>
                                             
                                         )}
+=======
+                                <div className={styles["recommend-container"]}>
+                                    <p>Recommend:</p>
+                                    {review.recommend === "No Response"?(
+                                        <span className={styles["black"]}>No Response</span>
+                                    ):(
+                                        <>
+                                    <button
+                                        className={`${styles["recommend-button"]} ${
+                                            review.recommend === "Yes" ? styles["selected"] : ""
+                                        }`}
+                                    >
+                                        Yes
+                                    </button>
+                                    <button
+                                        className={`${styles["recommend-button"]} ${
+                                            review.recommend === "No" ? styles["selected"] : ""
+                                        }`}
+                                    >
+                                        No
+                                        </button>
+                                                </>
+>>>>>>> 35c9da8aacb634b078b789b6b9a96d61f0903a65
                                         
                                     </div>
 
@@ -554,7 +637,13 @@ const handleVote = (reviewId, type) => {
                             
                                 ))}
                         </div>
+<<<<<<< HEAD
                     
+=======
+                        
+                         ))
+                        )}
+>>>>>>> 35c9da8aacb634b078b789b6b9a96d61f0903a65
                     </div>
                 
                         

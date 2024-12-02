@@ -116,12 +116,12 @@ function ReportReview() {
                     <div className={styles[`char-count`]}>{charCount} / 500</div>
                     <textarea
                         id="comments"
-                        placeholder="  Please provide details about the problem on this review."
+                        placeholder="Please provide details about the problem on this review."
                         maxLength="500"
                         value={comments}
                         onChange={handleCommentsChange}
                         className={styles[`report-review-textarea`]}
-                    ></textarea>
+                    />
 
                     <button type="submit" className={styles[`report-review-submit-button`]} onClick={handleSubmit}>
                         Submit Report

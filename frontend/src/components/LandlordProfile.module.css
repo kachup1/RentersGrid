@@ -79,6 +79,7 @@
     position: relative;
     top:-35px;
     
+    
 }
 
 .landlord-rates {
@@ -106,6 +107,14 @@
 }
 
 .landlord-location {
+    font-size: 1.1rem;
+    color: #666;
+    margin-top: 5px;
+    position: relative;
+    top: -60px;
+    left:10px;
+}
+.landlord-address{
     font-size: 1.2rem;
     color: #666;
     margin-top: 5px;
@@ -346,7 +355,7 @@
     box-sizing: border-box;
     position: relative;
     left:130px;
-    height: 580px;
+    height: 540px;
 }
 
 /* Score Rating */
@@ -354,33 +363,35 @@
    
     color: black;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: -90px;
+    margin-left: -20px;
+    margin-right: -40px;
     flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-}
+    top: -20px;
+    padding: 0px;
 
+}
+/* Score Rating example '2'*/
 .score-text {
-    
-    color: #4D55A5;
-    font-size: 6.5rem;
+    font-size: 8.5rem;
     font-weight: bold;
-    padding: 20px;
     border-radius: 20px;
     text-align: center;
-    width: 190px;
-    height: 120px;
+    width: 400px;
+    height: 210px;
     position: relative;
-    top:-70px;
-    left:5px; 
+    top:-130px;
+    left:5px;
 }
 
 .landlord-five-score{
     font-size: 2.5rem;
     position: relative;
-    top:-45px;
+    top:-125px;
     left:-70px;
 }
 
@@ -414,6 +425,7 @@
     margin-top: 10px;
 }
 
+/*Grey box that holds comments*/
 .comment-container {
     background-color: #E4E4E4;
     padding: 20px;
@@ -423,7 +435,7 @@
     border-radius: 10px;
     flex: 1;
     position: relative;
-    height: 500px;
+    height: 450px;
 }
 
 /* Top Row for Title and Helpful Container */
@@ -441,6 +453,7 @@
     font-size: 1rem;
     color: #4D55A5;
     margin-top: 15px;
+
 }
 
 /*This is for the no response text:*/
@@ -453,17 +466,20 @@
 
 /*This is for the recommend buttons,yes or no*/
 .recommend-button.selected{
-    background-color: #808080;
+    background-color: #a29f9f;
 }
+
 .recommend-button {
     background-color: #d3d3d3;
     border: none;
     padding: 5px 10px;
     border-radius: 15px;
-    color: #666;
-    
+    color: black;
     font-size: 0.9rem;
+    height: 30px;
+    width: 70px;
 }
+
 .address-container h2{
     color: #000;
     font-size: 2.5rem;
@@ -508,27 +524,22 @@
     display: flex;
     flex-direction: column;
     width: 250px;
-    gap: 20px;
+    padding: 20px;
 }
-
+/* Left Column in Review Section Container*/
 .review-details {
     background-color: #FFFFFF;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    border-radius: 5px;
     position: relative;
-    top:-180px;
-    height: 300px;
-    align-content:space-around;
-    padding: 0px;
-    border-radius: 10px;
-    position: relative;
-    top:-120px;
-    height: 290px;
+    top:-150px;
+    height: 200px;
     align-content:start;
     padding: 10px;
-    gap: 5px; 
+    width: 260px;
+    border-radius: 10px;
+    left: -13px;
 }
 
 .green,
@@ -540,12 +551,9 @@
     justify-content: center;
     font-weight: bold;
     color: black;
-    border-radius: 20px;
-    height: 80px;
-    width: 120px;
     border-radius: 10px;
-    height: 80px;
-    width: 100px;
+    height: 50px;
+    width: 110px;
     text-align: center;
     padding: 5px;
 }
@@ -575,9 +583,8 @@
     position: relative;
     top:20px;
     left:40px;
-
-    
 }
+
 /* Select Dropdown */
 .dropdown select {
     width: 160px; /* Adjust width of dropdown */
@@ -619,3 +626,27 @@
     background-color: yellow; /* Highlight color */
     transition: background-color 0.5s ease-out;
 }
+
+/*If there are no reviews:*/
+.no-reviews {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    
+    border-radius: 10px;
+    
+    font-size: 1.2rem;
+    font-family: Helvetica;
+}
+
+.add-review-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Helvetica;
+}
+
+
