@@ -11,7 +11,7 @@ import { isTokenValid } from './authentication';
 function SearchResultsPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchType, setSearchType] = useState('landlord');
+  const [searchType, setSearchType] = useState('all');
   const [sortBy, setSortBy] = useState('Landlord name');
   const [loading, setLoading] = useState(false);
   const [searchresults, setSearchResults] = useState([]);
@@ -28,7 +28,7 @@ function SearchResultsPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { results: fetchedResults } = location.state || {};
-  const { results = [], searchQuery: initialQuery = '', searchBy = 'all' } = location.state || {};
+  const { results = [], searchQuery: initialQuery = '', searchBy = 'all', } = location.state || {};
 
 
   const fetchBookmarks = (token) => {
@@ -55,6 +55,16 @@ function SearchResultsPage() {
       setIsLoggedIn(false);
     }
   }, []);
+  useEffect(() => {
+    // Initialize search type and query from the home page
+    if (searchBy) {
+      setSearchType(searchBy);
+    }
+    if (initialQuery) {
+      setSearchQuery(initialQuery);
+      setLastSearchedQuery(initialQuery);
+    }
+  }, [searchBy, initialQuery]);
   const handleClear = () => {
     setSearchQuery('');  // Clears the search query
     setSortBy('Landlord name');       // Clears the sort option
@@ -64,21 +74,40 @@ function SearchResultsPage() {
       alert('Please enter a search query.');
       return;
     }
+  
+    // Log the search query and search type before sending the request
+    console.log('Sending search request with:');
+    console.log(`Search Query: ${searchQuery}`);
+    console.log(`Search Type: ${searchType}`);
+  
     setLastSearchedQuery(searchQuery); // Store the current query as the last searched query
     setIsSearchTriggered(true); // Mark the search as triggered
     setLoading(true);
-
+  
     fetch(`/api/search?searchBy=${searchType}&query=${encodeURIComponent(searchQuery)}`)
-      .then((response) => response.json())
+      .then((response) => {
+        // Log the response status and headers
+        console.log('Response received with status:', response.status);
+        console.log('Response headers:', response.headers);
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
+        // Log the data received from the server
+        console.log('Data received from server:', data);
         setSearchResults(data);
         setLoading(false);
       })
       .catch((error) => {
+        // Log the error if the request fails
         console.error('Error fetching search results:', error);
         setLoading(false);
       });
   };
+  
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -190,6 +219,7 @@ function SearchResultsPage() {
         value={searchType}
         onChange={(e) => setSearchType(e.target.value)}
       >
+        <option value="all">All</option>
         <option value="landlord">Landlord Name</option>
         <option value="property">Property Name</option>
         <option value="address">Address</option>
@@ -200,7 +230,7 @@ function SearchResultsPage() {
         type="text"
         value={searchQuery}
         onChange={handleSearchChange}
-        placeholder={`Search by ${searchType === 'landlord' ? 'Landlord Name' : searchType}`}
+        placeholder={`Search by ${searchType === 'all' ? 'All Categories' : searchType}`}
         className={styles['searchresults-input']}
         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
       />
