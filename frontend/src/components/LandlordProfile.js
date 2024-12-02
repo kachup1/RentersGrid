@@ -49,10 +49,17 @@ function LandlordProfile() {
     const navigate = useNavigate();
 
     // Check if properties data is available before attempting to access it
-    const property = landlordData.properties && landlordData.properties.length > 0 ? landlordData.properties[0] : null;
-    const propertyLocation = property 
-        ? `${property.propertyname} at ${property.address}, ${property.city}, ${property.state}`
-        : "Location not available";
+    const property = landlordData.properties.find(
+        (prop) => prop.propertyId === selectedPropertyId
+    );
+    
+    const propertyLocation =
+        selectedPropertyId === "all"
+            ? "All Properties"
+            : property
+            ? `${property.propertyname} at ${property.address}, ${property.city}, ${property.state}`
+            : "Location not available";
+    
 
     useEffect(() => {
         fetch(`/api/landlord/${landlordId}`)
@@ -461,7 +468,17 @@ const handleVote = (reviewId, type) => {
                         {/* Total Reviews Text */}
                         
                             <h1>Total Reviews: {filteredAndSortedReviews.length}</h1>
-                            {filteredAndSortedReviews.map(review=>(
+                            {filteredAndSortedReviews.length === 0 ? (
+            <div className={styles["no-reviews"]}>
+                <p>Be the first to rate!</p>
+                <button
+                    className={styles["add-review-button"]}
+                    onClick={handleAddReviewClick}
+                >
+                    Add a Review
+                </button>
+            </div>
+        ) : (filteredAndSortedReviews.map(review=>(
 
                         
 
@@ -553,7 +570,8 @@ const handleVote = (reviewId, type) => {
                                  
                         </div>
                         
-                         ))}
+                         ))
+                        )}
                     </div>
                
                 </div>
