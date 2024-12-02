@@ -218,9 +218,9 @@ html, body {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    bottom: 200px;
-    left: 570px;
-    position: absolute;
+    bottom: 150px;
+    left: 590px;
+    position: fixed;
 }
 
 .add-a-landlord-additional-property-form {
@@ -277,7 +277,7 @@ html, body {
     height: 450px;
     z-index: 1000px;
     position: relative;
-    bottom: -80px;
+    bottom: -50px;
     left: 15px;
 }
 
@@ -305,8 +305,8 @@ html, body {
     border: 1px solid rgba(0, 0, 0, 0.5);
     width: 500px;
     padding: 10px;
-    left: 570px;
-    bottom: 100px;
+    left: 540px;
+    bottom: 80px;
     font-size: large;
     border-radius: 20px;
     font-weight: bold;
