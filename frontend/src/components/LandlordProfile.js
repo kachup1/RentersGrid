@@ -526,16 +526,20 @@ const handleVote = (reviewId, type) => {
                                         <span className={styles["black"]}>No Response</span>
                                     ):(
                                         <>
-                                            <button
-                                                    className={`recommend-button ${review.recommend === 'Yes' ? 'selected' : ''}`}
-                                                >
-                                                    Yes
-                                            </button>
-                                                <button
-                                                    className={`recommend-button ${review.recommend === 'No' ? 'selected' : ''}`}
-                                                >
-                                                    No
-                                                </button>
+                                    <button
+                                        className={`${styles["recommend-button"]} ${
+                                            review.recommend === "Yes" ? styles["selected"] : ""
+                                        }`}
+                                    >
+                                        Yes
+                                    </button>
+                                    <button
+                                        className={`${styles["recommend-button"]} ${
+                                            review.recommend === "No" ? styles["selected"] : ""
+                                        }`}
+                                    >
+                                        No
+                                        </button>
                                                 </>
                                         
                                     )}
