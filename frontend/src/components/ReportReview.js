@@ -1,12 +1,8 @@
 import React, { useState, useEffect} from 'react';
-import './ReportReview.css';
-import OfficialLogo from '../Assets/official logo.svg';
-import AccountButton from '../Assets/Account button.svg';
+import styles from './ReportReview.module.css';
+import Header from './Header.js'
 import ReportButton from '../Assets/report-title.svg';
 import MenuAlt from '../Assets/main-logo.svg';
-import SubmitLandlordRate from '../Assets/submit landlord rate.svg'
-import SideMenu from './SideMenu';  // Import the logged-in side menu
-import NoAccountSideMenu from './NoAccountSideMenu'; 
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { isTokenValid } from './authentication';
 
@@ -17,6 +13,8 @@ function ReportReview() {
     const [charCount, setCharCount] = useState(0);
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   useEffect(() => {
     // Check if the user is logged in
@@ -77,45 +75,31 @@ function ReportReview() {
     };
     
     return (
+        <div className={styles[`parent`]}>
+            <div className="Header">
+            <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        </div>
         <div className="report-review-main-container">
-            {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
-            <header>
-                <div className="report-review-logo-container">
-                    <a href="/">
-                        <img src={OfficialLogo} alt="Official Logo" className="report-review-center-logo" />
-                    </a>
-                </div>
+            
+                <div className={styles[`report-review-logo-container`]}>
+                   
 
                 {/* Background Image */}
-                <img src={MenuAlt} alt="Menu" className="report-review-background-image" />
-                <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="report-landlord-left-icon" onClick={()=>navigate('/AddALandlord')}/>
-                {/* Right Image: Account Button */}
-                <img
-                        src={AccountButton}
-                        alt="Account Button"
-                        className="report-review-right-icon" // Adjusted class name
-                        onClick={() =>{ 
-                            if (isTokenValid()) {
-                            navigate('/myaccount');  // Navigate to "My Account" if logged in
-                          } else {
-                            navigate('/signin');  // Navigate to "Sign In" if not logged in
-                          }
-                        }} // Directly use navigate in the onClick
-                    />
-            </header>
+                <img src={MenuAlt} alt="Menu" className={styles[`report-review-background-image`]} />
+                
             
-            <div className="report-review-wrapper">
-                <div className="report-review-form-box">
-                    <div className="title-container">
-                    <img src={ReportButton} alt="Report Button" className="report-review-icon" />
-                    <h1 className="report-review-title">Report a Review</h1>
+            <div className={styles[`report-review-wrapper`]}>
+                <div className={styles[`report-review-form-box`]}>
+                    <div className={styles[`title-container`]}>
+                    <img src={ReportButton} alt="Report Button" className={styles[`report-review-icon`]} />
+                    <h1 className={styles[`report-review-title`]}>Report a Review</h1>
                     </div>
-                    <label htmlFor="review-select" className="report-review-label">*Why are you reporting?</label>
+                    <label htmlFor="review-select" className={styles[`report-review-label`]}>*Why are you reporting?</label>
                     <select
                         id="review-select"
                         value={selectedreview}
                         onChange={handlereviewChange}
-                        className={`report-review-select ${!isReviewValid ? 'report-review-invalid-field' : ''}`}
+                        className={`${styles[`report-review-select`]} ${!isReviewValid ? styles[`report-invalid-field`] : ''}`} // Apply "invalid-field" if invalid
                         required
                     >
                         <option value="">Select problem</option>
@@ -126,30 +110,26 @@ function ReportReview() {
                         <option value="false-information">False Information</option>
                         <option value="safety">Other</option>
                     </select>
-                    {!isReviewValid && <span className="rp-review-error-message">This field is required.</span>}
+                    {!isReviewValid && <span className={styles[`rp-review-error-message`]}>This field is required.</span>}
 
-                    <label htmlFor="comments" className="report-review-comments-label">Additional comments:</label>
-                    <div className="char-count">{charCount} / 500</div>
+                    <label htmlFor="comments" className={styles[`report-review-comments-label`]}>Additional comments:</label>
+                    <div className={styles[`char-count`]}>{charCount} / 500</div>
                     <textarea
                         id="comments"
                         placeholder="  Please provide details about the problem on this review."
                         maxLength="500"
                         value={comments}
                         onChange={handleCommentsChange}
-                        className="report-review-textarea"
+                        className={styles[`report-review-textarea`]}
                     ></textarea>
 
-                    <button type="submit" className="report-review-submit-button" onClick={handleSubmit}>
+                    <button type="submit" className={styles[`report-review-submit-button`]} onClick={handleSubmit}>
                         Submit Report
                     </button>
                 </div>
             </div>
-
-            { /* POSSIBLE SUPPORT ??
-             <div className="report-review-sign-in">
-                <h3 className="report-review-sign-in-text">Need more help?</h3>
-                <Link to="/Support" className="report-review-support-link">Contact Support</Link>
-            </div> */}
+            </div>
+            </div>
         </div>
     );
 }
