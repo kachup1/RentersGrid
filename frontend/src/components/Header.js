@@ -8,8 +8,6 @@ import AccountButton from '../Assets/Account button.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { isTokenValid } from './authentication';
 
-
-
 const Header = ({ isMenuOpen, toggleMenu }) => {
     const navigate = useNavigate();
     const isSignedIn = isTokenValid();
@@ -58,18 +56,24 @@ const Header = ({ isMenuOpen, toggleMenu }) => {
                         className={styles.leftIcon}
                         onClick={() => navigate('/addalandlord')}
                     />
-                    <img
-                        src={AccountButton}
-                        alt="Account Button"
-                        className={styles.rightIcon}
-                        onClick={() => {
-                            if (isSignedIn) {
-                                navigate('/myaccount'); // Redirect to "My Account" if logged in
-                            } else {
-                                navigate('/signin'); // Redirect to "Sign In" if not logged in
-                            }
-                        }}
-                    />
+
+                    <div className={styles.accountButtonWrapper}>
+                        <img
+                            src={AccountButton}
+                            alt="Account Button"
+                            className={styles.rightIcon}
+                            onClick={() => {
+                                if (isSignedIn) {
+                                    navigate('/myaccount'); // Redirect to "My Account" if logged in
+                                } else {
+                                    navigate('/signin'); // Redirect to "Sign In" if not logged in
+                                }
+                            }}
+                        />
+                        {isSignedIn && (
+                            <div className={styles.signedInIndicator} title="Signed In"></div>
+                        )}
+                    </div>
                 </div>
             </header>
         </>
