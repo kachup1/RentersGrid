@@ -361,7 +361,7 @@ const handleVote = (reviewId, type) => {
 
     return (
         <div className={styles["landlord-profile-container"]}>
-             <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+             
 
             {/* Landlord Information Section */}
             <div className={styles["landlord-info"]}>
@@ -394,10 +394,13 @@ const handleVote = (reviewId, type) => {
                     </div>
 
                     <div className={styles["button-container"]}>
-                        <button className={styles["green-button"]} onClick={handleAddReviewClick}>
+                    <button className={styles["green-button"]} onClick={handleAddReviewClick}>
+                        <span className={styles["svg-wrapper"]}>
                             <img src={GreenButton} alt="Add Review" />
-                            <span className={styles["green-text"]}>Add a Review</span>
-                        </button>
+                        </span>
+                        <span className={styles["green-text"]}>Add a Review</span>
+                    </button>
+
                         <button className={styles["red-button"]} onClick={handleAddPropertyClick}>
                             <img src={RedButton} alt="Add a Property" />
                             <span className={styles["red-text"]}>Add a Property</span>
