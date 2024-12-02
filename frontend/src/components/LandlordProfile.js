@@ -460,7 +460,7 @@ const handleVote = (reviewId, type) => {
 
                         {/* Total Reviews Text */}
                         
-                            <h2>Total Reviews: {filteredAndSortedReviews.length}</h2>
+                            <h1>Total Reviews: {filteredAndSortedReviews.length}</h1>
                             {filteredAndSortedReviews.map(review=>(
 
                         

@@ -340,6 +340,12 @@
     color: white;
     font-size: 1.5rem;
     margin-bottom: 1vw;
+    
+}
+
+.reviews-header-and-card h1{
+    position: relative;
+    left:1380px;
 }
 
 .review-card {
@@ -350,10 +356,12 @@
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    margin-right: -80px;
+    margin-right: 0px;
     gap: 20px;
-    width: 1200px;
+    width: 1500px;
     box-sizing: border-box;
+    position: relative;
+    left:130px;
 }
 
 /* Score Rating */
