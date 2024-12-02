@@ -62,3 +62,19 @@
     width: auto;
     height: 65px;
 }
+.accountButtonWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.signedInIndicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
