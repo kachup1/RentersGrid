@@ -1,0 +1,191 @@
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* Main container for the Report a review page */
+.report-review-main-container {
+    background-color: #4d55a5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Icon for the account button on the right */
+.report-review-right-icon {
+    width: 70px;
+    height: auto;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+}
+
+/* Logo container */
+.report-review-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.report-review-center-logo {
+    height: auto;
+    width: 400px;
+    margin-top: 70px;
+}
+
+/* Background image */
+.report-review-background-image {
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+    width: 1100px;
+    height: auto;
+    opacity: 0.3;
+    filter: grayscale(100%);
+    
+      
+}
+
+/* Wrapper for the form */
+.report-review-wrapper {
+    position: absolute;
+    width: 600px;
+    border-radius: 0px;
+    padding: 30px;
+    top: 160px;
+    text-align: left;
+}
+
+/* Form box styling */
+.report-review-form-box {
+    display:contents;
+    flex-direction: column;
+    
+}
+
+/* Title for the form */
+
+.title-container {
+    display: flex;
+    align-items: center; 
+    gap: 15px; 
+  }
+  
+  .report-review-icon {
+    width: 80px; 
+    height: auto;
+  }
+  
+  .report-review-title {
+    color: #fff; 
+    font-size: 40px; 
+    font-weight: bold; 
+    margin: 30; 
+  }
+  
+/* Labels and input elements */
+
+
+.report-review-label, .report-review-comments-label {
+    color: #fff;
+    margin-top: 15px;
+    font-size: 16px;
+    display: block;
+}
+
+.report-review-select {
+    width: 23%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    font-size: 14px;
+    margin-left: 0;
+}
+
+.report-review-textarea {
+    width: 100%;
+    height: 100px;
+    padding:20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;  
+    font-size: 14px;
+}
+
+.char-count {
+    font-size: 12px;
+    color: #fff;
+    text-align: right;
+    padding-bottom: 5px;
+}
+
+/* Submit button */
+.report-review-submit-button {
+    background-color: #93c83d;
+    color: #000000;
+    border: none;
+    border-radius: 20px;
+    width: 100%;
+    height: 40px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.report-review-submit-button:hover {
+    background-color: #86b033;
+}
+
+/* Sign-in section */
+.report-review-sign-in {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.report-review-sign-in-text {
+    font-size: 14px;
+    color: #fff;
+}
+
+.report-review-support-link {
+    font-size: 14px;
+    color: #93c83d;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.report-review-support-link:hover {
+    text-decoration: underline;
+}
+
+.report-review-invalid-field {
+    border: 2px solid red;
+}
+
+.rp-review-error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
+
+.report-landlord-left-icon,
+.report-landlord-account-right {
+    width: 84px;
+    height: auto;
+    position: absolute;
+    top: 30px;
+    right: 130px;
+    cursor: pointer;
+}
+

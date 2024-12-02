@@ -7,193 +7,53 @@
 }
 
 @font-face {
-    font-family: 'Helvetica-Bold';
+    font-family: 'Helvetica';
     src: url('../fonts/helvetica-bold.woff') format('truetype');
-    font-weight: normal;
+    font-weight: bold;
     font-style: normal;
 }
 
+
+/* whole page container */
 .add-property-container {
-    background-color: #4D55A5;
+    display: flex;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative; /* This keeps the sidebar fixed if needed */
 }
 
-.top-right-icons {
+
+.main-content {
+    padding-top: 100px;
+    padding-left: 80px;
+    flex-grow: 1;
+    background-color: #4D55A5;
+    min-height: 100vh; /* to fill all with color*/
+    overflow: hidden;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: normal;
+}
+
+.background-logo {
     position: absolute;
-    top: 105px;
-    right: 40px;
-    display: flex;
-    gap: 60px;
+    right: 160px;
+    margin-top: 100px;
+    opacity: 0.3; /* 30% opacity */
+    width: 430px; /* Adjust width as needed */
+    height: auto;
+    pointer-events: none; /* Prevents the background from interfering with other elements */
 }
 
 
-.top-right-icons img {
-    width: 100px;
-    height: 100px;
-    cursor: pointer;
-}
-
-/*This is the title: Add a Property*/
-.title-section {
+.title-container {
     display: flex;
     align-items: center;
-    margin-top: -45%;
-    margin-left: 5%;
-    position:absolute;
-}
-
-.person-icon {
-    width: 80px; /* Adjust as needed */
-    height: 80px; /* Adjust as needed */
-    margin-right: 15px;
-    margin-bottom: 30px;
-}
-
-
-.title-section h1{
-    font-size: 60px;
     color: white;
-    font-family: 'Helvetica-Bold';
-    color: white;
-}
-
-.property-background-image{
-    right: 30px;
-    position: absolute;
-    bottom: 40%;
-    width: 600px;
-    height: 80px;
-    opacity: 0.5;
-}
-
-/*This is to move the side menu*/
-.add-property-side-menu{
-    margin-left: -75.2%;
-    position: absolute;
-    margin-top: 14%;
-}
-
-
-/*FORM SECTION:*/
-/* Form section */
-.form-section {
-    
-    display: grid;
-    flex-direction:column;
-    align-items: center;
-    width: 65%; /* Adjust as needed */
-    gap: 15px;
-    color: white;
-    
-    margin: 0 auto;
-    margin-right: -2.6%;
-    
-    
-   /* margin-right: 50%;
-    margin-bottom:20px;*/
-    
-    
-}
-/* Labels */
-/*This is for the state*/
-.form-label {
-    font-family: 'Helvetica';
-    font-size: 16px;
-    color: white;
-  
-}
-
-.form-label.required::before {
-    content: '* ';
-    color: red;
-}
-
-.form-label-city{
-    margin-top: -1.5%;
-}
-
-.form-label-city.required::before {
-    content: '* ';
-    color: red;
-}
-/* Input fields */
-.form-input {
-    width: 500px;
-    padding: 8px;
-    font-size: 18px;
-    border: none;
-    background-color: #cfcfcf;
-    border-radius: 5px;
-    height: 55%;
-}
-.form-input-city{
-    width: 500px;
-    padding: 8px;
-    font-size: 18px;
-    border: none;
-    background-color: #cfcfcf;
-    border-radius: 5px;
-    margin-top:1px;
-    height: 55%;
-}
-.form-input-zipcode{
-    width: 80px;
-    padding: 8px;
-    font-size: 18px;
-    border: none;
-    background-color: #cfcfcf;
-    border-radius: 5px;
-    height: 55%;
-
-}
-/*This is for the state selection*/
-.form-select {
-    width: 120px;
-    padding: 8px;
-    font-size: 16px;
-    border: none;
-    background-color: #cfcfcf;
-    border-radius: 5px;
-}
-
-/* Submit button */
-.submit-button {
-    width: 200px;
-    padding: 10px;
-    background-color: #a4c639;
-    color: black;
+    font-size: 35pt;
+    font-family: 'Helvetica', sans-serif;
     font-weight: bold;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 15px;
 }
 
-/*Suggestions*/
-/* The container for the suggestions dropdown */
-.suggestions-list {
-    
-    max-height: 80px; /*This changes the height of the suggestion list*/
-    overflow-y: auto;
-    margin-top: 5px;
-    padding: 0;
-    list-style: none;
-    background-color: white;
-    color: black;
-    border-radius: 10px;
-    width: 600px;
-}
-
-.suggestions-list li {
-    padding: 10px;
-    cursor: pointer;
-}
-
-.suggestions-list li:hover {
-    background-color: #f0f0f0;
+.titleicon {
+    width: 80px;
+    height: auto;
+    margin-right: 15px;
 }

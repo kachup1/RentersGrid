@@ -1,14 +1,12 @@
 import React from 'react';
 import styles from './SignUp.module.css';
-import OfficialLogo from '../Assets/official logo.svg';
-import AccountButton from '../Assets/Account button.svg';
-import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MenuAlt from '../Assets/menu-alt.svg';
-import SideMenu from './SideMenu';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Header from './Header';
+
 
 function SignUp() {
 
@@ -19,6 +17,9 @@ function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
     // Email Validation function using regex
     const validateEmail = (email) => {
@@ -91,17 +92,8 @@ function SignUp() {
 
     return (
         <div className={styles['sign-up-main-container']}>
-            <SideMenu />
-            <header>
-                <div className={styles['sign-up-logo-container']}>
-                    <a href="/">
-                        <img
-                            src={OfficialLogo}
-                            alt="Official Logo"
-                            className={styles['sign-up-center-logo']}
-                        />
-                    </a>
-                </div>
+                {/* Prompt for Editing Access */}
+                <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
                 {/* Background Image */}
                 <img
@@ -110,22 +102,7 @@ function SignUp() {
                     className={styles['sign-up-background-image']}
                 />
 
-                {/* Left Image: Submit Landlord Rate */}
-                <img
-                    src={SubmitLandlordRate}
-                    alt="Submit Landlord Rate"
-                    className={styles['sign-up-left-icon']}
-                />
-
-                {/* Right Image: Account Button */}
-                <a href="signin">
-                    <img
-                        src={AccountButton}
-                        alt="Account Button"
-                        className={styles['sign-up-account-right']}
-                    />
-                </a>
-            </header>
+               
 
             <div className={styles['sign-up-wrapper']}>
                 <div className={styles['sign-up-form-box-login']}>

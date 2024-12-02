@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import styles from './ResetPassword.module.css';
-import OfficialLogo from '../Assets/official logo.svg';
-import AccountButton from '../Assets/Account button.svg';
-import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MenuAlt from '../Assets/menu-alt.svg';
-import NoAccountSideMenu from './NoAccountSideMenu';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from './Header';
 

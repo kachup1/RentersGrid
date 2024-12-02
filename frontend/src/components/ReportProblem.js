@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './ReportProblem.css';
-import OfficialLogo from '../Assets/official logo.svg';
-import AccountButton from '../Assets/Account button.svg';
+import Header from './Header'
+import styles from './ReportProblem.module.css';import AccountButton from '../Assets/Account button.svg';
 import ReportButton from '../Assets/report-title.svg';
 import MenuAlt from '../Assets/main-logo.svg';
-import NoAccountSideMenu from './NoAccountSideMenu';
-import SubmitLandlordRate from '../Assets/submit landlord rate.svg'
-import SideMenu from './SideMenu';  // Import the logged-in side menu
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { isTokenValid } from './authentication';
 
@@ -18,12 +14,14 @@ function ReportProblem() {  // landlordId is received as a prop
     const [charCount, setCharCount] = useState(0);
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  useEffect(() => {
-    // Check if the user is logged in
-    setIsLoggedIn(isTokenValid());
-  }, []);
+
+    useEffect(() => {
+        // Check if the user is logged in
+        setIsLoggedIn(isTokenValid());
+    }, []);
     const handleProblemChange = (e) => {
         setSelectedProblem(e.target.value);
     };
@@ -38,16 +36,16 @@ function ReportProblem() {  // landlordId is received as a prop
     useEffect(() => {
         console.log("Received landlordId in ReportProblem:", landlordId); // Debugging
     }, [landlordId]);
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         if (!selectedProblem) {
             setIsReportValid(false); // Highlight the dropdown as invalid
             return;
         }
         setIsReportValid(true); // Reset validation state
-    
+
         // Prepare the report data
         const reportData = {
             landlordId,
@@ -55,14 +53,14 @@ function ReportProblem() {  // landlordId is received as a prop
             category: selectedProblem,
             type: 'Problem',
         };
-    
+
         try {
             const response = await fetch('http://localhost:5000/api/report', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(reportData),
             });
-    
+
             if (response.ok) {
                 navigate('/ReportProblemConfirmation'); // Navigate to confirmation page on success
             } else {
@@ -72,48 +70,31 @@ function ReportProblem() {  // landlordId is received as a prop
             console.error('Error submitting report:', error);
         }
     };
-    
+
 
     return (
-        <div className="report-problem-main-container">
-            {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
-            <header>
-                <div className="report-problem-logo-container">
-                    <a href="/">
-                        <img src={OfficialLogo} alt="Official Logo" className="report-problem-center-logo" />
-                    </a>
-                </div>
+        <div className={styles[`parent`]}>
+            <div className="Header">
+            <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        </div>
+        <div className={styles[`report-problem-main-container`]}>
+            {/* Background Image */}
+            <img src={MenuAlt} alt="Menu" className={styles[`report-problem-background-image`]} />
 
-                {/* Background Image */}
-                <img src={MenuAlt} alt="Menu" className="report-problem-background-image" />
-                <img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="report-landlord-left-icon" onClick={()=>navigate('/AddALandlord')}/>
-                {/* Right Image: Account Button */}
-                <img
-                        src={AccountButton}
-                        alt="Account Button"
-                        className="report-review-right-icon" // Adjusted class name
-                        onClick={() =>{ 
-                            if (isTokenValid()) {
-                            navigate('/myaccount');  // Navigate to "My Account" if logged in
-                          } else {
-                            navigate('/signin');  // Navigate to "Sign In" if not logged in
-                          }
-                        }} // Directly use navigate in the onClick
-                    />
-            </header>
-            
-            <div className="report-problem-wrapper">
-                <div className="report-problem-form-box">
-                    <div className="title-container">
-                        <img src={ReportButton} alt="Report Button" className="report-problem-icon" />
-                        <h1 className="report-problem-title">Report a Problem</h1>
+
+
+            <div className={styles[`report-problem-wrapper`]}>
+                <div className={styles[`report-problem-form-box`]}>
+                    <div className={styles[`title-container`]}>
+                        <img src={ReportButton} alt="Report Button" className={styles[`report-problem-icon`]} />
+                        <h1 className={styles[`report-problem-title`]}>Report a Problem</h1>
                     </div>
-                    <label htmlFor="problem-select" className="report-problem-label">*Why are you reporting?</label>
+                    <label htmlFor="problem-select" className={styles[`report-problem-label`]}>*Why are you reporting?</label>
                     <select
                         id="problem-select"
                         value={selectedProblem}
                         onChange={handleProblemChange}
-                        className={`report-problem-select ${!isReportValid ? 'report-invalid-field' : ''}`} // Apply "invalid-field" if invalid
+                        className={`${styles[`report-problem-select`]} ${!isReportValid ? styles[`report-invalid-field`] : ''}`} // Apply "invalid-field" if invalid
                         required
                     >
                         <option value="">Select Problem</option>
@@ -121,26 +102,27 @@ function ReportProblem() {  // landlordId is received as a prop
                         <option value="Wrong Review under Landlord">Wrong Review under Landlord</option>
                         <option value="Other">Other</option>
                     </select>
-                    {!isReportValid && <span className="report-error-message">This field is required.</span>}
+                    {!isReportValid && <span className={styles[`report-error-message`]}>This field is required.</span>}
 
-                    <label htmlFor="comments" className="report-problem-comments-label">Additional comments:</label>
-                    <div className="char-count">{charCount} / 500</div>
+                    <label htmlFor="comments" className={styles[`report-problem-comments-label`]}>Additional comments:</label>
+                    <div className={styles[`char-count`]}>{charCount} / 500</div>
                     <textarea
                         id="comments"
-                        placeholder="  Please provide details about the problem."
+                        placeholder="Please provide details about the problem."
                         maxLength="500"
                         value={comments}
                         onChange={handleCommentsChange}
-                        className="report-problem-textarea"
+                        className={styles[`report-problem-textarea`]}
                     ></textarea>
 
-                    <button type="submit" className="report-problem-submit-button" onClick={handleSubmit}>
+                    <button type="submit" className={styles[`report-problem-submit-button`]} onClick={handleSubmit}>
                         Submit Report
                     </button>
                 </div>
             </div>
 
-            
+
+        </div>
         </div>
     );
 }

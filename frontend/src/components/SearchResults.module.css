@@ -43,14 +43,15 @@
 .searchresults-input {
   padding: 10px;
   font-size: 16px;
-  width: 300px;
+  margin-right: -189px;
+  width: 508px;
   border: 1px solid #ccc;
   border-left: none;
   border-radius: 0 30px 30px 0;
 }
 
 .searchresults-clear-icon {
-  margin-left: 10px;
+  margin-right: -180px;
   width: 20px;
   height: 20px;
   cursor: pointer;
@@ -78,8 +79,10 @@
 
 .searchresults-sort-label {
   margin-bottom: 5px;
-  color: #fff;
-  font-size: 16px;
+  font-weight: normal; /* Make the label bold (optional) */
+  line-height: 1; /* Ensure proper alignment */
+  color: #ffffff;
+  font-size: 18px;
 }
 
 .searchresults-sort-button {
@@ -132,7 +135,7 @@
   display: flex;
   flex-direction: column;
   background-color: #DCDDDE ;
-  border-radius: 8px;
+  border-radius: 2px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 15px;

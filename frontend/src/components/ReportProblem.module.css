@@ -1,0 +1,160 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* Main container for the Report a Problem page */
+.parents {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.report-problem-main-container {
+    background-color: #4d55a5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+/* Background image */
+.report-problem-background-image {
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+    width: 1100px;
+    height: auto;
+    opacity: 0.3;
+    filter: grayscale(100%);
+
+
+}
+
+/* Wrapper for the form */
+.report-problem-wrapper {
+    position: absolute;
+    width: 600px;
+    border-radius: 0px;
+    padding: 30px;
+    top: 160px;
+    text-align: left;
+}
+
+/* Form box styling */
+.report-problem-form-box {
+    display: contents;
+    flex-direction: column;
+
+}
+
+/* Title for the form */
+
+.title-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.report-problem-icon {
+    width: 80px;
+    height: auto;
+}
+
+.report-problem-title {
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 30;
+}
+
+/* Labels and input elements */
+
+
+.report-problem-label,
+.report-problem-comments-label {
+    color: #fff;
+    margin-top: 15px;
+    font-size: 16px;
+    display: block;
+}
+
+.report-problem-select {
+    width: 23%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    font-size: 14px;
+    margin-left: 0;
+}
+
+.report-problem-textarea {
+    width: 100%;
+    height: 100px;
+    padding:20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;  
+    font-size: 14px;
+}
+
+
+
+.char-count {
+    font-size: 12px;
+    color: #fff;
+    text-align: right;
+    padding-bottom: 5px;
+}
+
+/* Submit button */
+.report-problem-submit-button {
+    background-color: #93c83d;
+    color: #000000;
+    border: none;
+    border-radius: 20px;
+    width: 101%;
+    height: 40px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.report-problem-submit-button:hover {
+    background-color: #86b033;
+}
+
+/* Sign-in section */
+.report-problem-sign-in {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.report-problem-sign-in-text {
+    font-size: 14px;
+    color: #fff;
+}
+
+
+
+
+.report-invalid-field {
+    border: 2px solid red;
+}
+
+.report-error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
