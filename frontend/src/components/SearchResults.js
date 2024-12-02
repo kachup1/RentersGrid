@@ -74,30 +74,18 @@ function SearchResultsPage() {
       alert('Please enter a search query.');
       return;
     }
-  
-    // Log the search query and search type before sending the request
-    console.log('Sending search request with:');
-    console.log(`Search Query: ${searchQuery}`);
-    console.log(`Search Type: ${searchType}`);
-  
     setLastSearchedQuery(searchQuery); // Store the current query as the last searched query
     setIsSearchTriggered(true); // Mark the search as triggered
     setLoading(true);
   
     fetch(`/api/search?searchBy=${searchType}&query=${encodeURIComponent(searchQuery)}`)
       .then((response) => {
-        // Log the response status and headers
-        console.log('Response received with status:', response.status);
-        console.log('Response headers:', response.headers);
-  
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
-        // Log the data received from the server
-        console.log('Data received from server:', data);
         setSearchResults(data);
         setLoading(false);
       })
