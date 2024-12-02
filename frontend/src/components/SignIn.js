@@ -1,13 +1,13 @@
 import React, { useState } from 'react'; // Import useState
 import styles from './SignIn.module.css'; 
-import OfficialLogo from '../Assets/official logo.svg'; 
-import AccountButton from '../Assets/Account button.svg';
-import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import MenuAlt from '../Assets/menu-alt.svg';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import NoAccountSideMenu from './NoAccountSideMenu';
 import axios from 'axios'; // Import axios for making API requests
+import Header from './Header';
+
+
+
 
 function SignIn() {
     const [email, setEmail] = useState(''); // State for email input
@@ -15,6 +15,9 @@ function SignIn() {
     const [error, setError] = useState(''); // State for error messages
     const [successMessage, setSuccessMessage] = useState(''); // State for success message
     const navigate = useNavigate(); // Initialize useNavigate for redirection
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent the default form submission
@@ -45,18 +48,9 @@ function SignIn() {
 
     return (
         <div className={styles['sign-in-main-container']}>  
-            <NoAccountSideMenu />
-            <header>
-                {/* Home Page + logo */}
-                <div className={styles['sign-in-logo-container']}>
-                    <a href="/">
-                        <img
-                            src={OfficialLogo}
-                            alt="Official Logo"
-                            className={styles['sign-in-center-logo']}
-                        />
-                    </a>
-                </div>
+
+                {/* Prompt for Editing Access */}
+                <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
                 {/* Background Image */}
                 <img
@@ -65,25 +59,7 @@ function SignIn() {
                     className={styles['sign-in-background-image']}
                 />
 
-                {/* Left Image: Submit Landlord Rate */}
-                <a href="addalandlord">
-                    <img
-                        src={SubmitLandlordRate}
-                        alt="Submit Landlord Rate"
-                        className={styles['sign-in-left-icon']}
-                    />
-                </a>
-
-                {/* Right Image: Account Button */}
-                <a href="SignIn">
-                    <img
-                        src={AccountButton}
-                        alt="Account Button"
-                        className={styles['sign-in-account-right']}
-                    />
-                </a>
-            </header>
-
+                
             <div className={styles['sign-in-wrapper']}>
                 <div className={styles['sign-in-form-box-login']}>
                     <h1 className={styles['sign-in-text']}>Sign In</h1>

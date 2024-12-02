@@ -467,8 +467,6 @@ const handleVote = (reviewId, type) => {
                             {filteredAndSortedReviews.map(review=>(
 
                         
-
-                        
                         <div 
                                 id={`review-${review.ratingId}`}  //for share function
                                 key ={review.ratingId} 
