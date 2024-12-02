@@ -35,6 +35,7 @@ function AddALandlord() {
     };
 
     const [name, setName] = useState('');
+    const [companyName, setCompanyName] = useState('');
     const [propertyName, setPropertyName] = useState('');
     const [propertyAddress, setPropertyAddress] = useState('');
     const [city, setCity] = useState('');
@@ -83,7 +84,8 @@ function AddALandlord() {
                     params: {
                         access_token: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
                         types: 'address',
-                        autocomplete: true
+                        autocomplete: true,
+                        country: 'us'
                     }
                 });
 
@@ -123,7 +125,8 @@ function AddALandlord() {
                     params: {
                         access_token: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
                         types: 'address',
-                        autocomplete: true
+                        autocomplete: true,
+                        country: 'us'
                     }
                 });
                 setAdditionalAddressSuggestions(response.data.features);
@@ -177,7 +180,7 @@ function AddALandlord() {
             // Prepare the main payload
             const payload = {
                 name,
-                type: nameType === 'individual' ? 'name' : 'Company',
+                type: nameType === 'individual' ? 'name' : nameType === 'company' ? 'Company' : nameType === 'both' ? 'Both':'',
                 propertyName,
                 propertyAddress,
                 city,
@@ -242,7 +245,9 @@ function AddALandlord() {
                 <input
                     type="text"
                     className={styles["add-a-landlord-name-box"]}
-                    placeholder={nameType === 'individual' ? "First and Last Name" : "Company Name"}
+                    placeholder={nameType === 'individual' ? "First and Last Name" 
+                        : nameType ===  'company' ? "Company Name" 
+                        : nameType === 'both' ? "First and Last Name / Company Name":""}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
@@ -262,6 +267,13 @@ function AddALandlord() {
                 >
                     Company Name
                 </button>
+                <button 
+                        className={nameType === 'both' ? styles['add-a-landlord-toggle-button-active']: styles['add-a-landlord-toggle-button']}
+                        onClick={() => setNameType('both')} // Set nameType to 'both' when selected
+                        
+                    >
+                        Both
+                    </button>
             </div>
 
             {/* Property Name, Address, City, State, Zip Code */}

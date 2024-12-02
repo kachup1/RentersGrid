@@ -1,3 +1,18 @@
+/* Define the font */
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/helvetica.woff') format('woff'); /* Adjust this path as necessary */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Use font */
+body {
+    font-family: 'Helvetica';
+    margin: 0; /* Reset margin for body */
+    padding: 0; /* Reset padding */
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -17,13 +32,13 @@ html, body {
 .add-a-landlord-center-logo {
     height: auto;
     width: 80px;
-    top: 100px;
+    top: 150px;
     position: absolute;
     left: 580px;
 }
 
 .add-a-landlord-center-logo-text {
-    top: 120px;
+    top: 150px;
     color: white;
     white-space: nowrap;
     font-size: 50px;
@@ -64,8 +79,9 @@ html, body {
     position: absolute;
     gap: 10px;
     top: 260px;
-    right: 905px;
+    right: 770px;
     border-radius: 20px;
+    white-space: nowrap;
 }
 
 .add-a-landlord-toggle-button {
@@ -74,7 +90,8 @@ html, body {
     background-color: #ccc;
     cursor: pointer;
     border-radius: 20px;
-    
+    width: 130px;
+    white-space: nowrap;
 }
 
 .add-a-landlord-toggle-button-active {
@@ -82,6 +99,8 @@ html, body {
     color: white;
     border-radius: 20px;
     border: none;
+    white-space: nowrap;
+    width: 130px;
 }
 
 .add-a-landlord-property-name-box {
@@ -242,7 +261,7 @@ html, body {
     display: flex;
     align-items: column;
     margin-top: 60px;
-    margin-left: 500px;
+    margin-left: 550px;
 }
 
 .additional-property-form {
