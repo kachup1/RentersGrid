@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import './AddALandlord.css';
-import OfficialLogo from '../Assets/official logo.svg';
-import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
-import MenuAlt from '../Assets/menu-alt.svg';
-import NoAccountSideMenu from './NoAccountSideMenu';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import home from '../Assets/home.svg';
-import searchIcon from '../Assets/menu-1.svg';
-import addLandlordIcon from '../Assets/menu-2.svg';
-import signOutIcon from '../Assets/signout.svg';
-import accountIcon from '../Assets/Account button.svg';
-import myrating from '../Assets/my-rating.svg';
-import myBookmark from '../Assets/my bookmark.svg';
 import addALandlord from '../Assets/add-a-landlord-title.svg';
-import Triangle from '../Assets/triangle.svg';
 import axios from 'axios';
-import SideMenu from './SideMenu';  // Import the logged-in side menu
 import { getUserIdFromToken, isTokenValid } from './authentication';
+import styles from './AddALandlord.module.css';
+import Header from './Header';
 
 function AddALandlord() {
     const navigate = useNavigate();
     const location = useLocation();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => setIsMenuOpen( prevState => !prevState);
 
     const handleSignOut = () => {
         localStorage.removeItem('token');
@@ -49,13 +40,7 @@ function AddALandlord() {
 
     useEffect(() => {
         setIsLoggedIn(isTokenValid());
-        console.log("User ID:", getUserIdFromToken());
-
     }, []);
-
-    useEffect(() => {
-        console.log("User ID:", getUserIdFromToken());
-    }, []); // This will run once when the component mounts
 
     const states = [
         "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
@@ -79,12 +64,11 @@ function AddALandlord() {
                         access_token: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
                         types: 'address',
                         autocomplete: true,
-			country: 'us'           // Restrict search to the USA
-
+                        country: 'us'
                     }
                 });
 
-                console.log("Mapbox API Response:", response.data.features);
+                
                 setAddressSuggestions(response.data.features);
             } catch (error) {
                 console.error("Error fetching address suggestions:", error);
@@ -121,8 +105,7 @@ function AddALandlord() {
                         access_token: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
                         types: 'address',
                         autocomplete: true,
-                        country: 'us'           // Restrict search to the USA
-
+                        country: 'us'
                     }
                 });
                 setAdditionalAddressSuggestions(response.data.features);
@@ -149,34 +132,17 @@ function AddALandlord() {
         setAdditionalAddressSuggestions([]);
     };
 
-    const handleAccountClick = () => {
-        if (isLoggedIn) {
-            // If logged in, navigate to the user account page
-            navigate('/account');
-        } else {
-            // If not logged in, navigate to the sign-in page
-            navigate('/signin');
-        }
-    };
-
     useEffect(() => {
         setIsLoggedIn(isTokenValid());
     }, []);
 
     const handleSubmit = async () => {
         try {
-             // Log field values to verify they are set correctly
-        console.log("Additional Property Fields:");
-        console.log("Show Additional Property:", showAddProperty);
-        console.log("Additional Property Name:", additionalPropertyName);
-        console.log("Additional Property Address:", additionalPropertyAddress);
-        console.log("Additional City:", additionalCity);
-        console.log("Additional State:", additionalState);
-        console.log("Additional Zip Code:", additionalZipCode);
+             
             // Prepare the main payload
             const payload = {
                 name,
-                type: nameType === 'individual' ? 'name' : 'Company',
+                type: nameType === 'individual' ? 'name' : nameType === 'company' ? 'Company' : nameType === 'both' ? 'Both':'',
                 propertyName,
                 propertyAddress,
                 city,
@@ -203,7 +169,7 @@ function AddALandlord() {
                 });
             }
     
-            console.log("Payload:", payload); // Debugging - check payload structure
+            
     
             const response = await axios.post(
                 'http://localhost:5000/add_landlord',
@@ -223,89 +189,80 @@ function AddALandlord() {
     
 
     return (
-        <div className="add-a-landlord-main-container">
+        <div className={styles.addALandlordMainContainer}>
+
+            <Header 
+                className={styles.addALandlordHeader} 
+                isMenuOpen={isMenuOpen} 
+                toggleMenu={toggleMenu} 
+            />
             <header>
-                <img src={addALandlord} alt="OfficialLogo" className="add-a-landlord-center-logo" />
-                <label className="add-a-landlord-center-logo-text">Add a Landlord</label>
-                <img src={SubmitLandlordRate} alt="background" className="add-a-landlord-background-image" />
-                <a href="/addalandlord"><img src={SubmitLandlordRate} alt="Submit Landlord Rate" className="add-a-landlord-left-icon" /></a>
-                <img 
-                    src={AccountButton} 
-                    alt="Account Button" 
-                    className="add-a-landlord-right"
-                    onClick={handleAccountClick}
-                    style={{cursor: 'pointer'}} />
+                <img src={addALandlord} alt="OfficialLogo" className={styles['add-a-landlord-center-logo']} />
+                <label className={styles['add-a-landlord-center-logo-text']}>Add a Landlord</label>
+                <img src={SubmitLandlordRate} alt="background" className={styles['add-a-landlord-background-image']} />
             </header>
 
-            {isLoggedIn ? <SideMenu /> : <NoAccountSideMenu />}
-
-            {/*
-            <div className="add-a-landlord-left-side-menu">
-                <a href="/"><img src={OfficialLogo} alt="Logo" className="add-a-landlord-left-menu-logo" /></a>
-                <ul>
-                    <li><Link to="/"><img src={home} alt="Home" className="add-a-landlord-left-menu-icon" />Homepage</Link></li>
-                    <li><Link to="/SearchResults"><img src={searchIcon} alt="Search" className="add-a-landlord-left-menu-icon" />Search</Link></li>
-                    <li><Link to="/add-landlord"><img src={addLandlordIcon} alt="Add a Landlord" className="add-a-landlord-left-menu-icon" />Add a Landlord<img src={Triangle} alt="Triangle" className="add-a-landlord-triangle" /></Link></li>
-                    <li><a href="/" onClick={handleSignOut}><img src={signOutIcon} alt="Sign Out" className="add-a-landlord-left-menu-icon" />Sign Out</a></li>
-                    <li><Link to="/account"><img src={accountIcon} alt="My Account" className="add-a-landlord-left-menu-icon" />My Account</Link></li>
-                    <li><Link to="/ratings"><img src={myrating} alt="My Ratings" className="add-a-landlord-left-menu-icon" />My Ratings</Link></li>
-                    <li><Link to="/bookmarks"><img src={myBookmark} alt="My Bookmarks" className="add-a-landlord-left-menu-icon" />My Bookmarks</Link></li>
-                </ul>
-            </div>
-            */}
-
             {/* Main Form */}
-            <div className="add-a-landlord-input-box">
+            <div className={styles["add-a-landlord-input-box"]}>
                 <input
                     type="text"
-                    className="add-a-landlord-name-box"
-                    placeholder={nameType === 'individual' ? "First and Last Name" : "Company Name"}
+                    className={styles["add-a-landlord-name-box"]}
+                    placeholder={nameType === 'individual' ? "First and Last Name" 
+                        : nameType ===  'company' ? "Company Name" 
+                        : nameType === 'both' ? "First and Last Name / Company Name":""}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
                 />
             </div>
-            <div className="add-a-landlord-name-toggle-button">
+            <div className={styles["add-a-landlord-name-toggle-button"]}>
                 <button
                     type="button"
-                    className={`add-a-landlord-toggle-button ${nameType === 'individual' ? 'add-a-landlord-toggle-button-active' : ''}`}
+                    className={nameType === 'individual' ? styles['add-a-landlord-toggle-button-active'] : styles['add-a-landlord-toggle-button']}
                     onClick={() => setNameType('individual')}
                 >
                     Name
                 </button>
                 <button
-                    className={`add-a-landlord-toggle-button ${nameType === 'company' ? 'add-a-landlord-toggle-button-active' : ''}`}
+                    className={nameType === 'company' ? styles['add-a-landlord-toggle-button-active'] : styles['add-a-landlord-toggle-button']}
                     onClick={() => setNameType('company')}
                 >
                     Company Name
                 </button>
+                <button 
+                        className={nameType === 'both' ? styles['add-a-landlord-toggle-button-active']: styles['add-a-landlord-toggle-button']}
+                        onClick={() => setNameType('both')} // Set nameType to 'both' when selected
+                        
+                    >
+                        Both
+                    </button>
             </div>
 
             {/* Property Name, Address, City, State, Zip Code */}
-            <div className="add-a-landlord-input-box">
+            <div className={styles["add-a-landlord-input-box"]}>
                 <input
                     type="text"
-                    className="add-a-landlord-property-name-box"
+                    className={styles["add-a-landlord-property-name-box"]}
                     value={propertyName}
                     onChange={(e) => setPropertyName(e.target.value)}
                     required
                 />
-                <label className="add-a-landlord-property-name-text">Property Name:</label>
+                <label className={styles["add-a-landlord-property-name-text"]}>Property Name:</label>
             </div>
 
-            <div className="add-a-landlord-input-box">
+            <div className={styles["add-a-landlord-input-box"]}>
                 <input
                     type="text"
-                    className="add-a-landlord-property-address-box"
+                    className={styles["add-a-landlord-property-address-box"]}
                     placeholder="Street Address"
                     value={propertyAddress}
                     onChange={handleAddressInputChange}
                     required
                 />
-                <label className="add-a-landlord-property-address-text">Property Address:</label>
+                <label className={styles["add-a-landlord-property-address-text"]}>Property Address:</label>
 
                 {addressSuggestions.length > 0 && (
-                    <ul className="address-suggestions">
+                    <ul className={styles["address-suggestions"]}>
                         {addressSuggestions.map((suggestion, index) => (
                             <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
                                 {suggestion.place_name}
@@ -315,21 +272,21 @@ function AddALandlord() {
                 )}
             </div>
 
-            <div className="add-a-landlord-input-box">
+            <div className={styles["add-a-landlord-input-box"]}>
                 <input
                     type="text"
-                    className="add-a-landlord-city-box"
+                    className={styles["add-a-landlord-city-box"]}
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                     required
                 />
-                <label className="add-a-landlord-city-text">City:</label>
+                <label className={styles["add-a-landlord-city-text"]}>City:</label>
             </div>
 
-            <div className="add-a-landlord-input-box">
-                <label className="add-a-landlord-state-text">State:</label>
+            <div className={styles["add-a-landlord-input-box"]}>
+                <label className={styles["add-a-landlord-state-text"]}>State:</label>
                 <select
-                    className="add-a-landlord-state-dropdown"
+                    className={styles["add-a-landlord-state-dropdown"]}
                     value={state}
                     onChange={(e) => setState(e.target.value)}
                     required
@@ -341,34 +298,34 @@ function AddALandlord() {
                 </select>
             </div>
 
-            <div className="add-a-landlord-input-box">
+            <div className={styles["add-a-landlord-input-box"]}>
                 <input
                     type="text"
-                    className="add-a-landlord-zip-code"
+                    className={styles["add-a-landlord-zip-code"]}
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value)}
                     required
                 />
-                <label className="add-a-landlord-zip-code-text">Zip Code:</label>
+                <label className={styles["add-a-landlord-zip-code-text"]}>Zip Code:</label>
             </div>
 
             {/* Additional Property Section */}
-            <div className="add-a-landlord-additional-property-container">
+            <div className={styles["add-a-landlord-additional-property-container"]}>
                 <button
-                    className="add-a-landlord-additional-property-button"
+                    className={styles["add-a-landlord-additional-property-button"]}
                     onClick={() => setShowAddProperty(prev => !prev)}
                 >
                     {showAddProperty ? 'Hide Additional Property' : 'Add another property?'}
                 </button>
 
                 {showAddProperty && (
-                    <div className="additional-property-form">
+                    <div className={styles["additional-property-form"]}>
                         {/* Additional Property Name */}
-                        <div className="add-a-landlord-additional-input-box">
-                            <label className="add-a-landlord-additional-property-name-text">Property Name:</label>
+                        <div className={styles["add-a-landlord-additional-input-box"]}>
+                            <label className={styles["add-a-landlord-additional-property-name-text"]}>Property Name:</label>
                             <input
                                 type="text"
-                                className="add-a-landlord-additional-property-name-box"
+                                className={styles["add-a-landlord-additional-property-name-box"]}
                                 placeholder="Property Name"
                                 value={additionalPropertyName}
                                 onChange={(e) => setAdditionalPropertyName(e.target.value)}
@@ -377,18 +334,18 @@ function AddALandlord() {
                         </div>
 
                         {/* Additional Property Address */}
-                        <div className="add-a-landlord-additional-input-box" style={{ position: 'relative' }}>
-                            <label className="add-a-landlord-additional-property-address-text">Property Address:</label>
+                        <div className={styles["add-a-landlord-additional-input-box"]} style={{ position: 'relative' }}>
+                            <label className={styles["add-a-landlord-additional-property-address-text"]}>Property Address:</label>
                             <input
                                 type="text"
-                                className="add-a-landlord-additional-property-address-box"
+                                className={styles["add-a-landlord-additional-property-address-box"]}
                                 placeholder="Street Address"
                                 value={additionalPropertyAddress}
                                 onChange={handleAdditionalAddressInputChange}
                                 required
                             />
                             {additionalAddressSuggestions.length > 0 && (
-                                <ul className="additional-address-suggestions">
+                                <ul className={styles["additional-address-suggestions"]}>
                                     {additionalAddressSuggestions.map((suggestion, index) => (
                                         <li key={index} onClick={() => handleAdditionalSuggestionClick(suggestion)}>
                                             {suggestion.place_name}
@@ -399,11 +356,11 @@ function AddALandlord() {
                         </div>
 
                         {/* Additional City */}
-                        <div className="add-a-landlord-additional-input-box">
-                            <label className="add-a-landlord-additional-city-text">City:</label>
+                        <div className={styles["add-a-landlord-additional-input-box"]}>
+                            <label className={styles["add-a-landlord-additional-city-text"]}>City:</label>
                             <input
                                 type="text"
-                                className="add-a-landlord-additional-city-box"
+                                className={styles["add-a-landlord-additional-city-box"]}
                                 placeholder="City"
                                 value={additionalCity}
                                 onChange={(e) => setAdditionalCity(e.target.value)}
@@ -412,10 +369,10 @@ function AddALandlord() {
                         </div>
 
                         {/* Additional State */}
-                        <div className="add-a-landlord-additional-input-box">
-                            <label className="add-a-landlord-additional-state-text">State:</label>
+                        <div className={styles["add-a-landlord-additional-input-box"]}>
+                            <label className={styles["add-a-landlord-additional-state-text"]}>State:</label>
                             <select
-                                className="add-a-landlord-additional-state-dropdown"
+                                className={styles["add-a-landlord-additional-state-dropdown"]}
                                 value={additionalState}
                                 onChange={(e) => setAdditionalState(e.target.value)}
                                 required
@@ -428,11 +385,11 @@ function AddALandlord() {
                         </div>
 
                         {/* Additional Zip Code */}
-                        <div className="add-a-landlord-additional-input-box">
-                            <label className="add-a-landlord-additional-zip-code-text">Zip Code:</label>
+                        <div className={styles["add-a-landlord-additional-input-box"]}>
+                            <label className={styles["add-a-landlord-additional-zip-code-text"]}>Zip Code:</label>
                             <input
                                 type="text"
-                                className="add-a-landlord-additional-zip-code-box"
+                                className={styles["add-a-landlord-additional-zip-code-box"]}
                                 placeholder="Zip Code"
                                 value={additionalZipCode}
                                 onChange={(e) => setAdditionalZipCode(e.target.value)}
@@ -442,17 +399,16 @@ function AddALandlord() {
 
 			            {/* Additional text for submit */}
                         <div>
-                        	<h3 className="add-a-landlord-additional-submit-text">Click Submit Landlord When Done</h3>
+                        	<h3 className={styles["add-a-landlord-additional-submit-text"]}>Click Submit Landlord When Done</h3>
                         </div>
                     </div>
                 )}
             </div>
 
             {/* Submit Button */}
-            <button type="button" onClick={handleSubmit} className="add-a-landlord-submit-button">
+            <button type="button" onClick={handleSubmit} className={styles["add-a-landlord-submit-button"]}>
                 Submit Landlord
             </button>
-
 
         </div>
     );
