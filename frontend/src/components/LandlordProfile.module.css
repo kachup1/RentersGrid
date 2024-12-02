@@ -81,6 +81,7 @@
     position: relative;
     top:-35px;
     
+    
 }
 
 .landlord-rates {
@@ -108,6 +109,14 @@
 }
 
 .landlord-location {
+    font-size: 1.1rem;
+    color: #666;
+    margin-top: 5px;
+    position: relative;
+    top: -60px;
+    left:10px;
+}
+.landlord-address{
     font-size: 1.2rem;
     color: #666;
     margin-top: 5px;
@@ -617,3 +626,27 @@
     background-color: yellow; /* Highlight color */
     transition: background-color 0.5s ease-out;
 }
+
+/*If there are no reviews:*/
+.no-reviews {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    
+    border-radius: 10px;
+    
+    font-size: 1.2rem;
+    font-family: Helvetica;
+}
+
+.add-review-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Helvetica;
+}
+
+

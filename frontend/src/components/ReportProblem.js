@@ -108,7 +108,7 @@ function ReportProblem() {  // landlordId is received as a prop
                     <div className={styles[`char-count`]}>{charCount} / 500</div>
                     <textarea
                         id="comments"
-                        placeholder="  Please provide details about the problem."
+                        placeholder="Please provide details about the problem."
                         maxLength="500"
                         value={comments}
                         onChange={handleCommentsChange}
