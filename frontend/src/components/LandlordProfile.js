@@ -429,7 +429,7 @@ const handleVote = (reviewId, type) => {
             {/* Dropdowns for Select Property and Sort By */}
             <div className={styles["dropdown-container"]}>
                 <div className={styles["dropdown"]}>
-                    <label htmlFor="propertySelect">Select Property:</label>
+                    <label htmlFor="propertySelect">Select Property: </label>
                     <select id="propertySelect" name="propertySelect" onChange={handlePropertyChange}>
                         <option value="all">All Properties</option>
                     {
@@ -444,7 +444,7 @@ const handleVote = (reviewId, type) => {
                 </div>
 
                 <div className={styles["dropdown"]}>
-                    <label htmlFor="sortSelect">Sort By:</label>
+                    <label htmlFor="sortSelect">Sort By: </label>
                     <select id="sortSelect" name="sortSelect" onChange={handleSortChange}>
                         <option value="mostRecent">Most Recent</option>
                         <option value="highestRating">Highest Rating</option>

@@ -544,10 +544,33 @@
 /* Dropdown Container */
 .dropdown-container {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     justify-content: flex-start;
     margin-top: 20px;
     margin-bottom: 20px;
+    position: relative;
+    top:20px;
+    left:40px;
+    
+}
+/* Select Dropdown */
+.dropdown select {
+    width: 160px; /* Adjust width of dropdown */
+    height: 30px; /* Adjust height of dropdown */
+    font-size: 1.1rem; /* Adjust font size for the dropdown */
+    padding: 5px;
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #ccc; /* Border styling */
+    background-color: white; /* Background color */
+    color: #333; /* Text color */
+}
+
+/* Label Styling */
+.dropdown label {
+    margin-bottom: 5px;
+    font-size: 1.5rem; /* Label font size */
+    color: white; /* Label text color */
+    
 }
 
 /*Side icons*/
