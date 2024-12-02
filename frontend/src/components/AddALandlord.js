@@ -132,16 +132,6 @@ function AddALandlord() {
         setAdditionalAddressSuggestions([]);
     };
 
-    const handleAccountClick = () => {
-        if (isLoggedIn) {
-            // If logged in, navigate to the user account page
-            navigate('/account');
-        } else {
-            // If not logged in, navigate to the sign-in page
-            navigate('/signin');
-        }
-    };
-
     useEffect(() => {
         setIsLoggedIn(isTokenValid());
     }, []);
@@ -419,7 +409,6 @@ function AddALandlord() {
             <button type="button" onClick={handleSubmit} className={styles["add-a-landlord-submit-button"]}>
                 Submit Landlord
             </button>
-
 
         </div>
     );
