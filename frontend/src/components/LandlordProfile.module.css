@@ -243,11 +243,8 @@
 .rating-item {
     display: flex;
     align-items: center;
-<<<<<<< HEAD
     padding: 5px 20px;
-=======
     padding: 5px 10px;
->>>>>>> c750a640cdb0223c6fd550f8ee1d106f43b45612
     gap:5px;
     position: relative;
     top: -10px;
@@ -520,7 +517,6 @@
     background-color: #FFFFFF;
     display: grid;
     grid-template-columns: 1fr 1fr;
-<<<<<<< HEAD
     gap: 10px;
     border-radius: 5px;
     position: relative;
@@ -528,17 +524,13 @@
     height: 300px;
     align-content:space-around;
     padding: 0px;
-=======
-   
     border-radius: 10px;
     position: relative;
     top:-120px;
     height: 290px;
     align-content:start;
     padding: 10px;
-    gap: 5px;
->>>>>>> c750a640cdb0223c6fd550f8ee1d106f43b45612
-    
+    gap: 5px; 
 }
 
 .green,
@@ -550,15 +542,12 @@
     justify-content: center;
     font-weight: bold;
     color: black;
-<<<<<<< HEAD
     border-radius: 20px;
     height: 80px;
     width: 120px;
-=======
     border-radius: 10px;
     height: 80px;
     width: 100px;
->>>>>>> c750a640cdb0223c6fd550f8ee1d106f43b45612
     text-align: center;
     padding: 5px;
 }
