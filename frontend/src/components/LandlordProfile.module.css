@@ -17,15 +17,12 @@
 .landlord-profile-container {
     background-color: #4D55A5;
     min-height: 100vh;
-    padding: 2vw;
     display: flex;
     flex-direction: column;
     color: white;
     box-sizing: border-box;
     overflow-y: hidden; /*Doesn't allow 2 scroll bars on the y-axis*/
     overflow: hidden; /*Prevents the scroll bar on the x-axis*/
-    /*    height: 500px;
-*/
 }
 
 /* Landlord Information Section */
@@ -35,7 +32,8 @@
     max-width: 100%; /* Matches the full-width layout */
     width: 100%; /* Ensures responsiveness */
     box-sizing: border-box;
-    padding-inline: 30px;
+    padding-inline: 50px;
+    scale: 90%;
 }
 
 
