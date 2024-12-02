@@ -1,23 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import OfficialLogo from '../Assets/official logo.svg';
-import AccountButton from '../Assets/Account button.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
-import MenuAlt from '../Assets/menu-alt.svg';
-import NoAccountSideMenu from './NoAccountSideMenu';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import home from '../Assets/home.svg';
-import searchIcon from '../Assets/menu-1.svg';
-import addLandlordIcon from '../Assets/menu-2.svg';
-import signOutIcon from '../Assets/signout.svg';
-import accountIcon from '../Assets/Account button.svg';
-import myrating from '../Assets/my-rating.svg';
-import myBookmark from '../Assets/my bookmark.svg';
 import addALandlord from '../Assets/add-a-landlord-title.svg';
-import Triangle from '../Assets/triangle.svg';
 import axios from 'axios';
-import SideMenu from './SideMenu';  // Import the logged-in side menu
 import { getUserIdFromToken, isTokenValid } from './authentication';
-
 import styles from './AddALandlord.module.css';
 import Header from './Header';
 
@@ -35,7 +21,6 @@ function AddALandlord() {
     };
 
     const [name, setName] = useState('');
-    const [companyName, setCompanyName] = useState('');
     const [propertyName, setPropertyName] = useState('');
     const [propertyAddress, setPropertyAddress] = useState('');
     const [city, setCity] = useState('');
@@ -55,13 +40,7 @@ function AddALandlord() {
 
     useEffect(() => {
         setIsLoggedIn(isTokenValid());
-        console.log("User ID:", getUserIdFromToken());
-
     }, []);
-
-    useEffect(() => {
-        console.log("User ID:", getUserIdFromToken());
-    }, []); // This will run once when the component mounts
 
     const states = [
         "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
@@ -89,7 +68,7 @@ function AddALandlord() {
                     }
                 });
 
-                console.log("Mapbox API Response:", response.data.features);
+                
                 setAddressSuggestions(response.data.features);
             } catch (error) {
                 console.error("Error fetching address suggestions:", error);
@@ -169,14 +148,7 @@ function AddALandlord() {
 
     const handleSubmit = async () => {
         try {
-             // Log field values to verify they are set correctly
-        console.log("Additional Property Fields:");
-        console.log("Show Additional Property:", showAddProperty);
-        console.log("Additional Property Name:", additionalPropertyName);
-        console.log("Additional Property Address:", additionalPropertyAddress);
-        console.log("Additional City:", additionalCity);
-        console.log("Additional State:", additionalState);
-        console.log("Additional Zip Code:", additionalZipCode);
+             
             // Prepare the main payload
             const payload = {
                 name,
@@ -207,7 +179,7 @@ function AddALandlord() {
                 });
             }
     
-            console.log("Payload:", payload); // Debugging - check payload structure
+            
     
             const response = await axios.post(
                 'http://localhost:5000/add_landlord',
