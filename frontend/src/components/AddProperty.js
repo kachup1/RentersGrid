@@ -25,18 +25,10 @@ function AddProperty() {
     const{landlordId} = useParams()
     const navigate = useNavigate();
 
-    const [selectedOption, setSelectedOption] = useState(null); // Track selected option
-
-    const handleSelectChange = (event) => {
-        const { value } = event.target || event; // Adjusted to handle both button and dropdown events
-        setSelectedOption(value);
-        console.log(`Selected Option: ${value}`); // Debugging to confirm selection
-    };
-
-    
     const fetchSuggestions = async (query) => {
         if (query.length > 1) {
             try {
+                console.log('Fetching suggestions for:', query); // Debugging
                 const response = await axios.get(
                     `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json`,
                     {
@@ -44,10 +36,11 @@ function AddProperty() {
                             access_token: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN_MONTSE,
                             types: 'address',
                             autocomplete: true,
-                            country:'us'
+                            country: 'us',
                         },
                     }
                 );
+                console.log('API Response:', response.data); // Debugging
                 setSuggestions(response.data.features || []);
             } catch (error) {
                 console.error('Error fetching address suggestions:', error);
@@ -56,6 +49,7 @@ function AddProperty() {
             setSuggestions([]);
         }
     };
+    
 
     const handleSubmit = async () => {
         if(!propertyAddress||!city||!state||!propertyZipcode){
@@ -75,7 +69,7 @@ function AddProperty() {
         };
 
         try {
-            const response = await fetch(`http://localhost:5000/api/addproperty/${landlordId}`, {
+            const response = await fetch(`/api/addproperty/${landlordId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(propertyData),
@@ -96,16 +90,16 @@ function AddProperty() {
 
     const handleSuggestionClick = (suggestion) => {
         const fullAddress = suggestion.place_name;
-        const streetAddress = fullAddress.split(',')[0]; // Extract only the street address
+        const streetAddress = fullAddress.split(',')[0]; // Extract street address
         setPropertyAddress(streetAddress);
     
         const context = suggestion.context || [];
-        const cityContext = context.find((c) => c.id.includes('place'));
-        const stateContext = context.find((c) => c.id.includes('region'));
-        const zipContext = context.find((c) => c.id.includes('postcode'));
+        const cityContext = context.find((c) => c.id.includes('place')); // Extract city
+        const stateContext = context.find((c) => c.id.includes('region')); // Extract state
+        const zipContext = context.find((c) => c.id.includes('postcode')); // Extract zipcode
     
         setCity(cityContext?.text || '');
-        setState(stateContext?.text || '');
+        setState(stateContext?.text || ''); // Set the state dynamically
         setZipcode(zipContext?.text || '');
         setLatitude(suggestion.center[1]);
         setLongitude(suggestion.center[0]);
@@ -135,81 +129,78 @@ function AddProperty() {
                         <h2>Add A Property</h2>
                 </div>
     
-                {/*This is the form*/}
-                <div className={styles["form-section"]}>
-                <label className={styles["form-label"]}>Add another property?</label>
-                <div className={styles["button-group"]}>
-                    <div className={styles["button-container"]}>
-                        <button
-                            className={`${styles["form-button"]} ${selectedOption === 'Yes' ? styles["active"] : ''}`}
-                            onClick={() => handleSelectChange({ value: 'Yes' })}
-                        >
-                            Yes
-                        </button>
-                    </div>
-                    <div className={styles["button-container"]}>
-                        <button
-                            className={`${styles["form-button"]} ${selectedOption === 'No' ? styles["active"] : ''}`}
-                            onClick={() => handleSelectChange({ value: 'No' })}
-                        >
-                            No
-                        </button>
-                    </div>
-                </div>
-        
+   
+                {/* Property Form */}
+<div className={styles["form-section"]}>
 
-                    <label className={styles["form-label"]}>Property  Name:</label>
-                    <input
-                        type="text"
-                        className={styles["form-input"]}
-                        value={propertyName}
-                        disabled={isDisabled}
-                        onChange={(e) => setPropertyName(e.target.value)}
-                    />
 
-                    <label className={styles["form-label"]}>Property  Address:</label>
-                    <input
-                        type="text"
-                        className={styles["form-input"]}
-                        value={propertyAddress}
-                        onChange={handleAddressChange}
-                        placeholder="Enter an Address"
-                    />
-                    <ul className={styles["suggestions-list"]}>
-                        {console.log("Suggestions to map:", suggestions)} {/* Log suggestions */}
-                        {suggestions.map((s, index) => (
-                            <li key={index} onClick={() => handleSuggestionClick(s)}>
-                                {s.place_name}
-                            </li>
-                        ))}
-                    </ul>
+    {/* Property Name Input */}
+    <label className={styles["form-label"]}>Property Name:</label>
+    <input
+        type="text"
+        className={styles["form-input"]}
+        value={propertyName}
+        disabled={isDisabled}
+        onChange={(e) => setPropertyName(e.target.value)}
+    />
 
-                    <label className={styles["form-label-city"]}>City:</label>
-                    <input
-                        type="text"
-                        className={styles["form-input-city"]}
-                        value={city}
-                        disabled={isDisabled}
-                    />
+    {/* Property Address Input with Suggestions */}
+    <label className={styles["form-label"]}>Property Address:</label>
+    <input
+        type="text"
+        className={styles["form-input"]}
+        value={propertyAddress}
+        onChange={handleAddressChange}
+        placeholder="Enter an Address"
+    />
+    <ul className={styles["suggestions-list"]}>
+        {suggestions.map((s, index) => (
+            <li key={index} onClick={() => handleSuggestionClick(s)}>
+                {s.place_name}
+            </li>
+        ))}
+    </ul>
 
-                    <label className={styles["form-label"]}>State:</label>
-                    <select className={styles["form-select"]} disabled={isDisabled}>
-                        <option>{state}</option>
-                    </select>
+    {/* City Input */}
+<label className={styles["form-label-city"]}>City:</label>
+<input
+    type="text"
+    className={styles["form-input-city"]}
+    value={city}
+    onChange={(e) => setCity(e.target.value)} // Allow editing by setting onChange handler
+/>
 
-                    <label className={styles["form-label"]}>Zipcode:</label>
-                    <input
-                        type="text"
-                        className={styles["form-input-zipcode"]}
-                        value={propertyZipcode}
-                        disabled={isDisabled}
-                        onChange={(e) => setZipcode(e.target.value)}
-                    />
+{/* State Input */}
+<label className={styles["form-label"]}>State:</label>
+<input
+    type="text"
+    className={styles["form-input"]}
+    value={state}
+    onChange={(e) => setState(e.target.value)} // Allow editing
+    placeholder="Enter State"
+/>
 
-                    <button className={styles["submit-button"]} onClick={handleSubmit} disabled={isDisabled}>
-                        Submit Property
-                    </button>
-                </div>
+
+{/* Zipcode Input */}
+<label className={styles["form-label"]}>Zipcode:</label>
+<input
+    type="text"
+    className={styles["form-input-zipcode"]}
+    value={propertyZipcode}
+    onChange={(e) => setZipcode(e.target.value)} // Allow editing by setting onChange handler
+/>
+
+
+    {/* Submit Button */}
+    <button
+        className={styles["submit-button"]}
+        onClick={handleSubmit}
+        disabled={isDisabled}
+    >
+        Submit Property
+    </button>
+</div>
+
 
 
             </main>

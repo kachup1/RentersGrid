@@ -35,9 +35,9 @@
 .background-logo {
     position: absolute;
     right: 160px;
-    margin-top: 140px;
+    margin-top: 100px;
     opacity: 0.3; /* 30% opacity */
-    width: 530px; /* Adjust width as needed */
+    width: 430px; /* Adjust width as needed */
     height: auto;
     pointer-events: none; /* Prevents the background from interfering with other elements */
 }
@@ -58,117 +58,3 @@
     margin-right: 15px;
 }
 
-.form-section {
-    
-    display: grid;
-    flex-direction:column;
-    align-items: center;
-    width: 65%; /* Adjust as needed */
-    gap: 15px;
-}
-/* Labels */
-/*This is for the state*/
-.form-label {
-    font-weight: bold;
-    font-size: 20px;
-    color: white;
-}
-
-/* Input fields */
-.form-input {
-    width: 300px;
-    padding: 8px;
-    font-size: 18px;
-    border: none;
-    background-color: #cfcfcf;
-    border-radius: 5px;
-    height: 55%;
-}
-
-/*This is for the state selection*/
-.form-select {
-    padding: 8px;
-    font-size: 16px;
-    border: none;
-    background-color: #cfcfcf;
-    border-radius: 5px;
-}
-
-/* Submit button */
-
-/* The container for the suggestions dropdown */
-.suggestions-list {
-    max-height: 80px; /*This changes the height of the suggestion list*/
-    overflow-y: auto;
-    margin-top: 5px;
-    padding: 0;
-    list-style: none;
-    background-color: white;
-    color: black;
-    border-radius: 10px;
-}
-
-.suggestions-list li {
-    padding: 10px;
-    cursor: pointer;
-}
-
-.suggestions-list li:hover {
-    background-color: #f0f0f0;
-}
-
-
-/* Button group container */
-.button-group {
-    display: flex;
-    gap: 20px; /* Space between Yes and No buttons */
-    justify-content: center; /* Center align buttons */
-}
-
-/* Button container for each button and label */
-.button-container {
-    display: flex;
-    flex-direction: column; /* Stack button and label vertically */
-    align-items: center; /* Center align within the column */
-}
-
-/* Default button styles */
-.form-button {
-    width: 60px;
-    height: 60px;
-    border: none;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-size: cover;
-    cursor: pointer;
-}
-
-/* Yes button background */
-.form-button:nth-child(1) {
-    background-image: url('../Assets/opt-green.svg'); /* Default unselected SVG for Yes */
-}
-
-.form-button:nth-child(1).active {
-    background-image: url('../Assets/opt-grey.svg'); /* Selected SVG for Yes */
-}
-
-/* No button background */
-.form-button:nth-child(2) {
-    background-image: url('../Assets/opt-green.svg'); /* Default unselected SVG for No */
-}
-
-.form-button:nth-child(2).active {
-    background-image: url('../Assets/opt-grey.svg'); /* Selected SVG for No */
-}
-
-/* Default label styles */
-.label {
-    margin-top: 5px;
-    font-size: 14px;
-    color: white; /* Default unselected label color */
-}
-
-/* Active label styles */
-.label-active {
-    color: grey; /* Selected label color */
-}
