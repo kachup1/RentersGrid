@@ -23,7 +23,8 @@
     flex-direction: column;
     color: white;
     box-sizing: border-box;
-    overflow-y: auto;
+    overflow-y: hidden; /*Doesn't allow 2 scroll bars on the y-axis*/
+    overflow: hidden; /*Prevents the scroll bar on the x-axis*/
     /*    height: 500px;
 */
 }
@@ -93,6 +94,7 @@
     margin: 0 auto; /* Center box in container */
     position: relative;
     top:-35px;
+    
 }
 
 .landlord-rates {
@@ -362,31 +364,43 @@
     box-sizing: border-box;
     position: relative;
     left:130px;
+    height: 580px;
 }
 
 /* Score Rating */
 .review-rating {
-    font-size: 1.5rem;
+   
     color: black;
     font-weight: bold;
     margin-bottom: 10px;
-    flex-basis: 100px;
+    
     flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    
 }
 
 .score-text {
     
     color: #4D55A5;
-    font-size: 2rem;
+    font-size: 4.5rem;
     font-weight: bold;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    width: 80px;
-    height: 80px;
+    width: 190px;
+    height: 120px;
+    position: relative;
+    top:-70px;
+    left:5px;
+}
+.landlord-five-score{
+    font-size: 1.5rem;
+    position: relative;
+    top:-45px;
+    left:-70px;
 }
 .score-1{
     background-color: #EE5354;
@@ -427,6 +441,7 @@
     border-radius: 10px;
     flex: 1;
     position: relative;
+    height: 500px;
 }
 
 /* Top Row for Title and Helpful Container */
@@ -469,10 +484,12 @@
 }
 .address-container h2{
     color: #000;
+    font-size: 2.5rem;
 }
 
+/*This is the actual address*/
 .address-container {
-    font-size: 1rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: black;
     font-family: Helvetica;
@@ -516,6 +533,12 @@
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     border-radius: 10px;
+    position: relative;
+    top:-120px;
+    height: 300px;
+    align-content:space-around;
+    padding: 10px;
+    
 }
 
 .green,
@@ -597,72 +620,6 @@
     height: 50px;
     cursor: pointer;
 }
-
-
-/* Responsive Media Queries 
-@media (max-width: 768px) {
-    .landlord-info {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 3vw;
-    }
-    .dropdown-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    .landlord-information {
-        width: 90%;
-        max-width: 400px;
-        padding: 5vw;
-    }
-    .middle-icon {
-        width: 60px;
-        height: 60px;
-    }
-    .landlord-left-icon,
-    .landlord-account-right {
-        width: 10vw;
-        max-width: 50px;
-    }
-    .landlord-center-logo {
-        width: 80vw;
-    }
-    .reviews-section h2 {
-        font-size: 1.2rem;
-    }
-    .review-card {
-        flex-direction: column;
-    }
-    .comment-container,
-    .review-details {
-        width: 100%;
-        order: 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .landlord-center-logo {
-        width: 50vw;
-    }
-    .landlord-info {
-        width: 100%;
-    }
-    .landlord-information {
-        width: 95%;
-    }
-    .reviews-section h2 {
-        font-size: 1rem;
-    }
-    .review-card {
-        padding: 4vw;
-    }
-    .landlord-location,
-    .review-text,
-    .review-date {
-        font-size: 0.9rem;
-    }
-}*/
 
 .highlight {
     background-color: yellow; /* Highlight color */
