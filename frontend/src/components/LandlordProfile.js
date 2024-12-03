@@ -566,8 +566,6 @@ const handleVote = (reviewId, type) => {
 
                     
                 </div>
-                
-
 
             </div>
     );
