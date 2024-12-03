@@ -21,16 +21,6 @@
 }
 
 
-.main-content {
-    padding-top: 100px;
-    padding-left: 80px;
-    flex-grow: 1;
-    background-color: #4D55A5;
-    min-height: 100vh; /* to fill all with color*/
-    overflow: hidden;
-    font-family: 'Helvetica', sans-serif;
-    font-weight: normal;
-}
 
 .background-logo {
     position: absolute;
@@ -43,6 +33,20 @@
 }
 
 
+.main-content {
+    padding-top: 100px;
+    padding-left: 80px; /* Add padding to move content to the left */
+    flex-grow: 1;
+    background-color: #4D55A5;
+    min-height: 100vh; /* Fills the entire viewport height with the background color */
+    overflow: hidden;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: normal;
+    display: flex; /* Enables alignment of child elements */
+    flex-direction: column; /* Align child elements vertically */
+    align-items: flex-start; /* Align content to the left */
+}
+
 .title-container {
     display: flex;
     align-items: center;
@@ -50,10 +54,81 @@
     font-size: 35pt;
     font-family: 'Helvetica', sans-serif;
     font-weight: bold;
+    margin-bottom: 20px; /* Add spacing below the title */
 }
 
 .titleicon {
     width: 80px;
     height: auto;
     margin-right: 15px;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column; /* Align items vertically */
+    gap: 14px; /* Add space between form elements */
+    width: 600px;
+    margin: 0; /* Remove auto-centering */
+    align-items: flex-start; /* Align form items to the left */
+    
+}
+
+.address-row {
+    display: flex; /* Align children horizontally */
+    align-items: center; /* Vertically align labels and inputs */
+    gap: 20px; /* Add space between groups */
+  }
+  
+  .form-label-city,
+  .form-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 8px; /* Space between label and input */
+    color: white; /* Adjust for visibility if background is dark */
+  }
+  
+  .form-input-city,
+  .form-input,
+  .form-input-zipcode {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 120px; /* Adjust width for consistent input size */
+    box-sizing: border-box;
+  }
+  
+
+.suggestions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    width: 100%; /* Match the width of input fields */
+}
+
+.suggestions-list li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestions-list li:hover {
+    background-color: #eaeaea;
+}
+
+.submit-button {
+    padding: 10px 16px;
+    font-size: 16px;
+    background-color: #76b649;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.submit-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
 }

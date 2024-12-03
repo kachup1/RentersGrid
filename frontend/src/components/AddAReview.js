@@ -611,7 +611,6 @@ const LandlordProfile = ({ landlordId }) => {
 )}
 
 {/* Frame 3 Content ---------------------------------------------- */}
-{/* Frame 3 Content ---------------------------------------------- */}
 {currentStep === 3 && (
     <div className={styles["rating-criteria-container"]}>
         {/* Reachable & Responsive Criterion */}
