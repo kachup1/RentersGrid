@@ -58,7 +58,7 @@
     padding: 30px;
     border-radius: 2px;
     width: 800px;
-    height: 290px;
+    height: 350px;
     display: flex;
     flex-direction: column;
     gap: 10px; /* Space between elements */
@@ -127,8 +127,12 @@
     color: #4D4D4D;
     font-size: 16px;
     line-height: 1.5;
-    height: 130px;
+    height: 190px; /* Fixed height to trigger overflow */
+    overflow-y: auto; /* Add vertical scroll when content exceeds height */
+    scrollbar-width: thin; /* For thin scrollbar on Firefox */
+    scrollbar-color: #ccc #f5f5f5; /* Customize scrollbar colors (Firefox only) */
 }
+
 
 /* Icons for edit and delete */
 .rating-actions {
