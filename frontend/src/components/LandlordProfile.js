@@ -366,208 +366,225 @@ const handleVote = (reviewId, type) => {
             <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
 
 
-                {/* Landlord Information Section */}
-                <div className={styles["landlord-info"]}>
-                    <img src={LandlordIcon} alt="Landlord Icon" className={styles["middle-icon"]} />
+            {/* Landlord Information Section */}
+            <div className={styles["landlord-info"]}>
+                <img src={LandlordIcon} alt="Landlord Icon" className={styles["middle-icon"]} />
 
-                    <div className={styles["landlord-information"]}>
-                        <div className={styles["landlord-details"]}>
-                            <div className={styles["rating-box"]}>
-                                <p className={styles["landlord-rates"]}>{landlordData.averageRating ? landlordData.averageRating.toFixed(1):"No Ratings"}</p>
-                            </div>
-                            <div>
-                                <h2 className={styles["landlord-name"]}>{landlordData.name}</h2>
-                                <p className={styles["landlord-location"]}>{propertyLocation}</p>
-                            </div>
-                            <div className={styles["landlord-bookmark-icon"]} onClick={(e) => {
-                                e.stopPropagation();
-                                toggleBookmark(landlordData.landlordId);
-                            }}>
-                                <img src={bookmarked[landlordData.landlordId] ? SelectedBookmark : Bookmark} alt="Bookmark Icon" className={styles["bookmark-icon-img"]} />
-                            </div>
-                            <div className={styles['landlord-report-icon']}>
-                                <img
-                            src={Report}
-                            alt="Report"
-                            className={styles["report-icon-img"]}
-                            onClick={handleReportClick} // Add click event to navigate
-                                />
-                            </div>
-                            
+                <div className={styles["landlord-information"]}>
+                    <div className={styles["landlord-details"]}>
+                        <div className={styles["rating-box"]}>
+                            <p className={styles["landlord-rates"]}>{landlordData.averageRating ? landlordData.averageRating.toFixed(1):"No Ratings"}</p>
                         </div>
-
-                        <div className={styles["button-container"]}>
-                        <button className={styles["green-button"]} onClick={handleAddReviewClick}>
-                            <span className={styles["svg-wrapper"]}>
-                                <img src={GreenButton} alt="Add Review" />
-                            </span>
-                            <span className={styles["green-text"]}>Add a Review</span>
-                        </button>
-
-                            <button className={styles["red-button"]} onClick={handleAddPropertyClick}>
-                                <img src={RedButton} alt="Add a Property" />
-                                <span className={styles["red-text"]}>Add a Property</span>
-                            </button>
+                        <div>
+                            <h2 className={styles["landlord-name"]}>{landlordData.name}</h2>
+                            <p className={styles["landlord-location"]}>{propertyLocation}</p>
                         </div>
-
-                    </div>
-
-                    {/* Rating Summary */}
-                    <div className={styles["rating-summary"]}>
-                    {[
-                        { label: "Excellent", icon: ExcellentFace, count: ratingDistribution.Excellent || 0, colorClass: "green-bar" },
-                        { label: "Good", icon: GoodFace, count: ratingDistribution.Good || 0, colorClass: "green-bar" },
-                        { label: "Average", icon: AverageFace, count: ratingDistribution.Average || 0, colorClass: "yellow-bar" },
-                        { label: "Decent", icon: DecentFace, count: ratingDistribution.Decent || 0, colorClass: "orange-bar" },
-                        { label: "Poor", icon: PoorFace, count: ratingDistribution.Poor || 0, colorClass: "red-bar" },
-                    ].map((rating) => (
-                        <div className={styles["rating-item"]} key={rating.label}>
-                            <img src={rating.icon} alt={rating.label} className={styles["rating-face"]} />
-                            <span className={styles["rating-label"]}>{rating.label}</span>
-                            <div className={styles["rating-bar"]}>
-                                <div className={styles[rating.colorClass]} style={{ width: `${getBarWidth(rating.count)}%` }}></div>
-                            </div>
+                        <div className={styles["landlord-bookmark-icon"]} onClick={(e) => {
+                            e.stopPropagation();
+                            toggleBookmark(landlordData.landlordId);
+                        }}>
+                            <img src={bookmarked[landlordData.landlordId] ? SelectedBookmark : Bookmark} alt="Bookmark Icon" className={styles["bookmark-icon-img"]} />
                         </div>
-                    ))}
-                </div>
-                    
-                </div>
-                {/* Dropdowns for Select Property and Sort By */}
-                <div className={styles["dropdown-container"]}>
-                    <div className={styles["dropdown"]}>
-                        <label htmlFor="propertySelect">Select Property: </label>
-                        <select id="propertySelect" name="propertySelect" onChange={handlePropertyChange}>
-                            <option value="all">All Properties</option>
-                        {
-                        landlordData.properties.map((property) => (
-                            <option key={property.propertyId} value={property.propertyId}>
-                                {property.propertyname}
-                            </option>
-                                )
-                            )}
-                            {/* Add more options as needed */}
-                        </select>
-                    </div>
-
-                    <div className={styles["dropdown"]}>
-                        <label htmlFor="sortSelect">Sort By: </label>
-                        <select id="sortSelect" name="sortSelect" onChange={handleSortChange}>
-                            <option value="mostRecent">Most Recent</option>
-                            <option value="highestRating">Highest Rating</option>
-                            <option value="lowestRating">Lowest Rating</option>
-                            {/* Add more sorting options as needed */}
-                        </select>
-                    </div>
-                </div>
-                <div className={styles["reviews-and-icons"]}>
-                    {/* Reviews Section */}
-                    <div className={styles["landlord-reviews-section"]}>
-                        <div className={styles["reviews-header-and-card"]}>
-
-                            {/* Total Reviews Text */}
-                            
-                                <h1>Total Reviews: {filteredAndSortedReviews.length}</h1>
-                                {filteredAndSortedReviews.map(review=>(
-
-                            
-                            <div 
-                                    id={`review-${review.ratingId}`}  //for share function
-                                    key ={review.ratingId} 
-                                    className={styles["review-card"]}>
-                                {/* Left Column containing the score and review details */}
-                                <div className={styles["left-column"]}>
-                                    <div className={styles["review-rating"]}>
-                                    <p className={`${styles["score-text"]} ${styles[`score-${review.score}`]}`}>{review.score}</p>
-                                    <p className={styles['landlord-five-score']}>/5</p>
-                                    </div>
-                                    <div className={styles["review-details"]}>
-                                        <div className={styles[review.maintenance === "Yes"?"green":review.maintenance==="No"?"red":"gray"]}>Timely Maintenance</div>
-                                        <div className={styles[review.pets === "Yes"?"green":review.pets==="No"?"red":"gray"]}>Allows Pets</div>
-                                        <div className={styles[review.safety==="Yes"?"green":review.safety ==="No"?"red":"gray"]}>Safe Area</div>
-                                        <div className={styles[review.raisemoney === "Yes"?"green":review.raisemoney==="No"?"red":"gray"]}>Fair Rent increases</div>
-                                        <div className={styles[review.reachable === "Yes"? "green":review.reachable==="No"?"red":"gray"]}>Reachable</div>
-                                        <div className={styles[review.clearcontract === "Yes"?"green":review.clearcontract==="No"?"red":"gray"]}>Clear & Fair Contract</div>
-                                    </div>
-                                </div>
-                                {/* Right Column containing the comment section */}
-                                <div className={styles["comment-container"]}>
-                                    <div className={styles["comment-header"]}>
-                                        <div className={styles["address-container"]}>
-                                            <h2>{review.propertyDetails.propertyname}</h2>
-                                            <p>{review.propertyDetails.address}, {review.propertyDetails.city}, {review.propertyDetails.state} {review.propertyDetails.zipcode}
-                                            </p>
-                                        </div>
-
-                                        <div className={styles["helpful-container"]}>
-                                            <span>Helpful:</span>
-                                            <img
-                                                src={reviewVotes[review.ratingId]?.helpful ? GreenThumbsUp : GreyThumbsUp}
-                                                alt="Thumbs Up"
-                                                className={styles["thumb-icon"]}
-                                                onClick={() => handleVote(Number(review.ratingId), 'helpful', 'add')}
-                                                />
-                                                <span>{reviewVotes[review.ratingId]?.helpful || 0}</span>
-
-                                            <img
-                                                src={reviewVotes[review.ratingId]?.notHelpful ? RedThumbsDown : GreyThumbsDown}
-                                                alt="Thumbs Down"
-                                                className={styles["thumb-icon"]}
-                                                onClick={() => handleVote(Number(review.ratingId), 'notHelpful', 'add')}
-                                                />
-                                                <span>{reviewVotes[review.ratingId]?.notHelpful || 0}</span>
-
-                                        </div>
-                                    </div>
-
-                                    <div className={styles["review-text"]}>
-                                        <p>{review.comment}</p>
-                                    </div>
-
-                                    <div className={styles["recommend-container"]}>
-                                        <p>Recommend:</p>
-                                        {review.recommend === "No Response"?(
-                                            <span className={styles["black"]}>No Response</span>
-                                        ):(
-                                            <>
-                                                <button
-                                                        className={`recommend-button ${review.recommend === 'Yes' ? 'selected' : ''}`}
-                                                    >
-                                                        Yes
-                                                </button>
-                                                    <button
-                                                        className={`recommend-button ${review.recommend === 'No' ? 'selected' : ''}`}
-                                                    >
-                                                        No
-                                                    </button>
-                                                    </>
-                                            
-                                        )}
-                                        
-                                    </div>
-
-                                    <span className={styles["review-date"]}>{new Date(review.timestamp).toLocaleDateString()}</span>
-                                    {/* Icons Container for Share and Report */}
-                                    <div className={styles["icons-container"]}>
-                                        <img src={Share} alt="Share" className={styles["icon share-icon"]} onClick={() => handleShareClick(landlordId, review.ratingId)}/>
-                                        <img src={Report} alt="Report" className={styles["icon report-icon"]} onClick={() => handleReportReviewClick(review.ratingId)}/>
-                                        
-                                    </div>
-                            
-                                </div>
-                                        
-                            </div>
-                            
-                                ))}
+                        <div className={styles['landlord-report-icon']}>
+                            <img
+                        src={Report}
+                        alt="Report"
+                        className={styles["report-icon-img"]}
+                        onClick={handleReportClick} // Add click event to navigate
+                            />
                         </div>
-                    
-                    </div>
-                
                         
+                    </div>
 
-                    
+                    <div className={styles["button-container"]}>
+                    <button className={styles["green-button"]} onClick={handleAddReviewClick}>
+                        <span className={styles["svg-wrapper"]}>
+                            <img src={GreenButton} alt="Add Review" />
+                        </span>
+                        <span className={styles["green-text"]}>Add a Review</span>
+                    </button>
+
+                        <button className={styles["red-button"]} onClick={handleAddPropertyClick}>
+                            <img src={RedButton} alt="Add a Property" />
+                            <span className={styles["red-text"]}>Add a Property</span>
+                        </button>
+                    </div>
+
                 </div>
 
+                {/* Rating Summary */}
+                <div className={styles["rating-summary"]}>
+                {[
+                    { label: "Excellent", icon: ExcellentFace, count: ratingDistribution.Excellent || 0, colorClass: "green-bar" },
+                    { label: "Good", icon: GoodFace, count: ratingDistribution.Good || 0, colorClass: "green-bar" },
+                    { label: "Average", icon: AverageFace, count: ratingDistribution.Average || 0, colorClass: "yellow-bar" },
+                    { label: "Decent", icon: DecentFace, count: ratingDistribution.Decent || 0, colorClass: "orange-bar" },
+                    { label: "Poor", icon: PoorFace, count: ratingDistribution.Poor || 0, colorClass: "red-bar" },
+                ].map((rating) => (
+                    <div className={styles["rating-item"]} key={rating.label}>
+                        <img src={rating.icon} alt={rating.label} className={styles["rating-face"]} />
+                        <span className={styles["rating-label"]}>{rating.label}</span>
+                        <div className={styles["rating-bar"]}>
+                            <div className={styles[rating.colorClass]} style={{ width: `${getBarWidth(rating.count)}%` }}></div>
+                        </div>
+                    </div>
+                ))}
             </div>
+                
+            </div>
+            {/* Dropdowns for Select Property and Sort By */}
+            <div className={styles["dropdown-container"]}>
+                <div className={styles["dropdown"]}>
+                    <label htmlFor="propertySelect">Select Property: </label>
+                    <select id="propertySelect" name="propertySelect" onChange={handlePropertyChange}>
+                        <option value="all">All Properties</option>
+                    {
+                    landlordData.properties.map((property) => (
+                        <option key={property.propertyId} value={property.propertyId}>
+                            {property.propertyname}
+                        </option>
+                            )
+                        )}
+                        {/* Add more options as needed */}
+                    </select>
+                </div>
+
+                <div className={styles["dropdown"]}>
+                    <label htmlFor="sortSelect">Sort By: </label>
+                    <select id="sortSelect" name="sortSelect" onChange={handleSortChange}>
+                        <option value="mostRecent">Most Recent</option>
+                        <option value="highestRating">Highest Rating</option>
+                        <option value="lowestRating">Lowest Rating</option>
+                        {/* Add more sorting options as needed */}
+                    </select>
+                </div>
+            </div>
+            <div className={styles["reviews-and-icons"]}>
+                {/* Reviews Section */}
+                <div className={styles["landlord-reviews-section"]}>
+                    <div className={styles["reviews-header-and-card"]}>
+
+                        {/* Total Reviews Text */}
+                        
+                            <h1>Total Reviews: {filteredAndSortedReviews.length}</h1>
+                            {filteredAndSortedReviews.length === 0 ? (
+            <div className={styles["no-reviews"]}>
+                <p>Be the first to rate!</p>
+                <button
+                    className={styles["add-review-button"]}
+                    onClick={handleAddReviewClick}
+                >
+                    Add a Review
+                </button>
+            </div>
+        ) : (filteredAndSortedReviews.map(review=>(
+
+                        
+                        <div 
+                                id={`review-${review.ratingId}`}  //for share function
+                                key ={review.ratingId} 
+                                className={styles["review-card"]}>
+                            {/* Left Column containing the score and review details */}
+                            <div className={styles["left-column"]}>
+                                <div className={styles["review-rating"]}>
+                                <p className={`${styles["score-text"]} ${styles[`score-${review.score}`]}`}>{review.score}</p>
+                                <p className={styles['landlord-five-score']}>/5</p>
+                                </div>
+                                <div className={styles["review-details"]}>
+                                    <div className={styles[review.maintenance === "Yes"?"green":review.maintenance==="No"?"red":"gray"]}>Timely Maintenance</div>
+                                    <div className={styles[review.pets === "Yes"?"green":review.pets==="No"?"red":"gray"]}>Allows Pets</div>
+                                    <div className={styles[review.safety==="Yes"?"green":review.safety ==="No"?"red":"gray"]}>Safe Area</div>
+                                    <div className={styles[review.raisemoney === "Yes"?"green":review.raisemoney==="No"?"red":"gray"]}>Fair Rent increases</div>
+                                    <div className={styles[review.reachable === "Yes"? "green":review.reachable==="No"?"red":"gray"]}>Reachable</div>
+                                    <div className={styles[review.clearcontract === "Yes"?"green":review.clearcontract==="No"?"red":"gray"]}>Clear & Fair Contract</div>
+                                </div>
+                            </div>
+                            {/* Right Column containing the comment section */}
+                            <div className={styles["comment-container"]}>
+                                <div className={styles["comment-header"]}>
+                                    <div className={styles["address-container"]}>
+                                        <h2>{review.propertyDetails.propertyname}</h2>
+                                        <p>{review.propertyDetails.address}, {review.propertyDetails.city}, {review.propertyDetails.state} {review.propertyDetails.zipcode}
+                                        </p>
+                                    </div>
+
+                                    <div className={styles["helpful-container"]}>
+                                        <span>Helpful:</span>
+                                        <img
+                                            src={reviewVotes[review.ratingId]?.helpful ? GreenThumbsUp : GreyThumbsUp}
+                                            alt="Thumbs Up"
+                                            className={styles["thumb-icon"]}
+                                            onClick={() => handleVote(Number(review.ratingId), 'helpful', 'add')}
+                                            />
+                                            <span>{reviewVotes[review.ratingId]?.helpful || 0}</span>
+
+                                        <img
+                                            src={reviewVotes[review.ratingId]?.notHelpful ? RedThumbsDown : GreyThumbsDown}
+                                            alt="Thumbs Down"
+                                            className={styles["thumb-icon"]}
+                                            onClick={() => handleVote(Number(review.ratingId), 'notHelpful', 'add')}
+                                            />
+                                            <span>{reviewVotes[review.ratingId]?.notHelpful || 0}</span>
+
+                                    </div>
+                                </div>
+
+                                <div className={styles["review-text"]}>
+                                    <p>{review.comment}</p>
+                                </div>
+
+                                <div className={styles["recommend-container"]}>
+                                    <p>Recommend:</p>
+                                    {review.recommend === "No Response"?(
+                                        <span className={styles["black"]}>No Response</span>
+                                    ):(
+                                        <>
+                                    <button
+                                        className={`${styles["recommend-button"]} ${
+                                            review.recommend === "Yes" ? styles["selected"] : ""
+                                        }`}
+                                    >
+                                        Yes
+                                    </button>
+                                    <button
+                                        className={`${styles["recommend-button"]} ${
+                                            review.recommend === "No" ? styles["selected"] : ""
+                                        }`}
+                                    >
+                                        No
+                                        </button>
+                                                </>
+                                        
+                                    )}
+                                    
+                                </div>
+
+                                <span className={styles["review-date"]}>{new Date(review.timestamp).toLocaleDateString()}</span>
+                                {/* Icons Container for Share and Report */}
+                                <div className={styles["icons-container"]}>
+                                    <img src={Share} alt="Share" className={styles["icon share-icon"]} onClick={() => handleShareClick(landlordId, review.ratingId)}/>
+                                    <img src={Report} alt="Report" className={styles["icon report-icon"]} onClick={() => handleReportReviewClick(review.ratingId)}/>
+                                    
+                                </div>
+                     
+                            </div>
+                                 
+                        </div>
+                        
+                         ))
+                        )}
+                    </div>
+               
+                </div>
+           
+                  
+
+                
+            </div>
+           
+
+
+        </div>
     );
 }
 
