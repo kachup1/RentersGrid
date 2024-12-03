@@ -34,9 +34,9 @@ html, body {
 .add-a-landlord-center-logo {
     height: auto;
     width: 190px;
-    top: 150px;
+    top: 130px;
     position: absolute;
-    left: 440px;
+    left: 460px;
     scale: 90%;
 
 }
@@ -275,12 +275,21 @@ html, body {
     font-size: large;
     border-radius: 20px;
 }
+.add-a-landlord-additional-zip-code-box {
+    background-color: #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    width: 150px; /* Make input fields full width */
+    padding: 10px;
+    font-size: large;
+    border-radius: 0px;
+}
 
 .add-a-landlord-additional-property-container {
     display: flex;
     align-items: column;
     margin-top: 60px;
     margin-left: 550px;
+    
 }
 
 .additional-property-form {
@@ -293,10 +302,10 @@ html, body {
     padding: 20px; /* Space inside the container */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
     width: 415px;
-    height: 500px;
+    height: 450px;
     z-index: 1000px;
     position: relative;
-    bottom: -50px;
+    bottom: -40px;
     left: 90px;
     justify-content: center; /* Center elements vertically */
     align-items: left; /* Center elements horizontally */
@@ -333,7 +342,7 @@ html, body {
     border-radius: 20px;
     font-weight: bold;
     cursor: pointer;
-    scale: 90%;
+        scale: 90%;
 
 }
 .address-suggestions {
