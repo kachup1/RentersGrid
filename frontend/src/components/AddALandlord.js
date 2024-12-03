@@ -399,7 +399,7 @@ function AddALandlord() {
 
 			            {/* Additional text for submit */}
                         <div>
-                        	<h3 className={styles["add-a-landlord-additional-submit-text"]}>Click Submit Landlord When Done</h3>
+                        	<h3 className={styles["add-a-landlord-additional-submit-text"]}></h3>
                         </div>
                     </div>
                 )}
