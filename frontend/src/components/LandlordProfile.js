@@ -487,7 +487,11 @@ const handleVote = (reviewId, type) => {
                             {/* Left Column containing the score and review details */}
                             <div className={styles["left-column"]}>
                                 <div className={styles["review-rating"]}>
-                                <p className={`${styles["score-text"]} ${styles[`score-${review.score}`]}`}>{review.score}</p>
+
+                                <div className={`${styles["score-text"]} ${styles[`score-${review.score}`]}`}>
+                                    <span className={styles["score-number"]}>{review.score}</span>
+                                </div>
+                                
                                 <p className={styles['landlord-five-score']}>/5</p>
                                 </div>
                                 <div className={styles["review-details"]}>

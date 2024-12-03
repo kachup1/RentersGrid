@@ -368,28 +368,36 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    top: -10px;
+    top: 1px;
     padding: 0px;
 
 }
 /* Score Rating example '2'*/
 .score-text {
-    font-size: 6.5rem;
+    font-size: 4.5rem;
     font-weight: bold;
     border-radius: 30px;
     text-align: center;
-    width: 300px;
-    height: 160px;
-    position: relative;
-    top:-100px;
+    width: 280px;
+    height: 190px;
+    position: absolute;
+    top: -20px;
     left:5px;
+    
+}
+.score-number {
+    position: relative;
+    top: 40px; /* Adjust this to move the "2" lower */
+    left: -20px; 
+    font-size: inherit; /* Keeps the font size from the parent */
 }
 
+/* Score Rating example '/5'*/
 .landlord-five-score{
     font-size: 2.5rem;
     position: relative;
-    top:-125px;
-    left:-70px;
+    top:15px;
+    left:20px;
 }
 
 .score-1{
@@ -529,14 +537,14 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    position: relative;
-    top:-100px;
-    height: 240px;
+    position: absolute;
+    top:250px;
+    height: 200px;
     align-content:start;
     padding: 10px;
     width: 260px;
     border-radius: 10px;
-    left: -13px;
+    left: 35px;
 }
 
 .green,
