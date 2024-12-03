@@ -37,6 +37,8 @@ html, body {
     top: 150px;
     position: absolute;
     left: 440px;
+    scale: 90%;
+
 }
 
 .add-a-landlord-center-logo-text {
@@ -47,6 +49,8 @@ html, body {
     font-weight: bold;
     position: absolute;
     left: 645px;
+    scale: 90%;
+
 }
 
 .add-a-landlord-background-image {
@@ -63,6 +67,8 @@ html, body {
     height: 50px;
     margin-left: 900px;
     margin-top: -70px;
+    scale: 90%;
+
 }
 
 .add-a-landlord-name-box {
@@ -84,6 +90,8 @@ html, body {
     margin-left: 650px;
     border-radius: 20px;
     white-space: nowrap;
+    scale: 90%;
+
 }
 
 .add-a-landlord-toggle-button {
@@ -223,6 +231,8 @@ html, body {
     bottom: 250px;
     left: 650px;
     position: fixed;
+    scale: 90%;
+
 }
 
 .add-a-landlord-additional-property-form {
@@ -323,6 +333,8 @@ html, body {
     border-radius: 20px;
     font-weight: bold;
     cursor: pointer;
+    scale: 90%;
+
 }
 .address-suggestions {
     position: absolute;

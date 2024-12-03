@@ -336,7 +336,8 @@
 
 .reviews-header-and-card h1{
     position: relative;
-    left:1380px;
+    left:1340px;
+    font-size: 25px;
 }
 
 .review-card {
@@ -620,7 +621,7 @@
     justify-content: flex-start;
     margin-top: 20px;
     position: relative;
-    left:150px;
+    left:170px;
 }
 
 /* Select Dropdown */
@@ -633,6 +634,17 @@
     border: 1px solid #ccc; /* Border styling */
     background-color: white; /* Background color */
     color: #333; /* Text color */
+    cursor: pointer;
+    
+}
+
+
+/* Dropdown options styling */
+.dropdown select option {
+    font-size: 0.5rem; /* Smaller font size for options */
+    color: #333; /* Text color */
+    border-radius: 15px; /* Rounded corners */
+
 }
 
 /* Label Styling */
