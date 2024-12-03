@@ -312,7 +312,7 @@
 /* Total Reviews Text */
 .total-reviews {
     text-align: right;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: white;
     margin-bottom: 10px;
     padding-left: 20px;
@@ -343,22 +343,22 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    background-color: #f0f0f0;
+    background-color: #CACACA;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
     margin-right: 0px;
     gap: 20px;
-    width: 1500px;
+    width: 1400px;
     box-sizing: border-box;
     position: relative;
     left:160px;
-    height: 540px;
+    height: 430px;
 }
 
 /* Score Rating */
 .review-rating {
-    color: black;
+    color: white;
     font-weight: bold;
     margin-bottom: -90px;
     margin-left: -20px;
@@ -374,29 +374,30 @@
 }
 /* Score Rating example '2'*/
 .score-text {
-    font-size: 4.5rem;
+    font-size: 5.5rem;
     font-weight: bold;
-    border-radius: 30px;
+    border-radius: 10px;
     text-align: center;
     width: 280px;
-    height: 190px;
+    height: 130px;
     position: absolute;
-    top: -20px;
-    left:5px;
+    top: -1px;
+    left:15px;
     
 }
 .score-number {
+    color: white;
     position: relative;
-    top: 40px; /* Adjust this to move the "2" lower */
+    top: 10px; /* Adjust this to move the "2" lower */
     left: -20px; 
     font-size: inherit; /* Keeps the font size from the parent */
 }
 
 /* Score Rating example '/5'*/
 .landlord-five-score{
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     position: relative;
-    top:15px;
+    top:55px;
     left:20px;
 }
 
@@ -425,12 +426,18 @@
 
 /* Comment Section */
 .review-text {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: black;
-    margin-top: 10px;
+    height: 300px;
+    margin-top: -40px;
+    margin-left: 10px;
+    margin-bottom: 10;
+    padding: -1px; /* Add some padding for readability */
+    border-radius: 5px; /* Optional: Rounded corners */
+
 }
 
-/*Grey box that holds comments*/
+/*light Grey box that holds comments*/
 .comment-container {
     background-color: #E4E4E4;
     padding: 20px;
@@ -438,9 +445,12 @@
     flex-direction: column;
     gap: 10px;
     border-radius: 10px;
-    flex: 1;
+    flex: none;
     position: relative;
-    height: 450px;
+    height: 310px;
+    width: 70%; /* Adjust this percentage or use a fixed width */
+    top: 5%;
+
 }
 
 /* Top Row for Title and Helpful Container */
@@ -456,8 +466,11 @@
     align-items: center;
     gap: 10px;
     font-size: 1rem;
-    color: #4D55A5;
-    margin-top: 15px;
+    color: black;
+    margin-top: 275px;
+    margin-left: 15px;
+    font-weight: bold;
+    position: absolute;
 
 }
 
@@ -465,7 +478,7 @@
 .black{
 
     color:black;
-    font-size: 18px;
+    font-size: 16px;
 
 }
 
@@ -481,47 +494,67 @@
     border-radius: 15px;
     color: black;
     font-size: 0.9rem;
-    height: 30px;
-    width: 70px;
+    height: 25px;
+    width: 60px;
 }
 
-.address-container h2{
-    color: #000;
-    font-size: 2.5rem;
+/*Property name*/
+.address-container {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 1%;
+    line-height: 1;
 }
+
+.address-container h2 {
+    font-size: 1.1rem; /* Adjust font size for property name */
+    font-weight: bold;
+    color: black; /* Black for property name */
+    margin: 0; /* Remove extra margin */
+}
+
+.address-container p {
+    font-size: 1.1rem; /* Smaller font size for address */
+    color: black; /* Slightly darker gray for the address */
+    margin: 0; /* Remove default margin */
+    padding-top: 4px; /* Add slight spacing below the property name */
+
+}
+
 
 /*This is the actual address*/
 .address-container {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: black;
     font-family: Helvetica;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .helpful-container {
     display: flex;
     align-items: center;
     gap:10px;
-    font-family: Helvetica;
-    color: #4D55A5;
-    font-size: 1.8rem;
+    color: black;
+    font-size: 1.1rem;
     position: relative;
-    top: -40px;
+    top: -25px;
+    font-weight: bold;
 }
 
 .thumb-icon {
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
 }
 
 .review-date {
-    font-size: 0.8rem;
-    color: #999;
-    margin-top: 10px;
+    font-size: 1rem;
+    color: rgb(134, 129, 129);
+    margin-top: 290px;
     text-align: right;
-    font-style: italic;
+    position: absolute;
+    left: 830px;
 }
 
 /* Left Column in Review Section */
@@ -538,8 +571,8 @@
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     position: absolute;
-    top:250px;
-    height: 200px;
+    top:180px;
+    height: 190px;
     align-content:start;
     padding: 10px;
     width: 260px;
@@ -557,10 +590,12 @@
     font-weight: bold;
     color: black;
     border-radius: 10px;
-    height: 50px;
+    height: 40px;
     width: 110px;
     text-align: center;
-    padding: 5px;
+    padding: 8px;
+    margin: 0px; /* Space between the rectangles */
+
 }
 
 .green {
@@ -585,7 +620,7 @@
     justify-content: flex-start;
     margin-top: 20px;
     position: relative;
-    left:80px;
+    left:150px;
 }
 
 /* Select Dropdown */
@@ -612,14 +647,14 @@
 /* Side icons */
 .icons-container {
     position: relative;
-    top: -370px;
-    left:1170px;
+    top: -270px;
+    left:1070px;
     display: flex;
     flex-direction: column; /* Horizontal layout for the icons */
     gap: 15px; /* Space between icons */
     z-index: 10; /* Ensure it's on top of other elements */
-    width: 60px; /* Adjust size as needed */
-    height: 60px;
+    width: 40px; /* Adjust size as needed */
+    height: 40px;
     cursor: pointer;
 }
 

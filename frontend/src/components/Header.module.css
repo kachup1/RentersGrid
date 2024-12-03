@@ -69,12 +69,12 @@
 
 .signedInIndicator {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 10px;
-    height: 10px;
-    background-color: green;
-    border-radius: 50%;
-    border: 2px solid white;
+    top: -5px;
+    right: -7px;
+    width: 20px;
+    height: 20px;
+    background-color: #cd2d2d;
+    border-radius: 90%;
+    border: 4px solid white;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
