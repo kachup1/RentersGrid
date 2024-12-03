@@ -27,24 +27,26 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 2px solid red; /* Add a solid red border */
+
 }
 
 .add-a-landlord-center-logo {
     height: auto;
-    width: 80px;
+    width: 190px;
     top: 150px;
     position: absolute;
-    left: 580px;
+    left: 440px;
 }
 
 .add-a-landlord-center-logo-text {
-    top: 150px;
+    top: 195px;
     color: white;
     white-space: nowrap;
-    font-size: 50px;
+    font-size: 60px;
     font-weight: bold;
     position: absolute;
-    left: 680px;
+    left: 645px;
 }
 
 .add-a-landlord-background-image {
@@ -59,8 +61,8 @@ html, body {
 .add-a-landlord-input-box {
     position: absolute;
     height: 50px;
-    margin-left: 800px;
-    margin-top: -100px;
+    margin-left: 900px;
+    margin-top: -70px;
 }
 
 .add-a-landlord-name-box {
@@ -78,8 +80,8 @@ html, body {
     display: flex;
     position: absolute;
     gap: 10px;
-    top: 260px;
-    right: 770px;
+    top: 290px;
+    margin-left: 650px;
     border-radius: 20px;
     white-space: nowrap;
 }
@@ -197,16 +199,16 @@ html, body {
     border: 1px solid rgba(0, 0, 0, 0.5);
     width: 180px;
     padding: 10px;
-    left: 255px;
-    bottom: -550px;
+    left: -255px;
+    bottom: -640px;
     font-size: large;
 }
 
 .add-a-landlord-zip-code-text {
     position: absolute;
-    bottom: -490px;
+    bottom: -590px;
     white-space: nowrap;
-    left: 255px;
+    left: -255px;
     color: white;
     font-weight: bold;
 }
@@ -218,8 +220,8 @@ html, body {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    bottom: 150px;
-    left: 590px;
+    bottom: 250px;
+    left: 650px;
     position: fixed;
 }
 
@@ -247,14 +249,21 @@ html, body {
 .add-a-landlord-additional-property-name-box,
 .add-a-landlord-additional-property-address-box,
 .add-a-landlord-additional-city-box,
-.add-a-landlord-additional-zip-code-box,
+.add-a-landlord-additional-zip-code-box {
+    background-color: #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    width: 380px; /* Make input fields full width */
+    padding: 10px;
+    font-size: large;
+    border-radius: 0px;
+}
 .add-a-landlord-additional-state-dropdown {
     background-color: #ccc;
     border: 1px solid rgba(0, 0, 0, 0.5);
-    width: 410px; /* Make input fields full width */
+    width: 160px; /* Make input fields full width */
     padding: 10px;
     font-size: large;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .add-a-landlord-additional-property-container {
@@ -273,12 +282,12 @@ html, body {
     border-radius: 20px; /* Rounded corners */
     padding: 20px; /* Space inside the container */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
-    width: 680px;
-    height: 520px;
+    width: 415px;
+    height: 500px;
     z-index: 1000px;
     position: relative;
-    bottom: -40px;
-    left: -15px;
+    bottom: -50px;
+    left: 90px;
     justify-content: center; /* Center elements vertically */
     align-items: left; /* Center elements horizontally */
     font-weight: bold;
@@ -306,10 +315,10 @@ html, body {
     position: absolute;
     background-color: #93c83d;
     border: 1px solid rgba(0, 0, 0, 0.5);
-    width: 500px;
+    width: 450px;
     padding: 10px;
-    left: 540px;
-    bottom: 80px;
+    left: 650px;
+    bottom: 180px;
     font-size: large;
     border-radius: 20px;
     font-weight: bold;
