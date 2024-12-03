@@ -601,21 +601,44 @@
 }
 
 /*Side icons*/
+/* Side icons */
 .icons-container {
-    position: absolute;
-    bottom: 240px; /* Adjust this as needed */
-    right: -150px; /* Adjust this as needed */
+    position: relative;
+    top: -370px;
+    left:1170px;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    z-index: 5;
-}
-
-.icon {
-    width: 50px; /* Adjust to desired size */
-    height: 50px;
+    flex-direction: column; /* Horizontal layout for the icons */
+    gap: 15px; /* Space between icons */
+    z-index: 10; /* Ensure it's on top of other elements */
+    width: 60px; /* Adjust size as needed */
+    height: 60px;
     cursor: pointer;
 }
+
+/* General icon styles */
+.icon {
+    
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+/* Specific styles for the share icon */
+.share-icon {
+   
+    margin-right: 10px; /* Add spacing if needed */
+    filter: none; /* Ensure visibility */
+}
+
+/* Specific styles for the report icon */
+.report-icon {
+    filter: none; /* Ensure visibility */
+}
+
+/* Hover effect */
+.icon:hover {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
 
 .highlight {
     background-color: yellow; /* Highlight color */
