@@ -263,7 +263,7 @@ html, body {
     width: 160px; /* Make input fields full width */
     padding: 10px;
     font-size: large;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 .add-a-landlord-additional-property-container {
