@@ -36,6 +36,7 @@
     width: 100%; /* Ensures responsiveness */
     box-sizing: border-box;
     padding-inline: 30px;
+    scale: 90%;
 }
 
 
@@ -328,7 +329,7 @@
     justify-content: center;
     width: 80%;
     box-sizing: border-box;
-    margin-top: 20px;
+    margin-top: -50px;
 }
 
 .landlord-reviews-section h2 {
@@ -356,13 +357,12 @@
     width: 1500px;
     box-sizing: border-box;
     position: relative;
-    left:130px;
+    left:160px;
     height: 540px;
 }
 
 /* Score Rating */
 .review-rating {
-   
     color: black;
     font-weight: bold;
     margin-bottom: -90px;
@@ -373,20 +373,20 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    top: -20px;
+    top: -10px;
     padding: 0px;
 
 }
 /* Score Rating example '2'*/
 .score-text {
-    font-size: 8.5rem;
+    font-size: 6.5rem;
     font-weight: bold;
-    border-radius: 20px;
+    border-radius: 30px;
     text-align: center;
     width: 400px;
-    height: 210px;
+    height: 160px;
     position: relative;
-    top:-130px;
+    top:-100px;
     left:5px;
 }
 
@@ -535,8 +535,8 @@
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     position: relative;
-    top:-150px;
-    height: 200px;
+    top:-100px;
+    height: 240px;
     align-content:start;
     padding: 10px;
     width: 260px;
@@ -581,10 +581,8 @@
     gap: 25px;
     justify-content: flex-start;
     margin-top: 20px;
-    margin-bottom: 20px;
     position: relative;
-    top:20px;
-    left:40px;
+    left:80px;
 }
 
 /* Select Dropdown */

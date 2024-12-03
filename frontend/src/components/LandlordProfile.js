@@ -2,9 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import OfficialLogo from '../Assets/official logo.svg';
-import AccountButton from '../Assets/Account button.svg';
-import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import LandlordIcon from '../Assets/landlord-title-logo.svg';
 import Bookmark from '../Assets/fav-unselect.svg';
 import SelectedBookmark from '../Assets/saved-bookmark.svg';
@@ -22,8 +19,6 @@ import GreyThumbsDown from '../Assets/down-grey.svg';
 import GreenThumbsUp from '../Assets/up-selected.svg';
 import RedThumbsDown from '../Assets/down-selected.svg';
 import axios from 'axios';
-import NoAccountSideMenu from './NoAccountSideMenu';
-import SideMenu from './SideMenu';
 import styles from './LandlordProfile.module.css';
 import { isTokenValid } from './authentication';
 
@@ -368,7 +363,8 @@ const handleVote = (reviewId, type) => {
 
     return (
         <div className={styles["landlord-profile-container"]}>
-             
+            <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+
 
             {/* Landlord Information Section */}
             <div className={styles["landlord-info"]}>
