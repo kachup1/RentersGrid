@@ -189,3 +189,27 @@
     background-color: #ccc; /* Grey for disabled save button */
     cursor: not-allowed;
 }
+
+
+
+.delete-account-container {
+    margin-top: 50px;
+    text-align: left;
+}
+
+.delete-account-button {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 200px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.delete-account-button:hover {
+    background-color: #e60000;
+}
