@@ -7,6 +7,7 @@ import { getUserIdFromToken, isTokenValid } from './authentication';
 import styles from './AddALandlord.module.css';
 import RightButtons from './RightButtons';
 import InsideAccountSideMenu from './InsideAccountSideMenu';
+import Header from './header2';
 
 function AddALandlord() {
     const navigate = useNavigate();
@@ -38,6 +39,9 @@ function AddALandlord() {
     const [additionalZipCode, setAdditionalZipCode] = useState('');
     const [addressSuggestions, setAddressSuggestions] = useState([]);
     const [additionalAddressSuggestions, setAdditionalAddressSuggestions] = useState([]); // For additional property suggestions
+
+
+
 
     useEffect(() => {
         setIsLoggedIn(isTokenValid());
@@ -429,7 +433,7 @@ function AddALandlord() {
             </div>
             {/* Top-Right Icons*/}
             <div className={styles["right-buttons"]}>
-                <RightButtons />
+            <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
             </div>
 
         </div>
