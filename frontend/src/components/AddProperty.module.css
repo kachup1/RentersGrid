@@ -18,6 +18,9 @@
 .add-property-container {
     display: flex;
     min-height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 
@@ -38,13 +41,14 @@
     padding-left: 80px; /* Add padding to move content to the left */
     flex-grow: 1;
     background-color: #4D55A5;
-    min-height: 100vh; /* Fills the entire viewport height with the background color */
+     min-height: calc(100vh - 100px); /* Adjust height to account for padding */
     overflow: hidden;
     font-family: 'Helvetica', sans-serif;
     font-weight: normal;
     display: flex; /* Enables alignment of child elements */
     flex-direction: column; /* Align child elements vertically */
     align-items: flex-start; /* Align content to the left */
+    margin: 0;
 }
 
 .title-container {
@@ -96,7 +100,7 @@
   }
   
   .form-input-city,
-  .form-input,
+  .form-input-state,
   .form-input-zipcode {
     padding: 8px;
     font-size: 14px;
@@ -106,27 +110,32 @@
     box-sizing: border-box;
   }
   
-
+  .form-input{
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px; /* Consistent width for inputs */
+    box-sizing: border-box;
+  }
   .suggestions-list {
+    position: relative;
     list-style: none;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #fcfcfc;
     border-radius: 4px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for popup effect */
-    width: 100%; /* Match the width of the input field */
-    position: absolute; /* Position it as a popup */
-    top: 0; /* Align it directly over the input field */
-    left: 0; /* Align with the input's left edge */
-    z-index: 100; /* Ensure it appears above other elements */
-    max-height: 200px; /* Set max height for scrolling */
-    overflow-y: auto; /* Allow scrolling for long lists */
+    width: 100%; /* Match the width of input fields */
+    max-height: 0; /* Start hidden */
+    overflow-y: auto; /* Prevent content overflow */
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Smooth transition */
     opacity: 0; /* Start invisible */
-    pointer-events: none; /* Disable interaction when not visible */
-    transition: opacity 0.3s ease-in-out;
+    box-sizing: border-box;
+    
 }
+
 .suggestions-list.visible {
-    pointer-events: auto;
+    max-height: 100px; /* Adjust to the maximum height of the list */
     opacity: 1; /* Fully visible */
 }
 
@@ -145,9 +154,10 @@
     background-color: #76b649;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px;
     cursor: pointer;
     text-align: center;
+    width: 200px;
 }
 
 .submit-button:disabled {

@@ -204,7 +204,7 @@ function AddProperty() {
     <label className={styles["form-label"]}>State:</label>
     <input
     type="text"
-      className={styles["form-input"]}
+      className={styles["form-input-state"]}
       value={state}
       onChange={(e) => setState(e.target.value)}
       placeholder="State"
