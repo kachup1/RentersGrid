@@ -45,10 +45,14 @@ function AddALandlord() {
 
     const additionalPropertyRef = useRef(null);
 
+    //track if a click originated from the button to avoid immediate closing:
+    const buttonRef = useRef(null);
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             // Check if the click happened outside the additional property form
-            if (additionalPropertyRef.current && !additionalPropertyRef.current.contains(event.target)) {
+            if (additionalPropertyRef.current && !additionalPropertyRef.current.contains(event.target)
+            &&buttonRef.current&&!buttonRef.current.contains(event.target)) {
                 setShowAddProperty(false); // Close the form if clicked outside
             }
         };
@@ -327,6 +331,7 @@ function AddALandlord() {
             {/* Additional Property Section */}
             <div className={styles["add-a-landlord-additional-property-container"]}>
                 <button
+                    ref={buttonRef}
                     className={styles["add-a-landlord-additional-property-button"]}
                     onClick={() => setShowAddProperty(prev => !prev)}
                 >
