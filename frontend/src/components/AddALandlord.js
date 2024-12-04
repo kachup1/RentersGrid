@@ -7,11 +7,7 @@ import { getUserIdFromToken, isTokenValid } from './authentication';
 import styles from './AddALandlord.module.css';
 import RightButtons from './RightButtons';
 import InsideAccountSideMenu from './InsideAccountSideMenu';
-import Header from './header2';
-<<<<<<< HEAD
-
-=======
->>>>>>> 5e30ef8c631d1208c072eb3c8c8474a42e5c6b1d
+import Header from './Header2';
 
 function AddALandlord() {
     const navigate = useNavigate();
