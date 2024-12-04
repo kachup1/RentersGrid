@@ -56,6 +56,7 @@
     box-sizing: border-box;
     height: 260px;
     position: relative;
+    overflow: hidden;
 }
 
 .landlord-details {
@@ -77,7 +78,7 @@
     border-radius: 5px; /* Rounded corners */
     margin: 0 auto; /* Center box in container */
     position: relative;
-    top:-35px;
+    top:-10px;
 }
 
 .landlord-rates {
@@ -96,21 +97,27 @@
     font-weight: bold;
     color: #4D55A4;
     position: relative;
-
-    white-space: nowrap;
+    max-width: 300px;
+    white-space: normal;
     overflow: hidden;
     text-overflow: ellipsis;
-    top:-40px;
+    margin-top:0px;
+    overflow-wrap: break-word;
+}
 
+.landlord-name-container{
+    width:300px;
 }
 
 .landlord-location {
     font-size: 1.1rem;
     color: #666;
-    margin-top: 5px;
-    position: relative;
-    top: -60px;
-    left:10px;
+    margin-top: -10px;
+    position: absolute;
+    top: 138px;
+    left:160px;
+    width: 400px;
+    word-wrap:break-word;
 }
 .landlord-address{
     font-size: 1.2rem;
@@ -125,9 +132,9 @@
     margin-left: auto;
     display: flex;
     align-items:center;
-    position: relative;
-    top:-75px;
-    left:15px;
+    position: absolute;
+    top:3px;
+    left:540px;
 }
 
 .report-icon-img{
@@ -166,9 +173,9 @@
     margin-left: auto;
     display: flex;
     align-items: center;
-    position: relative;
-    top:-75px;
-    left:10px;
+    position: absolute;
+    top:5px;
+    left:500px;
 }
 
 .bookmark-icon-img {
@@ -193,7 +200,7 @@
     background-color: transparent;
     border: none;
     position: relative;
-    top:-60px;
+    top:-10px;
     left:20px;
 }
 
@@ -207,7 +214,7 @@
     background-color: transparent;
     border: none;
     position: relative;
-    top:-60px;
+    top:-10px;
     left:100px;
  
     
@@ -338,7 +345,6 @@
     position: relative;
     left:1340px;
     font-size: 25px;
-    font-weight: normal;
 }
 
 .review-card {
@@ -660,13 +666,13 @@
 /* Side icons */
 .icons-container {
     position: relative;
-    top: -325px;
+    top: -270px;
     left:1070px;
     display: flex;
     flex-direction: column; /* Horizontal layout for the icons */
     gap: 15px; /* Space between icons */
     z-index: 10; /* Ensure it's on top of other elements */
-    width: 30px; /* Adjust size as needed */
+    width: 40px; /* Adjust size as needed */
     height: 40px;
     cursor: pointer;
 }
@@ -680,6 +686,7 @@
 
 /* Specific styles for the share icon */
 .share-icon {
+   
     margin-right: 10px; /* Add spacing if needed */
     filter: none; /* Ensure visibility */
 }
