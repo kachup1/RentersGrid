@@ -65,13 +65,13 @@ body {
     border-radius: 50px;  /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
     width: 1310px; 
-    height: 780px; 
+    height: 670px; 
     margin: 150px auto;  /* Center the box horizontally  */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    top: 30px; /* Adjust this value to move it lower from the top */
+    top: 6px; /* Adjust this value to move it lower from the top */
     position: absolute;
 
 }
@@ -79,7 +79,7 @@ body {
 .add-rating-image {
     width: 197px;  /* Set the width*/
     height: 104px;  /* Set the height*/  
-    margin-top: -660px; 
+    margin-top: -620px; 
     margin-left: -300px;
     background-color: transparent;  /* color background for the box */
     position: absolute;
@@ -90,7 +90,7 @@ body {
 .you-are-rating {
     font-size: 25px;
     margin-bottom: 500px;
-    margin-top: -90px; /* Adjust the value to move it higher */
+    margin-top: -50px; /* Adjust the value to move it higher */
     margin-left: 200px; 
     font-weight: 100; /* Makes the font lighter */
     color: #9BA0CC; 
@@ -100,8 +100,8 @@ body {
 .you-are-rating-landlord-name {
     font-size: 50px;
     margin-bottom: 10px;
-    margin-top: -489px; /* Adjust the value as needed */
-    margin-left: 20%; /* Adjust as needed */
+    margin-top: -440px; /* Adjust the value as needed */
+    margin-left: 240px; /* Adjust as needed */
     font-weight: 100;
     color: #4D55A5;
     position: absolute;
@@ -113,7 +113,7 @@ body {
 .write-a-review-string {
     font-size: 30px;
     margin-bottom: 10px;
-    margin-top: -170px; /* Adjust the value to move it higher */
+    margin-top: -90px; /* Adjust the value to move it higher */
     margin-left: -800px; 
     font-weight: 100; /* Makes the font lighter */
     color: #4D55A5; 
@@ -156,7 +156,7 @@ body {
     height: 300px;
     padding: 10px;
     border-radius: 2px;
-    margin-top: -65px; /* Adjust the value to move it higher */
+    margin-top: -25px; /* Adjust the value to move it higher */
     margin-left: -540px; /* Move the element to the left */
     border: 2px solid #645d5d9c;
     box-shadow: -10px 10px 10px rgba(90, 88, 88, 0.5); /* Stronger shadow */
@@ -171,13 +171,13 @@ body {
 
 /*text box word counter*/
 .word-counter {
-    font-size: 20px;
+    font-size: 18px;
     color: #4D55A5;
     text-align: right;
     position: absolute;
     right: 0;
-    margin-right: 605px; /* Adjusts position next to the textarea */
-    margin-top: 260px;
+    margin-right: 610px; /* Adjusts position next to the textarea */
+    margin-top: 310px;
 }
 
 
@@ -190,7 +190,7 @@ body {
     margin-left: -190px; 
     border: 2px solid #645d5d9c;
     position: absolute;
-    top: -10px; /* Adjusts the position slightly above the review box */
+    top: -25px; /* Adjusts the position slightly above the review box */
     background-color: #a3c091; /* Light green background */
     padding: 10px;
     border-radius: 5px;
@@ -423,7 +423,7 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 10px;
     gap: 40px;
 }
 
@@ -520,7 +520,7 @@ body {
     outline: none;
     background-color: transparent;
     position: absolute;
-    bottom: 250px; 
+    bottom: 160px; 
     left: 78%;
     transform: translateX(-50%); /* Center horizontally */
     border-radius: 25px;
@@ -535,7 +535,7 @@ body {
     gap: 1000px;
     width: auto;
     position: absolute;
-    bottom: 300px;
+    bottom: 160px;
     left: 50%;
     transform: translateX(-50%);
     box-sizing: border-box;
@@ -583,13 +583,11 @@ body{
     flex-direction: column;
     align-items: center;
     background-color: #B2C891; 
-    padding: 40px;
-    border-radius: 60px;
+    padding-inline: 40px;
+    border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 80%;
-    height: 55%; /* Let the container grow with its content */
-    margin: 100px auto; /* Center align */
-    margin-top: 200px; 
+    height: 1300px;
     position: absolute; /* Keep relative for child positioning */
     padding-bottom: 100px; /* Add extra space at the bottom */
 
@@ -598,7 +596,7 @@ body{
 .frame-4-add-rating-image {
     width: 197px;  /* Set the width*/
     height: 134px;  /* Set the height*/  
-    margin-top: -20px; 
+    margin-top: 20px; 
     margin-left: -300px; 
     background-color: transparent;  /* Light gray background for the box */
     position: absolute;
@@ -607,7 +605,7 @@ body{
 .frame-4-you-are-rating {
     font-size: 30px;
     margin-bottom: 500px;
-    margin-top: -10px; /* Adjust the value to move it higher */
+    margin-top: 40px; /* Adjust the value to move it higher */
     margin-left: 250px; 
     font-weight: bold; 
     color: #9BA0CC; 
@@ -617,7 +615,7 @@ body{
 .frame-4-you-are-rating-landlord-name {
     font-size: 55px;
     margin-bottom: 10px;
-    margin-top: 10px; /* Adjust the value to move it higher */
+    margin-top: 55px; /* Adjust the value to move it higher */
     margin-left: 20%; /* Adjust as needed */
     font-weight: 100; /* Makes the font lighter */
     color: #4D55A5; 
@@ -787,7 +785,7 @@ body{
     align-items: center;
     justify-content: center;
     margin-top: 1450px; /* Reduce the top margin */
-    margin-left: -100px; /* Reduce the top margin */
+    margin-left: -30px; /* Reduce the top margin */
     position: absolute; /* Fixed position relative to the viewport */
     left: 20%; /* Keep it aligned horizontally as needed */
     font-size: 22px; /* Reduce font size for smaller text */
@@ -796,9 +794,9 @@ body{
     text-align: center;
     background-color: #E6E6E6; /* Optional: Add background for the box */
     padding: 20px; /* Add padding to make it compact */
-    border-radius: 50px; /* Rounded edges for the box */
-    width: 1090px; /* Set a fixed width for the box */
-    height: auto; /* Allow height to adjust based on content */
+    border-radius: 70px; /* Rounded edges for the box */
+    width: 900px; /* Set a fixed width for the box */
+    height: 80px; /* Allow height to adjust based on content */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
     border: 1px solid #ffffff; /* Optional: Add a border for better visibility */
 }

@@ -338,6 +338,7 @@
     position: relative;
     left:1340px;
     font-size: 25px;
+    font-weight: normal;
 }
 
 .review-card {
@@ -659,13 +660,13 @@
 /* Side icons */
 .icons-container {
     position: relative;
-    top: -270px;
+    top: -325px;
     left:1070px;
     display: flex;
     flex-direction: column; /* Horizontal layout for the icons */
     gap: 15px; /* Space between icons */
     z-index: 10; /* Ensure it's on top of other elements */
-    width: 40px; /* Adjust size as needed */
+    width: 30px; /* Adjust size as needed */
     height: 40px;
     cursor: pointer;
 }
@@ -679,7 +680,6 @@
 
 /* Specific styles for the share icon */
 .share-icon {
-   
     margin-right: 10px; /* Add spacing if needed */
     filter: none; /* Ensure visibility */
 }

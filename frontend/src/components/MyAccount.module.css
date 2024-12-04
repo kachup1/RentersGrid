@@ -113,12 +113,7 @@
     width: 350px;
 }
 
-/* Icons for edit and save */
-.mainicon {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-}
+
 
 /* margin to the first icon only (edit icon) */
 .input-with-icons img:first-of-type {
@@ -157,4 +152,40 @@
     margin-top: 10px;
     font-family: 'Helvetica', sans-serif;
     font-size: 18px;
+}
+
+.edit-save-buttons {
+    display: flex;
+    gap: 10px; /* Adds space between buttons */
+    margin-top: 10px; /* Adjust spacing */
+}
+
+.editButton, .saveButton {
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.editButton {
+    background-color: #94C841; /* Blue for edit */
+    color: white;
+    border-radius: 25px;
+    
+}
+
+.saveButton {
+    background-color: #ff0000; /* Green for save */
+    color: white;
+    border-radius: 25px;
+
+}
+
+.saveButton:disabled {
+    background-color: #ccc; /* Grey for disabled save button */
+    cursor: not-allowed;
 }
