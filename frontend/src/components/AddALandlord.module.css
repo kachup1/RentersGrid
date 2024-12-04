@@ -32,11 +32,11 @@ html, body {
 }
 
 .add-a-landlord-center-logo {
-    height: auto;
-    width: 190px;
-    top: 130px;
+    height: 120px;
+    width: auto;
+    top: 190px;
     position: absolute;
-    left: 460px;
+    left: 540px;
     scale: 90%;
 
 }
@@ -45,11 +45,10 @@ html, body {
     top: 195px;
     color: white;
     white-space: nowrap;
-    font-size: 60px;
+    font-size: 70px;
     font-weight: bold;
     position: absolute;
-    left: 645px;
-    scale: 90%;
+    left: 670px;
 
 }
 
@@ -86,11 +85,12 @@ html, body {
     display: flex;
     position: absolute;
     gap: 10px;
-    top: 290px;
-    margin-left: 650px;
+    top: 275px;
+    margin-left: 670px;
     border-radius: 20px;
     white-space: nowrap;
-    scale: 90%;
+
+    height: 30px;
 
 }
 
@@ -126,7 +126,7 @@ html, body {
 
 .add-a-landlord-property-name-text {
     position: absolute;
-    bottom: -290px;
+    bottom: -300px;
     white-space: nowrap;
     left: -255px;
     color: white;
@@ -146,7 +146,7 @@ html, body {
 
 .add-a-landlord-property-address-text {
     position: absolute;
-    bottom: -390px;
+    bottom: -400px;
     white-space: nowrap;
     left: -255px;
     color: white;
@@ -166,7 +166,7 @@ html, body {
 
 .add-a-landlord-city-text {
     position: absolute;
-    bottom: -490px;
+    bottom: -500px;
     white-space: nowrap;
     left: -255px;
     color: white;
@@ -194,7 +194,7 @@ html, body {
 
 .add-a-landlord-state-text {
     position: absolute;
-    bottom: -490px;
+    bottom: -500px;
     white-space: nowrap;
     left: -5px;
     color: white;
@@ -228,8 +228,8 @@ html, body {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    bottom: 250px;
-    left: 650px;
+    bottom: 90px;
+    left: 660px;
     position: fixed;
     scale: 90%;
 
@@ -305,8 +305,8 @@ html, body {
     height: 450px;
     z-index: 1000px;
     position: relative;
-    bottom: -40px;
-    left: 90px;
+    bottom: -50px;
+    left: 120px;
     justify-content: center; /* Center elements vertically */
     align-items: left; /* Center elements horizontally */
     font-weight: bold;
@@ -336,13 +336,13 @@ html, body {
     border: 1px solid rgba(0, 0, 0, 0.5);
     width: 450px;
     padding: 10px;
-    left: 650px;
-    bottom: 180px;
+    left: 645px;
+    bottom: 30px;
     font-size: large;
     border-radius: 20px;
     font-weight: bold;
     cursor: pointer;
-        scale: 90%;
+    scale: 90%;
 
 }
 .address-suggestions {
