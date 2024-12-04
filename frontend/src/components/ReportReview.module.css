@@ -79,13 +79,13 @@ html, body {
   }
   
   .report-review-icon {
-    width: 80px; 
+    width: 100px; 
     height: auto;
   }
   
   .report-review-title {
     color: #fff; 
-    font-size: 40px; 
+    font-size: 60px; 
     font-weight: bold; 
     margin: 30; 
   }
