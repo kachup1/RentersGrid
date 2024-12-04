@@ -8,7 +8,10 @@ import styles from './AddALandlord.module.css';
 import RightButtons from './RightButtons';
 import InsideAccountSideMenu from './InsideAccountSideMenu';
 import Header from './header2';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5e30ef8c631d1208c072eb3c8c8474a42e5c6b1d
 
 function AddALandlord() {
     const navigate = useNavigate();
@@ -434,7 +437,7 @@ function AddALandlord() {
             </div>
             {/* Top-Right Icons*/}
             <div className={styles["right-buttons"]}>
-            <Header2 isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+            <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
             </div>
 
         </div>

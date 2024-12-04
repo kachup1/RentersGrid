@@ -8,7 +8,7 @@ import InsideAccountSideMenu from '../components/InsideAccountSideMenu';
 import axios from 'axios';
 import RightButtons from './RightButtons';
 import BackgroundLogo from '../Assets/prop-bg.svg';
-import Header from './Header2';
+import Header from './header2';
 import styles from './AddProperty.module.css';
 
 function AddProperty() {
