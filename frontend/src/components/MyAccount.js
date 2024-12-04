@@ -26,9 +26,8 @@ const MyAccount = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isEditing, setIsEditing] = useState(false);
-    const [isSaved, setIsSaved] = useState(false);
+    const [setIsSaved] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
     const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility
 
@@ -37,6 +36,8 @@ const MyAccount = () => {
 
     const [initialEmail, setInitialEmail] = useState('');
     const [initialPassword, setInitialPassword] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [currentPasswordError, setCurrentPasswordError] = useState('');
 
 
     useEffect(() => {
@@ -89,95 +90,122 @@ const MyAccount = () => {
         }
         return ""; // No errors
     };
+    const [newPasswordError, setNewPasswordError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
+    const [editMessage, setEditMessage] = useState(''); // To track the "click edit" message
 
     // Function to handle saving changes
     const handleSave = async () => {
+        // Clear all messages initially
         setSuccessMessage('');
-        setErrorMessage('');
-
-        // Check if the user is in edit mode
+        setEmailError('');
+        setCurrentPasswordError('');
+        setNewPasswordError('');
+        setConfirmPasswordError('');
+    
+        // Ensure editing mode is enabled
         if (!isEditing) {
-            setErrorMessage("Please click the edit button to make any changes.");
+            setEditMessage("Please click the edit button to make any changes.");
             return;
         }
-
-        // Check if the current password is provided
+    
+        // Ensure current password is provided
         if (!currentPassword) {
-            setErrorMessage("Current password is required to make any changes!");
+            setCurrentPasswordError("Current password is required to make any changes!");
             return;
         }
-
+    
         const token = localStorage.getItem('token');
         if (!token) {
-            setErrorMessage("User not authenticated. Please sign in.");
+            setCurrentPasswordError("User not authenticated. Please sign in.");
             return;
         }
-
-        // Step 1: Verify the current password
+    
+        // Step 1: Verify current password
         try {
-            const verifyResponse = await axios.post('http://localhost:5000/api/verify_password', {
-                currentPassword
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-
+            const verifyResponse = await axios.post(
+                'http://localhost:5000/api/verify_password',
+                { currentPassword },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+    
             if (verifyResponse.status !== 200) {
-                setErrorMessage("Incorrect current password. Please try again.");
+                setCurrentPasswordError("Incorrect current password. Please try again.");
                 return;
             }
         } catch (error) {
-            setErrorMessage("Error verifying password. Please try again.");
+            setCurrentPasswordError("Error verifying password. Please try again.");
             return;
         }
-
-        let emailUpdated = email !== initialEmail;
-        let passwordUpdated = password && confirmPassword && password !== initialPassword;
-        // Step 2: Validate the new password if it's being updated
+    
+        const emailUpdated = email !== initialEmail;
+        const passwordUpdated = password || confirmPassword;
+    
+        // Check for incomplete password fields
         if (passwordUpdated) {
+            if (!password) {
+                setNewPasswordError("Please input New Password.");
+                return;
+            }
+            if (!confirmPassword) {
+                setConfirmPasswordError("Please input Confirm Password.");
+                return;
+            }
+    
+            // Validate new password if both fields are filled
             const passwordError = validatePassword(password);
             if (passwordError) {
-                setErrorMessage(passwordError);
+                setNewPasswordError(passwordError);
                 return;
             }
             if (password !== confirmPassword) {
-                setErrorMessage("Passwords do not match.");
+                setConfirmPasswordError("Passwords do not match.");
                 return;
             }
         }
-        // If neither email nor password was updated, show an error message
+    
+        // If no updates are made, display a message
         if (!emailUpdated && !passwordUpdated) {
             setSuccessMessage("No changes made.");
+            setCurrentPassword('');
             return;
         }
-
-        // Step 2: Proceed with updating email or password
+    
+        // Step 2: Update email or password
         try {
-            const response = await axios.post('http://localhost:5000/api/edit_user', {
-                email,
-                currentPassword,
-                newPassword: password
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-
+            const response = await axios.post(
+                'http://localhost:5000/api/edit_user',
+                {
+                    email,
+                    currentPassword,
+                    newPassword: passwordUpdated ? password : null,
+                },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+    
+            // Handle response
             if (response.status === 200) {
-                // Check for "No changes made" message from the server
-                if (response.data.message === 'No changes made') {
-                    setErrorMessage("No changes made. Please update your information.");
-                } else {
+                if (response.data.message === 'User updated successfully') {
                     setSuccessMessage("User updated successfully!");
                     setInitialEmail(email);
                     setInitialPassword(password);
-                    setIsSaved(true);
+                    setPassword(''); // Clear password fields
+                    setConfirmPassword('');
+                    setCurrentPassword(''); // Clear current password field
+                    setIsEditing(false); // Exit editing mode
+                } else if (response.data.message === 'No changes made') {
+                    setSuccessMessage("No changes made. Please update your information.");
+                } else {
+                    setEmailError("Unexpected response from the server.");
                 }
             } else {
-                setErrorMessage(response.data.error || "Failed to update user.");
+                setEmailError("Failed to update user.");
             }
         } catch (error) {
-            setErrorMessage("Failed to update user. Please try again.");
+            setEmailError("Failed to update user. Please try again.");
         }
     };
-
+    
 
     return (
         <div className={styles["my-account-container"]}>
@@ -190,12 +218,27 @@ const MyAccount = () => {
                 {/* Background logo */}
                 <img src={BackgroundLogo} alt="Background Logo" className={styles["background-logo"]} />
 
-                
-
-
+                {/* Title */}
                 <div className={styles["title-container"]}>
                     <img src={AccountIcon} alt="Account" className={styles.titleicon} />
                     <h2>My Account</h2>
+                </div>
+
+                {/* Editing Button */}
+                <div className={styles["edit-save-buttons"]}>
+                    <button
+                        className={styles.editButton}
+                        onClick={() => setIsEditing(!isEditing)}
+                    >
+                        {isEditing ? "Cancel" : "Edit"}
+                    </button>
+                    <button
+                        className={styles.saveButton}
+                        onClick={handleSave}
+                        disabled={!isEditing} // Disable Save button if not in edit mode
+                    >
+                        Save
+                    </button>
                 </div>
 
                 {/* User Info Form */}
@@ -214,29 +257,16 @@ const MyAccount = () => {
                                 }}
                                 onFocus={() => {
                                     if (!isEditing) {
-                                        setErrorMessage("Please click the edit button to make any changes.");
+                                        setEmailError("Please click the edit button to make any changes.");
                                     }
                                 }}
                                 readOnly={!isEditing}
                             />
-                            <img
-                                src={isEditing ? EditSelected : EditIcon}
-                                alt="Edit"
-                                className={styles.mainicon}
-                                onClick={() => setIsEditing(!isEditing)}
-                            />
-                            <img
-                                src={isSaved ? SaveSelected : SaveIcon}
-                                alt="Save"
-                                className={styles.mainicon}
-                                onClick={handleSave}
-                                style={{
-                                    cursor: isEditing ? 'pointer' : 'not-allowed',
-                                    opacity: isEditing ? 1 : 0.2
-                                }}
-                            />
                         </div>
+                        {emailError && <div className={styles.errorMessage}>{emailError}</div>}
                     </div>
+
+
 
                     {/* Current Password Input */}
                     <div className={styles["input-group"]}>
@@ -252,13 +282,12 @@ const MyAccount = () => {
                                 }}
                                 onFocus={() => {
                                     if (!isEditing) {
-                                        setErrorMessage("Please click the edit button to make any changes.");
+                                        setCurrentPasswordError("Please click the edit button to make any changes.");
                                     }
                                 }}
                                 placeholder="Current Password"
                                 readOnly={!isEditing}
                             />
-                            {/* Toggle button to show/hide current password */}
                             <img
                                 src={showCurrentPassword ? Show : ShowOff}
                                 alt={showCurrentPassword ? "Hide" : "Show"}
@@ -266,64 +295,91 @@ const MyAccount = () => {
                                 onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                             />
                         </div>
+                        {currentPasswordError && <div className={styles.errorMessage}>{currentPasswordError}</div>}
                     </div>
 
 
-                    {/* Password Input */}
-                    <div className={styles["input-group"]}>
-                        <label>New Password:</label>
-                        <div className={styles["input-with-icons"]}>
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                value={password}
-                                onChange={(e) => {
-                                    if (isEditing) {
-                                        setPassword(e.target.value);
-                                    }
-                                }}
-                                onFocus={() => {
-                                    if (!isEditing) {
-                                        setErrorMessage("Please click the edit button to make any changes.");
-                                    }
-                                }}
-                                readOnly={!isEditing}
-                                placeholder="New Password"
-                            />
-                            <img
-                                src={showPassword ? Show : ShowOff}
-                                alt={showPassword ? "Hide" : "Show"}
-                                className={styles.showicon}
-                                onClick={() => setShowPassword(!showPassword)}
-                            />
-                        </div>
-                    </div>
+{/* New Password Input */}
+<div className={styles["input-group"]}>
+    <label>New Password:</label>
+    <div className={styles["input-with-icons"]}>
+        <input
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={(e) => {
+                if (isEditing) {
+                    const newPassword = e.target.value;
+                    setPassword(newPassword);
+                    setEditMessage(''); // Clear edit message
 
-                    {/* Confirm Password Input */}
-                    <div className={`${styles["input-group"]} ${styles["confirm-group"]}`}>
-                        <div className={styles["input-with-icons"]}>
-                            <input
-                                type={showConfirmPassword ? "text" : "password"} // Toggle for confirm password
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                readOnly={!isEditing}
-                                placeholder="Confirm Password"
-                            />
-                            {/* Toggle button for confirm password */}
-                            <img
-                                src={showConfirmPassword ? Show : ShowOff}
-                                alt={showConfirmPassword ? "Hide" : "Show"}
-                                className={styles.showicon}
-                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            />
-                        </div>
-                    </div>
+                    // Validate new password and set error
+                    const error = validatePassword(newPassword);
+                    setNewPasswordError(error);
+                }
+            }}
+            onFocus={() => {
+                if (!isEditing) {
+                    setEditMessage('Please click the edit button to make any changes.');
+                }
+            }}
+            readOnly={!isEditing}
+            placeholder="New Password"
+        />
+        <img
+            src={showPassword ? Show : ShowOff}
+            alt={showPassword ? "Hide" : "Show"}
+            className={styles.showicon}
+            onClick={() => setShowPassword(!showPassword)}
+        />
+    </div>
+    {/* Display New Password Error */}
+    {newPasswordError && <div className={styles.errorMessage}>{newPasswordError}</div>}
+</div>
+
+{/* Confirm Password Input */}
+<div className={`${styles["input-group"]} ${styles["confirm-group"]}`}>
+    <div className={styles["input-with-icons"]}>
+        <input
+            type={showConfirmPassword ? "text" : "password"}
+            value={confirmPassword}
+            onChange={(e) => {
+                if (isEditing) {
+                    const confirmation = e.target.value;
+                    setConfirmPassword(confirmation);
+                    setEditMessage(''); // Clear edit message
+
+                    // Check if passwords match and set error
+                    setConfirmPasswordError(
+                        confirmation !== password ? "Passwords do not match." : ""
+                    );
+                }
+            }}
+            onFocus={() => {
+                if (!isEditing) {
+                    setEditMessage('Please click the edit button to make any changes.');
+                }
+            }}
+            readOnly={!isEditing}
+            placeholder="Confirm Password"
+        />
+        <img
+            src={showConfirmPassword ? Show : ShowOff}
+            alt={showConfirmPassword ? "Hide" : "Show"}
+            className={styles.showicon}
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+        />
+    </div>
+    {/* Display Confirm Password Error */}
+    {confirmPasswordError && <div className={styles.errorMessage}>{confirmPasswordError}</div>}
+    {/* Display editMessage only under the confirmation field */}
+    {editMessage && !isEditing && <div className={styles.errorMessage}>{editMessage}</div>}
+</div>
+
+
 
                     {/* Display Success and Error Messages */}
                     {successMessage && (
                         <div className={styles.successMessage}>{successMessage}</div>
-                    )}
-                    {errorMessage && (
-                        <div className={styles.errorMessage}>{errorMessage}</div>
                     )}
                 </div>
 

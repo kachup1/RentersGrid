@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import addALandlord from '../Assets/add-a-landlord-title.svg';
 import axios from 'axios';
 import { getUserIdFromToken, isTokenValid } from './authentication';
 import styles from './AddALandlord.module.css';
-import Header from './Header';
+import RightButtons from './RightButtons';
+import InsideAccountSideMenu from './InsideAccountSideMenu';
 
 function AddALandlord() {
     const navigate = useNavigate();
@@ -42,6 +43,29 @@ function AddALandlord() {
         setIsLoggedIn(isTokenValid());
     }, []);
 
+    const additionalPropertyRef = useRef(null);
+
+    //track if a click originated from the button to avoid immediate closing:
+    const buttonRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            // Check if the click happened outside the additional property form
+            if (additionalPropertyRef.current && !additionalPropertyRef.current.contains(event.target)
+            &&buttonRef.current&&!buttonRef.current.contains(event.target)) {
+                setShowAddProperty(false); // Close the form if clicked outside
+            }
+        };
+    
+        // Add the event listener to detect clicks outside the additional property form
+        document.addEventListener('mousedown', handleClickOutside);
+    
+        // Clean up the event listener when the component unmounts or updates
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+    
     const states = [
         "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
         "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
@@ -190,12 +214,7 @@ function AddALandlord() {
 
     return (
         <div className={styles.addALandlordMainContainer}>
-
-            <Header 
-                className={styles.addALandlordHeader} 
-                isMenuOpen={isMenuOpen} 
-                toggleMenu={toggleMenu} 
-            />
+            
             <header>
                 <img src={addALandlord} alt="OfficialLogo" className={styles['add-a-landlord-center-logo']} />
                 <label className={styles['add-a-landlord-center-logo-text']}>Add a Landlord</label>
@@ -312,6 +331,7 @@ function AddALandlord() {
             {/* Additional Property Section */}
             <div className={styles["add-a-landlord-additional-property-container"]}>
                 <button
+                    ref={buttonRef}
                     className={styles["add-a-landlord-additional-property-button"]}
                     onClick={() => setShowAddProperty(prev => !prev)}
                 >
@@ -319,7 +339,7 @@ function AddALandlord() {
                 </button>
 
                 {showAddProperty && (
-                    <div className={styles["additional-property-form"]}>
+                    <div ref={additionalPropertyRef} className={styles["additional-property-form"]}>
                         {/* Additional Property Name */}
                         <div className={styles["add-a-landlord-additional-input-box"]}>
                             <label className={styles["add-a-landlord-additional-property-name-text"]}>Property Name:</label>
@@ -396,11 +416,6 @@ function AddALandlord() {
                                 required
                             />
                         </div>
-
-			            {/* Additional text for submit */}
-                        <div>
-                        	<h3 className={styles["add-a-landlord-additional-submit-text"]}></h3>
-                        </div>
                     </div>
                 )}
             </div>
@@ -409,6 +424,13 @@ function AddALandlord() {
             <button type="button" onClick={handleSubmit} className={styles["add-a-landlord-submit-button"]}>
                 Submit Landlord
             </button>
+            <div className={styles['left-side-menu']}>
+                <InsideAccountSideMenu />
+            </div>
+            {/* Top-Right Icons*/}
+            <div className={styles["right-buttons"]}>
+                <RightButtons />
+            </div>
 
         </div>
     );

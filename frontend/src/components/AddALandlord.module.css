@@ -55,7 +55,7 @@ html, body {
 
 .add-a-landlord-background-image {
     right: 30px;
-    position: absolute;
+    position: fixed;
     bottom: 115px;
     width: 600px;
     height: auto;
@@ -63,10 +63,10 @@ html, body {
 }
 
 .add-a-landlord-input-box {
-    position: absolute;
+    position: fixed;
     height: 50px;
     margin-left: 900px;
-    margin-top: -70px;
+    margin-top: 80px;   /* change to shift up or down */
     scale: 90%;
 
 }
@@ -305,7 +305,7 @@ html, body {
     height: 450px;
     z-index: 1000px;
     position: relative;
-    bottom: -40px;
+    bottom: -270px;     /* change to shift up or down */
     left: 90px;
     justify-content: center; /* Center elements vertically */
     align-items: left; /* Center elements horizontally */
@@ -396,3 +396,21 @@ html, body {
 .additional-address-suggestions li:hover {
     background-color: #f0f0f0;
 }
+
+.left-side-menu {
+    position: fixed; /* Fixed position keeps it in place */
+    top: 20px; /* Align it to the top of the viewport */
+    left: 0; /* Align it to the left side of the viewport */
+    height: 100%; /* Full height of the screen */
+    z-index: 100; /* Ensure it is above other elements */
+    padding: 20px; /* Adjust as needed */
+}
+
+.right-buttons {
+    position: fixed; /* Fixed position keeps it in place */
+    top: 20px; /* Position it slightly below the top */
+    right: 20px; /* Position it slightly from the right edge */
+    z-index: 100; /* Ensure it is above other elements */
+    gap: 10px; /* Space between buttons */
+}
+

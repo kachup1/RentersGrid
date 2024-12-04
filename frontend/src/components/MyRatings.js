@@ -18,6 +18,8 @@ const MyRatings = () => {
     const [ratings, setRatings] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [ratingToDelete, setRatingToDelete] = useState(null);
+    const totalRatings = ratings.length;
+
 
     // Initialize navigate
     const navigate = useNavigate();
@@ -99,6 +101,8 @@ const MyRatings = () => {
         setRatingToDelete(null);
     };
 
+
+
     return (
         <div className={styles["my-container"]}>
             {/* Side Menu */}
@@ -114,6 +118,10 @@ const MyRatings = () => {
                     <h2>My Ratings</h2>
                 </div>
 
+                {/* Total Ratings */}
+                <div className={styles["total-ratings"]}>
+                    Total Ratings: <span className={styles["ratings-value"]}>{totalRatings}</span>
+                    </div>
                 <div className={styles["ratings-cards"]}>
                     {ratings.length === 0 ? (
                         <div className={styles["no-ratings-message"]}>You haven't added any ratings yet. Share your thoughts on your landlords!</div>

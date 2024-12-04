@@ -427,7 +427,7 @@ const LandlordProfile = ({ landlordId }) => {
                         value={reviewText}  // Bind to reviewText state
                         onChange={handleReviewChange}  // Update state on change
                     />
-                    <p className={styles["word-counter"]}>{wordCount}/150</p> {/* Word counter display */}
+                    <p className={styles["word-counter"]}>{wordCount} / 150 Words</p> {/* Word counter display */}
                 </div>
 
                 <div className={styles.guidelines}>
