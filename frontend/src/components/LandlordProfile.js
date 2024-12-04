@@ -507,9 +507,11 @@ const handleVote = (reviewId, type) => {
                             <div className={styles["comment-container"]}>
                                 <div className={styles["comment-header"]}>
                                     <div className={styles["address-container"]}>
-                                        <h2>{review.propertyDetails.propertyname}</h2>
-                                        <p>{review.propertyDetails.address}, {review.propertyDetails.city}, {review.propertyDetails.state} {review.propertyDetails.zipcode}
-                                        </p>
+
+                                <h2>{review.propertyDetails.propertyname}</h2>
+                                    <p>{review.propertyDetails.address}</p>
+                                    <p>{review.propertyDetails.city}, {review.propertyDetails.state} {review.propertyDetails.zipcode}</p>
+                                    
                                     </div>
 
                                     <div className={styles["helpful-container"]}>
@@ -563,7 +565,15 @@ const handleVote = (reviewId, type) => {
                                     
                                 </div>
 
-                                <span className={styles["review-date"]}>{new Date(review.timestamp).toLocaleDateString()}</span>
+                                <span className={styles["review-date"]}>
+                                    {new Date(review.timestamp).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric',
+                                    })}
+                                </span>
+
+
                                 {/* Icons Container for Share and Report */}
                                 <div className={styles["icons-container"]}>
                                     <img src={Share} alt="Share" className={styles["icon share-icon"]} onClick={() => handleShareClick(landlordId, review.ratingId)}/>

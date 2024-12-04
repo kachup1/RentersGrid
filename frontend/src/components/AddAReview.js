@@ -189,7 +189,7 @@ const AddAReview = () => {
         const words = originalText.trim().split(/\s+/); // Split text into words
         const count = words.filter(word => word !== "").length;
     
-        if (count <= 300) { // Allow typing only if under the limit
+        if (count <= 150) { // Allow typing only if under the limit
             const censoredText = censorText(originalText); // Apply censoring
             setReviewText(censoredText);  // Update state with censored text
             setWordCount(count); // Update word count
@@ -427,7 +427,7 @@ const LandlordProfile = ({ landlordId }) => {
                         value={reviewText}  // Bind to reviewText state
                         onChange={handleReviewChange}  // Update state on change
                     />
-                    <p className={styles["word-counter"]}>{wordCount}/300</p> {/* Word counter display */}
+                    <p className={styles["word-counter"]}>{wordCount}/150</p> {/* Word counter display */}
                 </div>
 
                 <div className={styles.guidelines}>

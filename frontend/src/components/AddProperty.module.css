@@ -74,17 +74,25 @@
 }
 
 .address-row {
-    display: flex; /* Align children horizontally */
-    align-items: center; /* Vertically align labels and inputs */
-    gap: 20px; /* Add space between groups */
+    display: flex; /* Arrange labels and inputs horizontally */
+    align-items: center; /* Vertically align items */
+    gap: 20px; /* Space between each label-input pair */
+    justify-content: flex-start; /* Align the whole row to the left */
+    margin-bottom: 20px; /* Add spacing between rows */
+  }
+  
+  .address-group {
+    display: flex; /* Group label and input together */
+    flex-direction: column; /* Stack label and input vertically */
+    align-items: flex-start; /* Align label and input to the left */
   }
   
   .form-label-city,
   .form-label {
     font-size: 14px;
     font-weight: bold;
-    margin-right: 8px; /* Space between label and input */
-    color: white; /* Adjust for visibility if background is dark */
+    color: white; /* Ensure visibility on the purple background */
+    margin-bottom: 5px; /* Space between label and input */
   }
   
   .form-input-city,
@@ -94,7 +102,7 @@
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 120px; /* Adjust width for consistent input size */
+    width: 200px; /* Consistent width for inputs */
     box-sizing: border-box;
   }
   
