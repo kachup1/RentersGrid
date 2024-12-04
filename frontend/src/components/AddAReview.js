@@ -726,12 +726,17 @@ const LandlordProfile = ({ landlordId }) => {
                 {[Face1, Face2, Face3, Face4, Face5].map((face, index) => (
                     <img
                         key={index}
-                        src={face}
+                        src={
+                            selectedRating >= index + 1
+                                ? face // Use the active face
+                                : [GrayFace1, GrayFace2, GrayFace3, GrayFace4, GrayFace5][index] // Use the inactive gray face
+                        }
                         alt={`Rating ${index + 1}`}
-                        className={`${styles["rating-icon"]} ${selectedRating >= index + 1 ? styles.active : styles.inactive}`}
+                        className={styles["rating-icon"]}
                     />
                 ))}
             </div>
+
 
             {/* Criterion Ratings */}
             <div className={styles["frame4-criterion-container-4"]}>
