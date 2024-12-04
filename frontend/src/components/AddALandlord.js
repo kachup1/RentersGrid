@@ -7,6 +7,7 @@ import { getUserIdFromToken, isTokenValid } from './authentication';
 import styles from './AddALandlord.module.css';
 import RightButtons from './RightButtons';
 import InsideAccountSideMenu from './InsideAccountSideMenu';
+import Header from './Header2';
 
 function AddALandlord() {
     const navigate = useNavigate();
@@ -432,7 +433,7 @@ function AddALandlord() {
             </div>
             {/* Top-Right Icons*/}
             <div className={styles["right-buttons"]}>
-            <Header2 isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+            <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
             </div>
 
         </div>
