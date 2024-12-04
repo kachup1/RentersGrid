@@ -65,13 +65,13 @@ body {
 }
 
 .report-problem-icon {
-    width: 80px;
+    width: 100px;
     height: auto;
 }
 
 .report-problem-title {
     color: #fff;
-    font-size: 40px;
+    font-size: 50px;
     font-weight: bold;
     margin: 30;
 }
