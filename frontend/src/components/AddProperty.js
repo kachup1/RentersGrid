@@ -1,5 +1,5 @@
 // JavaScript source code
-import React, {useEffect, useState}from 'react';
+import React, {useEffect, useState,useRef}from 'react';
 import {useNavigate}from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
@@ -17,13 +17,28 @@ function AddProperty() {
     const [propertyName,setPropertyName]=useState('');
     const [propertyAddress, setPropertyAddress]=useState('');
     const [city, setCity] = useState('Long Beach');
-    const [state, setState] = useState('California');
+    const [state, setState] = useState('');
     const [propertyZipcode, setZipcode] = useState('');
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
+    const [showSuggestions,setShowSuggestions] = useState(false);
     const [suggestions,setSuggestions]=useState([]);
+    const suggestionRef = useRef(null);
     const{landlordId} = useParams()
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (suggestionRef.current && !suggestionRef.current.contains(event.target)) {
+                setShowSuggestions(false); // Hide suggestions if clicking outside
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside); // Cleanup
+        };
+    }, []);
 
     const fetchSuggestions = async (query) => {
         if (query.length > 1) {
@@ -109,7 +124,13 @@ function AddProperty() {
     const handleAddressChange = (e) => {
         const query = e.target.value;
         setPropertyAddress(query);
-        fetchSuggestions(query);
+        
+        if (query.length > 1) {
+            setShowSuggestions(true); // Show suggestions when query is valid
+            fetchSuggestions(query);
+        } else {
+            setShowSuggestions(false); // Hide suggestions for short queries
+        }
     };
     
     return (
@@ -153,13 +174,18 @@ function AddProperty() {
                         onChange={handleAddressChange}
                         placeholder="Enter an Address"
                     />
-                    <ul className={styles["suggestions-list"]}>
-                        {suggestions.map((s, index) => (
-                            <li key={index} onClick={() => handleSuggestionClick(s)}>
-                                {s.place_name}
-                            </li>
-                        ))}
-                    </ul>
+                    <ul
+                className={`${styles["suggestions-list"]} ${
+                    showSuggestions ? styles["visible"] : ""
+                }`}
+                ref={suggestionRef}
+            >
+                {suggestions.map((s, index) => (
+                    <li key={index} onClick={() => handleSuggestionClick(s)}>
+                        {s.place_name}
+                    </li>
+                ))}
+            </ul>
 
                     <div className={styles["address-row"]}>
   {/* City Input */}
@@ -176,15 +202,14 @@ function AddProperty() {
   {/* State Input */}
   <div className={styles["address-group"]}>
     <label className={styles["form-label"]}>State:</label>
-    <select
+    <input
+    type="text"
       className={styles["form-input"]}
       value={state}
       onChange={(e) => setState(e.target.value)}
-    >
-      <option value="">Select a State</option>
-      <option value="NY">New York</option>
-      <option value="CA">California</option>
-    </select>
+      placeholder="State"
+    
+    />
   </div>
 
   {/* Zip Code Input */}

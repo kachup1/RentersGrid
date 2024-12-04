@@ -99,13 +99,27 @@
   }
   
 
-.suggestions-list {
+  .suggestions-list {
     list-style: none;
     margin: 0;
     padding: 0;
     background-color: #f9f9f9;
     border-radius: 4px;
-    width: 100%; /* Match the width of input fields */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for popup effect */
+    width: 100%; /* Match the width of the input field */
+    position: absolute; /* Position it as a popup */
+    top: 0; /* Align it directly over the input field */
+    left: 0; /* Align with the input's left edge */
+    z-index: 100; /* Ensure it appears above other elements */
+    max-height: 200px; /* Set max height for scrolling */
+    overflow-y: auto; /* Allow scrolling for long lists */
+    opacity: 0; /* Start invisible */
+    pointer-events: none; /* Disable interaction when not visible */
+    transition: opacity 0.3s ease-in-out;
+}
+.suggestions-list.visible {
+    pointer-events: auto;
+    opacity: 1; /* Fully visible */
 }
 
 .suggestions-list li {
