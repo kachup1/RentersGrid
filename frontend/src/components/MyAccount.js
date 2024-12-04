@@ -19,6 +19,7 @@ import AccountIcon from '../Assets/my-account.svg';
 
 import RightButtons from './RightButtons';
 import InsideAccountSideMenu from '../components/InsideAccountSideMenu';
+import ConfirmationModal from './ConfirmationModal'; // Adjust the path if needed
 
 const MyAccount = () => {
     // State variables for email, password, and edit mode
@@ -38,6 +39,8 @@ const MyAccount = () => {
     const [initialPassword, setInitialPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [currentPasswordError, setCurrentPasswordError] = useState('');
+    
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
 
     useEffect(() => {
@@ -206,6 +209,39 @@ const MyAccount = () => {
         }
     };
     
+    const handleConfirmDelete = async () => {
+        const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+    
+        if (!token) {
+            alert("User not authenticated. Please log in again.");
+            return;
+        }
+    
+        try {
+            // Send DELETE request to backend API
+            const response = await axios.delete('http://localhost:5000/api/delete_account', {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+    
+            if (response.status === 200) {
+                alert("Your account has been successfully deleted.");
+                localStorage.removeItem('token'); // Remove token from localStorage
+                window.location.href = '/'; // Redirect to homepage or login page
+            } else {
+                alert(response.data.error || "Failed to delete your account. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error deleting account:", error);
+            alert("An error occurred while trying to delete your account. Please try again.");
+        }
+    
+        setIsModalVisible(false); // Hide the modal after confirming
+    };
+    
+    const handleCancelDelete = () => {
+        setIsModalVisible(false); // Close the modal
+    };
+    
 
     return (
         <div className={styles["my-account-container"]}>
@@ -299,88 +335,109 @@ const MyAccount = () => {
                     </div>
 
 
-{/* New Password Input */}
-<div className={styles["input-group"]}>
-    <label>New Password:</label>
-    <div className={styles["input-with-icons"]}>
-        <input
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => {
-                if (isEditing) {
-                    const newPassword = e.target.value;
-                    setPassword(newPassword);
-                    setEditMessage(''); // Clear edit message
+                    {/* New Password Input */}
+                    <div className={styles["input-group"]}>
+                        <label>New Password:</label>
+                        <div className={styles["input-with-icons"]}>
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                value={password}
+                                onChange={(e) => {
+                                    if (isEditing) {
+                                        const newPassword = e.target.value;
+                                        setPassword(newPassword);
+                                        setEditMessage(''); // Clear edit message
 
-                    // Validate new password and set error
-                    const error = validatePassword(newPassword);
-                    setNewPasswordError(error);
-                }
-            }}
-            onFocus={() => {
-                if (!isEditing) {
-                    setEditMessage('Please click the edit button to make any changes.');
-                }
-            }}
-            readOnly={!isEditing}
-            placeholder="New Password"
-        />
-        <img
-            src={showPassword ? Show : ShowOff}
-            alt={showPassword ? "Hide" : "Show"}
-            className={styles.showicon}
-            onClick={() => setShowPassword(!showPassword)}
-        />
-    </div>
-    {/* Display New Password Error */}
-    {newPasswordError && <div className={styles.errorMessage}>{newPasswordError}</div>}
-</div>
+                                        // Validate new password and set error
+                                        const error = validatePassword(newPassword);
+                                        setNewPasswordError(error);
+                                    }
+                                }}
+                                onFocus={() => {
+                                    if (!isEditing) {
+                                        setEditMessage('Please click the edit button to make any changes.');
+                                    }
+                                }}
+                                readOnly={!isEditing}
+                                placeholder="New Password"
+                            />
+                            <img
+                                src={showPassword ? Show : ShowOff}
+                                alt={showPassword ? "Hide" : "Show"}
+                                className={styles.showicon}
+                                onClick={() => setShowPassword(!showPassword)}
+                            />
+                        </div>
+                        {/* Display New Password Error */}
+                        {newPasswordError && <div className={styles.errorMessage}>{newPasswordError}</div>}
+                    </div>
 
-{/* Confirm Password Input */}
-<div className={`${styles["input-group"]} ${styles["confirm-group"]}`}>
-    <div className={styles["input-with-icons"]}>
-        <input
-            type={showConfirmPassword ? "text" : "password"}
-            value={confirmPassword}
-            onChange={(e) => {
-                if (isEditing) {
-                    const confirmation = e.target.value;
-                    setConfirmPassword(confirmation);
-                    setEditMessage(''); // Clear edit message
+                    {/* Confirm Password Input */}
+                    <div className={`${styles["input-group"]} ${styles["confirm-group"]}`}>
+                        <div className={styles["input-with-icons"]}>
+                            <input
+                                type={showConfirmPassword ? "text" : "password"}
+                                value={confirmPassword}
+                                onChange={(e) => {
+                                    if (isEditing) {
+                                        const confirmation = e.target.value;
+                                        setConfirmPassword(confirmation);
+                                        setEditMessage(''); // Clear edit message
 
-                    // Check if passwords match and set error
-                    setConfirmPasswordError(
-                        confirmation !== password ? "Passwords do not match." : ""
-                    );
-                }
-            }}
-            onFocus={() => {
-                if (!isEditing) {
-                    setEditMessage('Please click the edit button to make any changes.');
-                }
-            }}
-            readOnly={!isEditing}
-            placeholder="Confirm Password"
-        />
-        <img
-            src={showConfirmPassword ? Show : ShowOff}
-            alt={showConfirmPassword ? "Hide" : "Show"}
-            className={styles.showicon}
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-        />
-    </div>
-    {/* Display Confirm Password Error */}
-    {confirmPasswordError && <div className={styles.errorMessage}>{confirmPasswordError}</div>}
-    {/* Display editMessage only under the confirmation field */}
-    {editMessage && !isEditing && <div className={styles.errorMessage}>{editMessage}</div>}
-</div>
-
-
+                                        // Check if passwords match and set error
+                                        setConfirmPasswordError(
+                                            confirmation !== password ? "Passwords do not match." : ""
+                                        );
+                                    }
+                                }}
+                                onFocus={() => {
+                                    if (!isEditing) {
+                                        setEditMessage('Please click the edit button to make any changes.');
+                                    }
+                                }}
+                                readOnly={!isEditing}
+                                placeholder="Confirm Password"
+                            />
+                            <img
+                                src={showConfirmPassword ? Show : ShowOff}
+                                alt={showConfirmPassword ? "Hide" : "Show"}
+                                className={styles.showicon}
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            />
+                        </div>
+                        {/* Display Confirm Password Error */}
+                        {confirmPasswordError && <div className={styles.errorMessage}>{confirmPasswordError}</div>}
+                        {/* Display editMessage only under the confirmation field */}
+                        {editMessage && !isEditing && <div className={styles.errorMessage}>{editMessage}</div>}
+                    </div>
 
                     {/* Display Success and Error Messages */}
                     {successMessage && (
                         <div className={styles.successMessage}>{successMessage}</div>
                     )}
+
+                   
+                    {/* Delete Account Button */}
+                    <div className={styles["delete-account-container"]}>
+                        <button
+                            className={styles["delete-account-button"]}
+                            onClick={() => setIsModalVisible(true)}
+                        >
+                            Delete Account
+                        </button>
+
+                        {/* Render Confirmation Modal */}
+                        {isModalVisible && (
+                            <ConfirmationModal
+                                message="Are you sure you want to delete your account? This action cannot be undone."
+                                onConfirm={handleConfirmDelete}
+                                onCancel={handleCancelDelete}
+                            />
+                        )}
+                    </div>
+
+
+
                 </div>
 
             </main>

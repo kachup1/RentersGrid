@@ -19,7 +19,7 @@ from routes.vote_routes import vote_blueprint
 from routes.add_landlord_routes import add_landlord_blueprint
 from routes.report_routes import report_routes
 from routes.add_property_route import add_property_blueprint
-#from routes.delete_account_route import delete_account_blueprint
+from routes.delete_account import delete_account_blueprint
 
 
 
