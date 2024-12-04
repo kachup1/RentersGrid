@@ -5,7 +5,8 @@ import addALandlord from '../Assets/add-a-landlord-title.svg';
 import axios from 'axios';
 import { getUserIdFromToken, isTokenValid } from './authentication';
 import styles from './AddALandlord.module.css';
-import Header from './Header';
+import RightButtons from './RightButtons';
+import InsideAccountSideMenu from './InsideAccountSideMenu';
 
 function AddALandlord() {
     const navigate = useNavigate();
@@ -190,12 +191,7 @@ function AddALandlord() {
 
     return (
         <div className={styles.addALandlordMainContainer}>
-
-            <Header 
-                className={styles.addALandlordHeader} 
-                isMenuOpen={isMenuOpen} 
-                toggleMenu={toggleMenu} 
-            />
+            
             <header>
                 <img src={addALandlord} alt="OfficialLogo" className={styles['add-a-landlord-center-logo']} />
                 <label className={styles['add-a-landlord-center-logo-text']}>Add a Landlord</label>
@@ -396,11 +392,6 @@ function AddALandlord() {
                                 required
                             />
                         </div>
-
-			            {/* Additional text for submit */}
-                        <div>
-                        	<h3 className={styles["add-a-landlord-additional-submit-text"]}></h3>
-                        </div>
                     </div>
                 )}
             </div>
@@ -409,6 +400,13 @@ function AddALandlord() {
             <button type="button" onClick={handleSubmit} className={styles["add-a-landlord-submit-button"]}>
                 Submit Landlord
             </button>
+            <div className={styles['left-side-menu']}>
+                <InsideAccountSideMenu />
+            </div>
+            {/* Top-Right Icons*/}
+            <div className={styles["right-buttons"]}>
+                <RightButtons />
+            </div>
 
         </div>
     );

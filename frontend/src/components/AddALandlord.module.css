@@ -32,11 +32,11 @@ html, body {
 }
 
 .add-a-landlord-center-logo {
-    height: 120px;
-    width: auto;
-    top: 190px;
+    height: auto;
+    width: 190px;
+    top: 130px;
     position: absolute;
-    left: 540px;
+    left: 460px;
     scale: 90%;
 
 }
@@ -45,16 +45,17 @@ html, body {
     top: 195px;
     color: white;
     white-space: nowrap;
-    font-size: 70px;
+    font-size: 60px;
     font-weight: bold;
     position: absolute;
-    left: 670px;
+    left: 645px;
+    scale: 90%;
 
 }
 
 .add-a-landlord-background-image {
     right: 30px;
-    position: absolute;
+    position: fixed;
     bottom: 115px;
     width: 600px;
     height: auto;
@@ -62,10 +63,10 @@ html, body {
 }
 
 .add-a-landlord-input-box {
-    position: absolute;
+    position: fixed;
     height: 50px;
     margin-left: 900px;
-    margin-top: -70px;
+    margin-top: 80px;   /* change to shift up or down */
     scale: 90%;
 
 }
@@ -85,12 +86,11 @@ html, body {
     display: flex;
     position: absolute;
     gap: 10px;
-    top: 275px;
-    margin-left: 670px;
+    top: 290px;
+    margin-left: 650px;
     border-radius: 20px;
     white-space: nowrap;
-
-    height: 30px;
+    scale: 90%;
 
 }
 
@@ -126,7 +126,7 @@ html, body {
 
 .add-a-landlord-property-name-text {
     position: absolute;
-    bottom: -300px;
+    bottom: -290px;
     white-space: nowrap;
     left: -255px;
     color: white;
@@ -146,7 +146,7 @@ html, body {
 
 .add-a-landlord-property-address-text {
     position: absolute;
-    bottom: -400px;
+    bottom: -390px;
     white-space: nowrap;
     left: -255px;
     color: white;
@@ -166,7 +166,7 @@ html, body {
 
 .add-a-landlord-city-text {
     position: absolute;
-    bottom: -500px;
+    bottom: -490px;
     white-space: nowrap;
     left: -255px;
     color: white;
@@ -194,7 +194,7 @@ html, body {
 
 .add-a-landlord-state-text {
     position: absolute;
-    bottom: -500px;
+    bottom: -490px;
     white-space: nowrap;
     left: -5px;
     color: white;
@@ -228,8 +228,8 @@ html, body {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    bottom: 90px;
-    left: 660px;
+    bottom: 250px;
+    left: 650px;
     position: fixed;
     scale: 90%;
 
@@ -305,8 +305,8 @@ html, body {
     height: 450px;
     z-index: 1000px;
     position: relative;
-    bottom: -50px;
-    left: 120px;
+    bottom: -270px;     /* change to shift up or down */
+    left: 90px;
     justify-content: center; /* Center elements vertically */
     align-items: left; /* Center elements horizontally */
     font-weight: bold;
@@ -336,13 +336,13 @@ html, body {
     border: 1px solid rgba(0, 0, 0, 0.5);
     width: 450px;
     padding: 10px;
-    left: 645px;
-    bottom: 30px;
+    left: 650px;
+    bottom: 180px;
     font-size: large;
     border-radius: 20px;
     font-weight: bold;
     cursor: pointer;
-    scale: 90%;
+        scale: 90%;
 
 }
 .address-suggestions {
@@ -396,3 +396,21 @@ html, body {
 .additional-address-suggestions li:hover {
     background-color: #f0f0f0;
 }
+
+.left-side-menu {
+    position: fixed; /* Fixed position keeps it in place */
+    top: 20px; /* Align it to the top of the viewport */
+    left: 0; /* Align it to the left side of the viewport */
+    height: 100%; /* Full height of the screen */
+    z-index: 100; /* Ensure it is above other elements */
+    padding: 20px; /* Adjust as needed */
+}
+
+.right-buttons {
+    position: fixed; /* Fixed position keeps it in place */
+    top: 20px; /* Position it slightly below the top */
+    right: 20px; /* Position it slightly from the right edge */
+    z-index: 100; /* Ensure it is above other elements */
+    gap: 10px; /* Space between buttons */
+}
+
