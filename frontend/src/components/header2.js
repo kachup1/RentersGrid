@@ -8,7 +8,7 @@ import AccountButton from '../Assets/Account button.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { isTokenValid } from './authentication';
 
-const Header = ({ isMenuOpen, toggleMenu }) => {
+const Header2 = ({ isMenuOpen, toggleMenu }) => {
     const navigate = useNavigate();
     const isSignedIn = isTokenValid();
 
@@ -67,4 +67,4 @@ const Header = ({ isMenuOpen, toggleMenu }) => {
     );
 };
 
-export default Header;
+export default Header2;
