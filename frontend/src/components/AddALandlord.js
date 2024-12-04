@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import addALandlord from '../Assets/add-a-landlord-title.svg';
@@ -43,6 +43,25 @@ function AddALandlord() {
         setIsLoggedIn(isTokenValid());
     }, []);
 
+    const additionalPropertyRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            // Check if the click happened outside the additional property form
+            if (additionalPropertyRef.current && !additionalPropertyRef.current.contains(event.target)) {
+                setShowAddProperty(false); // Close the form if clicked outside
+            }
+        };
+    
+        // Add the event listener to detect clicks outside the additional property form
+        document.addEventListener('mousedown', handleClickOutside);
+    
+        // Clean up the event listener when the component unmounts or updates
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+    
     const states = [
         "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
         "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
@@ -315,7 +334,7 @@ function AddALandlord() {
                 </button>
 
                 {showAddProperty && (
-                    <div className={styles["additional-property-form"]}>
+                    <div ref={additionalPropertyRef} className={styles["additional-property-form"]}>
                         {/* Additional Property Name */}
                         <div className={styles["add-a-landlord-additional-input-box"]}>
                             <label className={styles["add-a-landlord-additional-property-name-text"]}>Property Name:</label>
