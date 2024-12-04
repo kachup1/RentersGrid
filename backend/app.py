@@ -55,7 +55,7 @@ app.register_blueprint(add_landlord_blueprint)
 app.register_blueprint(report_routes)
 
 app.register_blueprint(add_property_blueprint)
-#app.register_blueprint(delete_account_blueprint)
+app.register_blueprint(delete_account_blueprint)
 
 
 
