@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Header from './Header'
+import Header3 from './Header3'
 import styles from './ReportProblem.module.css';import AccountButton from '../Assets/Account button.svg';
 import ReportButton from '../Assets/report-title.svg';
 import MenuAlt from '../Assets/main-logo.svg';
@@ -75,7 +75,7 @@ function ReportProblem() {  // landlordId is received as a prop
     return (
         <div className={styles[`parent`]}>
             <div className="Header">
-            <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+            <Header3 isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         </div>
         <div className={styles[`report-problem-main-container`]}>
             {/* Background Image */}

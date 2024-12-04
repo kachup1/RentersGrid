@@ -1,0 +1,80 @@
+/* Dimmed Background Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+    z-index: 99;
+}
+
+/* Header Styling */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 80px;
+    box-sizing: border-box;
+    margin-top: 40px;
+    height: 120px;
+    width: 100%;
+    background-color: #4D55A5;
+}
+
+/* Menu Button */
+.menuButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.menuIcon {
+    width: 65px;
+    height: auto;
+}
+
+/* Logo Styling */
+.logo {
+    cursor: pointer;
+}
+
+.logo img {
+    width: 400px;
+    height: auto;
+    padding-left: 70px;
+}
+
+/* Buttons Container */
+.buttonsContainer {
+    display: flex;
+    gap: 20px;
+}
+
+.leftIcon {
+    cursor: pointer;
+    width: 80px;
+    height: auto;
+}
+
+.rightIcon {
+    cursor: pointer;
+    width: auto;
+    height: 65px;
+}
+.accountButtonWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.signedInIndicator {
+    position: absolute;
+    top: -5px;
+    right: -7px;
+    width: 20px;
+    height: 20px;
+    background-color: #cd2d2d;
+    border-radius: 90%;
+    border: 4px solid white;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
