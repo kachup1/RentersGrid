@@ -8,7 +8,7 @@ import InsideAccountSideMenu from '../components/InsideAccountSideMenu';
 import axios from 'axios';
 import RightButtons from './RightButtons';
 import BackgroundLogo from '../Assets/prop-bg.svg';
-
+import Header from './Header2';
 import styles from './AddProperty.module.css';
 
 function AddProperty() {
@@ -25,6 +25,9 @@ function AddProperty() {
     const [suggestions,setSuggestions]=useState([]);
     const suggestionRef = useRef(null);
     const{landlordId} = useParams()
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => setIsMenuOpen( prevState => !prevState);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -239,7 +242,7 @@ function AddProperty() {
             </main>
             {/* Top-Right Icons */}
             <div className={styles["right-buttons"]}>
-                    <RightButtons />
+            <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
             </div>
         </div>
     );
