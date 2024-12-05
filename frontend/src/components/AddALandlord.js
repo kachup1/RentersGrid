@@ -7,7 +7,7 @@ import { getUserIdFromToken, isTokenValid } from './authentication';
 import styles from './AddALandlord.module.css';
 import RightButtons from './RightButtons';
 import InsideAccountSideMenu from './InsideAccountSideMenu';
-import Header from './Header2';
+import Header from './header2';
 
 function AddALandlord() {
     const navigate = useNavigate();
@@ -266,6 +266,7 @@ function AddALandlord() {
                 <input
                     type="text"
                     className={styles["add-a-landlord-property-name-box"]}
+                    placeholder="Property Name"
                     value={propertyName}
                     onChange={(e) => setPropertyName(e.target.value)}
                     required
@@ -282,9 +283,10 @@ function AddALandlord() {
                     onChange={handleAddressInputChange}
                     required
                 />
+                
                 <label className={styles["add-a-landlord-property-address-text"]}>Property Address:</label>
-
-                {addressSuggestions.length > 0 && (
+            </div>
+            {addressSuggestions.length > 0 && (
                     <ul className={styles["address-suggestions"]}>
                         {addressSuggestions.map((suggestion, index) => (
                             <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
@@ -293,7 +295,7 @@ function AddALandlord() {
                         ))}
                     </ul>
                 )}
-            </div>
+    
 
             <div className={styles["add-a-landlord-input-box"]}>
                 <input

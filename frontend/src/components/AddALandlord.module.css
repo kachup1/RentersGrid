@@ -28,7 +28,7 @@ html, body {
     flex-direction: column;
     align-items: center;
     border: 2px solid red; /* Add a solid red border */
-
+    overflow: visible;
 }
 
 .add-a-landlord-center-logo {
@@ -68,7 +68,6 @@ html, body {
     margin-left: 900px;
     margin-top: 80px;   /* change to shift up or down */
     scale: 90%;
-
 }
 
 .add-a-landlord-name-box {
@@ -86,7 +85,7 @@ html, body {
     display: flex;
     position: absolute;
     gap: 10px;
-    top: 290px;
+    top: 320px;
     margin-left: 650px;
     border-radius: 20px;
     white-space: nowrap;
@@ -181,7 +180,6 @@ html, body {
     padding: 10px;
     left: -15px;
     bottom: -550px;
-    font-size: large;
     border-radius: 20px;
 }
 
@@ -189,7 +187,7 @@ html, body {
     background-color: #ccc;
     position: absolute;
     border-radius: 20px;
-    z-index: 1000;
+    
 }
 
 .add-a-landlord-state-text {
@@ -228,7 +226,7 @@ html, body {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    bottom: 250px;
+    bottom: 170px;
     left: 650px;
     position: fixed;
     scale: 90%;
@@ -303,7 +301,7 @@ html, body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
     width: 415px;
     height: 450px;
-    z-index: 1000px;
+    z-index: 10000;
     position: relative;
     bottom: -270px;     /* change to shift up or down */
     left: 90px;
@@ -336,8 +334,8 @@ html, body {
     border: 1px solid rgba(0, 0, 0, 0.5);
     width: 450px;
     padding: 10px;
-    left: 650px;
-    bottom: 180px;
+    left: 635px;
+    bottom: 110px;
     font-size: large;
     border-radius: 20px;
     font-weight: bold;
@@ -345,10 +343,11 @@ html, body {
         scale: 90%;
 
 }
+
 .address-suggestions {
-    position: absolute;
-    right: -250px;
-    top: 500px;
+    position: fixed;
+    right: 557px;
+    top: 593px;
     width: 500px; /* Match the width of the input box */
     max-height: 150px; /* Optional: limit height to avoid large dropdown */
     overflow-y: auto; /* Allow scrolling if too many items */
@@ -371,6 +370,7 @@ html, body {
 .address-suggestions li:hover {
     background-color: #f0f0f0; /* Change color on hover for better UX */
 }
+
 .additional-address-suggestions {
     position: absolute; /* Position it absolutely within the container */
     width: 500px; /* Match the width of the input field */
@@ -382,8 +382,6 @@ html, body {
     z-index: 1000; /* Ensure it overlays other elements */
     margin-top: 5px; /* Space it slightly below the input */
     top: 60px;
-
-
 }
 
 .additional-address-suggestions li {
