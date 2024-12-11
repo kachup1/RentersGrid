@@ -69,7 +69,7 @@ function AllLocationsMap() {
       markers.forEach((markerData, index) => {
         const icon = L.icon({
           iconUrl: pinIcon,
-          iconSize: [30, 30],
+          iconSize: [50, 50],
         });
 
         const marker = L.marker([markerData.latitude, markerData.longitude], { icon })
@@ -106,7 +106,7 @@ function AllLocationsMap() {
   
           const currentIcon = L.icon({
             iconUrl: currentLocationIcon,
-            iconSize: [30, 30],
+            iconSize: [50, 50],
           });
   
           // Add a marker for the user's current location
