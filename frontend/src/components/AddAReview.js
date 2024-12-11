@@ -379,6 +379,19 @@ const LandlordProfile = ({ landlordId }) => {
         const regex = new RegExp(`\\b(${profaneWords.join('|')})\\b`, 'gi');
         return text.replace(regex, (match) => '*'.repeat(match.length));
     };
+
+    const formatLandlordName = (name) => {
+        if (!name) return '';
+        const [firstName, lastName] = name.split(' '); // Split into first and last name
+        return (
+            <>
+                <span>{firstName}</span>
+                <br />
+                <span>{lastName}</span>
+            </>
+        );
+    };
+    
     
 
 
@@ -414,9 +427,14 @@ const LandlordProfile = ({ landlordId }) => {
                     <h2>You are Rating:</h2>
                 </div>
 
-                <div className={styles["you-are-rating-landlord-name"]}>
-                    <h3>{landlordName}</h3>
+                
+                <div className={styles["you-are-rating-landlord-name-container"]}>
+                    <div className={styles["you-are-rating-landlord-name"]}>
+                        <h3>{formatLandlordName(landlordName)}</h3>
+                    </div>
                 </div>
+
+
 
                 <div className={styles["write-a-review-string"]}>
                     <h3>Write a Review:</h3>
@@ -693,10 +711,13 @@ const LandlordProfile = ({ landlordId }) => {
             <div className={styles["frame-4-you-are-rating"]}>
                 <h2>You Are Rating:</h2>
             </div>
-
-            <div className={styles["frame-4-you-are-rating-landlord-name"]}>
-                <h3>{landlordName}</h3>
+            
+            <div className={styles["frame-4-you-are-rating-landlord-name-container"]}>
+                <div className={styles["frame-4-you-are-rating-landlord-name"]}>
+                    <h3>{formatLandlordName(landlordName)}</h3>
+                </div>
             </div>
+
 
             {/* Review Text Display */}
             <div className={styles["frame-4-write-a-review-string"]}>
