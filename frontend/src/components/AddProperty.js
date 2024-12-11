@@ -2,13 +2,12 @@
 import React, {useEffect, useState,useRef}from 'react';
 import {useNavigate}from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-
 import TitleIcon from '../Assets/menu-3.svg';
 import InsideAccountSideMenu from '../components/InsideAccountSideMenu';
 import axios from 'axios';
 import RightButtons from './RightButtons';
 import BackgroundLogo from '../Assets/prop-bg.svg';
-import Header from './header2';
+import Header from './Header2';
 import styles from './AddProperty.module.css';
 
 function AddProperty() {
@@ -236,9 +235,7 @@ function AddProperty() {
                         Submit Property
                     </button>
             </div>
-
-
-
+            
             </main>
             {/* Top-Right Icons */}
             <div className={styles["right-buttons"]}>

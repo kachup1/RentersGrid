@@ -358,9 +358,6 @@ const handleVote = (reviewId, type) => {
     .catch(error => console.error("Error in voting:", error));
 };
 
-
-  
-
     return (
         <div className={styles["landlord-profile-container"]}>
             <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
@@ -373,7 +370,7 @@ const handleVote = (reviewId, type) => {
                 <div className={styles["landlord-information"]}>
                     <div className={styles["landlord-details"]}>
                         <div className={styles["rating-box"]}>
-                            <p className={styles["landlord-rates"]}>{landlordData.averageRating ? landlordData.averageRating.toFixed(1):"No Ratings"}</p>
+                            <p className={styles["landlord-rates"]}>{landlordData.averageRating ? landlordData.averageRating.toFixed(1):"N/A"}</p>
                         </div>
                         <div>
                             <h2 className={styles["landlord-name"]}>{landlordData.name}</h2>

@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './Header2.module.css';
-import PopUpMenu from './PopUpMenu';
-import BarMenuIcon from '../Assets/menu-bar.svg';
-import OfficialLogo from '../Assets/official logo.svg';
+import Search from '../Assets/search-1.svg';
 import SubmitLandlordRate from '../Assets/submit landlord rate.svg';
 import AccountButton from '../Assets/Account button.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -37,6 +35,17 @@ const Header2 = ({ isMenuOpen, toggleMenu }) => {
 
                 {/* Buttons Container */}
                 <div className={styles.buttonsContainer}>
+
+                <div className={styles.searchbuttonsContainer}>
+                    {/* Search Icon */}
+                    <img
+                        src={Search}
+                        alt="Submit Landlord Rate"
+                        className={styles.leftIcon}
+                        onClick={() => navigate('/searchresults')}
+                    />
+                    </div>
+
                     <img
                         src={SubmitLandlordRate}
                         alt="Submit Landlord Rate"
