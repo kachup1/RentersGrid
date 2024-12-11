@@ -42,13 +42,14 @@
 .logo img {
     width: 400px;
     height: auto;
-    padding-left: 70px;
+    padding-left: 130px;
 }
 
 /* Buttons Container */
 .buttonsContainer {
     display: flex;
     gap: 20px;
+    scale: 80%;
 }
 
 .leftIcon {
@@ -57,22 +58,25 @@
     height: auto;
 }
 
+
+.searchIcon {
+    cursor: pointer;
+    width: 62px;
+    height: auto;
+    margin-top: 4px;
+}
+
 .rightIcon {
+    margin-top: 5;
     cursor: pointer;
     width: auto;
-    height: 65px;
+    height: 67px;
 }
 .accountButtonWrapper {
     position: relative;
     display: inline-block;
 }
 
-/* Search Icon */
-.searchbuttonsContainer img {
-    width: 69px; /* Adjust the size of the Search icon */
-    height: auto; /* Maintain aspect ratio */
-    cursor: pointer;
-}
 
 .signedInIndicator {
     position: absolute;

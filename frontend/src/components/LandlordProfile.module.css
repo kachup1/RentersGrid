@@ -723,9 +723,9 @@
     text-align: center;
     padding: 20px;
     position: absolute;
-    top: 600px;
-    left:900px;
-    font-size: 2.5rem;
+    top: 500px;
+    left:760px;
+    font-size: 20px;
 }
 
 .add-review-button {

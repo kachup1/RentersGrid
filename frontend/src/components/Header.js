@@ -52,24 +52,21 @@ const Header = ({ isMenuOpen, toggleMenu }) => {
                 {/* Buttons Container */}
 
                 <div className={styles.buttonsContainer}>
-                    
-                    <div className={styles.searchbuttonsContainer}>
                     {/* Search Icon */}
                     <img
                         src={Search}
                         alt="Submit Landlord Rate"
-                        className={styles.leftIcon}
+                        className={styles.searchIcon}
                         onClick={() => navigate('/searchresults')}
                     />
-                    </div>
-
+                    {/* Add A */}
                     <img
                         src={SubmitLandlordRate}
                         alt="Submit Landlord Rate"
                         className={styles.leftIcon}
                         onClick={() => navigate('/addalandlord')}
                     />
-
+                    {/* My Account */}
                     <div className={styles.accountButtonWrapper}>
                         <img
                             src={AccountButton}
