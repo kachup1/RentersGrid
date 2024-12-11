@@ -358,6 +358,40 @@ const handleVote = (reviewId, type) => {
     .catch(error => console.error("Error in voting:", error));
 };
 
+const formatLandlordName = (name) => {
+    if (!name) return '';
+
+    const [firstName, lastName] = name.split(' ');
+
+    // Case 1: If either name exceeds 15 characters, apply smaller font and break into two lines
+    if ((firstName?.length > 15 || lastName?.length > 15) && firstName && lastName) {
+        return (
+            <div className={styles["small-font"]}>
+                <span>{firstName}</span>
+                <br />
+                <span>{lastName}</span>
+            </div>
+        );
+    }
+
+    // Case 2: If either name exceeds 10 characters, break into two lines
+    if ((firstName?.length > 10 || lastName?.length > 10) && firstName && lastName) {
+        return (
+            <>
+                <span>{firstName}</span>
+                <br />
+                <span>{lastName}</span>
+            </>
+        );
+    }
+
+    // Default: Display in a single line
+    return `${firstName || ''} ${lastName || ''}`;
+};
+
+
+
+
     return (
         <div className={styles["landlord-profile-container"]}>
             <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
@@ -373,7 +407,14 @@ const handleVote = (reviewId, type) => {
                             <p className={styles["landlord-rates"]}>{landlordData.averageRating ? landlordData.averageRating.toFixed(1):"N/A"}</p>
                         </div>
                         <div>
-                            <h2 className={styles["landlord-name"]}>{landlordData.name}</h2>
+
+                        <div className={styles["landlord-name-container"]}>
+                        <h2 className={styles["landlord-name"]}>
+                            {formatLandlordName(landlordData.name)}
+                        </h2>
+
+                        </div>
+
                             <p className={styles["landlord-location"]}>{propertyLocation}</p>
                         </div>
                         <div className={styles["landlord-bookmark-icon"]} onClick={(e) => {
