@@ -98,16 +98,25 @@ body {
 }
 
 .you-are-rating-landlord-name {
-    font-size: 50px;
+    font-size: 45px;
     margin-bottom: 10px;
-    margin-top: -440px; /* Adjust the value as needed */
-    margin-left: 240px; /* Adjust as needed */
+
     font-weight: 100;
     color: #4D55A5;
     position: absolute;
     text-overflow: ellipsis; /* Add ellipsis for long names */
+    text-align: left; /* Aligns text to the left */
+    max-width: 300px; /* Restricts name width */
+    line-height: 0.9; /* Reduces space between lines */
+}
+
+.you-are-rating-landlord-name-container {
+    margin-top: -600px; /* Adjust this value */
+    margin-left: -60px; /* Adjust this value */
+    position: absolute; /* Ensures container stays in place */
 
 }
+
 
 
 .write-a-review-string {
@@ -612,14 +621,23 @@ body{
     position: absolute;
 }
 
+
 .frame-4-you-are-rating-landlord-name {
-    font-size: 55px;
-    margin-bottom: 10px;
-    margin-top: 55px; /* Adjust the value to move it higher */
-    margin-left: 20%; /* Adjust as needed */
-    font-weight: 100; /* Makes the font lighter */
-    color: #4D55A5; 
+    font-size: 45px;
+    font-weight: 100;
+    color: #4D55A5;
     position: absolute;
+    text-overflow: ellipsis; /* Add ellipsis for long names */
+    text-align: left; /* Aligns text to the left */
+    max-width: 300px; /* Restricts name width */
+    line-height: 0.9; /* Reduces space between lines */
+}
+
+.frame-4-you-are-rating-landlord-name-container {
+    margin-top: 80px; /* Adjust this value */
+    margin-left: -50px; /* Adjust this value */
+    position: absolute; /* Ensures container stays in place */
+
 }
 
 /*"Review" string*/

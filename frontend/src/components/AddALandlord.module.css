@@ -66,7 +66,7 @@ html, body {
     position: fixed;
     height: 50px;
     margin-left: 900px;
-    margin-top: 80px;   /* change to shift up or down */
+    margin-top: 90px;   /* change to shift up or down */
     scale: 90%;
 }
 
@@ -85,7 +85,7 @@ html, body {
     display: flex;
     position: absolute;
     gap: 10px;
-    top: 320px;
+    top: 280px;
     margin-left: 650px;
     border-radius: 20px;
     white-space: nowrap;
@@ -226,7 +226,7 @@ html, body {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    bottom: 170px;
+    bottom: 160px;
     left: 650px;
     position: fixed;
     scale: 90%;
@@ -285,7 +285,7 @@ html, body {
 .add-a-landlord-additional-property-container {
     display: flex;
     align-items: column;
-    margin-top: 60px;
+    margin-top: 0px;
     margin-left: 550px;
     
 }
@@ -334,8 +334,8 @@ html, body {
     border: 1px solid rgba(0, 0, 0, 0.5);
     width: 450px;
     padding: 10px;
-    left: 635px;
-    bottom: 110px;
+    left: 645px;
+    bottom: 100px;
     font-size: large;
     border-radius: 20px;
     font-weight: bold;
