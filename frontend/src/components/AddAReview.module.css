@@ -108,6 +108,8 @@ body {
     text-align: left; /* Aligns text to the left */
     max-width: 300px; /* Restricts name width */
     line-height: 0.9; /* Reduces space between lines */
+
+    
 }
 
 .you-are-rating-landlord-name-container {

@@ -384,13 +384,12 @@ const LandlordProfile = ({ landlordId }) => {
         if (!name) return '';
         const [firstName, lastName] = name.split(' '); // Split into first and last name
         return (
-            <>
-                <span>{firstName}</span>
-                <br />
-                <span>{lastName}</span>
-            </>
+            <span style={{ whiteSpace: 'nowrap' }}>
+                {firstName} {lastName}
+            </span>
         );
     };
+    
     
     
 
