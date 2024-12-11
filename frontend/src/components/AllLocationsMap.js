@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const mapContainerStyle = {
   
   width: "100%",
-  height: "650px",
+  height: "670px",
   borderRadius: "10px", // Curved edges
   overflow: "hidden"    // Ensure content stays within curved edges
 };
