@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const mapContainerStyle = {
   
   width: "100%",
-  height: "670px",
+  height: "690px",
   borderRadius: "10px", // Curved edges
   overflow: "hidden"    // Ensure content stays within curved edges
 };
@@ -69,11 +69,10 @@ function AllLocationsMap() {
       markers.forEach((markerData, index) => {
         const icon = L.icon({
           iconUrl: pinIcon,
-<<<<<<< HEAD
+
           iconSize: [50, 50],
-=======
-          iconSize: [80, 80],
->>>>>>> 281322c2eb9201bbec2a59a0fde3b6c897aeb8aa
+
+
         });
 
         const marker = L.marker([markerData.latitude, markerData.longitude], { icon })
