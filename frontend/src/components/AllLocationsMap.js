@@ -69,7 +69,7 @@ function AllLocationsMap() {
       markers.forEach((markerData, index) => {
         const icon = L.icon({
           iconUrl: pinIcon,
-          iconSize: [30, 30],
+          iconSize: [80, 80],
         });
 
         const marker = L.marker([markerData.latitude, markerData.longitude], { icon })
