@@ -3,8 +3,10 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import pinIcon from '../Assets/pin.svg';
 
-const mapContainerStyle = { width: "100%", 
-  height: "700px",
+const mapContainerStyle = { 
+  top: "11px",
+  width: "100%", 
+  height: "730px",
   borderRadius: "10px", // Curved edges
   overflow: "hidden"    // Ensure content stays within curved edges 
   };
