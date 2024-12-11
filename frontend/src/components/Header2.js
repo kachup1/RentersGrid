@@ -41,7 +41,7 @@ const Header2 = ({ isMenuOpen, toggleMenu }) => {
                     <img
                         src={Search}
                         alt="Submit Landlord Rate"
-                        className={styles.leftIcon}
+                        className={styles.searchIcon}
                         onClick={() => navigate('/searchresults')}
                     />
                     </div>

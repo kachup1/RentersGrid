@@ -28,11 +28,8 @@ const RightButtons = () => {
                         />
                     </a>
                     {isSignedIn && (
-                        <div
-                            className={styles["signed-in-indicator"]}
-                            title="Signed In"
-                        ></div>
-                    )}
+                            <div className={styles.signedInIndicator} title="Signed In"></div>
+                        )}
                 </div>
             </div>
         </div>

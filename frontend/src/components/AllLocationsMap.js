@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const mapContainerStyle = {
   
   width: "100%",
-  height: "670px",
+  height: "690px",
   borderRadius: "10px", // Curved edges
   overflow: "hidden"    // Ensure content stays within curved edges
 };
@@ -69,7 +69,10 @@ function AllLocationsMap() {
       markers.forEach((markerData, index) => {
         const icon = L.icon({
           iconUrl: pinIcon,
-          iconSize: [80, 80],
+
+          iconSize: [50, 50],
+
+
         });
 
         const marker = L.marker([markerData.latitude, markerData.longitude], { icon })
@@ -106,7 +109,7 @@ function AllLocationsMap() {
   
           const currentIcon = L.icon({
             iconUrl: currentLocationIcon,
-            iconSize: [30, 30],
+            iconSize: [50, 50],
           });
   
           // Add a marker for the user's current location

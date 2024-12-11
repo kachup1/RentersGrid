@@ -27,12 +27,13 @@
 
 .background-logo {
     position: absolute;
-    right: 160px;
-    margin-top: 100px;
+    right: 200px;
+    top: 200px;
     opacity: 0.3; /* 30% opacity */
     width: 430px; /* Adjust width as needed */
     height: auto;
     pointer-events: none; /* Prevents the background from interfering with other elements */
+    z-index:1;
 }
 
 
@@ -48,7 +49,7 @@
     display: flex; /* Enables alignment of child elements */
     flex-direction: column; /* Align child elements vertically */
     align-items: flex-start; /* Align content to the left */
-    margin: 0;
+    margin: 0; 
 }
 
 .title-container {
@@ -89,6 +90,7 @@
     display: flex; /* Group label and input together */
     flex-direction: column; /* Stack label and input vertically */
     align-items: flex-start; /* Align label and input to the left */
+    z-index:100;
   }
   
   .form-label-city,

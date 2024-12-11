@@ -426,7 +426,7 @@ function AddALandlord() {
                 )}
             </div>
 
-            {/* Submit Button */}
+            {/* ff Button */}
             <button type="button" onClick={handleSubmit} className={styles["add-a-landlord-submit-button"]}>
                 Submit Landlord
             </button>

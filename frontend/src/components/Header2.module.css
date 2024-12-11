@@ -14,12 +14,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-inline: 80px;
+    padding-inline: 60px;
     box-sizing: border-box;
-    margin-top: 40px;
+    margin-top: 20px;
     height: 120px;
     width: 100%;
-    background-color: #4D55A5;
+    background-color: transparent;
+    scale: 80%;
 }
 
 /* Menu Button */
@@ -60,18 +61,18 @@
 .rightIcon {
     cursor: pointer;
     width: auto;
-    height: 65px;
+    height: 67px;
 }
 .accountButtonWrapper {
     position: relative;
     display: inline-block;
 }
 
-/* Search Icon */
-.searchbuttonsContainer img {
-    width: 69px; /* Adjust the size of the Search icon */
-    height: auto; /* Maintain aspect ratio */
+.searchIcon {
     cursor: pointer;
+    width: 62px;
+    height: auto;
+    margin-top: 9px;
 }
 
 .signedInIndicator {
