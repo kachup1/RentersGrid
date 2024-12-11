@@ -363,19 +363,18 @@ const formatLandlordName = (name) => {
 
     const [firstName, lastName] = name.split(' ');
 
-    // Case 1: If either name exceeds 15 characters, apply smaller font and break into two lines
-    if ((firstName?.length > 15 || lastName?.length > 15) && firstName && lastName) {
-        return (
-            <div className={styles["small-font"]}>
-                <span>{firstName}</span>
-                <br />
-                <span>{lastName}</span>
-            </div>
-        );
-    }
-
-    // Case 2: If either name exceeds 10 characters, break into two lines
+    // Case: If either name exceeds 10 characters
     if ((firstName?.length > 10 || lastName?.length > 10) && firstName && lastName) {
+        // Case: If either name exceeds 15 characters, make the font smaller
+        if (firstName.length > 15 || lastName.length > 15) {
+            return (
+                <div className={styles["small-font"]}>
+                    <span>{firstName}</span>
+                    <br />
+                    <span>{lastName}</span>
+                </div>
+            );
+        }
         return (
             <>
                 <span>{firstName}</span>
@@ -384,11 +383,9 @@ const formatLandlordName = (name) => {
             </>
         );
     }
-
     // Default: Display in a single line
     return `${firstName || ''} ${lastName || ''}`;
 };
-
 
 
 
@@ -512,8 +509,16 @@ const formatLandlordName = (name) => {
                     className={styles["add-review-button"]}
                     onClick={handleAddReviewClick}
                 >
-                    Add a Review
+                    <div className={styles["button-content"]}>
+                        <img
+                            src={GreenButton}
+                            alt="Green Button"
+                            className={styles["green-button-icon"]}
+                        />
+                        <span className={styles["button-text"]}>Add a Review</span>
+                    </div>
                 </button>
+
             </div>
         ) : (filteredAndSortedReviews.map(review=>(
 

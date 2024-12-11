@@ -93,7 +93,7 @@
 
 
 .landlord-name {
-    font-size: 3.3rem;
+    font-size: 3.2rem;
     font-weight: bold;
     color: #4D55A4;
     position: relative;
@@ -102,7 +102,7 @@
     overflow: hidden;
     text-align: center;
     margin: 0 auto;
-    line-height: 1.2; /* Adjust for better readability */
+    line-height: 0.9; /* Adjust for better readability */
 }
 
 
@@ -197,7 +197,7 @@
 .button-container {
     display: flex;
     gap: 15px;
-    margin-top: 15px;
+    margin-top: 35px;
 }
 
 /*This is Add A review*/
@@ -717,25 +717,50 @@
     transition: background-color 0.5s ease-out;
 }
 
+
 /*If there are no reviews:*/
 .no-reviews {
     text-align: center;
-    margin: 20px auto;
     padding: 20px;
-    
-    border-radius: 10px;
-    
-    font-size: 1.2rem;
-    font-family: Helvetica;
+    position: absolute;
+    top: 600px;
+    left:900px;
+    font-size: 2.5rem;
 }
 
 .add-review-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 1rem;
+    display: inline-block;
+    position: relative; /* Set relative positioning for text placement */
+    background-color: transparent;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    font-family: Helvetica;
+    padding: 0;
+    border-radius: 5px;
 }
+
+.button-content {
+    position: relative; /* Allows the text to overlay the image */
+    width: 204px; /* Match the width of the SVG */
+    height: auto;
+}
+
+.green-button-icon {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.button-text {
+    position: absolute; /* Overlay text on the SVG */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the text */
+    font-size: 1.2rem; /* Adjust font size */
+    color: white; /* Text color */
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap
+}
+
+
 
