@@ -2,9 +2,14 @@
   <img src="https://github.com/kachup1/RentersGrid/raw/main/readme-assets/logo.svg" alt="Logo" width="600px">
 </p>
 
-[![Watch the video](https://img.youtube.com/vi/fzw_6WwKZ3Q/hqdefault.jpg)](https://youtu.be/fzw_6WwKZ3Q)
+<p align="center">
+  <a href="https://youtu.be/fzw_6WwKZ3Q">
+    <img src="https://img.youtube.com/vi/fzw_6WwKZ3Q/hqdefault.jpg" alt="Watch the video" />
+  </a>
+</p>
 
-A website that allows users to rate their landlords, providing a platform for honest feedback and transparency in the rental market. Our development process is guided by a series of carefully planned milestones, which are based on extensive user feedback, market analysis, and other key factors. We've documented each stage of our progress, and these documents are attached for a detailed overview of our approach and methodology, including a low-fidelity model.
+
+A website that allows users to rate their landlords, providing a platform for honest feedback and transparency in the rental market. Our development process is guided by a series of carefully planned milestones, which are based on extensive user feedback, market analysis, and other key factors. We've documented each stage of our progress, and these documents are attached for a detailed overview of our approach and methodology, including a low-fidelity model. Watch the video demo below!
 
 1. [Earlier Development](https://docs.google.com/document/d/1wI15g7NysWLmFkKzaKS3kJ2HKeQG0IXKHq_KM8viiSk/edit?usp=sharing)
 2. [Comprehensive Target User Definition and Use Case Scenarios](https://docs.google.com/document/d/1MLtgXY906-F-a_ZVz63C4i23BITe1A4vspO4K7fM2HM/edit?usp=sharing)
